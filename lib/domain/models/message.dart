@@ -6,7 +6,7 @@ part 'message.g.dart';
 class Message with _$Message {
   const factory Message({
     required int createdDate,
-    required int cretedTime,
+    required int createdTime,
     required String role,
     required String content,
   }) = _Message;
