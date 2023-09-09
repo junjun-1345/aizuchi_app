@@ -28,6 +28,7 @@ class FirestoreService implements FirestoreInterface {
   // Read
   @override
   Future<AppUser> userRead() async {
+    debugPrint(id);
     try {
       final doc = await db.collection('users').doc(id).get();
       final map = doc.data();

@@ -20,16 +20,17 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AppUser {
-// ユーザー入力情報
-  String? get name => throw _privateConstructorUsedError;
-  int? get sex => throw _privateConstructorUsedError;
-  DateTime? get birhtDay => throw _privateConstructorUsedError; // 課金状況
-  String? get id => throw _privateConstructorUsedError;
-  bool? get billing => throw _privateConstructorUsedError; // ログ
-  int? get activeDay => throw _privateConstructorUsedError;
-  DateTime? get registerDay => throw _privateConstructorUsedError;
-  int? get wordIndex => throw _privateConstructorUsedError; // 指定時刻
-  DateTime? get timer => throw _privateConstructorUsedError;
+// ユーザー情報
+  String get id => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  int get sex => throw _privateConstructorUsedError;
+  String get birhtDay => throw _privateConstructorUsedError;
+  bool get init => throw _privateConstructorUsedError; // 課金状況
+  bool get billing => throw _privateConstructorUsedError; // ログ
+  int get activeDay => throw _privateConstructorUsedError;
+  String get registerDay => throw _privateConstructorUsedError;
+  int get wordIndex => throw _privateConstructorUsedError; // 指定時刻
+  String get timer => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,15 +43,16 @@ abstract class $AppUserCopyWith<$Res> {
       _$AppUserCopyWithImpl<$Res, AppUser>;
   @useResult
   $Res call(
-      {String? name,
-      int? sex,
-      DateTime? birhtDay,
-      String? id,
-      bool? billing,
-      int? activeDay,
-      DateTime? registerDay,
-      int? wordIndex,
-      DateTime? timer});
+      {String id,
+      String name,
+      int sex,
+      String birhtDay,
+      bool init,
+      bool billing,
+      int activeDay,
+      String registerDay,
+      int wordIndex,
+      String timer});
 }
 
 /// @nodoc
@@ -66,53 +68,58 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? sex = freezed,
-    Object? birhtDay = freezed,
-    Object? id = freezed,
-    Object? billing = freezed,
-    Object? activeDay = freezed,
-    Object? registerDay = freezed,
-    Object? wordIndex = freezed,
-    Object? timer = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? sex = null,
+    Object? birhtDay = null,
+    Object? init = null,
+    Object? billing = null,
+    Object? activeDay = null,
+    Object? registerDay = null,
+    Object? wordIndex = null,
+    Object? timer = null,
   }) {
     return _then(_value.copyWith(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      sex: freezed == sex
-          ? _value.sex
-          : sex // ignore: cast_nullable_to_non_nullable
-              as int?,
-      birhtDay: freezed == birhtDay
-          ? _value.birhtDay
-          : birhtDay // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      billing: freezed == billing
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      sex: null == sex
+          ? _value.sex
+          : sex // ignore: cast_nullable_to_non_nullable
+              as int,
+      birhtDay: null == birhtDay
+          ? _value.birhtDay
+          : birhtDay // ignore: cast_nullable_to_non_nullable
+              as String,
+      init: null == init
+          ? _value.init
+          : init // ignore: cast_nullable_to_non_nullable
+              as bool,
+      billing: null == billing
           ? _value.billing
           : billing // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      activeDay: freezed == activeDay
+              as bool,
+      activeDay: null == activeDay
           ? _value.activeDay
           : activeDay // ignore: cast_nullable_to_non_nullable
-              as int?,
-      registerDay: freezed == registerDay
+              as int,
+      registerDay: null == registerDay
           ? _value.registerDay
           : registerDay // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      wordIndex: freezed == wordIndex
+              as String,
+      wordIndex: null == wordIndex
           ? _value.wordIndex
           : wordIndex // ignore: cast_nullable_to_non_nullable
-              as int?,
-      timer: freezed == timer
+              as int,
+      timer: null == timer
           ? _value.timer
           : timer // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String,
     ) as $Val);
   }
 }
@@ -125,15 +132,16 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? name,
-      int? sex,
-      DateTime? birhtDay,
-      String? id,
-      bool? billing,
-      int? activeDay,
-      DateTime? registerDay,
-      int? wordIndex,
-      DateTime? timer});
+      {String id,
+      String name,
+      int sex,
+      String birhtDay,
+      bool init,
+      bool billing,
+      int activeDay,
+      String registerDay,
+      int wordIndex,
+      String timer});
 }
 
 /// @nodoc
@@ -146,53 +154,58 @@ class __$$_AppUserCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? sex = freezed,
-    Object? birhtDay = freezed,
-    Object? id = freezed,
-    Object? billing = freezed,
-    Object? activeDay = freezed,
-    Object? registerDay = freezed,
-    Object? wordIndex = freezed,
-    Object? timer = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? sex = null,
+    Object? birhtDay = null,
+    Object? init = null,
+    Object? billing = null,
+    Object? activeDay = null,
+    Object? registerDay = null,
+    Object? wordIndex = null,
+    Object? timer = null,
   }) {
     return _then(_$_AppUser(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      sex: freezed == sex
-          ? _value.sex
-          : sex // ignore: cast_nullable_to_non_nullable
-              as int?,
-      birhtDay: freezed == birhtDay
-          ? _value.birhtDay
-          : birhtDay // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      billing: freezed == billing
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      sex: null == sex
+          ? _value.sex
+          : sex // ignore: cast_nullable_to_non_nullable
+              as int,
+      birhtDay: null == birhtDay
+          ? _value.birhtDay
+          : birhtDay // ignore: cast_nullable_to_non_nullable
+              as String,
+      init: null == init
+          ? _value.init
+          : init // ignore: cast_nullable_to_non_nullable
+              as bool,
+      billing: null == billing
           ? _value.billing
           : billing // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      activeDay: freezed == activeDay
+              as bool,
+      activeDay: null == activeDay
           ? _value.activeDay
           : activeDay // ignore: cast_nullable_to_non_nullable
-              as int?,
-      registerDay: freezed == registerDay
+              as int,
+      registerDay: null == registerDay
           ? _value.registerDay
           : registerDay // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      wordIndex: freezed == wordIndex
+              as String,
+      wordIndex: null == wordIndex
           ? _value.wordIndex
           : wordIndex // ignore: cast_nullable_to_non_nullable
-              as int?,
-      timer: freezed == timer
+              as int,
+      timer: null == timer
           ? _value.timer
           : timer // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String,
     ));
   }
 }
@@ -201,45 +214,58 @@ class __$$_AppUserCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AppUser implements _AppUser {
   const _$_AppUser(
-      {required this.name,
-      required this.sex,
-      required this.birhtDay,
-      required this.id,
-      required this.billing,
-      required this.activeDay,
-      required this.registerDay,
-      required this.wordIndex,
-      required this.timer});
+      {this.id = '',
+      this.name = '',
+      this.sex = 0,
+      this.birhtDay = '',
+      this.init = false,
+      this.billing = false,
+      this.activeDay = 0,
+      this.registerDay = '',
+      this.wordIndex = 0,
+      this.timer = ''});
 
   factory _$_AppUser.fromJson(Map<String, dynamic> json) =>
       _$$_AppUserFromJson(json);
 
-// ユーザー入力情報
+// ユーザー情報
   @override
-  final String? name;
+  @JsonKey()
+  final String id;
   @override
-  final int? sex;
+  @JsonKey()
+  final String name;
   @override
-  final DateTime? birhtDay;
+  @JsonKey()
+  final int sex;
+  @override
+  @JsonKey()
+  final String birhtDay;
+  @override
+  @JsonKey()
+  final bool init;
 // 課金状況
   @override
-  final String? id;
-  @override
-  final bool? billing;
+  @JsonKey()
+  final bool billing;
 // ログ
   @override
-  final int? activeDay;
+  @JsonKey()
+  final int activeDay;
   @override
-  final DateTime? registerDay;
+  @JsonKey()
+  final String registerDay;
   @override
-  final int? wordIndex;
+  @JsonKey()
+  final int wordIndex;
 // 指定時刻
   @override
-  final DateTime? timer;
+  @JsonKey()
+  final String timer;
 
   @override
   String toString() {
-    return 'AppUser(name: $name, sex: $sex, birhtDay: $birhtDay, id: $id, billing: $billing, activeDay: $activeDay, registerDay: $registerDay, wordIndex: $wordIndex, timer: $timer)';
+    return 'AppUser(id: $id, name: $name, sex: $sex, birhtDay: $birhtDay, init: $init, billing: $billing, activeDay: $activeDay, registerDay: $registerDay, wordIndex: $wordIndex, timer: $timer)';
   }
 
   @override
@@ -247,11 +273,12 @@ class _$_AppUser implements _AppUser {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AppUser &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.sex, sex) || other.sex == sex) &&
             (identical(other.birhtDay, birhtDay) ||
                 other.birhtDay == birhtDay) &&
-            (identical(other.id, id) || other.id == id) &&
+            (identical(other.init, init) || other.init == init) &&
             (identical(other.billing, billing) || other.billing == billing) &&
             (identical(other.activeDay, activeDay) ||
                 other.activeDay == activeDay) &&
@@ -264,8 +291,8 @@ class _$_AppUser implements _AppUser {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, sex, birhtDay, id, billing,
-      activeDay, registerDay, wordIndex, timer);
+  int get hashCode => Object.hash(runtimeType, id, name, sex, birhtDay, init,
+      billing, activeDay, registerDay, wordIndex, timer);
 
   @JsonKey(ignore: true)
   @override
@@ -283,36 +310,39 @@ class _$_AppUser implements _AppUser {
 
 abstract class _AppUser implements AppUser {
   const factory _AppUser(
-      {required final String? name,
-      required final int? sex,
-      required final DateTime? birhtDay,
-      required final String? id,
-      required final bool? billing,
-      required final int? activeDay,
-      required final DateTime? registerDay,
-      required final int? wordIndex,
-      required final DateTime? timer}) = _$_AppUser;
+      {final String id,
+      final String name,
+      final int sex,
+      final String birhtDay,
+      final bool init,
+      final bool billing,
+      final int activeDay,
+      final String registerDay,
+      final int wordIndex,
+      final String timer}) = _$_AppUser;
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
 
-  @override // ユーザー入力情報
-  String? get name;
+  @override // ユーザー情報
+  String get id;
   @override
-  int? get sex;
+  String get name;
   @override
-  DateTime? get birhtDay;
+  int get sex;
+  @override
+  String get birhtDay;
+  @override
+  bool get init;
   @override // 課金状況
-  String? get id;
-  @override
-  bool? get billing;
+  bool get billing;
   @override // ログ
-  int? get activeDay;
+  int get activeDay;
   @override
-  DateTime? get registerDay;
+  String get registerDay;
   @override
-  int? get wordIndex;
+  int get wordIndex;
   @override // 指定時刻
-  DateTime? get timer;
+  String get timer;
   @override
   @JsonKey(ignore: true)
   _$$_AppUserCopyWith<_$_AppUser> get copyWith =>

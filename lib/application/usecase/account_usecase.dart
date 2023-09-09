@@ -3,6 +3,7 @@ import 'package:aizuchi_app/application/interface/firebase/firestore.dart';
 import 'package:aizuchi_app/application/state/account.dart';
 import 'package:aizuchi_app/application/state/appuser.dart';
 import 'package:aizuchi_app/domain/models/appuser.dart';
+import 'package:flutter/foundation.dart';
 
 class AccountUsecase {
   AccountUsecase({
@@ -37,21 +38,23 @@ class AccountUsecase {
     }
   }
 
-  Future<void> signUpValidation() async {
+  void signUpValidation() {
     String? flag;
     // サインインさせる
     auth.signInWithGoogle();
     // DBユーザー情報をチェック
-    await firestore.userRead().then(
+    firestore.userRead().then(
       (data) {
         flag = data.id;
         if (flag == null) {
+          debugPrint("signUpValidation: サインアップ継続");
+          // 登録へ
+        } else {
           // サインアウトさせる
           auth.signOutWithGoogle();
           // ダイアログを表示
           // 元のページへ戻る
-        } else {
-          // 登録へ
+          debugPrint("signUpValidation: サインアップエラー");
         }
       },
     );
@@ -60,10 +63,11 @@ class AccountUsecase {
   Future<void> createAccount() async {
     // 入力用ステートを取得
     // DBに登録
-    await firestore.userCreate(appUserState);
-    // DBの同期
+    print("ユースケースステート$appUserState");
     // ユーザー状態をtrueに
     accountNotifier.changeTrue();
+    await firestore.userCreate(appUserState);
+    // DBの同期
   }
 
   void deleteAccount() {
@@ -73,12 +77,12 @@ class AccountUsecase {
     accountNotifier.changeFalse();
   }
 
-  Future<void> signInValidation() async {
+  void signInValidation() {
     String? flag;
     // サインインさせる
     auth.signInWithGoogle();
     // DBユーザー情報をチェック
-    await firestore.userRead().then(
+    firestore.userRead().then(
       (data) {
         flag = data.id;
         if (flag != null) {
@@ -88,11 +92,13 @@ class AccountUsecase {
               .then((content) => appUserNotifier.update(content));
           // ユーザー状態をtrueに
           accountNotifier.changeTrue();
+          debugPrint("signInValidation: サインイン完了");
         } else {
           // サインアウトさせる
           auth.signOutWithGoogle();
           // ダイアログを表示
           // 元のページへ戻る
+          debugPrint("signInValidation: サインインエラー");
         }
       },
     );
