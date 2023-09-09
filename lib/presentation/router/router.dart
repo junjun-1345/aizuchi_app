@@ -1,4 +1,10 @@
+import 'package:aizuchi_app/application/state/account.dart';
+import 'package:aizuchi_app/presentation/animation/page_animation.dart';
 import 'package:aizuchi_app/presentation/pages/chat_page.dart';
+import 'package:aizuchi_app/presentation/pages/start/signup_birthday_page.dart';
+import 'package:aizuchi_app/presentation/pages/start/signup_check_page.dart';
+import 'package:aizuchi_app/presentation/pages/start/signup_name_page.dart';
+import 'package:aizuchi_app/presentation/pages/start/signup_sex_page.dart';
 import 'package:aizuchi_app/presentation/pages/start_page.dart';
 import 'package:aizuchi_app/presentation/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +18,10 @@ part 'router.g.dart';
 class PagePath {
   static const start = '/start';
   static const chat = '/chat';
+  static const singupName = '/singupName';
+  static const singupSex = '/singupSex';
+  static const singupBirthDay = '/singupBirthDay';
+  static const singupCheck = '/singupCheck';
 }
 
 //
@@ -27,11 +37,70 @@ GoRouter router(RouterRef ref) {
       path: PagePath.chat,
       builder: (_, __) => const ChatPage(),
     ),
+    GoRoute(
+      path: PagePath.singupName,
+      pageBuilder: (_, __) => buildPageWithAnimation(
+        const SignUpNamePage(),
+      ),
+    ),
+    GoRoute(
+      path: PagePath.singupSex,
+      pageBuilder: (_, __) => buildPageWithAnimation(
+        const SignUpSexPage(),
+      ),
+    ),
+    GoRoute(
+      path: PagePath.singupBirthDay,
+      pageBuilder: (_, __) => buildPageWithAnimation(
+        const SignUpBirthdayPage(),
+      ),
+    ),
+    GoRoute(
+      path: PagePath.singupCheck,
+      pageBuilder: (_, __) => buildPageWithAnimation(
+        const SignUpCheckPage(),
+      ),
+    ),
   ];
+
+  // リダイレクト - 強制的に画面を変更する
+  String? redirect(BuildContext context, GoRouterState state) {
+    // 表示しようとしている画面
+    final page = state.matchedLocation;
+
+    debugPrint(page);
+
+    // サインアップ・サインインしているかどうか
+    final accountState = ref.read(accountNotifierProvider);
+
+    debugPrint(accountState.toString());
+
+    if (accountState && page == PagePath.chat) {
+      // サインイン済み --> ホーム画面へ
+      debugPrint("サインイン済みのためチャットページへリダイレクト");
+      return null;
+    } else if (!accountState && page == PagePath.chat) {
+      debugPrint("未サインインのためリダイレクトしない");
+      return PagePath.start;
+    }
+    debugPrint("条件外のためリダイレクトしない");
+    return null;
+  }
+
+  // リフレッシュリスナブル - Riverpod と GoRouter を連動させるコード
+  // サインイン状態が切り替わったときに GoRouter が反応する
+  final listenable = ValueNotifier<Object?>(null);
+  ref.listen<Object?>(accountNotifierProvider, (_, newState) {
+    listenable.value = newState;
+  });
+
+  ref.onDispose(listenable.dispose);
 
   return GoRouter(
     initialLocation: PagePath.chat,
     routes: routes,
+    redirect: redirect,
+    refreshListenable: listenable,
   );
 }
 

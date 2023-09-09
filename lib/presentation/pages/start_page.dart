@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/application/di/usecase.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
@@ -8,60 +9,52 @@ class StartPage extends HookConsumerWidget {
   const StartPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final signUpButton = Button(
-    //   onPressed: () async {
-    //     final service = AuthService();
-    //     await service.signInWithGoogle().catchError(
-    //       (e, __) {
-    //         errorMessage = e.toString();
-    //       },
-    //     );
-    //     Navigator.of(context).push(
-    //       MaterialPageRoute(
-    //         builder: (context) => const SignUpNamePage(),
-    //       ),
-    //     );
-    //   },
-    //   text: 'サインアップ',
-    // );
+    final usecase = ref.read(accountUsecaseProvider);
 
-    // final signInButton = Button(
-    //   onPressed: () async {
-    //     final service = AuthService();
-    //     await service.signInWithGoogle().catchError(
-    //       (e, __) {
-    //         errorMessage = e.toString();
-    //       },
-    //     );
-    //   },
-    //   text: 'サインイン',
-    // );
+    final signUpButton = ButtonLarge(
+      onPressed: () {
+        usecase.signUpValidation();
+        context.go(PagePath.singupName);
+      },
+      text: '新規登録',
+    );
+
+    final signInButton = ButtonLarge(
+      onPressed: () {
+        usecase.signInValidation();
+        context.go(PagePath.chat);
+      },
+      text: 'ログイン',
+    );
 
     final screenWidth = MediaQuery.of(context).size.width;
 
-    final _testButton = Button(
-        onPressed: () {
-          context.go(PagePath.chat);
-        },
-        text: "チャットページ");
+    final img = Image.asset('assets/images/AIzuchiLogo.png');
 
-    /// 画面全体
+    //////////////////////
+    // レイアウトの構成
+    //////////////////////
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: const Text(
-          'サインイン画面',
-          style: TextStyle(color: Colors.black),
-        ),
       ),
       body: Container(
         alignment: Alignment.center,
         child: SizedBox(
           width: screenWidth * 0.8,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [_testButton],
+            children: [
+              img,
+              const SizedBox(
+                height: 132,
+              ),
+              signUpButton,
+              const SizedBox(
+                height: 16,
+              ),
+              signInButton
+            ],
           ),
         ),
       ),

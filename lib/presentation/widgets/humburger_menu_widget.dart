@@ -1,5 +1,8 @@
+import 'package:aizuchi_app/infrastructure/firebase/auth_imp.dart';
+import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../theme/colors.dart';
 
@@ -119,12 +122,13 @@ class HumburgerMenu extends StatelessWidget {
       children: [
         Button(
           onPressed: () async {
-            // final service = AuthService();
-            // await service.signOutWithGoogle().catchError(
-            //   (e) {
-            //     debugPrint('サインアウトできませんでした $e');
-            //   },
-            // );
+            final service = AuthService();
+            await service.signOutWithGoogle().catchError(
+              (e) {
+                debugPrint('サインアウトできませんでした $e');
+              },
+            );
+            context.go(PagePath.start);
           },
           text: 'サインアウト',
         ),

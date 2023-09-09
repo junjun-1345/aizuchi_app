@@ -1,4 +1,4 @@
-import 'package:aizuchi_app/application/state/message_state.dart';
+import 'package:aizuchi_app/application/state/message.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/widgets/humburger_menu_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ class ChatPage extends HookConsumerWidget {
   const ChatPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final messageState = ref.watch(messageProvider);
+    final messageState = ref.watch(messageNotifierProvider);
     final isWaiting = useState(false);
     final isKeyboard = useState(false);
 

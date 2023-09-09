@@ -21,7 +21,7 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Message {
   int get createdDate => throw _privateConstructorUsedError;
-  int get cretedTime => throw _privateConstructorUsedError;
+  int get createdTime => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
 
@@ -35,7 +35,7 @@ abstract class $MessageCopyWith<$Res> {
   factory $MessageCopyWith(Message value, $Res Function(Message) then) =
       _$MessageCopyWithImpl<$Res, Message>;
   @useResult
-  $Res call({int createdDate, int cretedTime, String role, String content});
+  $Res call({int createdDate, int createdTime, String role, String content});
 }
 
 /// @nodoc
@@ -52,7 +52,7 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
   @override
   $Res call({
     Object? createdDate = null,
-    Object? cretedTime = null,
+    Object? createdTime = null,
     Object? role = null,
     Object? content = null,
   }) {
@@ -61,9 +61,9 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
               as int,
-      cretedTime: null == cretedTime
-          ? _value.cretedTime
-          : cretedTime // ignore: cast_nullable_to_non_nullable
+      createdTime: null == createdTime
+          ? _value.createdTime
+          : createdTime // ignore: cast_nullable_to_non_nullable
               as int,
       role: null == role
           ? _value.role
@@ -84,7 +84,7 @@ abstract class _$$_MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
       __$$_MessageCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int createdDate, int cretedTime, String role, String content});
+  $Res call({int createdDate, int createdTime, String role, String content});
 }
 
 /// @nodoc
@@ -98,7 +98,7 @@ class __$$_MessageCopyWithImpl<$Res>
   @override
   $Res call({
     Object? createdDate = null,
-    Object? cretedTime = null,
+    Object? createdTime = null,
     Object? role = null,
     Object? content = null,
   }) {
@@ -107,9 +107,9 @@ class __$$_MessageCopyWithImpl<$Res>
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
               as int,
-      cretedTime: null == cretedTime
-          ? _value.cretedTime
-          : cretedTime // ignore: cast_nullable_to_non_nullable
+      createdTime: null == createdTime
+          ? _value.createdTime
+          : createdTime // ignore: cast_nullable_to_non_nullable
               as int,
       role: null == role
           ? _value.role
@@ -128,7 +128,7 @@ class __$$_MessageCopyWithImpl<$Res>
 class _$_Message implements _Message {
   const _$_Message(
       {required this.createdDate,
-      required this.cretedTime,
+      required this.createdTime,
       required this.role,
       required this.content});
 
@@ -138,7 +138,7 @@ class _$_Message implements _Message {
   @override
   final int createdDate;
   @override
-  final int cretedTime;
+  final int createdTime;
   @override
   final String role;
   @override
@@ -146,7 +146,7 @@ class _$_Message implements _Message {
 
   @override
   String toString() {
-    return 'Message(createdDate: $createdDate, cretedTime: $cretedTime, role: $role, content: $content)';
+    return 'Message(createdDate: $createdDate, createdTime: $createdTime, role: $role, content: $content)';
   }
 
   @override
@@ -156,8 +156,8 @@ class _$_Message implements _Message {
             other is _$_Message &&
             (identical(other.createdDate, createdDate) ||
                 other.createdDate == createdDate) &&
-            (identical(other.cretedTime, cretedTime) ||
-                other.cretedTime == cretedTime) &&
+            (identical(other.createdTime, createdTime) ||
+                other.createdTime == createdTime) &&
             (identical(other.role, role) || other.role == role) &&
             (identical(other.content, content) || other.content == content));
   }
@@ -165,7 +165,7 @@ class _$_Message implements _Message {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, createdDate, cretedTime, role, content);
+      Object.hash(runtimeType, createdDate, createdTime, role, content);
 
   @JsonKey(ignore: true)
   @override
@@ -184,7 +184,7 @@ class _$_Message implements _Message {
 abstract class _Message implements Message {
   const factory _Message(
       {required final int createdDate,
-      required final int cretedTime,
+      required final int createdTime,
       required final String role,
       required final String content}) = _$_Message;
 
@@ -193,7 +193,7 @@ abstract class _Message implements Message {
   @override
   int get createdDate;
   @override
-  int get cretedTime;
+  int get createdTime;
   @override
   String get role;
   @override
