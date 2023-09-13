@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'message.dart';
+part of 'waitng.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$messageNotifierHash() => r'7668781cad134df70615707e0a9f094418a73e00';
+String _$waitngNotifierHash() => r'c8c384a9a2cc950a826b75843ab2950bf068f99f';
 
-/// See also [MessageNotifier].
-@ProviderFor(MessageNotifier)
-final messageNotifierProvider =
-    AutoDisposeNotifierProvider<MessageNotifier, List<Message>>.internal(
-  MessageNotifier.new,
-  name: r'messageNotifierProvider',
+/// See also [WaitngNotifier].
+@ProviderFor(WaitngNotifier)
+final waitngNotifierProvider =
+    AutoDisposeNotifierProvider<WaitngNotifier, bool>.internal(
+  WaitngNotifier.new,
+  name: r'waitngNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$messageNotifierHash,
+      : _$waitngNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$MessageNotifier = AutoDisposeNotifier<List<Message>>;
+typedef _$WaitngNotifier = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

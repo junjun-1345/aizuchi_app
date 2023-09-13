@@ -1,4 +1,6 @@
+import 'package:aizuchi_app/application/interface/chatGPT/chatgpt.dart';
 import 'package:aizuchi_app/application/interface/firebase/auth.dart';
+import 'package:aizuchi_app/infrastructure/chatGPT/chatgpt_imp.dart';
 import 'package:aizuchi_app/infrastructure/firebase/auth_imp.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,4 +13,8 @@ final authProvider = Provider<AuthInterface>((ref) {
 
 final firestoreProvider = Provider<FirestoreInterface>((ref) {
   return FirestoreService();
+});
+
+final chatGPTProvider = Provider<ChatGPTInterface>((ref) {
+  return ChatGPTService();
 });

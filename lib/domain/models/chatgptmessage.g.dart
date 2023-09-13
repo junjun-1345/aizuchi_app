@@ -1,20 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'message.dart';
+part of 'chatgptmessage.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Message _$$_MessageFromJson(Map<String, dynamic> json) => _$_Message(
-      createdAt: DateTime.parse(json['createdAt'] as String),
+_$_ChatGPTMessage _$$_ChatGPTMessageFromJson(Map<String, dynamic> json) =>
+    _$_ChatGPTMessage(
       role: json['role'] as String,
       content: json['content'] as String,
     );
 
-Map<String, dynamic> _$$_MessageToJson(_$_Message instance) =>
+Map<String, dynamic> _$$_ChatGPTMessageToJson(_$_ChatGPTMessage instance) =>
     <String, dynamic>{
-      'createdAt': instance.createdAt.toIso8601String(),
       'role': instance.role,
       'content': instance.content,
     };
