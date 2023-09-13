@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'message.dart';
+part of 'chatgptmessage.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,33 +14,34 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Message _$MessageFromJson(Map<String, dynamic> json) {
-  return _Message.fromJson(json);
+ChatGPTMessage _$ChatGPTMessageFromJson(Map<String, dynamic> json) {
+  return _ChatGPTMessage.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Message {
-  DateTime get createdAt => throw _privateConstructorUsedError;
+mixin _$ChatGPTMessage {
   String get role => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $MessageCopyWith<Message> get copyWith => throw _privateConstructorUsedError;
+  $ChatGPTMessageCopyWith<ChatGPTMessage> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $MessageCopyWith<$Res> {
-  factory $MessageCopyWith(Message value, $Res Function(Message) then) =
-      _$MessageCopyWithImpl<$Res, Message>;
+abstract class $ChatGPTMessageCopyWith<$Res> {
+  factory $ChatGPTMessageCopyWith(
+          ChatGPTMessage value, $Res Function(ChatGPTMessage) then) =
+      _$ChatGPTMessageCopyWithImpl<$Res, ChatGPTMessage>;
   @useResult
-  $Res call({DateTime createdAt, String role, String content});
+  $Res call({String role, String content});
 }
 
 /// @nodoc
-class _$MessageCopyWithImpl<$Res, $Val extends Message>
-    implements $MessageCopyWith<$Res> {
-  _$MessageCopyWithImpl(this._value, this._then);
+class _$ChatGPTMessageCopyWithImpl<$Res, $Val extends ChatGPTMessage>
+    implements $ChatGPTMessageCopyWith<$Res> {
+  _$ChatGPTMessageCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -50,15 +51,10 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? createdAt = null,
     Object? role = null,
     Object? content = null,
   }) {
     return _then(_value.copyWith(
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
@@ -72,34 +68,31 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
 }
 
 /// @nodoc
-abstract class _$$_MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
-  factory _$$_MessageCopyWith(
-          _$_Message value, $Res Function(_$_Message) then) =
-      __$$_MessageCopyWithImpl<$Res>;
+abstract class _$$_ChatGPTMessageCopyWith<$Res>
+    implements $ChatGPTMessageCopyWith<$Res> {
+  factory _$$_ChatGPTMessageCopyWith(
+          _$_ChatGPTMessage value, $Res Function(_$_ChatGPTMessage) then) =
+      __$$_ChatGPTMessageCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DateTime createdAt, String role, String content});
+  $Res call({String role, String content});
 }
 
 /// @nodoc
-class __$$_MessageCopyWithImpl<$Res>
-    extends _$MessageCopyWithImpl<$Res, _$_Message>
-    implements _$$_MessageCopyWith<$Res> {
-  __$$_MessageCopyWithImpl(_$_Message _value, $Res Function(_$_Message) _then)
+class __$$_ChatGPTMessageCopyWithImpl<$Res>
+    extends _$ChatGPTMessageCopyWithImpl<$Res, _$_ChatGPTMessage>
+    implements _$$_ChatGPTMessageCopyWith<$Res> {
+  __$$_ChatGPTMessageCopyWithImpl(
+      _$_ChatGPTMessage _value, $Res Function(_$_ChatGPTMessage) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? createdAt = null,
     Object? role = null,
     Object? content = null,
   }) {
-    return _then(_$_Message(
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+    return _then(_$_ChatGPTMessage(
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
@@ -114,15 +107,12 @@ class __$$_MessageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Message implements _Message {
-  const _$_Message(
-      {required this.createdAt, required this.role, required this.content});
+class _$_ChatGPTMessage implements _ChatGPTMessage {
+  const _$_ChatGPTMessage({required this.role, required this.content});
 
-  factory _$_Message.fromJson(Map<String, dynamic> json) =>
-      _$$_MessageFromJson(json);
+  factory _$_ChatGPTMessage.fromJson(Map<String, dynamic> json) =>
+      _$$_ChatGPTMessageFromJson(json);
 
-  @override
-  final DateTime createdAt;
   @override
   final String role;
   @override
@@ -130,54 +120,50 @@ class _$_Message implements _Message {
 
   @override
   String toString() {
-    return 'Message(createdAt: $createdAt, role: $role, content: $content)';
+    return 'ChatGPTMessage(role: $role, content: $content)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Message &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
+            other is _$_ChatGPTMessage &&
             (identical(other.role, role) || other.role == role) &&
             (identical(other.content, content) || other.content == content));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, createdAt, role, content);
+  int get hashCode => Object.hash(runtimeType, role, content);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MessageCopyWith<_$_Message> get copyWith =>
-      __$$_MessageCopyWithImpl<_$_Message>(this, _$identity);
+  _$$_ChatGPTMessageCopyWith<_$_ChatGPTMessage> get copyWith =>
+      __$$_ChatGPTMessageCopyWithImpl<_$_ChatGPTMessage>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MessageToJson(
+    return _$$_ChatGPTMessageToJson(
       this,
     );
   }
 }
 
-abstract class _Message implements Message {
-  const factory _Message(
-      {required final DateTime createdAt,
-      required final String role,
-      required final String content}) = _$_Message;
+abstract class _ChatGPTMessage implements ChatGPTMessage {
+  const factory _ChatGPTMessage(
+      {required final String role,
+      required final String content}) = _$_ChatGPTMessage;
 
-  factory _Message.fromJson(Map<String, dynamic> json) = _$_Message.fromJson;
+  factory _ChatGPTMessage.fromJson(Map<String, dynamic> json) =
+      _$_ChatGPTMessage.fromJson;
 
-  @override
-  DateTime get createdAt;
   @override
   String get role;
   @override
   String get content;
   @override
   @JsonKey(ignore: true)
-  _$$_MessageCopyWith<_$_Message> get copyWith =>
+  _$$_ChatGPTMessageCopyWith<_$_ChatGPTMessage> get copyWith =>
       throw _privateConstructorUsedError;
 }

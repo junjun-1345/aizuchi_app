@@ -1,23 +1,39 @@
-import 'package:aizuchi_app/application/state/message.dart';
+import 'package:aizuchi_app/application/di/infrastructure.dart';
+import 'package:aizuchi_app/application/di/usecase.dart';
+import 'package:aizuchi_app/application/state/waitng.dart';
+import 'package:aizuchi_app/domain/features/datetime.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/widgets/chat_widget.dart';
+import 'package:aizuchi_app/presentation/widgets/dialog_widget.dart';
 import 'package:aizuchi_app/presentation/widgets/humburger_menu_widget.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../theme/colors.dart';
 import '../theme/fonts.dart';
 
 class ChatPage extends HookConsumerWidget {
   const ChatPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final messageState = ref.watch(messageNotifierProvider);
-    final isWaiting = useState(false);
+    final messageUsecase = ref.read(messageUsecaseProvider);
+    final accountUsecase = ref.read(accountUsecaseProvider);
+    final firebase = ref.watch(firestoreProvider);
+
+    final isWaiting = ref.watch(waitngNotifierProvider);
     final isKeyboard = useState(false);
+    final isFinish = useState(true);
 
     final messageController = useTextEditingController(text: "");
+
+    useEffect(() {
+      print("ユースエフェクト");
+      messageUsecase.initValitation(function: () {
+        showEmotionDialog(context);
+      });
+    });
 
     void KeyboardStateToTrue() {
       isKeyboard.value = true;
@@ -27,88 +43,9 @@ class ChatPage extends HookConsumerWidget {
       isKeyboard.value = false;
     }
 
-    final screenWidth = MediaQuery.of(context).size.width;
-
     void sendMessage() async {
+      messageUsecase.sendMessage(messageController.text);
       // chatGPTにメッセージを送る
-    }
-
-    void finishMessage() async {
-      // その日のメッセージの要約を追加
-      // メモに切り替え
-      // 入力を禁止
-    }
-
-    //
-    // ユーザーチャットコンテント
-    //
-    Widget userChatContent(String message) {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Align(
-          alignment: Alignment.centerRight,
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: screenWidth * 0.8,
-            ),
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: BrandColor.white,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 7,
-                  horizontal: 16,
-                ),
-                child: Text(message
-                    // style: BrandText.bodyM,
-                    ),
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    //
-    // クライアントチャットコンテント
-    //
-    Widget clientChatContent(String message) {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: screenWidth * 0.7,
-                ),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: BrandColor.baseRed,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 16,
-                    ),
-                    child: Text(
-                      message,
-                      style: TextStyle(
-                        color: BrandColor.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
     }
 
     //
@@ -145,7 +82,7 @@ class ChatPage extends HookConsumerWidget {
             ),
             onPressed: () {
               // context.go(PagePath.calender);
-              context.go(PagePath.start);
+              // messageUsecase.init(callback);
             },
           ),
           const SizedBox(
@@ -176,7 +113,7 @@ class ChatPage extends HookConsumerWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  finishMessage();
+                  messageUsecase.finishMessage();
                 },
                 child: Text("終了"),
                 style: TextButton.styleFrom(
@@ -198,6 +135,7 @@ class ChatPage extends HookConsumerWidget {
                     } else {
                       // 送信
                       sendMessage();
+                      messageController.clear();
                     }
                   },
                   controller: messageController,
@@ -208,7 +146,7 @@ class ChatPage extends HookConsumerWidget {
                 ),
               ),
 
-              if (!isWaiting.value)
+              if (!isWaiting)
                 IconButton(
                   onPressed: () async {
                     if (messageController.text.isEmpty) {
@@ -219,9 +157,10 @@ class ChatPage extends HookConsumerWidget {
                       );
                     } else {
                       sendMessage();
+                      messageController.clear();
                     }
                   },
-                  icon: !isWaiting.value
+                  icon: !isWaiting
                       ? const Icon(Icons.send)
                       : const SizedBox(
                           width: 12,
@@ -230,7 +169,7 @@ class ChatPage extends HookConsumerWidget {
                         ),
                 ),
               // 送信中
-              if (isWaiting.value)
+              if (isWaiting)
                 const IconButton(
                   onPressed: null,
                   icon: SizedBox(
@@ -248,21 +187,12 @@ class ChatPage extends HookConsumerWidget {
     //
     // チャットエリア
     //
-    final chatArea = ListView.builder(
-      itemCount: messageState.length,
-      itemBuilder: (context, index) {
-        final message = messageState[index];
-        // systemロールのメッセージは表示しない
-        if (message.role == "assistant") {
-          return clientChatContent(message.content);
-        }
-        if (message.role == "user") {
-          return userChatContent(message.content);
-        } else {
-          return const SizedBox();
-        }
-      },
-    );
+    const chatArea = ChatWidget();
+
+    // ListView.builder(
+    //   itemCount: messageState.length,
+    //   itemBuilder:
+    // );
 
     //
     // フッターエリア

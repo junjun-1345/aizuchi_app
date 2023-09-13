@@ -6,14 +6,14 @@ part of 'googleauth.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userChangesHash() => r'4b418a07a9bb38d37b0f5fe2676bb7f58267eaeb';
+String _$userChangesHash() => r'a3e4f08da0c44eeee3dc1d36289461d960c4e3c1';
 
 /// FirebaseのユーザーをAsyncValue型で管理するプロバイダー
 ///
 ///
 /// Copied from [userChanges].
 @ProviderFor(userChanges)
-final userChangesProvider = AutoDisposeStreamProvider<User?>.internal(
+final userChangesProvider = StreamProvider<User?>.internal(
   userChanges,
   name: r'userChangesProvider',
   debugGetCreateSourceHash:
@@ -22,8 +22,8 @@ final userChangesProvider = AutoDisposeStreamProvider<User?>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef UserChangesRef = AutoDisposeStreamProviderRef<User?>;
-String _$userHash() => r'3cc9ecd667fcb1fd39e74d498ecab726c98cf46a';
+typedef UserChangesRef = StreamProviderRef<User?>;
+String _$userHash() => r'f7834d4ca695499c492ac79ebadc925243c1822b';
 
 ///
 /// ユーザー
@@ -31,7 +31,7 @@ String _$userHash() => r'3cc9ecd667fcb1fd39e74d498ecab726c98cf46a';
 ///
 /// Copied from [user].
 @ProviderFor(user)
-final userProvider = AutoDisposeProvider<User?>.internal(
+final userProvider = Provider<User?>.internal(
   user,
   name: r'userProvider',
   debugGetCreateSourceHash:
@@ -40,12 +40,12 @@ final userProvider = AutoDisposeProvider<User?>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef UserRef = AutoDisposeProviderRef<User?>;
-String _$signedInHash() => r'ad977544c865550a5f87cfb21ad0a59169bcdd7b';
+typedef UserRef = ProviderRef<User?>;
+String _$signedInHash() => r'7217b447533804046501b5e659197fd9572fb487';
 
 /// See also [signedIn].
 @ProviderFor(signedIn)
-final signedInProvider = AutoDisposeProvider<bool>.internal(
+final signedInProvider = Provider<bool>.internal(
   signedIn,
   name: r'signedInProvider',
   debugGetCreateSourceHash:
@@ -54,6 +54,6 @@ final signedInProvider = AutoDisposeProvider<bool>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef SignedInRef = AutoDisposeProviderRef<bool>;
+typedef SignedInRef = ProviderRef<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

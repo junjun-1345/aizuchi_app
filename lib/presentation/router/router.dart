@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/application/di/usecase.dart';
 import 'package:aizuchi_app/application/state/account.dart';
 import 'package:aizuchi_app/presentation/animation/page_animation.dart';
 import 'package:aizuchi_app/presentation/pages/chat_page.dart';
@@ -109,10 +110,10 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    final accountUsecase = ref.read(accountUsecaseProvider);
 
     useEffect(() {
-      debugPrint('初回起動');
-      return null;
+      accountUsecase.init();
     }, const []);
 
     return MaterialApp.router(
