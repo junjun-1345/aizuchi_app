@@ -74,7 +74,7 @@ class MessageUsecase {
     );
 
     final messageList = await firestore.messageReadLimit(10);
-    messageList.insert(1, _prompt);
+    messageList.insert(0, _prompt);
     final _reply = await chatGPT.sendMessage(messageList);
 
     final _newClientMessage = Message(
@@ -102,7 +102,7 @@ class MessageUsecase {
     final _messageList = await firestore.messageReadToday(
         dailyData["startAt"], dailyData["endAt"]);
 
-    _messageList.insert(1, _prompt);
+    _messageList.insert(0, _prompt);
 
     print("メッセージリスト$_messageList");
 
