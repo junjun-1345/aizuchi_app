@@ -19,11 +19,13 @@ abstract class FirestoreInterface {
 
   Future<List<ChatGPTMessage>> messageReadToday(Timestamp start, Timestamp end);
 
-  Future<void> dailyCreate();
+  Future<void> dailyCreate(String dailyKey);
 
   Future<Map<String, dynamic>> dailyRead(String key);
 
   Future<void> dailyUpdate(String key, value);
 
-  Future<bool> dailyCheck(String key, String word);
+  Future<bool> dailyCheck(String key);
+
+  Future<String> dailyGetKey();
 }

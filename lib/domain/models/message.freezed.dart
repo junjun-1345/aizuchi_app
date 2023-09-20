@@ -20,6 +20,7 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Message {
+  String get key => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
@@ -34,7 +35,7 @@ abstract class $MessageCopyWith<$Res> {
   factory $MessageCopyWith(Message value, $Res Function(Message) then) =
       _$MessageCopyWithImpl<$Res, Message>;
   @useResult
-  $Res call({DateTime createdAt, String role, String content});
+  $Res call({String key, DateTime createdAt, String role, String content});
 }
 
 /// @nodoc
@@ -50,11 +51,16 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? key = null,
     Object? createdAt = null,
     Object? role = null,
     Object? content = null,
   }) {
     return _then(_value.copyWith(
+      key: null == key
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -78,7 +84,7 @@ abstract class _$$_MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
       __$$_MessageCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DateTime createdAt, String role, String content});
+  $Res call({String key, DateTime createdAt, String role, String content});
 }
 
 /// @nodoc
@@ -91,11 +97,16 @@ class __$$_MessageCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? key = null,
     Object? createdAt = null,
     Object? role = null,
     Object? content = null,
   }) {
     return _then(_$_Message(
+      key: null == key
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -116,11 +127,16 @@ class __$$_MessageCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Message implements _Message {
   const _$_Message(
-      {required this.createdAt, required this.role, required this.content});
+      {required this.key,
+      required this.createdAt,
+      required this.role,
+      required this.content});
 
   factory _$_Message.fromJson(Map<String, dynamic> json) =>
       _$$_MessageFromJson(json);
 
+  @override
+  final String key;
   @override
   final DateTime createdAt;
   @override
@@ -130,7 +146,7 @@ class _$_Message implements _Message {
 
   @override
   String toString() {
-    return 'Message(createdAt: $createdAt, role: $role, content: $content)';
+    return 'Message(key: $key, createdAt: $createdAt, role: $role, content: $content)';
   }
 
   @override
@@ -138,6 +154,7 @@ class _$_Message implements _Message {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Message &&
+            (identical(other.key, key) || other.key == key) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.role, role) || other.role == role) &&
@@ -146,7 +163,7 @@ class _$_Message implements _Message {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, createdAt, role, content);
+  int get hashCode => Object.hash(runtimeType, key, createdAt, role, content);
 
   @JsonKey(ignore: true)
   @override
@@ -164,12 +181,15 @@ class _$_Message implements _Message {
 
 abstract class _Message implements Message {
   const factory _Message(
-      {required final DateTime createdAt,
+      {required final String key,
+      required final DateTime createdAt,
       required final String role,
       required final String content}) = _$_Message;
 
   factory _Message.fromJson(Map<String, dynamic> json) = _$_Message.fromJson;
 
+  @override
+  String get key;
   @override
   DateTime get createdAt;
   @override
