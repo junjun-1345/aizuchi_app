@@ -5,6 +5,7 @@ part 'message.g.dart';
 @freezed
 class Message with _$Message {
   const factory Message({
+    required String key,
     required DateTime createdAt,
     required String role,
     required String content,

@@ -64,6 +64,10 @@ class SignUpCheckPage extends ConsumerWidget {
                 "${state.birhtDay}",
                 style: BrandText.textL,
               ),
+              Text(
+                "${state.registerDay}",
+                style: BrandText.textL,
+              ),
               Row(
                 children: [
                   prevPageButton,

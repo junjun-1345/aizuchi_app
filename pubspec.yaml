@@ -20,6 +20,7 @@ dependencies:
   shared_preferences:
   timezone:
   go_router:
+  intl:
 
   # firebase
   firebase_core:

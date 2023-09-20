@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/application/state/firestore.dart';
 import 'package:aizuchi_app/presentation/theme/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,16 +9,13 @@ class ChatWidget extends HookConsumerWidget {
   const ChatWidget({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //日付選択
-    DateTime now = DateTime.now();
-    final dateOnly = DateTime(now.year, now.month, now.day);
-    final tomorrow = dateOnly.add(Duration(days: 1));
-
-    final selectTodayStart = Timestamp.fromDate(dateOnly);
-    final selectTodayEnd =
-        Timestamp.fromDate(tomorrow.subtract(const Duration(microseconds: 1)));
-
-    print("現在時刻${tomorrow.subtract(const Duration(microseconds: 1))}");
+    final dailyKeyState = ref.watch(dailyKeyStreamStrProvider);
+    late String dailyKey = "";
+    dailyKeyState.when(
+      data: (state) => dailyKey = state,
+      error: (err, stack) => dailyKey = "",
+      loading: () => dailyKey = "",
+    );
 
     final id = FirebaseAuth.instance.currentUser?.uid ?? '';
 
@@ -26,7 +24,8 @@ class ChatWidget extends HookConsumerWidget {
         .doc(id)
         .collection("messages")
         .orderBy('createdAt')
-        .startAt([selectTodayStart]).endAt([selectTodayEnd]).snapshots();
+        .where("dailyKey", isEqualTo: dailyKey)
+        .snapshots();
 
     final screenWidth = MediaQuery.of(context).size.width;
 
@@ -106,12 +105,19 @@ class ChatWidget extends HookConsumerWidget {
       stream: _fetchMessageStream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          print('Something went wrong');
-          return const Text('Something went wrong');
+          print('Something went wrong　${snapshot.error}');
+          return Text('Something went wrong　${snapshot.error}');
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          print("Loading");
-          return const Text("Loading");
+          return Container(
+            width: 64,
+            height: 64,
+            child: const SizedBox(
+              width: 64,
+              height: 64,
+              child: CircularProgressIndicator(),
+            ),
+          );
         }
         return ListView(
           children: snapshot.data!.docs

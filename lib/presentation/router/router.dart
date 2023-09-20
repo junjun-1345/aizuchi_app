@@ -2,6 +2,7 @@ import 'package:aizuchi_app/application/di/usecase.dart';
 import 'package:aizuchi_app/application/state/account.dart';
 import 'package:aizuchi_app/presentation/animation/page_animation.dart';
 import 'package:aizuchi_app/presentation/pages/chat_page.dart';
+import 'package:aizuchi_app/presentation/pages/log_page.dart';
 import 'package:aizuchi_app/presentation/pages/start/signup_birthday_page.dart';
 import 'package:aizuchi_app/presentation/pages/start/signup_check_page.dart';
 import 'package:aizuchi_app/presentation/pages/start/signup_name_page.dart';
@@ -19,6 +20,7 @@ part 'router.g.dart';
 class PagePath {
   static const start = '/start';
   static const chat = '/chat';
+  static const log = '/log';
   static const singupName = '/singupName';
   static const singupSex = '/singupSex';
   static const singupBirthDay = '/singupBirthDay';
@@ -32,11 +34,21 @@ GoRouter router(RouterRef ref) {
   final routes = [
     GoRoute(
       path: PagePath.start,
-      builder: (_, __) => const StartPage(),
+      pageBuilder: (_, __) => buildPageWithAnimation(
+        const StartPage(),
+      ),
     ),
     GoRoute(
       path: PagePath.chat,
-      builder: (_, __) => const ChatPage(),
+      pageBuilder: (_, __) => buildPageWithAnimation(
+        const ChatPage(),
+      ),
+    ),
+    GoRoute(
+      path: PagePath.log,
+      pageBuilder: (_, __) => buildPageWithAnimation(
+        const LogPage(),
+      ),
     ),
     GoRoute(
       path: PagePath.singupName,

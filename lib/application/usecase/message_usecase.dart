@@ -18,21 +18,17 @@ class MessageUsecase {
   final WaitngNotifier waitingNotifier;
 
   Future<void> initValitation({
-    required void Function() function,
+    required void Function() selectEmotionDialog,
   }) async {
-    // 当日の会話があるかチェック
-    final flag = await firestore.dailyCheck("date", CustomDateTime().nowDate());
-
-    // true　↓　false　投げる
-    if (flag == true) {
+    final isTodayMessage =
+        await firestore.dailyCheck(CustomDateTime().nowDate());
+    if (isTodayMessage == true) {
       return;
     }
-
-    // 感情選択
-    function();
+    selectEmotionDialog();
   }
 
-  Future<void> sendEmotion(int num, String text) async {
+  Future<void> sendEmotion(String dailyKey, int num, String text) async {
     waitingNotifier.trueState();
     final _newUserMessage = ChatGPTMessage(
       role: "user",
@@ -44,11 +40,12 @@ class MessageUsecase {
     );
     final messageList = [_prompt, _newUserMessage];
 
-    firestore.dailyCreate();
+    firestore.dailyCreate(dailyKey);
     firestore.dailyUpdate("emotion", num);
     final _reply = await chatGPT.sendMessage(messageList);
 
     final _newClientMessage = Message(
+      key: dailyKey,
       createdAt: DateTime.now(),
       role: "assistant",
       content: _reply,
@@ -59,9 +56,13 @@ class MessageUsecase {
   }
 
   Future<void> sendMessage(String message) async {
+    final dailyKey = await firestore.dailyGetKey();
     waitingNotifier.trueState();
+
+    print("dailyKey${dailyKey}");
     //メッセージを保存
     final _newUserMessage = Message(
+      key: dailyKey,
       createdAt: DateTime.now(),
       role: "user",
       content: message,
@@ -78,6 +79,7 @@ class MessageUsecase {
     final _reply = await chatGPT.sendMessage(messageList);
 
     final _newClientMessage = Message(
+      key: dailyKey,
       createdAt: DateTime.now(),
       role: "assistant",
       content: _reply,
@@ -88,6 +90,7 @@ class MessageUsecase {
   }
 
   Future<void> finishMessage() async {
+    final dailyKey = await firestore.dailyGetKey();
     waitingNotifier.trueState();
 
     final _prompt = ChatGPTMessage(
@@ -104,11 +107,10 @@ class MessageUsecase {
 
     _messageList.insert(0, _prompt);
 
-    print("メッセージリスト$_messageList");
-
     final _reply = await chatGPT.sendMessage(_messageList);
 
     final _newClientMessage = Message(
+      key: dailyKey,
       createdAt: DateTime.now(),
       role: "assistant",
       content: _reply,

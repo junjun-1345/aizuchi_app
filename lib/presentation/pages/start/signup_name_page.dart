@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/application/di/usecase.dart';
 import 'package:aizuchi_app/application/state/appuser.dart';
+import 'package:aizuchi_app/domain/features/datetime.dart';
 
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/theme/fonts.dart';
@@ -35,7 +36,12 @@ class SignUpNamePage extends HookConsumerWidget {
     final nextPageButton = Expanded(
       child: Button(
         onPressed: () {
-          notifier.update(state.copyWith(name: nameController.text));
+          notifier.update(
+            state.copyWith(
+              name: nameController.text,
+              registerDay: CustomDateTime().nowDate().toString(),
+            ),
+          );
           context.go(PagePath.singupSex);
         },
         text: '次へ',

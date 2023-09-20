@@ -1,12 +1,11 @@
 import 'package:aizuchi_app/application/di/infrastructure.dart';
 import 'package:aizuchi_app/application/di/usecase.dart';
+import 'package:aizuchi_app/application/state/firestore.dart';
 import 'package:aizuchi_app/application/state/waitng.dart';
-import 'package:aizuchi_app/domain/features/datetime.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
-import 'package:aizuchi_app/presentation/widgets/chat_widget.dart';
-import 'package:aizuchi_app/presentation/widgets/dialog_widget.dart';
+import 'package:aizuchi_app/presentation/widgets/chat/chat_widget.dart';
+import 'package:aizuchi_app/presentation/dialog/dialog_widget.dart';
 import 'package:aizuchi_app/presentation/widgets/humburger_menu_widget.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -19,18 +18,17 @@ class ChatPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final messageUsecase = ref.read(messageUsecaseProvider);
-    final accountUsecase = ref.read(accountUsecaseProvider);
-    final firebase = ref.watch(firestoreProvider);
+    // final accountUsecase = ref.read(accountUsecaseProvider);
+    final dailyKeyState = ref.watch(dailyKeyStreamStrProvider);
 
     final isWaiting = ref.watch(waitngNotifierProvider);
     final isKeyboard = useState(false);
-    final isFinish = useState(true);
+    // final isFinish = useState(true);
 
     final messageController = useTextEditingController(text: "");
 
     useEffect(() {
-      print("ユースエフェクト");
-      messageUsecase.initValitation(function: () {
+      messageUsecase.initValitation(selectEmotionDialog: () {
         showEmotionDialog(context);
       });
     });
@@ -94,8 +92,7 @@ class ChatPage extends HookConsumerWidget {
               Icons.leaderboard,
             ),
             onPressed: () {
-              // context.go(PagePath.log);
-              context.go(PagePath.start);
+              context.go(PagePath.log);
             },
           ),
         ],

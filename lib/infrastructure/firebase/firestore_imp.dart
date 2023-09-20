@@ -9,17 +9,12 @@ import 'package:flutter/foundation.dart';
 import '../../application/interface/firebase/firestore.dart';
 
 class FirestoreService implements FirestoreInterface {
-  /// UserIDの取得
   final id = FirebaseAuth.instance.currentUser?.uid ?? '';
-
-  // Cloud Firestore のインスタンスを初期化
   final db = FirebaseFirestore.instance;
 
   ////////////////
   // user CRUD
   ////////////////
-
-  // Create
   @override
   Future<void> userCreate(AppUser data) async {
     // JsonMap <--- データ
@@ -31,7 +26,6 @@ class FirestoreService implements FirestoreInterface {
     }
   }
 
-  // Read
   @override
   Future<AppUser> userRead() async {
     debugPrint(id);
@@ -47,7 +41,6 @@ class FirestoreService implements FirestoreInterface {
     }
   }
 
-  // Update
   @override
   Future<void> userUpdate(AppUser data) async {
     final map = data.toJson();
@@ -58,7 +51,6 @@ class FirestoreService implements FirestoreInterface {
     }
   }
 
-  // Delete
   @override
   Future<void> userDelete() async {
     try {
@@ -72,12 +64,12 @@ class FirestoreService implements FirestoreInterface {
   // message CRUD
   ////////////////
 
-  // Create
   @override
   Future<void> messageCreate(Message data) async {
     try {
       await db.collection('users').doc(id).collection("messages").doc().set(
         {
+          "dailyKey": data.key,
           "createdAt": Timestamp.fromDate(data.createdAt),
           "role": data.role,
           "content": data.content,
@@ -88,7 +80,6 @@ class FirestoreService implements FirestoreInterface {
     }
   }
 
-  // Read
   @override
   Future<List<ChatGPTMessage>> messageReadLimit(int num) async {
     try {
@@ -116,12 +107,12 @@ class FirestoreService implements FirestoreInterface {
     }
   }
 
-  // Read
   @override
   Future<List<ChatGPTMessage>> messageReadToday(
       Timestamp start, Timestamp end) async {
     try {
       final List<ChatGPTMessage> messages = [];
+
       await db
           .collection('users')
           .doc(id)
@@ -139,52 +130,29 @@ class FirestoreService implements FirestoreInterface {
               messages.add(newMessage);
             }
           });
-
       return messages;
     } catch (e) {
       return throw ("userRead エラー。$e");
     }
   }
 
-  // // Update
-  // Future<void> messageUpdate(AppUser data) async {
-  //   final map = data.toJson();
-  //   try {
-  //     await db.collection('users').doc(id).update(map);
-  //   } catch (e) {
-  //     debugPrint("userUpdate エラー。$e");
-  //   }
-  // }
-
-  // // Delete
-  // Future<void> messageDelete() async {
-  //   try {
-  //     await db.collection('users')
-  //         .doc(id)
-  //         .collection("messages")
-  //   } catch (e) {
-  //     debugPrint("userDelete エラー。$e");
-  //   }
-  // }
-
   ////////////////
   // daily CRUD
   ////////////////
 
-  // Create
   @override
-  Future<void> dailyCreate() async {
+  Future<void> dailyCreate(String dailyKey) async {
     try {
       await db
           .collection('users')
           .doc(id)
           .collection("daily")
-          .doc(CustomDateTime().nowDate())
+          .doc(dailyKey)
           .set(
         {
           "startAt": Timestamp.fromDate(DateTime.now()),
           "endAt": "",
-          "title": "",
+          "title": "入力中です。",
           "emotion": "",
         },
       );
@@ -193,17 +161,22 @@ class FirestoreService implements FirestoreInterface {
     }
   }
 
-  // Reed
   @override
   Future<Map<String, dynamic>> dailyRead(String key) async {
-    final snapShot =
-        await db.collection('users').doc(id).collection("daily").doc(key).get();
-    final data = snapShot.data() as Map<String, dynamic>;
-    print(data);
-    return data;
+    try {
+      final documentSnapshot = await db
+          .collection('users')
+          .doc(id)
+          .collection("daily")
+          .doc(key)
+          .get();
+
+      return documentSnapshot.data() as Map<String, dynamic>;
+    } catch (e) {
+      return throw ("dailyRead エラー。$e");
+    }
   }
 
-  // Update
   @override
   Future<void> dailyUpdate(String key, value) async {
     try {
@@ -222,20 +195,41 @@ class FirestoreService implements FirestoreInterface {
     }
   }
 
-  // check
   @override
-  Future<bool> dailyCheck(String key, String word) async {
+  Future<bool> dailyCheck(String key) async {
     try {
       final data = await db
           .collection('users')
           .doc(id)
           .collection("daily")
-          .doc(CustomDateTime().nowDate())
+          .doc(key)
           .get();
       return data.exists;
     } catch (e) {
       debugPrint("userCreate エラー。$e");
       return false;
+    }
+  }
+
+  @override
+  Future<String> dailyGetKey() async {
+    try {
+      late String data;
+      await db
+          .collection('users')
+          .doc(id)
+          .collection("daily")
+          .orderBy("startAt", descending: true)
+          .limit(1)
+          .get()
+          .then(
+            (querySnapshot) => querySnapshot.docs.forEach(
+              (doc) => data = doc.id,
+            ),
+          );
+      return data;
+    } catch (e) {
+      return throw ("dailyGetKey エラー。$e");
     }
   }
 }
