@@ -1,4 +1,5 @@
 import 'package:aizuchi_app/application/state/firestore.dart';
+import 'package:aizuchi_app/application/state/todaykey.dart';
 import 'package:aizuchi_app/presentation/theme/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,22 +10,18 @@ class ChatWidget extends HookConsumerWidget {
   const ChatWidget({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dailyKeyState = ref.watch(dailyKeyStreamStrProvider);
-    late String dailyKey = "";
-    dailyKeyState.when(
-      data: (state) => dailyKey = state,
-      error: (err, stack) => dailyKey = "",
-      loading: () => dailyKey = "",
-    );
+    final dailyKeyState = ref.watch(todaykeyNotifierProvider);
 
     final id = FirebaseAuth.instance.currentUser?.uid ?? '';
+
+    print("$dailyKeyState");
 
     final Stream<QuerySnapshot> _fetchMessageStream = FirebaseFirestore.instance
         .collection("users")
         .doc(id)
         .collection("messages")
         .orderBy('createdAt')
-        .where("dailyKey", isEqualTo: dailyKey)
+        .where("dailyKey", isEqualTo: dailyKeyState)
         .snapshots();
 
     final screenWidth = MediaQuery.of(context).size.width;
@@ -104,11 +101,26 @@ class ChatWidget extends HookConsumerWidget {
     return StreamBuilder<QuerySnapshot>(
       stream: _fetchMessageStream,
       builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          print('Something went wrong　${snapshot.error}');
+        if (snapshot.hasData) {
+          return ListView(
+            children: snapshot.data!.docs
+                .map((DocumentSnapshot document) {
+                  Map<String, dynamic> data =
+                      document.data()! as Map<String, dynamic>;
+                  if (data['role'] == "user") {
+                    return userChatContent(data['content']);
+                  }
+                  if (data['role'] == "assistant") {
+                    return assistantChatContent(data['content']);
+                  }
+                  return SizedBox();
+                })
+                .toList()
+                .cast(),
+          );
+        } else if (snapshot.hasError) {
           return Text('Something went wrong　${snapshot.error}');
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
+        } else {
           return Container(
             width: 64,
             height: 64,
@@ -119,22 +131,6 @@ class ChatWidget extends HookConsumerWidget {
             ),
           );
         }
-        return ListView(
-          children: snapshot.data!.docs
-              .map((DocumentSnapshot document) {
-                Map<String, dynamic> data =
-                    document.data()! as Map<String, dynamic>;
-                if (data['role'] == "user") {
-                  return userChatContent(data['content']);
-                }
-                if (data['role'] == "assistant") {
-                  return assistantChatContent(data['content']);
-                }
-                return SizedBox();
-              })
-              .toList()
-              .cast(),
-        );
       },
     );
   }

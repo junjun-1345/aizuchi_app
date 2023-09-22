@@ -70,11 +70,11 @@ class EmotionDialogWidget extends HookConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _button(1, "😭"),
-              _button(2, "🥲"),
-              _button(3, "😐"),
-              _button(4, "🙂"),
-              _button(5, "😁"),
+              _button(0, "😭"),
+              _button(1, "🥲"),
+              _button(2, "😐"),
+              _button(3, "🙂"),
+              _button(4, "😁"),
             ],
           )
         ]);

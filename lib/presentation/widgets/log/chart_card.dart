@@ -127,7 +127,7 @@ SideTitles get _bottomTitles => SideTitles(
       reservedSize: 30,
       getTitlesWidget: (value, meta) {
         String date;
-        List<DateTime> thisWeekDatesList = CustomDateTime().thisWeekDatesDTi();
+        List<DateTime> thisWeekDatesList = CustomDateTime().thisWeekDatesDat();
 
         switch (value.toInt()) {
           case 1:

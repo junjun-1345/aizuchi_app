@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/application/di/usecase.dart';
 import 'package:aizuchi_app/application/state/account.dart';
 import 'package:aizuchi_app/presentation/animation/page_animation.dart';
+import 'package:aizuchi_app/presentation/pages/calender_page.dart';
 import 'package:aizuchi_app/presentation/pages/chat_page.dart';
 import 'package:aizuchi_app/presentation/pages/log_page.dart';
 import 'package:aizuchi_app/presentation/pages/start/signup_birthday_page.dart';
@@ -21,6 +22,7 @@ class PagePath {
   static const start = '/start';
   static const chat = '/chat';
   static const log = '/log';
+  static const calender = '/calender';
   static const singupName = '/singupName';
   static const singupSex = '/singupSex';
   static const singupBirthDay = '/singupBirthDay';
@@ -48,6 +50,12 @@ GoRouter router(RouterRef ref) {
       path: PagePath.log,
       pageBuilder: (_, __) => buildPageWithAnimation(
         const LogPage(),
+      ),
+    ),
+    GoRoute(
+      path: PagePath.calender,
+      pageBuilder: (_, __) => buildPageWithAnimation(
+        const CalenderPage(),
       ),
     ),
     GoRoute(

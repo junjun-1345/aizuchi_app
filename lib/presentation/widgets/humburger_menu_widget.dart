@@ -132,6 +132,10 @@ class HumburgerMenu extends StatelessWidget {
           },
           text: 'サインアウト',
         ),
+        Button(
+          onPressed: () async {},
+          text: '通知',
+        ),
       ],
     );
 

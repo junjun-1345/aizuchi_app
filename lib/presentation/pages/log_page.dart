@@ -26,7 +26,7 @@ class LogPage extends ConsumerWidget {
               Icons.calendar_today,
             ),
             onPressed: () {
-              // context.go(PagePath.calender);
+              context.go(PagePath.calender);
               // messageUsecase.init(callback);
             },
           ),
@@ -77,77 +77,9 @@ class LogPage extends ConsumerWidget {
               ],
             )),
             footer,
-            //     SizedBox(
-            //       height: 24,
-            //     ),
-            //     // 画面上部
-            //     TopCardWidget(),
-            //     SizedBox(
-            //       height: 24,
-            //     ),
-            //     // 画面下部
-            //     CarouselSlider(
-            //       options: CarouselOptions(
-            //         height: 440,
-            //         //// カルーセルの高さを指定
-            //         enableInfiniteScroll: false, //ループさせない場合
-            //         autoPlay: false, // 自動再生を無効にする場合は false に設定
-            //         enlargeCenterPage: false, // 中央のカードを大きく表示しない場合は false に設定
-            //       ),
-            //       items: cardList.map((card) {
-            //         return Builder(
-            //           builder: (BuildContext context) {
-            //             return Container(
-            //               height: MediaQuery.of(context).size.height,
-            //               width: MediaQuery.of(context).size.width,
-            //               margin: EdgeInsets.symmetric(horizontal: 5.0),
-            //               child: card,
-            //             );
-            //           },
-            //         );
-            //       }).toList(),
-            //     ),
           ],
         ),
       ),
     );
-
-    // return Base(
-    //   title: "ログ",
-    //   footerButton: footerButton,
-    //   child: Column(
-    //     children: [
-    //       //スペーシング
-    //       SizedBox(
-    //         height: 24,
-    //       ),
-    //       TopCardWidget(),
-    //       SizedBox(
-    //         height: 24,
-    //       ),
-    //       CarouselSlider(
-    //         options: CarouselOptions(
-    //           height: 440,
-    //           //// カルーセルの高さを指定
-    //           enableInfiniteScroll: false, //ループさせない場合
-    //           autoPlay: false, // 自動再生を無効にする場合は false に設定
-    //           enlargeCenterPage: false, // 中央のカードを大きく表示しない場合は false に設定
-    //         ),
-    //         items: cardList.map((card) {
-    //           return Builder(
-    //             builder: (BuildContext context) {
-    //               return Container(
-    //                 height: MediaQuery.of(context).size.height,
-    //                 width: MediaQuery.of(context).size.width,
-    //                 margin: EdgeInsets.symmetric(horizontal: 5.0),
-    //                 child: card,
-    //               );
-    //             },
-    //           );
-    //         }).toList(),
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 }

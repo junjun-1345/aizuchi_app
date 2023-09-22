@@ -4,6 +4,7 @@ import 'package:aizuchi_app/application/state/appuser.dart';
 import 'package:aizuchi_app/application/state/googleauth.dart';
 import 'package:aizuchi_app/application/state/waitng.dart';
 import 'package:aizuchi_app/application/usecase/account_usecase.dart';
+import 'package:aizuchi_app/application/usecase/calender_usecase.dart';
 import 'package:aizuchi_app/application/usecase/log_usecase.dart';
 import 'package:aizuchi_app/application/usecase/message_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -45,6 +46,13 @@ final messageUsecaseProvider = Provider<MessageUsecase>(
 final logUsecaseProvider = Provider<LogUsecase>((ref) {
   final firestore = ref.watch(firestoreProvider);
   return LogUsecase(
+    firestore: firestore,
+  );
+});
+
+final calenderUsecaseProvider = Provider<CalenderUsecase>((ref) {
+  final firestore = ref.watch(firestoreProvider);
+  return CalenderUsecase(
     firestore: firestore,
   );
 });

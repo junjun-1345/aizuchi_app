@@ -1,6 +1,5 @@
-import 'package:aizuchi_app/application/di/infrastructure.dart';
 import 'package:aizuchi_app/application/di/usecase.dart';
-import 'package:aizuchi_app/application/state/firestore.dart';
+import 'package:aizuchi_app/application/state/todaykey.dart';
 import 'package:aizuchi_app/application/state/waitng.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/widgets/chat/chat_widget.dart';
@@ -19,7 +18,10 @@ class ChatPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final messageUsecase = ref.read(messageUsecaseProvider);
     // final accountUsecase = ref.read(accountUsecaseProvider);
-    final dailyKeyState = ref.watch(dailyKeyStreamStrProvider);
+    final dailyKeyStateStr = ref.watch(todaykeyNotifierProvider);
+    final dailyKeyNotifier = ref.read(todaykeyNotifierProvider.notifier);
+
+    final dailyKeyStateDate = DateTime.parse(dailyKeyStateStr);
 
     final isWaiting = ref.watch(waitngNotifierProvider);
     final isKeyboard = useState(false);
@@ -79,7 +81,7 @@ class ChatPage extends HookConsumerWidget {
               Icons.calendar_today,
             ),
             onPressed: () {
-              // context.go(PagePath.calender);
+              context.go(PagePath.calender);
               // messageUsecase.init(callback);
             },
           ),
@@ -211,9 +213,18 @@ class ChatPage extends HookConsumerWidget {
         appBar: AppBar(
           elevation: 0.0,
           title: Text(
-            "チャット",
+            "${dailyKeyStateDate.month}月${dailyKeyStateDate.day}日のチャット",
             style: BrandText.titleS,
           ),
+          actions: [
+            IconButton(
+                icon: Icon(
+                  Icons.manage_history,
+                ),
+                onPressed: () {
+                  dailyKeyNotifier.initState();
+                }),
+          ],
         ),
         drawer: const HumburgerMenu(),
         body: Container(
