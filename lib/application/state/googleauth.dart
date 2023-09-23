@@ -18,6 +18,7 @@ Stream<User?> userChanges(UserChangesRef ref) {
 @Riverpod(keepAlive: true)
 User? user(UserRef ref) {
   final userChanges = ref.watch(userChangesProvider);
+  print("ユーザーの更新$userChanges");
   return userChanges.when(
     loading: () => null,
     error: (_, __) => null,

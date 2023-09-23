@@ -81,13 +81,15 @@ class FirestoreService implements FirestoreInterface {
   }
 
   @override
-  Future<List<ChatGPTMessage>> messageReadLimit(int num) async {
+  Future<List<ChatGPTMessage>> messageReadLimit(
+      int num, String dailyKey) async {
     try {
       final List<ChatGPTMessage> messages = [];
       await db
           .collection('users')
           .doc(id)
           .collection("messages")
+          .where("dailyKey", isEqualTo: dailyKey)
           .orderBy("createdAt")
           .limit(num)
           .get()

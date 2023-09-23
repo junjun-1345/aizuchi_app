@@ -74,7 +74,7 @@ class MessageUsecase {
       role: "system",
     );
 
-    final messageList = await firestore.messageReadLimit(10);
+    final messageList = await firestore.messageReadLimit(10, dailyKey);
     messageList.insert(0, _prompt);
     final _reply = await chatGPT.sendMessage(messageList);
 
@@ -93,6 +93,11 @@ class MessageUsecase {
     final dailyKey = await firestore.dailyGetKey();
     waitingNotifier.trueState();
 
+    final _finish = ChatGPTMessage(
+      content: "終了",
+      role: "system",
+    );
+
     final _prompt = ChatGPTMessage(
       content: summaryPrompt,
       role: "system",
@@ -106,6 +111,9 @@ class MessageUsecase {
         dailyData["startAt"], dailyData["endAt"]);
 
     _messageList.insert(0, _prompt);
+    _messageList.insert(1, _finish);
+
+    print(_messageList);
 
     final _reply = await chatGPT.sendMessage(_messageList);
 

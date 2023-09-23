@@ -18,7 +18,7 @@ dependencies:
   envied:
   freezed_annotation:
   shared_preferences:
-  timezone:
+  timezone: ^0.9.2
   go_router:
   intl:
 

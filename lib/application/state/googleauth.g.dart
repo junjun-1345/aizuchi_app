@@ -23,7 +23,7 @@ final userChangesProvider = StreamProvider<User?>.internal(
 );
 
 typedef UserChangesRef = StreamProviderRef<User?>;
-String _$userHash() => r'f7834d4ca695499c492ac79ebadc925243c1822b';
+String _$userHash() => r'e689a538a91f2c2c7570aa7787d647e8fbd34fa2';
 
 ///
 /// ユーザー

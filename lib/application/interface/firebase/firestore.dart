@@ -15,7 +15,7 @@ abstract class FirestoreInterface {
 
   Future<void> messageCreate(Message data);
 
-  Future<List<ChatGPTMessage>> messageReadLimit(int num);
+  Future<List<ChatGPTMessage>> messageReadLimit(int num, String dailyKey);
 
   Future<List<ChatGPTMessage>> messageReadToday(Timestamp start, Timestamp end);
 

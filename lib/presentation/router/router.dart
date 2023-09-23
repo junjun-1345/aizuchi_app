@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/application/di/usecase.dart';
 import 'package:aizuchi_app/application/state/account.dart';
+import 'package:aizuchi_app/application/state/googleauth.dart';
 import 'package:aizuchi_app/presentation/animation/page_animation.dart';
 import 'package:aizuchi_app/presentation/pages/calender_page.dart';
 import 'package:aizuchi_app/presentation/pages/chat_page.dart';
@@ -92,7 +93,7 @@ GoRouter router(RouterRef ref) {
     debugPrint(page);
 
     // サインアップ・サインインしているかどうか
-    final accountState = ref.read(accountNotifierProvider);
+    final accountState = ref.watch(accountNotifierProvider);
 
     debugPrint(accountState.toString());
 
@@ -102,7 +103,8 @@ GoRouter router(RouterRef ref) {
       return null;
     } else if (!accountState && page == PagePath.chat) {
       debugPrint("未サインインのためリダイレクトしない");
-      return PagePath.start;
+      return null;
+      PagePath.start;
     }
     debugPrint("条件外のためリダイレクトしない");
     return null;
@@ -111,8 +113,9 @@ GoRouter router(RouterRef ref) {
   // リフレッシュリスナブル - Riverpod と GoRouter を連動させるコード
   // サインイン状態が切り替わったときに GoRouter が反応する
   final listenable = ValueNotifier<Object?>(null);
-  ref.listen<Object?>(accountNotifierProvider, (_, newState) {
+  ref.listen<Object?>(userChangesProvider, (_, newState) {
     listenable.value = newState;
+    print("リフレッシュリスナブル");
   });
 
   ref.onDispose(listenable.dispose);

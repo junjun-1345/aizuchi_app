@@ -1,5 +1,4 @@
 import 'package:aizuchi_app/domain/models/appuser.dart';
-import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'appuser.g.dart';

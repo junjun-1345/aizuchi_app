@@ -1,9 +1,11 @@
 import 'package:aizuchi_app/application/interface/firebase/auth.dart';
 import 'package:aizuchi_app/application/interface/firebase/firestore.dart';
 import 'package:aizuchi_app/application/state/account.dart';
-import 'package:aizuchi_app/application/state/appuser.dart';
 import 'package:aizuchi_app/domain/models/appuser.dart';
+import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AccountUsecase {
   AccountUsecase({
@@ -11,7 +13,6 @@ class AccountUsecase {
     required this.firestore,
     required this.googleAuth,
     required this.appUserState,
-    required this.appUserNotifier,
     required this.accountState,
     required this.accountNotifier,
   });
@@ -19,7 +20,6 @@ class AccountUsecase {
   final FirestoreInterface firestore;
   final bool googleAuth;
   final AppUser appUserState;
-  final AppUserNotifier appUserNotifier;
   final bool accountState;
   final AccountNotifier accountNotifier;
 
@@ -27,18 +27,16 @@ class AccountUsecase {
   Future<void> init() async {
     // ログインしていたら
     if (googleAuth) {
-      // DBの同期
-      await firestore
-          .userRead()
-          .then((content) => appUserNotifier.update(content));
-      // ユーザー状態をtrueに
       accountNotifier.changeTrue();
     } else {
       throw ("googleでログインされていません");
     }
   }
 
-  void signUpValidation() {
+  void signUpValidation({
+    required void Function() errorDialog,
+    required BuildContext context,
+  }) {
     String? flag;
     // サインインさせる
     auth.signInWithGoogle();
@@ -54,10 +52,12 @@ class AccountUsecase {
           auth.signOutWithGoogle();
           // ダイアログを表示
           // 元のページへ戻る
+          errorDialog();
           debugPrint("signUpValidation: サインアップエラー");
         }
       },
     );
+    context.go(PagePath.singupName);
   }
 
   Future<void> createAccount() async {
@@ -77,7 +77,9 @@ class AccountUsecase {
     accountNotifier.changeFalse();
   }
 
-  void signInValidation() {
+  void signInValidation({
+    required void Function() errorDialog,
+  }) {
     String? flag;
     // サインインさせる
     auth.signInWithGoogle();
@@ -86,10 +88,6 @@ class AccountUsecase {
       (data) {
         flag = data.id;
         if (flag != null) {
-          // DBの同期
-          firestore
-              .userRead()
-              .then((content) => appUserNotifier.update(content));
           // ユーザー状態をtrueに
           accountNotifier.changeTrue();
           debugPrint("signInValidation: サインイン完了");
@@ -98,6 +96,7 @@ class AccountUsecase {
           auth.signOutWithGoogle();
           // ダイアログを表示
           // 元のページへ戻る
+          errorDialog();
           debugPrint("signInValidation: サインインエラー");
         }
       },

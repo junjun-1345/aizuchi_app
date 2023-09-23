@@ -6,11 +6,52 @@ import 'package:go_router/go_router.dart';
 
 import '../theme/colors.dart';
 
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 class HumburgerMenu extends StatelessWidget {
   const HumburgerMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // 1回目に通知を飛ばす時間の作成
+    tz.TZDateTime _nextInstanceOf8AM() {
+      final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+      tz.TZDateTime scheduledDate =
+          tz.TZDateTime(tz.local, now.year, now.month, now.day, 8);
+      if (scheduledDate.isBefore(now)) {
+        scheduledDate = scheduledDate.add(const Duration(days: 1));
+      }
+      return scheduledDate;
+    }
+
+    Future<void> _scheduleDaily8AMNotification() async {
+      final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+          FlutterLocalNotificationsPlugin();
+
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        0,
+        'OB-1',
+        '本日の顔を撮影をしましょう',
+        _nextInstanceOf8AM(),
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'ob-1-face-daily',
+            'ob-1-face-daily',
+            channelDescription: 'Face photo notification',
+          ),
+          iOS: DarwinNotificationDetails(
+            badgeNumber: 1,
+          ),
+        ),
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.time,
+        androidAllowWhileIdle: true,
+      );
+    }
+
     final pop = Container(
       child: Column(children: [
         Container(

@@ -86,6 +86,8 @@ class ChatWidget extends HookConsumerWidget {
                     child: Text(
                       message,
                       style: TextStyle(
+                        // 技育展用
+                        fontWeight: FontWeight.w600,
                         color: BrandColor.white,
                       ),
                     ),

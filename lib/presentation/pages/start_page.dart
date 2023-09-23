@@ -1,4 +1,5 @@
 import 'package:aizuchi_app/application/di/usecase.dart';
+import 'package:aizuchi_app/presentation/dialog/dialog_widget.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +12,44 @@ class StartPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final usecase = ref.read(accountUsecaseProvider);
 
+    // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    //     FlutterLocalNotificationsPlugin();
+
+    // Future<void> _requestPermissions() async {
+    //   if (Platform.isIOS || Platform.isMacOS) {
+    //     await flutterLocalNotificationsPlugin
+    //         .resolvePlatformSpecificImplementation<
+    //             IOSFlutterLocalNotificationsPlugin>()
+    //         ?.requestPermissions(
+    //           alert: true,
+    //           badge: true,
+    //           sound: true,
+    //         );
+    //     await flutterLocalNotificationsPlugin
+    //         .resolvePlatformSpecificImplementation<
+    //             MacOSFlutterLocalNotificationsPlugin>()
+    //         ?.requestPermissions(
+    //           alert: true,
+    //           badge: true,
+    //           sound: true,
+    //         );
+    //   } else if (Platform.isAndroid) {
+    //     final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
+    //         flutterLocalNotificationsPlugin
+    //             .resolvePlatformSpecificImplementation<
+    //                 AndroidFlutterLocalNotificationsPlugin>();
+    //     await androidImplementation?.requestPermission();
+    //   }
+    // }
+
     final signUpButton = ButtonLarge(
       onPressed: () {
-        usecase.signUpValidation();
+        usecase.signUpValidation(
+          errorDialog: () {
+            showErrorDialog(context, "既に登録されています");
+          },
+          context: context,
+        );
         context.go(PagePath.singupName);
       },
       text: '新規登録',
@@ -21,7 +57,9 @@ class StartPage extends HookConsumerWidget {
 
     final signInButton = ButtonLarge(
       onPressed: () {
-        usecase.signInValidation();
+        usecase.signInValidation(errorDialog: () {
+          showErrorDialog(context, "未だ登録が完了していません");
+        });
         context.go(PagePath.chat);
       },
       text: 'ログイン',

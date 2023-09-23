@@ -91,3 +91,33 @@ void showEmotionDialog(
     },
   );
 }
+
+class ErrorDialogWidget extends HookConsumerWidget {
+  const ErrorDialogWidget({super.key, required this.content});
+
+  final String content;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final title = Text("注意");
+    return AlertDialog(
+      title: title,
+      content: Text(content, textAlign: TextAlign.center),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text('戻る'),
+        ),
+      ],
+    );
+  }
+}
+
+void showErrorDialog(BuildContext context, String content) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return ErrorDialogWidget(content: content);
+    },
+  );
+}

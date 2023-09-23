@@ -15,7 +15,6 @@ final accountUsecaseProvider = Provider<AccountUsecase>(
     final firestore = ref.watch(firestoreProvider);
     final googleAuth = ref.watch(signedInProvider);
     final appUserState = ref.watch(appUserNotifierProvider);
-    final appUserNotifier = ref.read(appUserNotifierProvider.notifier);
     final accountState = ref.read(accountNotifierProvider);
     final accountNotifier = ref.read(accountNotifierProvider.notifier);
     return AccountUsecase(
@@ -23,7 +22,6 @@ final accountUsecaseProvider = Provider<AccountUsecase>(
       firestore: firestore,
       googleAuth: googleAuth,
       appUserState: appUserState,
-      appUserNotifier: appUserNotifier,
       accountState: accountState,
       accountNotifier: accountNotifier,
     );
