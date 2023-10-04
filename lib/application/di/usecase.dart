@@ -1,6 +1,6 @@
 import 'package:aizuchi_app/application/di/infrastructure.dart';
 import 'package:aizuchi_app/application/state/account_state.dart';
-import 'package:aizuchi_app/application/state/appuser_state.dart';
+
 import 'package:aizuchi_app/application/state/googleauth_state.dart';
 import 'package:aizuchi_app/application/state/waitng_state.dart';
 import 'package:aizuchi_app/application/usecase/account_usecase.dart';
@@ -14,7 +14,7 @@ final accountUsecaseProvider = Provider<AccountUsecase>(
     final auth = ref.watch(authProvider);
     final firestore = ref.watch(firestoreProvider);
     final googleAuth = ref.watch(signedInProvider);
-    final appUserState = ref.watch(appUserStateNotifierProvider);
+
     final accountState = ref.read(accountStateNotifierProvider);
     final accountStateNotifier =
         ref.read(accountStateNotifierProvider.notifier);
@@ -22,7 +22,6 @@ final accountUsecaseProvider = Provider<AccountUsecase>(
       auth: auth,
       firestore: firestore,
       googleAuth: googleAuth,
-      appUserState: appUserState,
       accountState: accountState,
       accountStateNotifier: accountStateNotifier,
     );

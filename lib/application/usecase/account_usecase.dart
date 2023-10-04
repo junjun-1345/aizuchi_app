@@ -13,14 +13,13 @@ class AccountUsecase {
     required this.auth,
     required this.firestore,
     required this.googleAuth,
-    required this.appUserState,
     required this.accountState,
     required this.accountStateNotifier,
   });
   final AuthInterface auth;
   final FirestoreInterface firestore;
   final bool googleAuth;
-  final AppUser appUserState;
+
   final bool accountState;
   final AccountStateNotifier accountStateNotifier;
 
