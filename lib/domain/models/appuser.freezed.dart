@@ -22,6 +22,7 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) {
 mixin _$AppUser {
 // ユーザー情報
   String get id => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   int get sex => throw _privateConstructorUsedError;
   String get birhtDay => throw _privateConstructorUsedError;
@@ -44,6 +45,7 @@ abstract class $AppUserCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String email,
       String name,
       int sex,
       String birhtDay,
@@ -69,6 +71,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
   @override
   $Res call({
     Object? id = null,
+    Object? email = null,
     Object? name = null,
     Object? sex = null,
     Object? birhtDay = null,
@@ -83,6 +86,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -133,6 +140,7 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String email,
       String name,
       int sex,
       String birhtDay,
@@ -155,6 +163,7 @@ class __$$_AppUserCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? email = null,
     Object? name = null,
     Object? sex = null,
     Object? birhtDay = null,
@@ -169,6 +178,10 @@ class __$$_AppUserCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -215,6 +228,7 @@ class __$$_AppUserCopyWithImpl<$Res>
 class _$_AppUser implements _AppUser {
   const _$_AppUser(
       {this.id = '',
+      this.email = '',
       this.name = '',
       this.sex = 0,
       this.birhtDay = '',
@@ -232,6 +246,9 @@ class _$_AppUser implements _AppUser {
   @override
   @JsonKey()
   final String id;
+  @override
+  @JsonKey()
+  final String email;
   @override
   @JsonKey()
   final String name;
@@ -265,7 +282,7 @@ class _$_AppUser implements _AppUser {
 
   @override
   String toString() {
-    return 'AppUser(id: $id, name: $name, sex: $sex, birhtDay: $birhtDay, init: $init, billing: $billing, activeDay: $activeDay, registerDay: $registerDay, wordIndex: $wordIndex, timer: $timer)';
+    return 'AppUser(id: $id, email: $email, name: $name, sex: $sex, birhtDay: $birhtDay, init: $init, billing: $billing, activeDay: $activeDay, registerDay: $registerDay, wordIndex: $wordIndex, timer: $timer)';
   }
 
   @override
@@ -274,6 +291,7 @@ class _$_AppUser implements _AppUser {
         (other.runtimeType == runtimeType &&
             other is _$_AppUser &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.sex, sex) || other.sex == sex) &&
             (identical(other.birhtDay, birhtDay) ||
@@ -291,8 +309,8 @@ class _$_AppUser implements _AppUser {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, sex, birhtDay, init,
-      billing, activeDay, registerDay, wordIndex, timer);
+  int get hashCode => Object.hash(runtimeType, id, email, name, sex, birhtDay,
+      init, billing, activeDay, registerDay, wordIndex, timer);
 
   @JsonKey(ignore: true)
   @override
@@ -311,6 +329,7 @@ class _$_AppUser implements _AppUser {
 abstract class _AppUser implements AppUser {
   const factory _AppUser(
       {final String id,
+      final String email,
       final String name,
       final int sex,
       final String birhtDay,
@@ -325,6 +344,8 @@ abstract class _AppUser implements AppUser {
 
   @override // ユーザー情報
   String get id;
+  @override
+  String get email;
   @override
   String get name;
   @override

@@ -164,7 +164,7 @@ class HumburgerMenu extends StatelessWidget {
         Button(
           onPressed: () async {
             final service = AuthService();
-            await service.signOutWithGoogle().catchError(
+            await service.signOut().catchError(
               (e) {
                 debugPrint('サインアウトできませんでした $e');
               },

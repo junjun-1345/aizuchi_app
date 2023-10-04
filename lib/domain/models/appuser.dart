@@ -7,6 +7,7 @@ class AppUser with _$AppUser {
   const factory AppUser({
     // ユーザー情報
     @Default('') String id,
+    @Default('') String email,
     @Default('') String name,
     @Default(0) int sex,
     @Default('') String birhtDay,

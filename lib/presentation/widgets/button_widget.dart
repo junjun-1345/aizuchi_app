@@ -53,3 +53,36 @@ class ButtonLarge extends StatelessWidget {
     );
   }
 }
+
+class RegisterButton extends StatelessWidget {
+  const RegisterButton(
+      {super.key, required this.onPressed, required this.text});
+
+  /// コールバック
+  final VoidCallback onPressed;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 48,
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: BrandColor.baseBlue,
+          shape: const StadiumBorder(),
+          elevation: 0,
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontFamily: BrandFont.general,
+              fontWeight: FontWeight.w800),
+        ),
+      ),
+    );
+  }
+}

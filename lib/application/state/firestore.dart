@@ -34,3 +34,31 @@ Stream<int> dailyCountInt(DailyCountIntRef ref) {
       db.collection("users").doc(id).collection("daily").snapshots();
   return snapshots.map((snapshot) => snapshot.docs.length);
 }
+
+@Riverpod(keepAlive: true)
+Stream<QuerySnapshot> dailyKeyStream(DailyKeyStreamRef ref) {
+  final db = FirebaseFirestore.instance;
+  final id = FirebaseAuth.instance.currentUser?.uid ?? "";
+
+  return db
+      .collection('users')
+      .doc(id)
+      .collection("daily")
+      .orderBy("startAt", descending: true)
+      .snapshots();
+}
+
+@Riverpod(keepAlive: true)
+Stream<QuerySnapshot> dailyMessageStream(
+    DailyMessageStreamRef ref, String dailyKey) {
+  final db = FirebaseFirestore.instance;
+  final id = FirebaseAuth.instance.currentUser?.uid ?? '';
+
+  return db
+      .collection("users")
+      .doc(id)
+      .collection("messages")
+      .orderBy('createdAt')
+      .where("dailyKey", isEqualTo: dailyKey)
+      .snapshots();
+}

@@ -9,7 +9,6 @@ import 'package:flutter/foundation.dart';
 import '../../application/interface/firebase/firestore.dart';
 
 class FirestoreService implements FirestoreInterface {
-  final id = FirebaseAuth.instance.currentUser?.uid ?? '';
   final db = FirebaseFirestore.instance;
 
   ////////////////
@@ -17,47 +16,71 @@ class FirestoreService implements FirestoreInterface {
   ////////////////
   @override
   Future<void> userCreate(AppUser data) async {
+    final id = FirebaseAuth.instance.currentUser?.uid ?? '';
+
     // JsonMap <--- データ
     final map = data.toJson();
     try {
+      print("ユーザーID$id");
       await db.collection('users').doc(id).set(map);
     } catch (e) {
-      debugPrint("userCreate エラー。$e");
+      debugPrint("userCreate エラー:$e");
     }
   }
 
   @override
   Future<AppUser> userRead() async {
-    debugPrint(id);
+    final id = FirebaseAuth.instance.currentUser?.uid ?? '';
+
     try {
       final doc = await db.collection('users').doc(id).get();
       final map = doc.data();
       if (map == null) {
-        return throw ("userRead エラー。 mapのデータが空です");
+        return throw ("userRead エラー: mapのデータが空です");
       }
       return AppUser.fromJson(map);
     } catch (e) {
-      return throw ("userRead エラー。$e");
+      return throw ("userRead エラー:$e");
     }
   }
 
   @override
   Future<void> userUpdate(AppUser data) async {
+    final id = FirebaseAuth.instance.currentUser?.uid ?? '';
+
     final map = data.toJson();
     try {
       await db.collection('users').doc(id).update(map);
     } catch (e) {
-      debugPrint("userUpdate エラー。$e");
+      debugPrint("userUpdate エラー:$e");
     }
   }
 
   @override
   Future<void> userDelete() async {
+    final id = FirebaseAuth.instance.currentUser?.uid ?? '';
+
     try {
       await db.collection('users').doc(id).delete();
     } catch (e) {
-      debugPrint("userDelete エラー。$e");
+      debugPrint("userDelete エラー:$e");
     }
+  }
+
+  @override
+  Future<bool> userFind() async {
+    try {
+      final id = FirebaseAuth.instance.currentUser?.uid ?? '';
+      final data = await db.collection('users').doc(id).get();
+      if (data.exists) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      debugPrint("userFind エラー:$e");
+    }
+    return false;
   }
 
   ////////////////
@@ -66,6 +89,8 @@ class FirestoreService implements FirestoreInterface {
 
   @override
   Future<void> messageCreate(Message data) async {
+    final id = FirebaseAuth.instance.currentUser?.uid ?? '';
+
     try {
       await db.collection('users').doc(id).collection("messages").doc().set(
         {
@@ -76,13 +101,14 @@ class FirestoreService implements FirestoreInterface {
         },
       );
     } catch (e) {
-      debugPrint("userCreate エラー。$e");
+      debugPrint("messageCreate エラー:$e");
     }
   }
 
   @override
   Future<List<ChatGPTMessage>> messageReadLimit(
       int num, String dailyKey) async {
+    final id = FirebaseAuth.instance.currentUser?.uid ?? '';
     try {
       final List<ChatGPTMessage> messages = [];
       await db
@@ -105,13 +131,14 @@ class FirestoreService implements FirestoreInterface {
 
       return messages;
     } catch (e) {
-      return throw ("userRead エラー。$e");
+      return throw ("userRead エラー:$e");
     }
   }
 
   @override
   Future<List<ChatGPTMessage>> messageReadToday(
       Timestamp start, Timestamp end) async {
+    final id = FirebaseAuth.instance.currentUser?.uid ?? '';
     try {
       final List<ChatGPTMessage> messages = [];
 
@@ -134,7 +161,7 @@ class FirestoreService implements FirestoreInterface {
           });
       return messages;
     } catch (e) {
-      return throw ("userRead エラー。$e");
+      return throw ("userRead エラー:$e");
     }
   }
 
@@ -144,6 +171,7 @@ class FirestoreService implements FirestoreInterface {
 
   @override
   Future<void> dailyCreate(String dailyKey) async {
+    final id = FirebaseAuth.instance.currentUser?.uid ?? '';
     try {
       await db
           .collection('users')
@@ -154,17 +182,18 @@ class FirestoreService implements FirestoreInterface {
         {
           "startAt": Timestamp.fromDate(DateTime.now()),
           "endAt": "",
-          "title": "入力中です。",
+          "title": "入力中です:",
           "emotion": "",
         },
       );
     } catch (e) {
-      debugPrint("userCreate エラー。$e");
+      debugPrint("userCreate エラー:$e");
     }
   }
 
   @override
   Future<Map<String, dynamic>> dailyRead(String key) async {
+    final id = FirebaseAuth.instance.currentUser?.uid ?? '';
     try {
       final documentSnapshot = await db
           .collection('users')
@@ -175,12 +204,13 @@ class FirestoreService implements FirestoreInterface {
 
       return documentSnapshot.data() as Map<String, dynamic>;
     } catch (e) {
-      return throw ("dailyRead エラー。$e");
+      return throw ("dailyRead エラー:$e");
     }
   }
 
   @override
   Future<void> dailyUpdate(String key, value) async {
+    final id = FirebaseAuth.instance.currentUser?.uid ?? '';
     try {
       await db
           .collection('users')
@@ -193,12 +223,13 @@ class FirestoreService implements FirestoreInterface {
         },
       );
     } catch (e) {
-      debugPrint("userCreate エラー。$e");
+      debugPrint("userCreate エラー:$e");
     }
   }
 
   @override
   Future<bool> dailyCheck(String key) async {
+    final id = FirebaseAuth.instance.currentUser?.uid ?? '';
     try {
       final data = await db
           .collection('users')
@@ -208,13 +239,14 @@ class FirestoreService implements FirestoreInterface {
           .get();
       return data.exists;
     } catch (e) {
-      debugPrint("userCreate エラー。$e");
+      debugPrint("userCreate エラー:$e");
       return false;
     }
   }
 
   @override
   Future<String> dailyGetKey() async {
+    final id = FirebaseAuth.instance.currentUser?.uid ?? '';
     try {
       late String data;
       await db
@@ -231,7 +263,7 @@ class FirestoreService implements FirestoreInterface {
           );
       return data;
     } catch (e) {
-      return throw ("dailyGetKey エラー。$e");
+      return throw ("dailyGetKey エラー:$e");
     }
   }
 }

@@ -1,5 +1,3 @@
-import 'package:aizuchi_app/application/di/usecase.dart';
-import 'package:aizuchi_app/presentation/dialog/dialog_widget.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +8,7 @@ class StartPage extends HookConsumerWidget {
   const StartPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final usecase = ref.read(accountUsecaseProvider);
-
+    final screenWidth = MediaQuery.of(context).size.width;
     // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     //     FlutterLocalNotificationsPlugin();
 
@@ -42,32 +39,19 @@ class StartPage extends HookConsumerWidget {
     //   }
     // }
 
-    final signUpButton = ButtonLarge(
+    final signUpButton = RegisterButton(
       onPressed: () {
-        usecase.signUpValidation(
-          errorDialog: () {
-            showErrorDialog(context, "既に登録されています");
-          },
-          context: context,
-        );
-        context.go(PagePath.singupName);
+        context.go(PagePath.signUp);
       },
       text: '新規登録',
     );
 
-    final signInButton = ButtonLarge(
+    final signInButton = RegisterButton(
       onPressed: () {
-        usecase.signInValidation(errorDialog: () {
-          showErrorDialog(context, "未だ登録が完了していません");
-        });
-        context.go(PagePath.chat);
+        context.go(PagePath.signIn);
       },
       text: 'ログイン',
     );
-
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    final img = Image.asset('assets/images/AIzuchiLogo.png');
 
     //////////////////////
     // レイアウトの構成
@@ -83,15 +67,16 @@ class StartPage extends HookConsumerWidget {
           width: screenWidth * 0.8,
           child: Column(
             children: [
-              img,
+              Image.asset('assets/images/AIzuchiLogo.png'),
               const SizedBox(
-                height: 132,
+                height: 104,
               ),
               signUpButton,
               const SizedBox(
                 height: 16,
               ),
-              signInButton
+              Text("既に登録済みの方はこちら"),
+              signInButton,
             ],
           ),
         ),

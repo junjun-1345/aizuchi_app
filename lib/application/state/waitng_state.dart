@@ -1,9 +1,9 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'waitng.g.dart';
+part 'waitng_state.g.dart';
 
 @riverpod
-class WaitngNotifier extends _$WaitngNotifier {
+class WaitngStateNotifier extends _$WaitngStateNotifier {
   @override
   bool build() {
     // 最初のデータ

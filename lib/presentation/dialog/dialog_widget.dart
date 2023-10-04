@@ -99,9 +99,8 @@ class ErrorDialogWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final title = Text("注意");
     return AlertDialog(
-      title: title,
+      title: Text("タイトル"),
       content: Text(content, textAlign: TextAlign.center),
       actions: [
         TextButton(

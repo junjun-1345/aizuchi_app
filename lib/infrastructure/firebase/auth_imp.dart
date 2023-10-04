@@ -19,9 +19,23 @@ class AuthService implements AuthInterface {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
+  @override
+  Future<void> signUpWithPassword(String emailAddress, String password) async {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: emailAddress,
+      password: password,
+    );
+  }
+
+  @override
+  Future<void> signInWithPassword(String emailAddress, String password) async {
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: emailAddress, password: password);
+  }
+
   /// サインアウト
   @override
-  Future<void> signOutWithGoogle() async {
+  Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
 
