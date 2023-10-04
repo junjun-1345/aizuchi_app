@@ -1,30 +1,34 @@
-import 'package:aizuchi_app/application/state/firestore.dart';
-import 'package:aizuchi_app/application/state/todaykey.dart';
+import 'package:aizuchi_app/application/di/usecase.dart';
+import 'package:aizuchi_app/application/state/dailykey_state.dart';
 import 'package:aizuchi_app/presentation/theme/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ChatWidget extends HookConsumerWidget {
-  const ChatWidget({super.key});
+  const ChatWidget({
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dailyKeyState = ref.watch(todaykeyNotifierProvider);
-
+    final dailykeyStateNotifier =
+        ref.read(dailykeyStateNotifierProvider.notifier);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final db = FirebaseFirestore.instance;
     final id = FirebaseAuth.instance.currentUser?.uid ?? '';
+    final dailyKey = ref.watch(dailykeyStateNotifierProvider);
+    print("デイリーキー$dailyKey");
 
-    print("$dailyKeyState");
-
-    final Stream<QuerySnapshot> _fetchMessageStream = FirebaseFirestore.instance
+    final messageStream = db
         .collection("users")
         .doc(id)
         .collection("messages")
         .orderBy('createdAt')
-        .where("dailyKey", isEqualTo: dailyKeyState)
+        .where("dailyKey", isEqualTo: dailyKey)
         .snapshots();
-
-    final screenWidth = MediaQuery.of(context).size.width;
 
     //
     // ユーザーチャットコンテント
@@ -101,7 +105,7 @@ class ChatWidget extends HookConsumerWidget {
     }
 
     return StreamBuilder<QuerySnapshot>(
-      stream: _fetchMessageStream,
+      stream: messageStream,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView(

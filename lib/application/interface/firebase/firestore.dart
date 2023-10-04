@@ -13,6 +13,8 @@ abstract class FirestoreInterface {
 
   Future<void> userDelete();
 
+  Future<bool> userFind();
+
   Future<void> messageCreate(Message data);
 
   Future<List<ChatGPTMessage>> messageReadLimit(int num, String dailyKey);

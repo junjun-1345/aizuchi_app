@@ -1,18 +1,15 @@
-import 'package:aizuchi_app/application/di/usecase.dart';
-import 'package:aizuchi_app/application/state/account.dart';
-import 'package:aizuchi_app/application/state/googleauth.dart';
+import 'package:aizuchi_app/application/state/googleauth_state.dart';
 import 'package:aizuchi_app/presentation/animation/page_animation.dart';
 import 'package:aizuchi_app/presentation/pages/calender_page.dart';
 import 'package:aizuchi_app/presentation/pages/chat_page.dart';
+import 'package:aizuchi_app/presentation/pages/loading_page.dart';
 import 'package:aizuchi_app/presentation/pages/log_page.dart';
-import 'package:aizuchi_app/presentation/pages/start/signup_birthday_page.dart';
-import 'package:aizuchi_app/presentation/pages/start/signup_check_page.dart';
-import 'package:aizuchi_app/presentation/pages/start/signup_name_page.dart';
-import 'package:aizuchi_app/presentation/pages/start/signup_sex_page.dart';
+import 'package:aizuchi_app/presentation/pages/start/signin_page.dart';
+import 'package:aizuchi_app/presentation/pages/start/signup_page.dart';
+import 'package:aizuchi_app/presentation/pages/start/signup_info.dart';
 import 'package:aizuchi_app/presentation/pages/start_page.dart';
 import 'package:aizuchi_app/presentation/theme/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -20,14 +17,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'router.g.dart';
 
 class PagePath {
+  static const loading = '/loading';
   static const start = '/start';
   static const chat = '/chat';
   static const log = '/log';
   static const calender = '/calender';
-  static const singupName = '/singupName';
-  static const singupSex = '/singupSex';
-  static const singupBirthDay = '/singupBirthDay';
-  static const singupCheck = '/singupCheck';
+  static const signUp = '/signUp';
+  static const signIn = '/signIn';
+  static const signUpInfo = '/signUpInfo';
 }
 
 //
@@ -35,6 +32,12 @@ class PagePath {
 GoRouter router(RouterRef ref) {
   // パスと画面の組み合わせ
   final routes = [
+    GoRoute(
+      path: PagePath.loading,
+      pageBuilder: (_, __) => buildPageWithAnimation(
+        const LoadingPage(),
+      ),
+    ),
     GoRoute(
       path: PagePath.start,
       pageBuilder: (_, __) => buildPageWithAnimation(
@@ -60,27 +63,21 @@ GoRouter router(RouterRef ref) {
       ),
     ),
     GoRoute(
-      path: PagePath.singupName,
+      path: PagePath.signUp,
       pageBuilder: (_, __) => buildPageWithAnimation(
-        const SignUpNamePage(),
+        const SignUpPage(),
       ),
     ),
     GoRoute(
-      path: PagePath.singupSex,
+      path: PagePath.signIn,
       pageBuilder: (_, __) => buildPageWithAnimation(
-        const SignUpSexPage(),
+        const SignInPage(),
       ),
     ),
     GoRoute(
-      path: PagePath.singupBirthDay,
+      path: PagePath.signUpInfo,
       pageBuilder: (_, __) => buildPageWithAnimation(
-        const SignUpBirthdayPage(),
-      ),
-    ),
-    GoRoute(
-      path: PagePath.singupCheck,
-      pageBuilder: (_, __) => buildPageWithAnimation(
-        const SignUpCheckPage(),
+        const SignUpInfoPage(),
       ),
     ),
   ];
@@ -88,40 +85,28 @@ GoRouter router(RouterRef ref) {
   // リダイレクト - 強制的に画面を変更する
   String? redirect(BuildContext context, GoRouterState state) {
     // 表示しようとしている画面
-    final page = state.matchedLocation;
+    final page = state.uri.toString();
+    // サインインしているかどうか
+    final signedIn = ref.read(signedInProvider);
 
-    debugPrint(page);
+    print("ページ$page サインイン$signedIn");
 
-    // サインアップ・サインインしているかどうか
-    final accountState = ref.watch(accountNotifierProvider);
-
-    debugPrint(accountState.toString());
-
-    if (accountState && page == PagePath.chat) {
-      // サインイン済み --> ホーム画面へ
-      debugPrint("サインイン済みのためチャットページへリダイレクト");
+    if (signedIn && page == PagePath.start) {
+      return PagePath.chat;
+    } else {
       return null;
-    } else if (!accountState && page == PagePath.chat) {
-      debugPrint("未サインインのためリダイレクトしない");
-      return null;
-      PagePath.start;
     }
-    debugPrint("条件外のためリダイレクトしない");
-    return null;
   }
 
-  // リフレッシュリスナブル - Riverpod と GoRouter を連動させるコード
-  // サインイン状態が切り替わったときに GoRouter が反応する
   final listenable = ValueNotifier<Object?>(null);
-  ref.listen<Object?>(userChangesProvider, (_, newState) {
+  ref.listen<Object?>(signedInProvider, (_, newState) {
+    print("リフレッシュナブル発火");
     listenable.value = newState;
-    print("リフレッシュリスナブル");
   });
-
   ref.onDispose(listenable.dispose);
 
   return GoRouter(
-    initialLocation: PagePath.chat,
+    initialLocation: PagePath.start,
     routes: routes,
     redirect: redirect,
     refreshListenable: listenable,
@@ -133,11 +118,6 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
-    final accountUsecase = ref.read(accountUsecaseProvider);
-
-    useEffect(() {
-      accountUsecase.init();
-    }, const []);
 
     return MaterialApp.router(
       theme: brandThemeData,

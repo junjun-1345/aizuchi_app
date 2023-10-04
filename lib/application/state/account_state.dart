@@ -1,11 +1,11 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'account.g.dart';
+part 'account_state.g.dart';
 
 // アカウントのログイン状態を保持
 // redirectの参照先
 @riverpod
-class AccountNotifier extends _$AccountNotifier {
+class AccountStateNotifier extends _$AccountStateNotifier {
   @override
   bool build() {
     return false;

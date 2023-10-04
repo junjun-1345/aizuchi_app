@@ -1,16 +1,17 @@
 import 'package:aizuchi_app/application/di/usecase.dart';
-import 'package:aizuchi_app/application/state/todaykey.dart';
-import 'package:aizuchi_app/application/state/waitng.dart';
+import 'package:aizuchi_app/application/state/waitng_state.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
-import 'package:aizuchi_app/presentation/widgets/chat/chat_widget.dart';
 import 'package:aizuchi_app/presentation/dialog/dialog_widget.dart';
 import 'package:aizuchi_app/presentation/widgets/humburger_menu_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../theme/fonts.dart';
+import '../widgets/chat/chat_widget.dart';
 
 class ChatPage extends HookConsumerWidget {
   const ChatPage({super.key});
@@ -18,12 +19,21 @@ class ChatPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final messageUsecase = ref.read(messageUsecaseProvider);
     // final accountUsecase = ref.read(accountUsecaseProvider);
-    final dailyKeyStateStr = ref.watch(todaykeyNotifierProvider);
-    final dailyKeyNotifier = ref.read(todaykeyNotifierProvider.notifier);
+    Stream<QuerySnapshot> stream() {
+      final db = FirebaseFirestore.instance;
+      final id = FirebaseAuth.instance.currentUser?.uid ?? "";
 
-    final dailyKeyStateDate = DateTime.parse(dailyKeyStateStr);
+      return db
+          .collection('users')
+          .doc(id)
+          .collection("daily")
+          .orderBy("startAt", descending: true)
+          .snapshots();
+    }
 
-    final isWaiting = ref.watch(waitngNotifierProvider);
+    ;
+
+    final isWaiting = ref.watch(waitngStateNotifierProvider);
     final isKeyboard = useState(false);
     // final isFinish = useState(true);
 
@@ -184,16 +194,6 @@ class ChatPage extends HookConsumerWidget {
     );
 
     //
-    // チャットエリア
-    //
-    const chatArea = ChatWidget();
-
-    // ListView.builder(
-    //   itemCount: messageState.length,
-    //   itemBuilder:
-    // );
-
-    //
     // フッターエリア
     //
     final chatFooter = Column(
@@ -213,7 +213,8 @@ class ChatPage extends HookConsumerWidget {
         appBar: AppBar(
           elevation: 0.0,
           title: Text(
-            "${dailyKeyStateDate.month}月${dailyKeyStateDate.day}日のチャット",
+            // "${dailyKeyStateDate.month}月${dailyKeyStateDate.day}日のチャット",
+            "",
             style: BrandText.titleS,
           ),
           actions: [
@@ -222,7 +223,7 @@ class ChatPage extends HookConsumerWidget {
                   Icons.manage_history,
                 ),
                 onPressed: () {
-                  dailyKeyNotifier.initState();
+                  // dailyKeyNotifier.initState();
                 }),
           ],
         ),
@@ -232,7 +233,7 @@ class ChatPage extends HookConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(child: chatArea),
+              Expanded(child: ChatWidget()),
               chatFooter,
             ],
           ),

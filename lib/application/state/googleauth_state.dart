@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'googleauth.g.dart';
+part 'googleauth_state.g.dart';
 
 //
 /// FirebaseのユーザーをAsyncValue型で管理するプロバイダー
@@ -16,18 +16,19 @@ Stream<User?> userChanges(UserChangesRef ref) {
 /// ユーザー
 ///
 @Riverpod(keepAlive: true)
-User? user(UserRef ref) {
+String? user(UserRef ref) {
   final userChanges = ref.watch(userChangesProvider);
-  print("ユーザーの更新$userChanges");
+  print("ユーザーチェンジ発火1${userChanges.asData?.value?.uid}");
   return userChanges.when(
     loading: () => null,
     error: (_, __) => null,
-    data: (d) => d,
+    data: (d) => d?.uid,
   );
 }
 
 @Riverpod(keepAlive: true)
 bool signedIn(SignedInRef ref) {
   final user = ref.watch(userProvider);
+  print("ユーザーチェンジ発火2${user}");
   return user != null;
 }

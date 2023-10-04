@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'googleauth.dart';
+part of 'googleauth_state.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -23,7 +23,7 @@ final userChangesProvider = StreamProvider<User?>.internal(
 );
 
 typedef UserChangesRef = StreamProviderRef<User?>;
-String _$userHash() => r'e689a538a91f2c2c7570aa7787d647e8fbd34fa2';
+String _$userHash() => r'11c4c7c6b66953f3878c804baf073b3e0989e5d3';
 
 ///
 /// ユーザー
@@ -31,7 +31,7 @@ String _$userHash() => r'e689a538a91f2c2c7570aa7787d647e8fbd34fa2';
 ///
 /// Copied from [user].
 @ProviderFor(user)
-final userProvider = Provider<User?>.internal(
+final userProvider = Provider<String?>.internal(
   user,
   name: r'userProvider',
   debugGetCreateSourceHash:
@@ -40,8 +40,8 @@ final userProvider = Provider<User?>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef UserRef = ProviderRef<User?>;
-String _$signedInHash() => r'7217b447533804046501b5e659197fd9572fb487';
+typedef UserRef = ProviderRef<String?>;
+String _$signedInHash() => r'691cf78ae561b4c826fa842583e66b6f2b7df231';
 
 /// See also [signedIn].
 @ProviderFor(signedIn)

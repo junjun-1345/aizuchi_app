@@ -1,6 +1,6 @@
 import 'package:aizuchi_app/application/interface/chatGPT/chatgpt.dart';
 import 'package:aizuchi_app/application/interface/firebase/firestore.dart';
-import 'package:aizuchi_app/application/state/waitng.dart';
+import 'package:aizuchi_app/application/state/waitng_state.dart';
 import 'package:aizuchi_app/domain/features/datetime.dart';
 import 'package:aizuchi_app/domain/features/prompt.dart';
 import 'package:aizuchi_app/domain/models/chatgptmessage.dart';
@@ -11,11 +11,11 @@ class MessageUsecase {
   MessageUsecase({
     required this.firestore,
     required this.chatGPT,
-    required this.waitingNotifier,
+    required this.waitingStateNotifier,
   });
   final FirestoreInterface firestore;
   final ChatGPTInterface chatGPT;
-  final WaitngNotifier waitingNotifier;
+  final WaitngStateNotifier waitingStateNotifier;
 
   Future<void> initValitation({
     required void Function() selectEmotionDialog,
@@ -29,7 +29,7 @@ class MessageUsecase {
   }
 
   Future<void> sendEmotion(String dailyKey, int num, String text) async {
-    waitingNotifier.trueState();
+    waitingStateNotifier.trueState();
     final _newUserMessage = ChatGPTMessage(
       role: "user",
       content: text,
@@ -52,12 +52,12 @@ class MessageUsecase {
     );
 
     firestore.messageCreate(_newClientMessage);
-    waitingNotifier.falseState();
+    waitingStateNotifier.falseState();
   }
 
   Future<void> sendMessage(String message) async {
     final dailyKey = await firestore.dailyGetKey();
-    waitingNotifier.trueState();
+    waitingStateNotifier.trueState();
 
     print("dailyKey${dailyKey}");
     //メッセージを保存
@@ -86,12 +86,12 @@ class MessageUsecase {
     );
 
     firestore.messageCreate(_newClientMessage);
-    waitingNotifier.falseState();
+    waitingStateNotifier.falseState();
   }
 
   Future<void> finishMessage() async {
     final dailyKey = await firestore.dailyGetKey();
-    waitingNotifier.trueState();
+    waitingStateNotifier.trueState();
 
     final _finish = ChatGPTMessage(
       content: "終了",
@@ -127,6 +127,6 @@ class MessageUsecase {
     firestore.messageCreate(_newClientMessage);
     firestore.dailyUpdate("title", _reply);
 
-    waitingNotifier.falseState();
+    waitingStateNotifier.falseState();
   }
 }
