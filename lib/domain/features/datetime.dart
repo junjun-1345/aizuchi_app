@@ -11,6 +11,10 @@ class CustomDateTime {
     return DateTime(_now.year, _now.month, _now.day);
   }
 
+  DateTime stringToDateTime(String value) {
+    return DateTime.parse(value);
+  }
+
   List<String> nowWeekDays() {
     final List<String> _list = [];
     for (int i = 0; i < 7; i++) {

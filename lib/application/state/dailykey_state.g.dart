@@ -7,12 +7,12 @@ part of 'dailykey_state.dart';
 // **************************************************************************
 
 String _$dailykeyStateNotifierHash() =>
-    r'7f22de623771c4fe386d99b99dcf7e24b7ec7aaa';
+    r'c05f09caa4085c3ec4dbdc7d43f839ad03d66e07';
 
 /// See also [DailykeyStateNotifier].
 @ProviderFor(DailykeyStateNotifier)
 final dailykeyStateNotifierProvider =
-    AutoDisposeNotifierProvider<DailykeyStateNotifier, String>.internal(
+    NotifierProvider<DailykeyStateNotifier, String>.internal(
   DailykeyStateNotifier.new,
   name: r'dailykeyStateNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final dailykeyStateNotifierProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$DailykeyStateNotifier = AutoDisposeNotifier<String>;
+typedef _$DailykeyStateNotifier = Notifier<String>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

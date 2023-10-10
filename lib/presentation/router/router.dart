@@ -4,6 +4,7 @@ import 'package:aizuchi_app/presentation/pages/calender_page.dart';
 import 'package:aizuchi_app/presentation/pages/chat_page.dart';
 import 'package:aizuchi_app/presentation/pages/loading_page.dart';
 import 'package:aizuchi_app/presentation/pages/log_page.dart';
+import 'package:aizuchi_app/presentation/pages/select_chat_page.dart';
 import 'package:aizuchi_app/presentation/pages/start/signin_page.dart';
 import 'package:aizuchi_app/presentation/pages/start/signup_page.dart';
 import 'package:aizuchi_app/presentation/pages/start/signup_info.dart';
@@ -20,6 +21,7 @@ class PagePath {
   static const loading = '/loading';
   static const start = '/start';
   static const chat = '/chat';
+  static const selectChat = '/selectChat';
   static const log = '/log';
   static const calender = '/calender';
   static const signUp = '/signUp';
@@ -48,6 +50,12 @@ GoRouter router(RouterRef ref) {
       path: PagePath.chat,
       pageBuilder: (_, __) => buildPageWithAnimation(
         const ChatPage(),
+      ),
+    ),
+    GoRoute(
+      path: PagePath.selectChat,
+      pageBuilder: (_, __) => buildPageWithAnimation(
+        const SelectChatPage(),
       ),
     ),
     GoRoute(

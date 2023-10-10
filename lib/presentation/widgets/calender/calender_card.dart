@@ -1,5 +1,6 @@
 // カードの中身
 import 'package:aizuchi_app/application/di/usecase.dart';
+import 'package:aizuchi_app/application/state/dailykey_state.dart';
 import 'package:aizuchi_app/domain/features/datetime.dart';
 import 'package:aizuchi_app/domain/models/emotion_model.dart';
 import 'package:aizuchi_app/domain/models/weekday_model.dart';
@@ -21,6 +22,7 @@ class CustomCalender extends ConsumerWidget {
         CustomDateTime().selectedMonthInDaysDat(now.year, now.month - diff, 7);
 
     final calenderUsecase = ref.read(calenderUsecaseProvider);
+    final dailyKeyNotifier = ref.read(dailykeyStateNotifierProvider.notifier);
 
     //週ごとのリストROWを作成
     List<TableRow> _selectedMonthInWeekTableRows() {
@@ -67,9 +69,8 @@ class CustomCalender extends ConsumerWidget {
                             if (int.parse(snapshot.data.toString()) < 5) {
                               return TextButton(
                                 onPressed: () {
-                                  // TODO:指定日に設定
-                                  // todaykeyNotifier.changeState(cell.toString());
-                                  context.go(PagePath.chat);
+                                  dailyKeyNotifier.setState(cell.toString());
+                                  context.go(PagePath.selectChat);
                                 },
                                 child: Text(
                                     Emotion
