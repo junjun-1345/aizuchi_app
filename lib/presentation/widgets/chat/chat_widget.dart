@@ -1,10 +1,8 @@
-import 'package:aizuchi_app/application/di/usecase.dart';
-import 'package:aizuchi_app/application/state/dailykey_state.dart';
+import 'package:aizuchi_app/domain/features/datetime.dart';
 import 'package:aizuchi_app/presentation/theme/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ChatWidget extends HookConsumerWidget {
@@ -14,21 +12,46 @@ class ChatWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dailykeyStateNotifier =
-        ref.read(dailykeyStateNotifierProvider.notifier);
     final screenWidth = MediaQuery.of(context).size.width;
     final db = FirebaseFirestore.instance;
     final id = FirebaseAuth.instance.currentUser?.uid ?? '';
-    final dailyKey = ref.watch(dailykeyStateNotifierProvider);
-    print("デイリーキー$dailyKey");
 
-    final messageStream = db
+    final _messageStream = db
         .collection("users")
         .doc(id)
         .collection("messages")
         .orderBy('createdAt')
-        .where("dailyKey", isEqualTo: dailyKey)
         .snapshots();
+
+    //
+    // 日時コンテント
+    //
+    Widget dateContent(String message) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Align(
+          alignment: Alignment.center,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: screenWidth * 0.8,
+            ),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: BrandColor.white,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  "${CustomDateTime().stringToDateTime(message).month}月${CustomDateTime().stringToDateTime(message).day}日",
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
 
     //
     // ユーザーチャットコンテント
@@ -105,7 +128,7 @@ class ChatWidget extends HookConsumerWidget {
     }
 
     return StreamBuilder<QuerySnapshot>(
-      stream: messageStream,
+      stream: _messageStream,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView(
@@ -113,6 +136,9 @@ class ChatWidget extends HookConsumerWidget {
                 .map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
+                  if (data['role'] == "date") {
+                    return dateContent(data['content']);
+                  }
                   if (data['role'] == "user") {
                     return userChatContent(data['content']);
                   }

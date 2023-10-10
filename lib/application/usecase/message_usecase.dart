@@ -30,6 +30,14 @@ class MessageUsecase {
 
   Future<void> sendEmotion(String dailyKey, int num, String text) async {
     waitingStateNotifier.trueState();
+    final _newDateMessage = Message(
+      key: dailyKey,
+      createdAt: DateTime.now(),
+      role: "date",
+      content: dailyKey,
+    );
+    firestore.messageCreate(_newDateMessage);
+
     final _newUserMessage = ChatGPTMessage(
       role: "user",
       content: text,
@@ -56,11 +64,10 @@ class MessageUsecase {
   }
 
   Future<void> sendMessage(String message) async {
-    final dailyKey = await firestore.dailyGetKey();
     waitingStateNotifier.trueState();
-
+    final dailyKey = await firestore.dailyGetKey();
     print("dailyKey${dailyKey}");
-    //メッセージを保存
+
     final _newUserMessage = Message(
       key: dailyKey,
       createdAt: DateTime.now(),
@@ -76,6 +83,7 @@ class MessageUsecase {
 
     final messageList = await firestore.messageReadLimit(10, dailyKey);
     messageList.insert(0, _prompt);
+
     final _reply = await chatGPT.sendMessage(messageList);
 
     final _newClientMessage = Message(
