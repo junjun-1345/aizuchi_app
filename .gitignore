@@ -46,3 +46,6 @@ app.*.map.json
 # env
 .env
 env.g.dart
+
+# FVM
+.fvm/flutter_sdk
