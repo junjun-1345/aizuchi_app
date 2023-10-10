@@ -7,12 +7,12 @@ part of 'waitng_state.dart';
 // **************************************************************************
 
 String _$waitngStateNotifierHash() =>
-    r'a18c7e5e615e5e95e0b0c4d3c3574edeab44c57f';
+    r'5bddcc008b94a619a9287b93566b40207ee563ea';
 
 /// See also [WaitngStateNotifier].
 @ProviderFor(WaitngStateNotifier)
 final waitngStateNotifierProvider =
-    AutoDisposeNotifierProvider<WaitngStateNotifier, bool>.internal(
+    NotifierProvider<WaitngStateNotifier, bool>.internal(
   WaitngStateNotifier.new,
   name: r'waitngStateNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final waitngStateNotifierProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$WaitngStateNotifier = AutoDisposeNotifier<bool>;
+typedef _$WaitngStateNotifier = Notifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

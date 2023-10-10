@@ -2,7 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'waitng_state.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class WaitngStateNotifier extends _$WaitngStateNotifier {
   @override
   bool build() {
