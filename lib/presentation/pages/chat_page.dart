@@ -31,8 +31,6 @@ class ChatPage extends HookConsumerWidget {
           .snapshots();
     }
 
-    ;
-
     final isWaiting = ref.watch(waitngStateNotifierProvider);
     final isKeyboard = useState(false);
     // final isFinish = useState(true);
@@ -64,24 +62,34 @@ class ChatPage extends HookConsumerWidget {
     final emptyKeyboard = Container(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Expanded(
-            child: OutlinedButton(
-              child: const Text(
-                'テキストを入力',
-                style: TextStyle(color: Color.fromARGB(125, 51, 51, 51)),
+          if (!isWaiting)
+            Expanded(
+              child: OutlinedButton(
+                child: const Text(
+                  'テキストを入力',
+                  style: TextStyle(color: Color.fromARGB(125, 51, 51, 51)),
+                ),
+                style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.white,
+                    minimumSize: Size.fromHeight(48),
+                    shape: const StadiumBorder(),
+                    side: const BorderSide(color: Colors.white)),
+                onPressed: () {
+                  KeyboardStateToTrue();
+                },
               ),
-              style: OutlinedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.white,
-                  minimumSize: Size.fromHeight(48),
-                  shape: const StadiumBorder(),
-                  side: const BorderSide(color: Colors.white)),
-              onPressed: () {
-                KeyboardStateToTrue();
-              },
             ),
-          ),
+          if (isWaiting)
+            Expanded(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+              ],
+            )),
           const SizedBox(
             width: 8.0,
           ),
@@ -196,11 +204,20 @@ class ChatPage extends HookConsumerWidget {
     //
     // フッターエリア
     //
-    final chatFooter = Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        isKeyboard.value ? existKeyboard : emptyKeyboard,
-      ],
+    final chatFooter = Container(
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+              width: 0.25, //枠線の太さ
+              color: Colors.black38),
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          isKeyboard.value ? existKeyboard : emptyKeyboard,
+        ],
+      ),
     );
 
     //////////////////////
@@ -217,19 +234,10 @@ class ChatPage extends HookConsumerWidget {
             "",
             style: BrandText.titleS,
           ),
-          actions: [
-            IconButton(
-                icon: Icon(
-                  Icons.manage_history,
-                ),
-                onPressed: () {
-                  // dailyKeyNotifier.initState();
-                }),
-          ],
         ),
         drawer: const HumburgerMenu(),
         body: Container(
-          padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 16.0),
+          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

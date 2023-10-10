@@ -116,18 +116,19 @@ class FirestoreService implements FirestoreInterface {
           .doc(id)
           .collection("messages")
           .where("dailyKey", isEqualTo: dailyKey)
+          .where("role", whereIn: ["user", "system", "assistant"])
           .orderBy("createdAt")
           .limit(num)
           .get()
           .then((querySnapshot) {
-        for (var doc in querySnapshot.docs) {
-          final newMessage = ChatGPTMessage(
-            role: doc["role"],
-            content: doc["content"],
-          );
-          messages.add(newMessage);
-        }
-      });
+            for (var doc in querySnapshot.docs) {
+              final newMessage = ChatGPTMessage(
+                role: doc["role"],
+                content: doc["content"],
+              );
+              messages.add(newMessage);
+            }
+          });
 
       return messages;
     } catch (e) {

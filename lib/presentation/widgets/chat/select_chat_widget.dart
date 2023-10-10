@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/application/state/dailykey_state.dart';
 import 'package:aizuchi_app/domain/features/datetime.dart';
 import 'package:aizuchi_app/presentation/theme/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -5,21 +6,24 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ChatWidget extends HookConsumerWidget {
-  const ChatWidget({
+class SelectChatWidget extends HookConsumerWidget {
+  const SelectChatWidget({
     super.key,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final dailyState = ref.watch(dailykeyStateNotifierProvider);
+
     final db = FirebaseFirestore.instance;
-    final id = FirebaseAuth.instance.currentUser?.uid ?? '';
+    final id = FirebaseAuth.instance.currentUser?.uid ?? "";
 
     final _messageStream = db
         .collection("users")
         .doc(id)
         .collection("messages")
+        .where("dailyKey", isEqualTo: dailyState)
         .orderBy('createdAt')
         .snapshots();
 
@@ -43,7 +47,7 @@ class ChatWidget extends HookConsumerWidget {
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Text(
-                  "${CustomDateTime().stringToDateTime(message).month}月${CustomDateTime().stringToDateTime(message).day}日",
+                  "${CustomDateTime().stringToDateTime(message).month}月${CustomDateTime().stringToDateTime(message).month}日",
                   style: const TextStyle(fontSize: 12),
                 ),
               ),
