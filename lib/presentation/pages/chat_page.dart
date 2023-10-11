@@ -39,6 +39,7 @@ class ChatPage extends HookConsumerWidget {
 
     useEffect(() {
       messageUsecase.initValitation(selectEmotionDialog: () {
+        print("ダイアログ");
         showEmotionDialog(context);
       });
     });

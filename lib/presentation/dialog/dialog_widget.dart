@@ -1,4 +1,5 @@
 import 'package:aizuchi_app/application/di/usecase.dart';
+import 'package:aizuchi_app/presentation/theme/colors.dart';
 import 'package:aizuchi_app/presentation/theme/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -54,18 +55,26 @@ class EmotionDialogWidget extends HookConsumerWidget {
               text: "${birthdayState.value.month}月${birthdayState.value.day}日",
               style: BrandText.textL.copyWith(color: Colors.blue),
             ),
-            TextSpan(
-              text: "の日記作成",
-              style: BrandText.textL.copyWith(color: Colors.black),
-            ),
           ],
         ),
       ),
     );
 
     return AlertDialog(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+            bottomRight: Radius.circular(10),
+          ),
+        ),
+        backgroundColor: BrandColor.baseRed,
         title: textButton,
-        content: Text('今日の感情を選択してね！', textAlign: TextAlign.center),
+        content: Text(
+          '今日はどんな１日だったの？',
+          textAlign: TextAlign.center,
+          style: BrandText.textLBold.copyWith(color: Colors.white),
+        ),
         actions: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
