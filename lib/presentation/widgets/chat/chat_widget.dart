@@ -1,4 +1,5 @@
 import 'package:aizuchi_app/domain/features/datetime.dart';
+import 'package:aizuchi_app/domain/models/emotion_model.dart';
 import 'package:aizuchi_app/presentation/theme/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,6 +23,30 @@ class ChatWidget extends HookConsumerWidget {
         .collection("messages")
         .orderBy('createdAt')
         .snapshots();
+
+    //
+    // 感情コンテント
+    //
+    Widget emotionContent(String message) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: screenWidth * 0.8,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(
+                Emotion.values[int.parse(message)].name,
+                style: const TextStyle(fontSize: 64),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
 
     //
     // 日時コンテント
@@ -136,6 +161,9 @@ class ChatWidget extends HookConsumerWidget {
                 .map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
+                  if (data['role'] == "emotion") {
+                    return emotionContent(data['content']);
+                  }
                   if (data['role'] == "date") {
                     return dateContent(data['content']);
                   }

@@ -30,6 +30,7 @@ class MessageUsecase {
 
   Future<void> sendEmotion(String dailyKey, int num, String text) async {
     waitingStateNotifier.trueState();
+
     final _newDateMessage = Message(
       key: dailyKey,
       createdAt: DateTime.now(),
@@ -37,6 +38,14 @@ class MessageUsecase {
       content: dailyKey,
     );
     firestore.messageCreate(_newDateMessage);
+
+    final _newEmotionMessage = Message(
+      key: dailyKey,
+      createdAt: DateTime.now(),
+      role: "emotion",
+      content: num.toString(),
+    );
+    firestore.messageCreate(_newEmotionMessage);
 
     final _newUserMessage = ChatGPTMessage(
       role: "user",
