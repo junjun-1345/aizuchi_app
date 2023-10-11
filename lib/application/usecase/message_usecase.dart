@@ -30,6 +30,7 @@ class MessageUsecase {
 
   Future<void> sendEmotion(String dailyKey, int num, String text) async {
     waitingStateNotifier.trueState();
+
     final _newDateMessage = Message(
       key: dailyKey,
       createdAt: DateTime.now(),
@@ -37,6 +38,14 @@ class MessageUsecase {
       content: dailyKey,
     );
     firestore.messageCreate(_newDateMessage);
+
+    final _newEmotionMessage = Message(
+      key: dailyKey,
+      createdAt: DateTime.now(),
+      role: "emotion",
+      content: num.toString(),
+    );
+    firestore.messageCreate(_newEmotionMessage);
 
     final _newUserMessage = ChatGPTMessage(
       role: "user",
@@ -101,11 +110,6 @@ class MessageUsecase {
     final dailyKey = await firestore.dailyGetKey();
     waitingStateNotifier.trueState();
 
-    final _finish = ChatGPTMessage(
-      content: "終了",
-      role: "system",
-    );
-
     final _prompt = ChatGPTMessage(
       content: summaryPrompt,
       role: "system",
@@ -119,7 +123,6 @@ class MessageUsecase {
         dailyData["startAt"], dailyData["endAt"]);
 
     _messageList.insert(0, _prompt);
-    _messageList.insert(1, _finish);
 
     print(_messageList);
 
