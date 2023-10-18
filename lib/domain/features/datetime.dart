@@ -25,9 +25,21 @@ class CustomDateTime {
     return _list;
   }
 
+  int lastDayInMonth() {
+    return DateTime(_now.year, _now.month + 1, 1).add(Duration(days: -1)).day;
+  }
+
   List<String> thisWeekDatesStr() {
     final List<String> _list = [];
     for (int i = 0; i < 7; i++) {
+      _list.add(nowDateDateTime().subtract(Duration(days: i)).toString());
+    }
+    return _list;
+  }
+
+  List<String> thisMonthDatesStr() {
+    final List<String> _list = [];
+    for (int i = 0; i < lastDayInMonth(); i++) {
       _list.add(nowDateDateTime().subtract(Duration(days: i)).toString());
     }
     return _list;

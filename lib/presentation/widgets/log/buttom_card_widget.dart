@@ -1,5 +1,6 @@
+import 'package:aizuchi_app/presentation/widgets/log/linechart_card.dart';
 import 'package:aizuchi_app/presentation/widgets/log/list_card.dart';
-import 'package:aizuchi_app/presentation/widgets/log/chart_card.dart';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,7 +12,9 @@ class ButtomCardWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     List<Widget> cardList = [
       ListCard(),
-      ChartCard(),
+      LineChartCard(),
+
+      // ChartCard(),
     ];
 
     double screenHeight = MediaQuery.of(context).size.height;

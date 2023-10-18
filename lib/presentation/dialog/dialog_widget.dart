@@ -53,7 +53,7 @@ class EmotionDialogWidget extends HookConsumerWidget {
           children: [
             TextSpan(
               text: "${birthdayState.value.month}月${birthdayState.value.day}日",
-              style: BrandText.textL.copyWith(color: Colors.blue),
+              style: BrandText.textL,
             ),
           ],
         ),
@@ -63,15 +63,15 @@ class EmotionDialogWidget extends HookConsumerWidget {
     return AlertDialog(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-            bottomRight: Radius.circular(10),
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+            bottomRight: Radius.circular(24),
           ),
         ),
         backgroundColor: BrandColor.baseRed,
         title: textButton,
         content: Text(
-          '今日はどんな１日だったの？',
+          '今日はどんな１日だったー？',
           textAlign: TextAlign.center,
           style: BrandText.textLBold.copyWith(color: Colors.white),
         ),

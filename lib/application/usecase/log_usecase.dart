@@ -39,4 +39,21 @@ class LogUsecase {
     }
     return _weekDateEmotionList;
   }
+
+  Future<List<dynamic>> getThisMonthEmotions() async {
+    final _monthDateEmotionList = [];
+    final _monthDatesList = CustomDateTime().thisMonthDatesStr();
+
+    for (int i = 0; i < CustomDateTime().lastDayInMonth(); i++) {
+      final dailyBool = await firestore.dailyCheck(_monthDatesList[i]);
+      if (dailyBool) {
+        final data = await firestore.dailyRead(_monthDatesList[i]);
+        _monthDateEmotionList.add(data["emotion"]);
+      }
+      if (!dailyBool) {
+        _monthDateEmotionList.add(0);
+      }
+    }
+    return _monthDateEmotionList;
+  }
 }

@@ -60,6 +60,7 @@ class LogPage extends ConsumerWidget {
       drawer: const HumburgerMenu(),
       body: Container(
         padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 16.0),
+        // child: LineChartSample1(),
         child: Column(
           children: [
             Expanded(
