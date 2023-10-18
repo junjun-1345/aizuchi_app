@@ -2,7 +2,6 @@ import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/theme/fonts.dart';
 import 'package:aizuchi_app/presentation/widgets/humburger_menu_widget.dart';
 import 'package:aizuchi_app/presentation/widgets/log/buttom_card_widget.dart';
-import 'package:aizuchi_app/presentation/widgets/log/chart_ex.dart';
 import 'package:aizuchi_app/presentation/widgets/log/top_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
