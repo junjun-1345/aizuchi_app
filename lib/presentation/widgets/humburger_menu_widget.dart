@@ -15,15 +15,66 @@ class HumburgerMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
     // 1回目に通知を飛ばす時間の作成
     tz.TZDateTime _nextInstanceOf8AM() {
       final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-      tz.TZDateTime scheduledDate =
-          tz.TZDateTime(tz.local, now.year, now.month, now.day, 8);
+      tz.TZDateTime scheduledDate = tz.TZDateTime(
+          tz.local, now.year, now.month, now.day, now.hour, now.minute, 30);
       if (scheduledDate.isBefore(now)) {
         scheduledDate = scheduledDate.add(const Duration(days: 1));
       }
       return scheduledDate;
+    }
+
+    void _initializePlatformSpecifics() {
+      var initializationSettingsAndroid =
+          AndroidInitializationSettings('app_icon');
+
+      var initializationSettingsIOS = DarwinInitializationSettings(
+        requestAlertPermission: true,
+        requestBadgePermission: true,
+        requestSoundPermission: false,
+        onDidReceiveLocalNotification: (id, title, body, payload) async {
+          // your call back to the UI
+        },
+      );
+
+      var initializationSettings = InitializationSettings(
+          android: initializationSettingsAndroid,
+          iOS: initializationSettingsIOS);
+
+      flutterLocalNotificationsPlugin.initialize(initializationSettings,
+          onDidReceiveNotificationResponse: (NotificationResponse res) {
+        debugPrint('payload:${res.payload}');
+      });
+    }
+
+    Future<void> _showNotification() async {
+      var androidChannelSpecifics = AndroidNotificationDetails(
+        'CHANNEL_ID',
+        'CHANNEL_NAME',
+        channelDescription: "CHANNEL_DESCRIPTION",
+        importance: Importance.max,
+        priority: Priority.high,
+        playSound: false,
+        timeoutAfter: 5000,
+        styleInformation: DefaultStyleInformation(true, true),
+      );
+
+      var iosChannelSpecifics = DarwinNotificationDetails();
+
+      var platformChannelSpecifics = NotificationDetails(
+          android: androidChannelSpecifics, iOS: iosChannelSpecifics);
+
+      await flutterLocalNotificationsPlugin.show(
+        0, // Notification ID
+        'Test Title', // Notification Title
+        'Test Body', // Notification Body, set as null to remove the body
+        platformChannelSpecifics,
+        payload: 'New Payload', // Notification Payload
+      );
     }
 
     Future<void> _scheduleDaily8AMNotification() async {
@@ -49,6 +100,53 @@ class HumburgerMenu extends StatelessWidget {
             UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.time,
         androidAllowWhileIdle: true,
+      );
+    }
+
+    // ここから追加
+    Future<void> _scheduleNotification() async {
+      // 5秒後
+      var scheduleNotificationDateTime =
+          DateTime.now().add(Duration(seconds: 5));
+
+      var androidChannelSpecifics = AndroidNotificationDetails(
+        'CHANNEL_ID 1',
+        'CHANNEL_NAME 1',
+        channelDescription: "CHANNEL_DESCRIPTION 1",
+        icon: 'app_icon',
+        //sound: RawResourceAndroidNotificationSound('my_sound'),
+        largeIcon: DrawableResourceAndroidBitmap('app_icon'),
+        enableLights: true,
+        color: const Color.fromARGB(255, 255, 0, 0),
+        ledColor: const Color.fromARGB(255, 255, 0, 0),
+        ledOnMs: 1000,
+        ledOffMs: 500,
+        importance: Importance.max,
+        priority: Priority.high,
+        playSound: false,
+        timeoutAfter: 5000,
+        styleInformation: DefaultStyleInformation(true, true),
+      );
+
+      var iosChannelSpecifics = DarwinNotificationDetails(
+          //sound: 'my_sound.aiff',
+          );
+
+      var platformChannelSpecifics = NotificationDetails(
+        android: androidChannelSpecifics,
+        iOS: iosChannelSpecifics,
+      );
+
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        0,
+        'Test Title',
+        'Test Body',
+        tz.TZDateTime.from(scheduleNotificationDateTime, tz.local), // 5秒後に表示
+        platformChannelSpecifics,
+        payload: 'Test Payload',
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
       );
     }
 
@@ -192,6 +290,14 @@ class HumburgerMenu extends StatelessWidget {
             spaceBox,
             settingMenuBox,
             button,
+            ElevatedButton(
+              onPressed: () async {
+                _initializePlatformSpecifics();
+                _showNotification();
+                _scheduleDaily8AMNotification();
+              },
+              child: const Text("今すぐ通知"),
+            ),
           ],
         ),
       ),
