@@ -131,13 +131,10 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    final localNotificationService = LocalNotificationService();
 
     useEffect(() {
-      if (Platform.isIOS) {
-        LocalNotificationService().requestIOSPermission();
-        LocalNotificationService().initializePlatformSpecifics();
-        LocalNotificationService().scheduleNotification();
-      }
+      localNotificationService.setupNotifications();
     }, []);
 
     return MaterialApp.router(
