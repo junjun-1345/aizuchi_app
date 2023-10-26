@@ -13,6 +13,10 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 class HumburgerMenu extends StatelessWidget {
   const HumburgerMenu({super.key});
 
+  ///
+  /// HACK
+  ///
+
   @override
   Widget build(BuildContext context) {
     final spaceBox = SizedBox(
