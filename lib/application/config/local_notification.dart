@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -12,7 +13,8 @@ class LocalNotificationService {
 
   Future<void> setupNotifications() async {
     await _requestPermissions();
-    await _nextInstanceOfSelectTime();
+    await _scheduleDailySelectTimeNotification();
+    print("スケジュールの決定");
   }
 
   Future<void> _requestPermissions() async {
@@ -41,10 +43,10 @@ class LocalNotificationService {
     }
   }
 
-  tz.TZDateTime _nextInstanceOfSelectTime() {
+  tz.TZDateTime _nextInstanceOfSelectTime(int hour, int minute) {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduledDate =
-        tz.TZDateTime(tz.local, now.year, now.month, now.day, 10, 00);
+        tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
@@ -52,11 +54,15 @@ class LocalNotificationService {
   }
 
   Future<void> _scheduleDailySelectTimeNotification() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final int hour = prefs.getInt('hour') ?? 00;
+    final int minute = prefs.getInt('minute') ?? 00;
+
     await flutterLocalNotificationsPlugin.zonedSchedule(
         0,
         'daily scheduled notification title',
         'daily scheduled notification body',
-        _nextInstanceOfSelectTime(),
+        _nextInstanceOfSelectTime(hour, minute),
         const NotificationDetails(
           android: AndroidNotificationDetails('daily notification channel id',
               'daily notification channel name',

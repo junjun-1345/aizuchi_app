@@ -15,84 +15,41 @@ class HumburgerMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pop = Container(
-      child: Column(children: [
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(
-            vertical: 8,
-          ),
-          decoration: BoxDecoration(
-            color: BrandColor.baseRed,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "はじめの７日間無料",
-                style: TextStyle(
-                    color: BrandColor.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w800),
-              ),
-              ElevatedButton(
-                child: const Text(
-                  'Premium　>',
-                  style: TextStyle(fontWeight: FontWeight.w800),
-                ),
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size.fromWidth(200),
-                  foregroundColor: BrandColor.baseRed,
-                  backgroundColor: BrandColor.white,
-                  shape: const StadiumBorder(),
-                ),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        ),
-        Text(
-          "プレミアムプランでは、無制限でのチャット、広告の非表示など\n豊富な機能をおつかいいただけます。",
-          style: TextStyle(
-            fontSize: 8,
-          ),
-        )
-      ]),
-    );
-
     final spaceBox = SizedBox(
       height: 24,
     );
 
-    final settingMenuBoxItem = Container(
-      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8.0),
-      child: Row(
-        children: [
-          Icon(Icons.mail_outline),
-          Text("メールアドレス"),
-          Text("aizuchi@com"),
-          Container(
-            height: 40,
-            alignment: Alignment.center,
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.arrow_forward_ios,
+    Widget settingMenuBoxItem(String content, IconData icon) {
+      return Container(
+        padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8.0),
+        child: Row(
+          children: [
+            Icon(icon),
+            Text(content),
+            Container(
+              height: 40,
+              alignment: Alignment.center,
+              child: IconButton(
+                onPressed: () {
+                  context.go(PagePath.notification);
+                },
+                icon: Icon(
+                  Icons.arrow_forward_ios,
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    }
 
-    final settingMenuBox = Column(
+    Widget settingMenuBox = Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
           alignment: Alignment.centerLeft,
           child: Text(
-            "アカウント",
+            "機能",
           ),
         ),
         Container(
@@ -107,15 +64,7 @@ class HumburgerMenu extends StatelessWidget {
               width: double.infinity,
               child: Column(
                 children: [
-                  settingMenuBoxItem,
-                  Divider(
-                    color: Colors.grey,
-                    height: 1,
-                    thickness: 1,
-                    indent: 8,
-                    endIndent: 8,
-                  ),
-                  settingMenuBoxItem,
+                  settingMenuBoxItem("通知設定", Icons.access_alarm),
                 ],
               ),
             ))
@@ -149,7 +98,51 @@ class HumburgerMenu extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(16, 80, 16, 24),
         child: Column(
           children: [
-            pop,
+            Container(
+              child: Column(children: [
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: BrandColor.baseRed,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "はじめの７日間無料",
+                        style: TextStyle(
+                            color: BrandColor.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800),
+                      ),
+                      ElevatedButton(
+                        child: const Text(
+                          'Premium　>',
+                          style: TextStyle(fontWeight: FontWeight.w800),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size.fromWidth(200),
+                          foregroundColor: BrandColor.baseRed,
+                          backgroundColor: BrandColor.white,
+                          shape: const StadiumBorder(),
+                        ),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                  "プレミアムプランでは、無制限でのチャット、広告の非表示など\n豊富な機能をおつかいいただけます。",
+                  style: TextStyle(
+                    fontSize: 8,
+                  ),
+                )
+              ]),
+            ),
             spaceBox,
             settingMenuBox,
             spaceBox,

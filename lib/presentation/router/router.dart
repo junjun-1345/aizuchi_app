@@ -143,6 +143,7 @@ class MyApp extends HookConsumerWidget {
 
     useEffect(() {
       localNotificationService.setupNotifications();
+      print("useefect");
     }, []);
 
     return MaterialApp.router(
