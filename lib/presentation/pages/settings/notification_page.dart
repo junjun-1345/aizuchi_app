@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/application/config/local_notification.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +15,15 @@ class NotificationPage extends HookConsumerWidget {
 
     final _selectTime = useState(TimeOfDay.now());
 
+    final LocalNotificationService localNotificationService =
+        LocalNotificationService();
+
     final signInButton = RegisterButton(
       onPressed: () async {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setInt('hour', _selectTime.value.hour);
         prefs.setInt('minute', _selectTime.value.minute);
+        localNotificationService.setupNotifications();
         context.go(PagePath.chat);
       },
       text: '登録する',

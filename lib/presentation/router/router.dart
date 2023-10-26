@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:aizuchi_app/application/config/local_notification.dart';
 import 'package:aizuchi_app/application/state/googleauth_state.dart';
 import 'package:aizuchi_app/presentation/animation/page_animation.dart';
 import 'package:aizuchi_app/presentation/pages/calender_page.dart';
@@ -12,6 +15,8 @@ import 'package:aizuchi_app/presentation/pages/start/signup_info.dart';
 import 'package:aizuchi_app/presentation/pages/start_page.dart';
 import 'package:aizuchi_app/presentation/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -134,6 +139,12 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    final localNotificationService = LocalNotificationService();
+
+    useEffect(() {
+      localNotificationService.setupNotifications();
+      print("useefect");
+    }, []);
 
     return MaterialApp.router(
       theme: brandThemeData,

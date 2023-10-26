@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/application/config/local_notification.dart';
 import 'package:aizuchi_app/infrastructure/firebase/auth_imp.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/widgets/button_widget.dart';
@@ -7,41 +8,74 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../theme/colors.dart';
 
-import 'package:timezone/data/latest_all.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class HumburgerMenu extends StatelessWidget {
   const HumburgerMenu({super.key});
 
+  ///
+  /// HACK
+  ///
+
   @override
   Widget build(BuildContext context) {
-    Widget spaceBox = SizedBox(
+    final spaceBox = SizedBox(
       height: 24,
     );
 
-    Widget settingMenuBoxItem = Container(
-      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8.0),
-      child: Row(
-        children: [
-          Icon(Icons.mail_outline),
-          Text("メールアドレス"),
-          Text("aizuchi@com"),
-          Container(
-            height: 40,
-            alignment: Alignment.center,
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.arrow_forward_ios,
+    Widget settingMenuBoxItem(String content, IconData icon) {
+      return Container(
+        padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8.0),
+        child: Row(
+          children: [
+            Icon(icon),
+            Text(content),
+            Container(
+              height: 40,
+              alignment: Alignment.center,
+              child: IconButton(
+                onPressed: () {
+                  context.go(PagePath.notification);
+                },
+                icon: Icon(
+                  Icons.arrow_forward_ios,
+                ),
               ),
             ),
+          ],
+        ),
+      );
+    }
+
+    Widget settingMenuBox = Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "機能",
           ),
-        ],
-      ),
+        ),
+        Container(
+            padding: EdgeInsets.symmetric(
+              vertical: 8,
+            ),
+            decoration: BoxDecoration(
+              color: BrandColor.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              child: Column(
+                children: [
+                  settingMenuBoxItem("通知設定", Icons.access_alarm),
+                ],
+              ),
+            ))
+      ],
     );
 
-    Widget button = Column(
+    final button = Column(
       children: [
         Button(
           onPressed: () async {
@@ -59,33 +93,15 @@ class HumburgerMenu extends StatelessWidget {
           onPressed: () async {},
           text: '通知',
         ),
-        Button(
-          onPressed: () async {
-            final SharedPreferences prefs =
-                await SharedPreferences.getInstance();
-            await prefs.setInt('counter', 1000);
-          },
-          text: '登録',
-        ),
-        Button(
-          onPressed: () async {
-            final SharedPreferences prefs =
-                await SharedPreferences.getInstance();
-            final int? counter = prefs.getInt('counter');
-            print("読込$counter");
-          },
-          text: '読込',
-        ),
       ],
     );
 
-    Widget drawer = Drawer(
+    final drawer = Drawer(
       child: Container(
         color: BrandColor.base,
         padding: EdgeInsets.fromLTRB(16, 80, 16, 24),
         child: Column(
           children: [
-            // POP
             Container(
               child: Column(children: [
                 Container(
@@ -132,95 +148,16 @@ class HumburgerMenu extends StatelessWidget {
               ]),
             ),
             spaceBox,
-            // setting
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "機能",
-                  ),
-                ),
-                Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: BrandColor.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 8.0),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.notifications_active,
-                                ),
-                                Text("通知設定"),
-                                Container(
-                                  height: 40,
-                                  alignment: Alignment.center,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      context.go(PagePath.notification);
-                                    },
-                                    icon: Icon(
-                                      Icons.arrow_forward_ios,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ))
-              ],
-            ),
+            settingMenuBox,
             spaceBox,
-            // account
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "アカウント",
-                  ),
-                ),
-                Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: BrandColor.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Column(
-                        children: [
-                          settingMenuBoxItem,
-                          Divider(
-                            color: Colors.grey,
-                            height: 1,
-                            thickness: 1,
-                            indent: 8,
-                            endIndent: 8,
-                          ),
-                          settingMenuBoxItem,
-                        ],
-                      ),
-                    ))
-              ],
-            ),
+            settingMenuBox,
             button,
+            ElevatedButton(
+              onPressed: () async {
+                LocalNotificationService().showNotification();
+              },
+              child: const Text("今すぐ通知"),
+            ),
           ],
         ),
       ),

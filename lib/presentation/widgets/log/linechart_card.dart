@@ -52,7 +52,7 @@ class _LineChart extends ConsumerWidget {
                     lineBarsData: [
                       LineChartBarData(
                         isCurved: true,
-                        curveSmoothness: 0,
+                        curveSmoothness: 1,
                         color: BrandColor.baseRed.withOpacity(0.5),
                         barWidth: 4,
                         isStrokeCapRound: true,
@@ -63,8 +63,8 @@ class _LineChart extends ConsumerWidget {
                     ],
                     minX: 1,
                     maxX: CustomDateTime().lastDayInMonth().toDouble(),
-                    maxY: 4,
-                    minY: 0,
+                    maxY: 5,
+                    minY: -1,
                   )
                 : LineChartData(
                     lineTouchData: lineTouchData1,
@@ -85,8 +85,8 @@ class _LineChart extends ConsumerWidget {
                     ],
                     minX: 1,
                     maxX: 7,
-                    maxY: 4,
-                    minY: 0,
+                    maxY: 5,
+                    minY: -1,
                   ),
             duration: const Duration(milliseconds: 250),
           );
