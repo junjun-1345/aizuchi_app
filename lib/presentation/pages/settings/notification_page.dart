@@ -1,9 +1,5 @@
-import 'package:aizuchi_app/application/di/usecase.dart';
-import 'package:aizuchi_app/infrastructure/firebase/auth_imp.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
-import 'package:aizuchi_app/presentation/theme/colors.dart';
 import 'package:aizuchi_app/presentation/widgets/button_widget.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -15,21 +11,18 @@ class NotificationPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final _hourState = useState(00);
-    final _minuteState = useState(00);
-    final _selectTime = useState(DateTime.now());
+
+    final _selectTime = useState(TimeOfDay.now());
 
     final signInButton = RegisterButton(
       onPressed: () async {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setInt('hour', _hourState.value);
-        prefs.setInt('minute', _minuteState.value);
+        prefs.setInt('hour', _selectTime.value.hour);
+        prefs.setInt('minute', _selectTime.value.minute);
         context.go(PagePath.chat);
       },
       text: '登録する',
     );
-
-    TimeOfDay selectTime = TimeOfDay.now();
 
     //////////////////////
     // レイアウトの構成
@@ -53,20 +46,6 @@ class NotificationPage extends HookConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
-                  onPressed: () async {
-                    final TimeOfDay? picked = await showTimePicker(
-                        context: context,
-                        initialTime: selectTime,
-                        initialEntryMode:
-                            TimePickerEntryMode.inputOnly // 最初に表示する時刻を設定
-                        );
-
-                    if (picked != null) {
-                      _selectTime.value = DateTime.parse(picked.toString());
-                    }
-                  },
-                  child: Text("時間を選択")),
               Container(
                 height: 48,
                 decoration: BoxDecoration(
@@ -74,11 +53,21 @@ class NotificationPage extends HookConsumerWidget {
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text("通知時間"),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          final TimeOfDay? picked = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.now(),
+                            initialEntryMode: TimePickerEntryMode.dialOnly,
+                          );
+                          if (picked != null) {
+                            print(picked.toString());
+                            _selectTime.value = picked;
+                          }
+                        },
                         child: Text(
                           "${_selectTime.value.hour}:${_selectTime.value.minute}",
                           style: TextStyle(color: Colors.black),
