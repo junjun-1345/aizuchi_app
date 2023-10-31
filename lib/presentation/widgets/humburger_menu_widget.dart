@@ -231,7 +231,7 @@ class HumburgerMenu extends StatelessWidget {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    context.go(PagePath.notification);
+                                    context.go(PagePath.accountSetting);
                                   },
                                   icon: Icon(
                                     Icons.arrow_forward_ios,
@@ -268,7 +268,7 @@ class HumburgerMenu extends StatelessWidget {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    context.go(PagePath.notification);
+                                    context.go(PagePath.accountSetting);
                                   },
                                   icon: Icon(
                                     Icons.arrow_forward_ios,
@@ -305,7 +305,7 @@ class HumburgerMenu extends StatelessWidget {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    context.go(PagePath.notification);
+                                    context.go(PagePath.accountSetting);
                                   },
                                   icon: Icon(
                                     Icons.arrow_forward_ios,
@@ -342,7 +342,7 @@ class HumburgerMenu extends StatelessWidget {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    context.go(PagePath.notification);
+                                    context.go(PagePath.accountSetting);
                                   },
                                   icon: Icon(
                                     Icons.arrow_forward_ios,

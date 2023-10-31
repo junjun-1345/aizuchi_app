@@ -8,6 +8,7 @@ import 'package:aizuchi_app/presentation/pages/chat_page.dart';
 import 'package:aizuchi_app/presentation/pages/loading_page.dart';
 import 'package:aizuchi_app/presentation/pages/log_page.dart';
 import 'package:aizuchi_app/presentation/pages/select_chat_page.dart';
+import 'package:aizuchi_app/presentation/pages/settings/account_setting_page.dart';
 import 'package:aizuchi_app/presentation/pages/settings/notification_page.dart';
 import 'package:aizuchi_app/presentation/pages/start/signin_page.dart';
 import 'package:aizuchi_app/presentation/pages/start/signup_page.dart';
@@ -34,6 +35,7 @@ class PagePath {
   static const signIn = '/signIn';
   static const signUpInfo = '/signUpInfo';
   static const notification = '/notification';
+  static const accountSetting = '/accountSetting';
 }
 
 //
@@ -99,6 +101,12 @@ GoRouter router(RouterRef ref) {
       path: PagePath.notification,
       pageBuilder: (_, __) => buildPageWithAnimation(
         const NotificationPage(),
+      ),
+    ),
+    GoRoute(
+      path: PagePath.accountSetting,
+      pageBuilder: (_, __) => buildPageWithAnimation(
+        const AccountSetttingPage(),
       ),
     ),
   ];
