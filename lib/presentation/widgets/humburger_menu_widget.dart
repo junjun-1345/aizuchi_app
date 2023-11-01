@@ -5,6 +5,7 @@ import 'package:aizuchi_app/presentation/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../theme/colors.dart';
 
@@ -22,6 +23,12 @@ class HumburgerMenu extends StatelessWidget {
     final spaceBox = SizedBox(
       height: 24,
     );
+
+    final Uri _urlContact =
+        Uri.parse('https://aizuchi-log.studio.site/contact');
+    final Uri _urlTerm = Uri.parse('https://aizuchi-log.studio.site/terms');
+    final Uri _urlPrivacypolicy =
+        Uri.parse('https://aizuchi-log.studio.site/privacypolicy');
 
     final button = Column(
       children: [
@@ -168,7 +175,7 @@ class HumburgerMenu extends StatelessWidget {
                                     SizedBox(
                                       width: 4,
                                     ),
-                                    Text("PINロック"),
+                                    Text("PINロック(実装中)"),
                                   ],
                                 ),
                                 IconButton(
@@ -399,8 +406,11 @@ class HumburgerMenu extends StatelessWidget {
                                   ],
                                 ),
                                 IconButton(
-                                  onPressed: () {
-                                    context.go(PagePath.notification);
+                                  onPressed: () async {
+                                    if (!await launchUrl(_urlContact)) {
+                                      throw Exception(
+                                          'Could not launch $_urlContact');
+                                    }
                                   },
                                   icon: Icon(
                                     Icons.north_east,
@@ -436,8 +446,11 @@ class HumburgerMenu extends StatelessWidget {
                                   ],
                                 ),
                                 IconButton(
-                                  onPressed: () {
-                                    context.go(PagePath.notification);
+                                  onPressed: () async {
+                                    if (!await launchUrl(_urlTerm)) {
+                                      throw Exception(
+                                          'Could not launch $_urlTerm');
+                                    }
                                   },
                                   icon: Icon(
                                     Icons.north_east,
@@ -473,8 +486,11 @@ class HumburgerMenu extends StatelessWidget {
                                   ],
                                 ),
                                 IconButton(
-                                  onPressed: () {
-                                    context.go(PagePath.notification);
+                                  onPressed: () async {
+                                    if (!await launchUrl(_urlPrivacypolicy)) {
+                                      throw Exception(
+                                          'Could not launch $_urlPrivacypolicy');
+                                    }
                                   },
                                   icon: Icon(
                                     Icons.north_east,
@@ -491,25 +507,35 @@ class HumburgerMenu extends StatelessWidget {
                             indent: 8,
                             endIndent: 8,
                           ),
-                          Container(
-                            height: 40,
-                            padding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.logout,
-                                    ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text("ログアウト"),
-                                  ],
-                                ),
-                              ],
+                          InkWell(
+                            onTap: () async {
+                              final service = AuthService();
+                              await service.signOut().catchError(
+                                (e) {
+                                  debugPrint('サインアウトできませんでした $e');
+                                },
+                              );
+                              context.go(PagePath.start);
+                            },
+                            child: Container(
+                              height: 40,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Icon(
+                                    Icons.logout,
+                                  ),
+                                  Text(
+                                    "ログアウト",
+                                  ),
+                                  SizedBox(
+                                    width: 40,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
