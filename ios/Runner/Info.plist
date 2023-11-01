@@ -58,5 +58,16 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<!-- url luncher -->
+	<key>LSApplicationQueriesSchemes</key>
+  <array>
+    <string>https</string>
+    <string>http</string>
+  </array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>sms</string>
+		<string>tel</string>
+	</array>
 </dict>
 </plist>

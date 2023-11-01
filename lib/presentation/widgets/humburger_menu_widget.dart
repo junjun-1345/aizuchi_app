@@ -5,6 +5,7 @@ import 'package:aizuchi_app/presentation/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../theme/colors.dart';
 
@@ -23,57 +24,11 @@ class HumburgerMenu extends StatelessWidget {
       height: 24,
     );
 
-    Widget settingMenuBoxItem(String content, IconData icon) {
-      return Container(
-        padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8.0),
-        child: Row(
-          children: [
-            Icon(icon),
-            Text(content),
-            Container(
-              height: 40,
-              alignment: Alignment.center,
-              child: IconButton(
-                onPressed: () {
-                  context.go(PagePath.notification);
-                },
-                icon: Icon(
-                  Icons.arrow_forward_ios,
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    Widget settingMenuBox = Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Container(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "機能",
-          ),
-        ),
-        Container(
-            padding: EdgeInsets.symmetric(
-              vertical: 8,
-            ),
-            decoration: BoxDecoration(
-              color: BrandColor.white,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                children: [
-                  settingMenuBoxItem("通知設定", Icons.access_alarm),
-                ],
-              ),
-            ))
-      ],
-    );
+    final Uri _urlContact =
+        Uri.parse('https://aizuchi-log.studio.site/contact');
+    final Uri _urlTerm = Uri.parse('https://aizuchi-log.studio.site/terms');
+    final Uri _urlPrivacypolicy =
+        Uri.parse('https://aizuchi-log.studio.site/privacypolicy');
 
     final button = Column(
       children: [
@@ -99,9 +54,12 @@ class HumburgerMenu extends StatelessWidget {
     final drawer = Drawer(
       child: Container(
         color: BrandColor.base,
-        padding: EdgeInsets.fromLTRB(16, 80, 16, 24),
+        padding: EdgeInsets.fromLTRB(16, 56, 16, 24),
         child: Column(
           children: [
+            //
+            // POP
+            //
             Container(
               child: Column(children: [
                 Container(
@@ -148,16 +106,477 @@ class HumburgerMenu extends StatelessWidget {
               ]),
             ),
             spaceBox,
-            settingMenuBox,
-            spaceBox,
-            settingMenuBox,
-            button,
-            ElevatedButton(
-              onPressed: () async {
-                LocalNotificationService().showNotification();
-              },
-              child: const Text("今すぐ通知"),
+            //
+            // 機能
+            //
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "機能",
+                  ),
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                      color: BrandColor.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 40,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(Icons.access_alarm),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text("通知設定"),
+                                  ],
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    context.go(PagePath.notification);
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: BrandColor.baseRed,
+                                  ),
+                                  iconSize: 24,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.black,
+                            height: 4,
+                            indent: 8,
+                            endIndent: 8,
+                          ),
+                          Container(
+                            height: 40,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(Icons.lock),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text("PINロック(実装中)"),
+                                  ],
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    context.go(PagePath.notification);
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: BrandColor.baseRed,
+                                  ),
+                                  iconSize: 24,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ))
+              ],
             ),
+            spaceBox,
+            //
+            // アカウント
+            //
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "アカウント",
+                  ),
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                      color: BrandColor.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 40,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.account_circle,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text("ニックネーム"),
+                                  ],
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    context.go(PagePath.accountSetting);
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: BrandColor.baseRed,
+                                  ),
+                                  iconSize: 24,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.black,
+                            height: 4,
+                            indent: 8,
+                            endIndent: 8,
+                          ),
+                          Container(
+                            height: 40,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.mail,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text("メールアドレス"),
+                                  ],
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    context.go(PagePath.accountSetting);
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: BrandColor.baseRed,
+                                  ),
+                                  iconSize: 24,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.black,
+                            height: 4,
+                            indent: 8,
+                            endIndent: 8,
+                          ),
+                          Container(
+                            height: 40,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.accessibility_new,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text("性別"),
+                                  ],
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    context.go(PagePath.accountSetting);
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: BrandColor.baseRed,
+                                  ),
+                                  iconSize: 24,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.black,
+                            height: 4,
+                            indent: 8,
+                            endIndent: 8,
+                          ),
+                          Container(
+                            height: 40,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.calendar_today,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text("生年月日"),
+                                  ],
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    context.go(PagePath.accountSetting);
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: BrandColor.baseRed,
+                                  ),
+                                  iconSize: 24,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ))
+              ],
+            ),
+            spaceBox,
+            //
+            // サービス
+            //
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "サービス",
+                  ),
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                      color: BrandColor.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 40,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.textsms,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text("ご意見・お問い合わせ"),
+                                  ],
+                                ),
+                                IconButton(
+                                  onPressed: () async {
+                                    if (!await launchUrl(_urlContact)) {
+                                      throw Exception(
+                                          'Could not launch $_urlContact');
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.north_east,
+                                    color: BrandColor.baseRed,
+                                  ),
+                                  iconSize: 24,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.black,
+                            height: 4,
+                            indent: 8,
+                            endIndent: 8,
+                          ),
+                          Container(
+                            height: 40,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.assignment,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text("規約"),
+                                  ],
+                                ),
+                                IconButton(
+                                  onPressed: () async {
+                                    if (!await launchUrl(_urlTerm)) {
+                                      throw Exception(
+                                          'Could not launch $_urlTerm');
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.north_east,
+                                    color: BrandColor.baseRed,
+                                  ),
+                                  iconSize: 24,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.black,
+                            height: 4,
+                            indent: 8,
+                            endIndent: 8,
+                          ),
+                          Container(
+                            height: 40,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.error,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text("プライバシーポリシー"),
+                                  ],
+                                ),
+                                IconButton(
+                                  onPressed: () async {
+                                    if (!await launchUrl(_urlPrivacypolicy)) {
+                                      throw Exception(
+                                          'Could not launch $_urlPrivacypolicy');
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.north_east,
+                                    color: BrandColor.baseRed,
+                                  ),
+                                  iconSize: 24,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.black,
+                            height: 4,
+                            indent: 8,
+                            endIndent: 8,
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              final service = AuthService();
+                              await service.signOut().catchError(
+                                (e) {
+                                  debugPrint('サインアウトできませんでした $e');
+                                },
+                              );
+                              context.go(PagePath.start);
+                            },
+                            child: Container(
+                              height: 40,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Icon(
+                                    Icons.logout,
+                                  ),
+                                  Text(
+                                    "ログアウト",
+                                  ),
+                                  SizedBox(
+                                    width: 40,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ))
+              ],
+            ),
+            spaceBox,
+            //
+            //アカウント削除
+            //
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+                      color: BrandColor.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          Container(
+                              alignment: Alignment.center,
+                              height: 40,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 8.0),
+                              child: Text("アカウント削除")),
+                        ],
+                      ),
+                    ))
+              ],
+            ),
+            // button,
+            // ElevatedButton(
+            //   onPressed: () async {
+            //     LocalNotificationService().showNotification();
+            //   },
+            //   child: const Text("今すぐ通知"),
+            // ),
           ],
         ),
       ),
