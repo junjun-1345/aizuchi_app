@@ -12,7 +12,7 @@ class ChatGPTService implements ChatGPTInterface {
   Future<String> sendMessage(List<ChatGPTMessage> value) async {
     String url = 'https://api.openai.com/v1/chat/completions';
     String key = Env.key1;
-    final data = Chatgpt(model: 'gpt-3.5-turbo', messages: value);
+    final data = Chatgpt(model: 'gpt-4-1106-preview', messages: value);
     // JsonMap <--- データ
     final map = data.toJson();
     // JSON <--- JsonMap
