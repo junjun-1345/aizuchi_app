@@ -178,6 +178,9 @@ class SignInPage extends HookConsumerWidget {
                   height: 24,
                 ),
                 signInWithGoogleButton,
+                const SizedBox(
+                  height: 24,
+                ),
               ],
             ),
           ),

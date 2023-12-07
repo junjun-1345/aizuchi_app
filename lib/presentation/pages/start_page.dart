@@ -77,6 +77,12 @@ class StartPage extends HookConsumerWidget {
               ),
               Text("既に登録済みの方はこちら"),
               signInButton,
+              TextButton(
+                onPressed: () {
+                  context.go(PagePath.passwordReset);
+                },
+                child: Text("パスワードを忘れた方"),
+              ),
             ],
           ),
         ),
