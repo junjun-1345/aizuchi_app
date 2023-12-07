@@ -52,7 +52,7 @@ class MessageUsecase {
       content: text,
     );
     final _prompt = ChatGPTMessage(
-      content: replyPrompt,
+      content: character1ReplyPrompt,
       role: "system",
     );
     final messageList = [_prompt, _newUserMessage];
@@ -86,7 +86,7 @@ class MessageUsecase {
     firestore.messageCreate(_newUserMessage);
 
     final _prompt = ChatGPTMessage(
-      content: replyPrompt,
+      content: character1ReplyPrompt,
       role: "system",
     );
 
