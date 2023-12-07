@@ -21,7 +21,7 @@ class ChatWidget extends HookConsumerWidget {
         .collection("users")
         .doc(id)
         .collection("messages")
-        .orderBy('createdAt')
+        .orderBy('createdAt', descending: true)
         .snapshots();
 
     //
@@ -157,6 +157,7 @@ class ChatWidget extends HookConsumerWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView(
+            reverse: true,
             children: snapshot.data!.docs
                 .map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
