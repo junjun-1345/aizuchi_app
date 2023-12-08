@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:aizuchi_app/application/interface/chatGPT/chatgpt.dart';
 import 'package:aizuchi_app/domain/models/chatgpt.dart';
 import 'package:aizuchi_app/domain/models/chatgptmessage.dart';
+import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -29,6 +30,8 @@ class ChatGPTService implements ChatGPTInterface {
 
     // JsonMap <--- JSON
     final replyJsonMap = jsonDecode(response.body);
+
+    debugPrint('replyJsonMap: $replyJsonMap');
 
     // contentを抽出
     final replyContent = replyJsonMap["choices"][0]["message"]["content"];
