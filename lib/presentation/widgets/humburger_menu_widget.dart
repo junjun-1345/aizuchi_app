@@ -1,15 +1,10 @@
-import 'package:aizuchi_app/application/config/local_notification.dart';
 import 'package:aizuchi_app/infrastructure/firebase/auth_imp.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
-import 'package:aizuchi_app/presentation/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../theme/colors.dart';
-
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class HumburgerMenu extends StatelessWidget {
   const HumburgerMenu({super.key});
@@ -29,27 +24,6 @@ class HumburgerMenu extends StatelessWidget {
     final Uri _urlTerm = Uri.parse('https://aizuchi-log.studio.site/terms');
     final Uri _urlPrivacypolicy =
         Uri.parse('https://aizuchi-log.studio.site/privacypolicy');
-
-    final button = Column(
-      children: [
-        Button(
-          onPressed: () async {
-            final service = AuthService();
-            await service.signOut().catchError(
-              (e) {
-                debugPrint('サインアウトできませんでした $e');
-              },
-            );
-            context.go(PagePath.start);
-          },
-          text: 'サインアウト',
-        ),
-        Button(
-          onPressed: () async {},
-          text: '通知',
-        ),
-      ],
-    );
 
     final drawer = Drawer(
       child: Container(
@@ -109,6 +83,53 @@ class HumburgerMenu extends StatelessWidget {
             //
             // 機能
             //
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+                      color: BrandColor.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 40,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(Icons.access_alarm),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text("キャラクター選択"),
+                                  ],
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    context.go(PagePath.notification);
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: BrandColor.baseRed,
+                                  ),
+                                  iconSize: 24,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ))
+              ],
+            ),
+            spaceBox,
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -233,7 +254,7 @@ class HumburgerMenu extends StatelessWidget {
                                     SizedBox(
                                       width: 4,
                                     ),
-                                    Text("ニックネーム"),
+                                    Text("アカウント"),
                                   ],
                                 ),
                                 IconButton(
@@ -271,80 +292,6 @@ class HumburgerMenu extends StatelessWidget {
                                       width: 4,
                                     ),
                                     Text("メールアドレス"),
-                                  ],
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    context.go(PagePath.accountSetting);
-                                  },
-                                  icon: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: BrandColor.baseRed,
-                                  ),
-                                  iconSize: 24,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Divider(
-                            color: Colors.black,
-                            height: 4,
-                            indent: 8,
-                            endIndent: 8,
-                          ),
-                          Container(
-                            height: 40,
-                            padding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.accessibility_new,
-                                    ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text("性別"),
-                                  ],
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    context.go(PagePath.accountSetting);
-                                  },
-                                  icon: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: BrandColor.baseRed,
-                                  ),
-                                  iconSize: 24,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Divider(
-                            color: Colors.black,
-                            height: 4,
-                            indent: 8,
-                            endIndent: 8,
-                          ),
-                          Container(
-                            height: 40,
-                            padding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.calendar_today,
-                                    ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text("生年月日"),
                                   ],
                                 ),
                                 IconButton(
