@@ -1,4 +1,3 @@
-// import 'package:aizuchi_app/domain/util/logger.dart';
 import 'package:aizuchi_app/presentation/view/pages/calendar_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/chat_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/log_page.dart';
@@ -14,6 +13,7 @@ import 'package:aizuchi_app/presentation/view/pages/start/sign_in_page.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'router.gr.dart';
 
@@ -80,8 +80,12 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         ),
       ];
 
+  //FIXME: 2024/01/15　ここまで完了。
+  //FIXME: サインイン途中にアプリが切られた場合の挙動を作成。未サインイン状態。
+
   @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) {
+  Future<void> onNavigation(
+      NavigationResolver resolver, StackRouter router) async {
     final routeName = resolver.route.name;
     // logger.i('CALLED onNavigation(): $routeName');
     // ガード状態に応じて処理をわける
@@ -89,10 +93,14 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
 
     // TODO_authenticatedをstateで管理する
     // ex) final guardState = ref.read(guardStateProvider).requireValue;
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final isSignUp = prefs.getBool('is_sign_up') ?? false;
+
     final authenticated = FirebaseAuth.instance.currentUser != null;
+
     if (!authenticated) {
       // 未サインイン
-
       if ([
         SignInRoute.name,
         SignUpRoute.name,
@@ -104,24 +112,29 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         // LoadingRoute.name,
         // ErrorRoute.name,
       ].contains(routeName)) {
-        // logger.i('$routeName は未サインインでも表示する');
+        print('$routeName は未サインインでも表示する');
         return resolver.next();
       }
 
-      // logger.i('未サインインなのでサインイン画面にリダイレクト');
-      router.replace(const SignInRoute());
+      print('未サインインなのでサインイン画面にリダイレクト');
+
+      if (isSignUp) {
+        router.replace(const SignUpFormNameRoute());
+      } else {
+        router.replace(const SignInRoute());
+      }
     } else {
       // サインイン済み
 
       if ([
         SignInRoute.name,
       ].contains(routeName)) {
-        // logger.i('サインイン済みなのに $routeName を開こうとした場合トップ画面にリダイレクト');
+        // print('サインイン済みなのに $routeName を開こうとした場合トップ画面にリダイレクト');
         router.push(const RootRoute());
-        return;
       }
 
-      // logger.i('サインイン済みなので $routeName を表示する');
+      // print('サインイン済みなので $routeName を表示する');
+      // その他のケースでは、そのままアクセスを許可する。
       resolver.next();
     }
   }

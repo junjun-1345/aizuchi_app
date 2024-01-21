@@ -5,7 +5,7 @@ import 'package:aizuchi_app/presentation/view/widget/text_widget.dart';
 import 'package:aizuchi_app/presentation/view_model/user_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -13,8 +13,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 @RoutePage()
-class SignInPage extends HookConsumerWidget {
-  const SignInPage({super.key});
+class SignUpPage extends HookConsumerWidget {
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,15 +23,14 @@ class SignInPage extends HookConsumerWidget {
     final userPasswordState = ref.watch(passwordProvider.notifier);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
+    final errorMessage = useState("");
+
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final isObscure = useState(true);
-    final errorMessage = useState("");
 
     final router = context.router;
 
-    //TODO: 2024/01/19　サインインボタンの機能関係実装
-
-    Widget singInWithGoogleButton() {
+    Widget singUpWithGoogleButton() {
       return SizedBox(
         width: double.infinity,
         child: SignInButton(
@@ -40,33 +39,30 @@ class SignInPage extends HookConsumerWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(32),
           ),
-          text: "Googleでログイン",
+          text: "Googleで登録",
           onPressed: () async {
             try {
-              final result = await notifier.signInWith(PlatformType.google);
+              final result = await notifier.signUpWith(PlatformType.google);
               if (result) {
-                router.push(const ChatRoute());
+                router.push(const SignUpFormNameRoute());
               } else {
-                errorMessage.value = "アカウントがまだ登録されていません";
+                errorMessage.value = "アカウントが既に登録されています";
               }
-            } on FirebaseAuthException catch (e) {
-              print("UI firebaseエラー${e.toString()}");
-              // errorMessage.value = e.toString();
             } catch (e) {
               errorMessage.value = "エラーが発生しました。もう一度お試しください。";
-              print("UIエラー${e.toString()}");
-              errorMessage.value = e.toString();
+              print(e.toString());
+              // errorMessage.value = e.toString();
             }
           },
         ),
       );
     }
 
-    Widget singInWithAppleButton() {
+    Widget singUpWithAppleButton() {
       return SizedBox(
         width: double.infinity,
         child: SignInButtonBuilder(
-          text: 'Appleでログイン',
+          text: 'Appleで登録',
           padding: const EdgeInsets.fromLTRB(72, 0, 0, 0),
           icon: Icons.apple,
           onPressed: () {},
@@ -88,11 +84,11 @@ class SignInPage extends HookConsumerWidget {
             userEmailState.state = emailController.text;
             userPasswordState.state = passwordController.text;
             try {
-              final result = await notifier.signInWith(PlatformType.email);
+              final result = await notifier.signUpWith(PlatformType.email);
               if (result) {
-                router.push(const ChatRoute());
+                router.push(const SignUpFormNameRoute());
               } else {
-                errorMessage.value = "アカウントがまだ登録されていません";
+                errorMessage.value = "アカウントが既に登録されています";
               }
             } catch (e) {
               errorMessage.value = "エラーが発生しました。もう一度お試しください。";
@@ -105,7 +101,7 @@ class SignInPage extends HookConsumerWidget {
             elevation: 0,
           ),
           child: const Text(
-            'Aizuchiにログイン',
+            'Aizuchiに登録',
             style: TextStyle(
                 color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),
           ),
@@ -261,10 +257,10 @@ class SignInPage extends HookConsumerWidget {
     Widget reverseButton() {
       return TextButton(
         onPressed: () {
-          context.router.replace(const SignUpRoute());
+          context.router.replace(const SignInRoute());
         },
         child: const Text(
-          "まだアカウントをお持ちでない方はこちら",
+          "アカウントを既にお持ちの方はこちら",
           style: TextStyle(
             color: BrandColor.baseRed,
             fontSize: 12,
@@ -286,6 +282,37 @@ class SignInPage extends HookConsumerWidget {
       );
     }
 
+    Widget descriptionText() {
+      return RichText(
+        text: TextSpan(
+          style: const TextStyle(
+              color: Colors.black, fontSize: 16.0), // デフォルトのスタイル
+          children: [
+            TextSpan(
+              text: '利用規約',
+              style: const TextStyle(
+                  color: BrandColor.baseRed, fontWeight: FontWeight.bold),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  // ボタンがタップされた時のアクション
+                },
+            ),
+            const TextSpan(text: 'と'),
+            TextSpan(
+              text: 'プライバシーポリシー',
+              style: const TextStyle(
+                  color: BrandColor.baseRed, fontWeight: FontWeight.bold),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  // ボタンがタップされた時のアクション
+                },
+            ),
+            const TextSpan(text: 'を同意の上、ご登録ください'),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -298,15 +325,19 @@ class SignInPage extends HookConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  textTitleWidget("アカウントログイン"),
+                  textTitleWidget("アカウント登録"),
                   const SizedBox(
                     height: 32,
                   ),
-                  singInWithGoogleButton(),
+                  descriptionText(),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  singUpWithGoogleButton(),
                   const SizedBox(
                     height: 8,
                   ),
-                  singInWithAppleButton(),
+                  singUpWithAppleButton(),
                   const SizedBox(
                     height: 32,
                   ),
@@ -319,7 +350,8 @@ class SignInPage extends HookConsumerWidget {
                   registerButton(),
                   Text(
                     errorMessage.value,
-                    style: TextStyle(
+                    // "エラー",
+                    style: const TextStyle(
                       color: Colors.red,
                     ),
                   ),
