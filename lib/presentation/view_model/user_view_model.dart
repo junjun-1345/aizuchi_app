@@ -73,20 +73,20 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     state = AsyncValue.data(users);
   }
 
+  Future<bool> signUpWith(PlatformType platform) async {
+    final form = ref.watch(userProvider);
+    final password = ref.watch(passwordProvider);
+    final result =
+        await _usersUseCase.signUpWith(platform, password, form.toEntity());
+    return result;
+  }
+
   Future<bool> signInWith(PlatformType platform) async {
     final form = ref.watch(userProvider);
     final password = ref.watch(passwordProvider);
     final result =
         await _usersUseCase.signInWith(platform, password, form.toEntity());
 
-    return result ? true : false;
-  }
-
-  Future<bool> signUpWith(PlatformType platform) async {
-    final form = ref.watch(userProvider);
-    final password = ref.watch(passwordProvider);
-    final result =
-        await _usersUseCase.signUpWith(platform, password, form.toEntity());
     return result ? true : false;
   }
 
