@@ -1,4 +1,4 @@
-import 'package:aizuchi_app/domain/entity/model/color.dart';
+import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/view/widget/text_widget.dart';
 import 'package:flutter/material.dart';
 

@@ -7,6 +7,9 @@ class BrandColor {
   static const baseBlue = Color(0xffaad3d1);
   static const baseRed = Color.fromARGB(255, 231, 161, 161);
 
+  static const darkWhite = Color.fromARGB(255, 250, 226, 211);
+
   static const white = Colors.white;
   static const black = Color(0xff333333);
+  static const textBlack = Color(0xff3D5065);
 }

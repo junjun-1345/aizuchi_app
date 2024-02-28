@@ -1,12 +1,12 @@
-import 'package:aizuchi_app/domain/entity/enum/character.dart';
-import 'package:aizuchi_app/domain/entity/enum/platform.dart';
-import 'package:aizuchi_app/domain/entity/model/user.dart';
+import 'package:aizuchi_app/domain/entity/enums/character.dart';
+import 'package:aizuchi_app/domain/entity/enums/platform.dart';
+import 'package:aizuchi_app/domain/entity/models/user.dart';
 import 'package:aizuchi_app/domain/repositories/auth_repository.dart';
 import 'package:aizuchi_app/domain/repositories/local_db_repository.dart';
 import 'package:aizuchi_app/domain/repositories/user_db_repository.dart';
 import 'package:aizuchi_app/domain/usecases/users_usecase.dart';
 
-class UsersInteractor implements UsersUseCase {
+class UsersInteractor implements UsersUsecase {
   final AuthRepository authRepository;
   final UserDBRepository userDBRepository;
   final LocalDBRepository localDBRepository;
@@ -62,15 +62,15 @@ class UsersInteractor implements UsersUseCase {
       await userDBRepository.read();
       return true;
     } catch (e) {
-      print("ユーザー情報がありません");
+      //FIXME: print消す
+      // print("ユーザー情報がありません");
       return false;
     }
   }
 
   @override
-  Future<UserEntity> update(UserEntity user) {
-    // TODO: implement update
-    throw UnimplementedError();
+  void update(UserEntity user) {
+    userDBRepository.update(user);
   }
 
   @override
@@ -103,11 +103,22 @@ class UsersInteractor implements UsersUseCase {
       activeDay: 0,
       charactor: CharactorEnum.mouhu,
       profession: form.profession,
+      dailyKey: "",
+      isConversation: false,
+      isAssistant: true,
+      isMessageOverLimit: false,
     );
 
     userDBRepository.create(user);
 
     localDBRepository.setIsSignUpFalse();
     return user;
+  }
+
+  @override
+  String createKey() {
+    final DateTime now = DateTime.now();
+    final String key = "${now.year}_${now.month}_${now.day}";
+    return key;
   }
 }

@@ -1,6 +1,6 @@
-import 'package:aizuchi_app/domain/entity/enum/character.dart';
-import 'package:aizuchi_app/domain/entity/enum/sex.dart';
-import 'package:aizuchi_app/domain/entity/model/user.dart';
+import 'package:aizuchi_app/domain/entity/enums/character.dart';
+import 'package:aizuchi_app/domain/entity/enums/sex.dart';
+import 'package:aizuchi_app/domain/entity/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserFields {
@@ -16,6 +16,10 @@ class UserFields {
     activeDay,
     charactor,
     profession,
+    dailyKey,
+    isConversation,
+    isAssistant,
+    isMessageOverLimit,
   ];
 
   static const String id = 'id';
@@ -29,6 +33,10 @@ class UserFields {
   static const String activeDay = 'activeDay';
   static const String charactor = 'charactor';
   static const String profession = 'profession';
+  static const String dailyKey = 'dailyKey';
+  static const String isConversation = 'isConversation';
+  static const String isAssistant = 'isAssistant';
+  static const String isMessageOverLimit = 'isMessageOverLimit';
 }
 
 class UserData {
@@ -43,6 +51,10 @@ class UserData {
   final int activeDay;
   final String charactor;
   final String profession;
+  final String dailyKey;
+  final bool isConversation;
+  final bool isAssistant;
+  final bool isMessageOverLimit;
 
   UserData({
     required this.id,
@@ -56,6 +68,10 @@ class UserData {
     required this.activeDay,
     required this.charactor,
     required this.profession,
+    required this.dailyKey,
+    required this.isConversation,
+    required this.isAssistant,
+    required this.isMessageOverLimit,
   });
 
   UserData copy({
@@ -70,6 +86,10 @@ class UserData {
     int? activeDay,
     String? charactor,
     String? profession,
+    String? dailyKey,
+    bool? isConversation,
+    bool? isAssistant,
+    bool? isMessageOverLimit,
   }) =>
       UserData(
         id: id ?? this.id,
@@ -83,6 +103,10 @@ class UserData {
         activeDay: activeDay ?? this.activeDay,
         charactor: charactor ?? this.charactor,
         profession: profession ?? this.profession,
+        dailyKey: dailyKey ?? this.dailyKey,
+        isConversation: isConversation ?? this.isConversation,
+        isAssistant: isAssistant ?? this.isAssistant,
+        isMessageOverLimit: isMessageOverLimit ?? this.isMessageOverLimit,
       );
 
   static UserData fromJson(Map<String, Object?> json) => UserData(
@@ -97,6 +121,10 @@ class UserData {
         activeDay: json[UserFields.activeDay] as int,
         charactor: json[UserFields.charactor] as String,
         profession: json[UserFields.profession] as String,
+        dailyKey: json[UserFields.dailyKey] as String,
+        isConversation: json[UserFields.isConversation] as bool,
+        isAssistant: json[UserFields.isAssistant] as bool,
+        isMessageOverLimit: json[UserFields.isMessageOverLimit] as bool,
       );
 
   Map<String, Object?> toJson() => {
@@ -111,6 +139,9 @@ class UserData {
         UserFields.activeDay: activeDay,
         UserFields.charactor: charactor,
         UserFields.profession: profession,
+        UserFields.dailyKey: dailyKey,
+        UserFields.isConversation: isConversation,
+        UserFields.isAssistant: isAssistant,
       };
 
   static UserData fromEntity(UserEntity entity) => UserData(
@@ -125,6 +156,10 @@ class UserData {
         activeDay: entity.activeDay,
         charactor: entity.charactor.charactorValue!,
         profession: entity.profession,
+        dailyKey: entity.dailyKey,
+        isConversation: entity.isConversation,
+        isAssistant: entity.isAssistant,
+        isMessageOverLimit: entity.isMessageOverLimit,
       );
 
   UserEntity toEntity() => UserEntity(
@@ -139,5 +174,9 @@ class UserData {
         activeDay: activeDay,
         charactor: CharactorExtension.from(charactor),
         profession: profession,
+        dailyKey: dailyKey,
+        isConversation: isConversation,
+        isAssistant: isAssistant,
+        isMessageOverLimit: isMessageOverLimit,
       );
 }

@@ -1,5 +1,5 @@
-import 'package:aizuchi_app/domain/entity/enum/character.dart';
-import 'package:aizuchi_app/domain/entity/enum/sex.dart';
+import 'package:aizuchi_app/domain/entity/enums/character.dart';
+import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 
 class UserEntity {
   final String id;
@@ -13,6 +13,10 @@ class UserEntity {
   final int activeDay;
   final CharactorEnum charactor;
   final String profession;
+  final String dailyKey;
+  final bool isConversation;
+  final bool isAssistant;
+  final bool isMessageOverLimit;
 
   UserEntity({
     required this.id,
@@ -26,5 +30,9 @@ class UserEntity {
     required this.activeDay,
     required this.charactor,
     required this.profession,
+    required this.dailyKey,
+    required this.isConversation,
+    required this.isAssistant,
+    required this.isMessageOverLimit,
   });
 }

@@ -1,4 +1,4 @@
-import 'package:aizuchi_app/domain/entity/model/user.dart';
+import 'package:aizuchi_app/domain/entity/models/user.dart';
 
 abstract class AuthRepository {
   Future<bool> signUpWithEmail(

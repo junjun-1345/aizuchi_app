@@ -1,7 +1,7 @@
-import 'package:aizuchi_app/domain/entity/enum/platform.dart';
-import 'package:aizuchi_app/domain/entity/model/user.dart';
+import 'package:aizuchi_app/domain/entity/enums/platform.dart';
+import 'package:aizuchi_app/domain/entity/models/user.dart';
 
-abstract class UsersUseCase {
+abstract class UsersUsecase {
   Future<bool> signUpWith(
     PlatformType platform,
     String password,
@@ -16,5 +16,6 @@ abstract class UsersUseCase {
   Future<UserEntity> register(UserEntity user);
   Future<void> delete(String id);
   Future<UserEntity> read();
-  Future<void> update(UserEntity user);
+  void update(UserEntity user);
+  String createKey();
 }

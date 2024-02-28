@@ -1,4 +1,4 @@
-import 'package:aizuchi_app/domain/entity/model/user.dart';
+import 'package:aizuchi_app/domain/entity/models/user.dart';
 import 'package:aizuchi_app/domain/repositories/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -15,19 +15,15 @@ class AuthRepositoryImpl implements AuthRepository {
 
       if (userCredential.additionalUserInfo!.isNewUser) {
         //新規ユーザーの場合の処理
-        print("新規");
         return true;
       } else {
         //既存ユーザーの場合の処理
-        print("既存");
         return false;
       }
+      // ignore: empty_catches
     } on FirebaseException catch (e) {
-      print(e.message);
-    } catch (e) {
       print(e);
     }
-    print("既存");
 
     throw Exception('不正なサインアップ方法です');
   }
@@ -50,19 +46,13 @@ class AuthRepositoryImpl implements AuthRepository {
 
       if (userCredential.additionalUserInfo!.isNewUser) {
         //新規ユーザーの場合の処理
-        print("新規");
         return true;
       } else {
         //既存ユーザーの場合の処理
-        print("既存");
         return false;
       }
-    } on FirebaseException catch (e) {
-      print(e.message);
-    } catch (e) {
-      print(e);
-    }
-    print("既存");
+      // ignore: empty_catches
+    } on FirebaseException {}
 
     throw Exception('不正なサイン方法です');
   }
@@ -78,19 +68,13 @@ class AuthRepositoryImpl implements AuthRepository {
 
       if (userCredential.additionalUserInfo!.isNewUser) {
         //新規ユーザーの場合の処理
-        print("新規");
         return false;
       } else {
         //既存ユーザーの場合の処理
-        print("既存");
         return true;
       }
-    } on FirebaseAuthException catch (e) {
-      print("サインイン${e.message}");
-    } catch (e) {
-      print(e);
-    }
-    print("既存");
+      // ignore: empty_catches
+    } on FirebaseAuthException {}
 
     throw Exception('不正なサインイン方法です');
   }
@@ -113,19 +97,13 @@ class AuthRepositoryImpl implements AuthRepository {
 
       if (userCredential.additionalUserInfo!.isNewUser) {
         //新規ユーザーの場合の処理
-        print("新規");
         return false;
       } else {
         //既存ユーザーの場合の処理
-        print("既存");
         return true;
       }
-    } on FirebaseException catch (e) {
-      print(e.message);
-    } catch (e) {
-      print(e);
-    }
-    print("既存");
+      // ignore: empty_catches
+    } on FirebaseException {}
 
     throw Exception('不正なサインアップ方法です');
   }

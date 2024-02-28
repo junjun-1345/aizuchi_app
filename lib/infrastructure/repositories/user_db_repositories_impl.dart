@@ -1,4 +1,4 @@
-import 'package:aizuchi_app/domain/entity/model/user.dart';
+import 'package:aizuchi_app/domain/entity/models/user.dart';
 import 'package:aizuchi_app/domain/repositories/user_db_repository.dart';
 import 'package:aizuchi_app/infrastructure/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -55,8 +55,17 @@ class UserDBsRepositoryImpl implements UserDBRepository {
   }
 
   @override
-  Future<void> update(UserEntity user) {
-    // TODO: implement update
-    throw UnimplementedError();
+  void update(UserEntity user) {
+    final userData = UserData.fromEntity(user);
+    final json = userData.toJson();
+
+    try {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .update(json);
+    } catch (e) {
+      throw ("userCreate: エラー:$e");
+    }
   }
 }
