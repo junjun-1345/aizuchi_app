@@ -1,8 +1,9 @@
-import 'package:aizuchi_app/domain/entity/enum/platform.dart';
-import 'package:aizuchi_app/domain/entity/model/color.dart';
+import 'package:aizuchi_app/domain/entity/enums/platform.dart';
+import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:aizuchi_app/presentation/state/user_state.dart';
+import 'package:aizuchi_app/presentation/state/user_providers.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/widget/text_widget.dart';
-import 'package:aizuchi_app/presentation/view_model/user_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -45,7 +46,7 @@ class SignInPage extends HookConsumerWidget {
             try {
               final result = await notifier.signInWith(PlatformType.google);
               if (result) {
-                router.push(const ChatRoute());
+                router.push(const MessageRoute());
               } else {
                 errorMessage.value = "アカウントがまだ登録されていません";
               }
@@ -90,7 +91,7 @@ class SignInPage extends HookConsumerWidget {
             try {
               final result = await notifier.signInWith(PlatformType.email);
               if (result) {
-                router.push(const ChatRoute());
+                router.push(const MessageRoute());
               } else {
                 errorMessage.value = "アカウントがまだ登録されていません";
               }
@@ -319,7 +320,7 @@ class SignInPage extends HookConsumerWidget {
                   registerButton(),
                   Text(
                     errorMessage.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.red,
                     ),
                   ),

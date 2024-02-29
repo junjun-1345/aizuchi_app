@@ -1,6 +1,6 @@
-import 'package:aizuchi_app/domain/entity/enum/character.dart';
-import 'package:aizuchi_app/domain/entity/enum/sex.dart';
-import 'package:aizuchi_app/domain/entity/model/user.dart';
+import 'package:aizuchi_app/domain/entity/enums/character.dart';
+import 'package:aizuchi_app/domain/entity/enums/sex.dart';
+import 'package:aizuchi_app/domain/entity/models/user.dart';
 
 class UserModel {
   final String id;
@@ -14,8 +14,12 @@ class UserModel {
   final int activeDay;
   final CharactorEnum charactor;
   final String profession;
+  final String dailyKey;
+  final bool isConversation;
+  final bool isAssistant;
+  final bool isMessageOverLimit;
 
-  UserModel({
+  const UserModel({
     required this.id,
     required this.name,
     required this.email,
@@ -27,7 +31,47 @@ class UserModel {
     required this.activeDay,
     required this.charactor,
     required this.profession,
+    required this.dailyKey,
+    required this.isConversation,
+    required this.isAssistant,
+    required this.isMessageOverLimit,
   });
+
+  UserModel copyWith({
+    String? id,
+    String? name,
+    String? email,
+    DateTime? birthday,
+    SexEnum? sex,
+    bool? billing,
+    bool? init,
+    DateTime? createdAt,
+    int? activeDay,
+    CharactorEnum? charactor,
+    String? profession,
+    String? dailyKey,
+    bool? isConversation,
+    bool? isAssistant,
+    bool? isMessageOverLimit,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      birthday: birthday ?? this.birthday,
+      sex: sex ?? this.sex,
+      billing: billing ?? this.billing,
+      init: init ?? this.init,
+      createdAt: createdAt ?? this.createdAt,
+      activeDay: activeDay ?? this.activeDay,
+      charactor: charactor ?? this.charactor,
+      profession: profession ?? this.profession,
+      dailyKey: dailyKey ?? this.dailyKey,
+      isConversation: isConversation ?? this.isConversation,
+      isAssistant: isAssistant ?? this.isAssistant,
+      isMessageOverLimit: isMessageOverLimit ?? this.isMessageOverLimit,
+    );
+  }
 
   static UserModel fromEntity(UserEntity userEntity) => UserModel(
         id: userEntity.id,
@@ -41,6 +85,10 @@ class UserModel {
         activeDay: userEntity.activeDay,
         charactor: userEntity.charactor,
         profession: userEntity.profession,
+        dailyKey: userEntity.dailyKey,
+        isConversation: userEntity.isConversation,
+        isAssistant: userEntity.isAssistant,
+        isMessageOverLimit: userEntity.isMessageOverLimit,
       );
 
   UserEntity toEntity() => UserEntity(
@@ -55,5 +103,9 @@ class UserModel {
         activeDay: activeDay,
         charactor: charactor,
         profession: profession,
+        dailyKey: dailyKey,
+        isConversation: isConversation,
+        isAssistant: isAssistant,
+        isMessageOverLimit: isMessageOverLimit,
       );
 }

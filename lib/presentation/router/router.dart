@@ -1,6 +1,6 @@
-import 'package:aizuchi_app/presentation/view/pages/calendar_page.dart';
-import 'package:aizuchi_app/presentation/view/pages/chat_page.dart';
-import 'package:aizuchi_app/presentation/view/pages/log_page.dart';
+import 'package:aizuchi_app/presentation/view/pages/calender/calendar_page.dart';
+import 'package:aizuchi_app/presentation/view/pages/message/message_page.dart';
+import 'package:aizuchi_app/presentation/view/pages/log/log_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/root_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_up_form_birthdate_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_up_form_check_page.dart';
@@ -8,7 +8,6 @@ import 'package:aizuchi_app/presentation/view/pages/start/sign_up_form_name_page
 import 'package:aizuchi_app/presentation/view/pages/start/sign_up_form_sex_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_up_form_survey_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_up_page.dart';
-import 'package:aizuchi_app/presentation/view/pages/start_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_in_page.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -61,12 +60,9 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
           page: RootRoute.page,
           children: [
             AutoRoute(
-              path: 'Start',
-              page: StartRoute.page,
-            ),
-            AutoRoute(
-              path: 'Chat',
-              page: ChatRoute.page,
+              path: 'Message',
+              page: MessageRoute.page,
+              initial: true,
             ),
             AutoRoute(
               path: 'Log',

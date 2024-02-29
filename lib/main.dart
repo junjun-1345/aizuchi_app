@@ -1,4 +1,4 @@
-import 'package:aizuchi_app/domain/entity/model/color.dart';
+import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/firebase_options.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:firebase_core/firebase_core.dart';

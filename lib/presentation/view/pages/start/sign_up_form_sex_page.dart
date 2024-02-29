@@ -1,8 +1,8 @@
-import 'package:aizuchi_app/domain/entity/enum/sex.dart';
-import 'package:aizuchi_app/domain/entity/model/color.dart';
+import 'package:aizuchi_app/domain/entity/enums/sex.dart';
+import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:aizuchi_app/presentation/state/user_providers.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/widget/sign_up_form_widget.dart';
-import 'package:aizuchi_app/presentation/view_model/user_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

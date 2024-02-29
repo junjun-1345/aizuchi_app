@@ -4,8 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
-class ChatPage extends StatelessWidget {
-  const ChatPage({super.key});
+class LogPage extends StatelessWidget {
+  const LogPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,15 @@ class ChatPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('ChatPage'),
+          const Text('MessagePage'),
           const Text("もふもふ", style: TextStyle(fontSize: 80)),
           const Text("LOGIN", style: TextStyle(fontSize: 80)),
+          ElevatedButton(
+            onPressed: () {
+              signOut();
+            },
+            child: const Text('LOGOUT'),
+          ),
           ElevatedButton(
             onPressed: () {
               signOut();
