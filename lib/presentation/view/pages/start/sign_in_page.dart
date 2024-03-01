@@ -279,8 +279,8 @@ class SignInPage extends HookConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SizedBox(
-            height: 100,
-            width: 100,
+            height: 88,
+            width: 88,
             child: Image.asset('assets/images/mofumofu_icon_1.png'),
           ),
         ],
@@ -290,7 +290,7 @@ class SignInPage extends HookConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Container(
             // color: BrandColor.base,
             alignment: Alignment.center,
