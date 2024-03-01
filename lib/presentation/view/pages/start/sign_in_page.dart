@@ -19,7 +19,7 @@ class SignInPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(usersNotifierProvider.notifier);
+    final notifier = ref.read(usersNotifierProvider.notifier);
     final userEmailState = ref.watch(userEmailProvider.notifier);
     final userPasswordState = ref.watch(passwordProvider.notifier);
     final emailController = useTextEditingController();

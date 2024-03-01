@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // ///
 // /// Provider
 final usersNotifierProvider =
-    StateNotifierProvider<UsersNotifier, AsyncValue<UserModel>>(
+    StateNotifierProvider.autoDispose<UsersNotifier, AsyncValue<UserModel>>(
   (ref) {
     return UsersNotifier(ref, ref.watch(usersUsecaseProvider))..initialize();
   },
@@ -27,6 +27,7 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
   final UsersUsecase _usersUseCase;
 
   void initialize() async {
+    print("初期化");
     final UserEntity entity = await _usersUseCase.read();
     final UserModel user = UserModel.fromEntity(entity);
     state = AsyncValue.data(user);
