@@ -1,11 +1,11 @@
 import 'package:aizuchi_app/domain/entity/enums/platform.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
-import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/state/user_providers.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
-import 'package:aizuchi_app/presentation/view/widget/text_widget.dart';
+import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
+import 'package:aizuchi_app/presentation/view/pages/start/components/text_widget.dart';
+import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -19,7 +19,7 @@ class SignUpPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(usersNotifierProvider.notifier);
+    final userViewModel = ref.watch(userViewModelProvider);
     final userEmailState = ref.watch(userEmailProvider.notifier);
     final userPasswordState = ref.watch(passwordProvider.notifier);
     final emailController = useTextEditingController();
@@ -43,7 +43,8 @@ class SignUpPage extends HookConsumerWidget {
           text: "Googleで登録",
           onPressed: () async {
             try {
-              final result = await notifier.signUpWith(PlatformType.google);
+              final result =
+                  await userViewModel.signUpWith(PlatformType.google);
               if (result) {
                 router.push(const SignUpFormNameRoute());
               } else {
@@ -85,7 +86,7 @@ class SignUpPage extends HookConsumerWidget {
             userEmailState.state = emailController.text;
             userPasswordState.state = passwordController.text;
             try {
-              final result = await notifier.signUpWith(PlatformType.email);
+              final result = await userViewModel.signUpWith(PlatformType.email);
               if (result) {
                 router.push(const SignUpFormNameRoute());
               } else {
@@ -105,121 +106,6 @@ class SignUpPage extends HookConsumerWidget {
             'Aizuchiに登録',
             style: TextStyle(
                 color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),
-          ),
-        ),
-      );
-    }
-
-    Widget emailTextform() {
-      return SizedBox(
-        height: 80,
-        child: TextFormField(
-          controller: emailController,
-          validator: (value) {
-            if (value == null || !EmailValidator.validate(value)) {
-              return '正しい形式でメールアドレスを入力してください';
-            }
-            return null;
-          },
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-            hintText: "メールアドレスを入力",
-            hintStyle: const TextStyle(
-              fontSize: 14,
-              color: Colors.black54,
-            ),
-            fillColor: Colors.white,
-            filled: true,
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(
-                color: Colors.black54,
-                width: 2.0,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(
-                color: Colors.black12,
-                width: 1.0,
-              ),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(
-                color: Colors.red,
-                width: 1.0,
-              ),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(
-                color: Colors.red,
-                width: 2.0,
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    Widget passwordTextform() {
-      return SizedBox(
-        height: 80,
-        child: TextFormField(
-          controller: passwordController,
-          obscureText: isObscure.value,
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'パスワードを入力してください';
-            }
-            return null;
-          },
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-            hintText: "パスワードを入力",
-            hintStyle: const TextStyle(
-              fontSize: 14,
-              color: Colors.black54,
-            ),
-            fillColor: Colors.white,
-            filled: true,
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(
-                color: Colors.black54,
-                width: 2.0,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(
-                color: Colors.black12,
-                width: 1.0,
-              ),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(
-                color: Colors.red,
-                width: 1.0,
-              ),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(
-                color: Colors.red,
-                width: 2.0,
-              ),
-            ),
-            suffixIcon: IconButton(
-              icon: Icon(
-                  isObscure.value ? Icons.visibility_off : Icons.visibility),
-              color: BrandColor.baseRed,
-              onPressed: () {
-                isObscure.value = !isObscure.value;
-              },
-            ),
           ),
         ),
       );
@@ -275,8 +161,8 @@ class SignUpPage extends HookConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SizedBox(
-            height: 100,
-            width: 100,
+            height: 88,
+            width: 88,
             child: Image.asset('assets/images/mofumofu_icon_1.png'),
           ),
         ],
@@ -316,49 +202,66 @@ class SignUpPage extends HookConsumerWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Container(
-            // color: BrandColor.base,
-            alignment: Alignment.center,
-            child: Form(
-              key: formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  textTitleWidget("アカウント登録"),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  descriptionText(),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  singUpWithGoogleButton(),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  singUpWithAppleButton(),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  customDivider(),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  emailTextform(),
-                  passwordTextform(),
-                  registerButton(),
-                  Text(
-                    errorMessage.value,
-                    // "エラー",
-                    style: const TextStyle(
-                      color: Colors.red,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Container(
+              // color: BrandColor.base,
+              alignment: Alignment.center,
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    textTitleWidget("アカウント登録"),
+                    const SizedBox(
+                      height: 32,
                     ),
-                  ),
-                  reverseButton(),
-                  imageWidget(),
-                ],
+                    descriptionText(),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    singUpWithGoogleButton(),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    singUpWithAppleButton(),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    customDivider(),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    AppTextForm.email(emailController),
+                    AppTextForm.password(passwordController,
+                        obscureText: isObscure.value, onPressed: () {
+                      isObscure.value = !isObscure.value;
+                    }),
+                    registerButton(),
+                    Text(
+                      errorMessage.value,
+                      // "エラー",
+                      style: const TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
+                    reverseButton(),
+                    TextButton(
+                      onPressed: () {
+                        context.router.replace(const SignUpFormNameRoute());
+                      },
+                      child: const Text(
+                        "テスト",
+                        style: TextStyle(
+                          color: BrandColor.baseRed,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    imageWidget(),
+                  ],
+                ),
               ),
             ),
           ),
