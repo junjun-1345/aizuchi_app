@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/presentation/state/user_providers.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
-import 'package:aizuchi_app/presentation/view/widget/sign_up_form_widget.dart';
+import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
+import 'package:aizuchi_app/presentation/view/pages/start/components/sign_up_form_widget.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -26,64 +27,14 @@ class SignUpFormNamePage extends HookConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    children: [
-                      const SignUpFormWidget(
-                        content: 'ニックネーム',
-                        index: 1,
-                      ),
-                      SizedBox(
-                        height: 80,
-                        child: TextFormField(
-                          controller: nameController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'ニックネームを入力してください';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 16),
-                            hintText: "ニックネームを入力",
-                            hintStyle: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.black54,
-                            ),
-                            fillColor: Colors.white,
-                            filled: true,
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                color: Colors.black54,
-                                width: 2.0,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                color: Colors.black12,
-                                width: 1.0,
-                              ),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                color: Colors.red,
-                                width: 1.0,
-                              ),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                color: Colors.red,
-                                width: 2.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                  const SignUpFormWidget(
+                    content: 'ニックネーム',
+                    index: 1,
+                  ),
+                  AppTextForm.medium(
+                    nameController,
+                    hintText: "ニックネームを入力",
+                    validatorhintText: "ニックネームを入力してください",
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
