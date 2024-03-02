@@ -38,12 +38,7 @@ class AuthRepositoryImpl implements AuthRepository {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-      if (!userCredential.additionalUserInfo!.isNewUser) {
-        //既存ユーザーの場合の処理
-        throw ('すでにユーザーが存在します。');
-      }
+      await FirebaseAuth.instance.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'account-exists-with-different-credential':
@@ -104,12 +99,7 @@ class AuthRepositoryImpl implements AuthRepository {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-      if (userCredential.additionalUserInfo!.isNewUser) {
-        //新規ユーザーの場合の処理
-        throw 'ユーザーが存在しません。';
-      }
+      await FirebaseAuth.instance.signInWithCredential(credential);
       // ignore: empty_catches
     } on FirebaseAuthException catch (e) {
       switch (e.code) {

@@ -21,19 +21,15 @@ class UsersInteractor implements UsersUsecase {
     UserEntity user,
   ) async {
     // 既存はfalse 新規はtrue を返す。
-    try {
-      switch (platform) {
-        case PlatformType.google:
-          await authRepository.signUpWithGoogle();
-          break;
-        case PlatformType.email:
-          await authRepository.signUpWithEmail(password, user);
-          break;
-        default:
-          throw '不正なサインアップ方法です';
-      }
-    } catch (e) {
-      authRepository.signOut();
+    switch (platform) {
+      case PlatformType.google:
+        await authRepository.signUpWithGoogle();
+        break;
+      case PlatformType.email:
+        await authRepository.signUpWithEmail(password, user);
+        break;
+      default:
+        throw '不正なサインアップ方法です';
     }
 
     // ユーザーが存在をDBで確認し、存在する場合はサインアウトする。
@@ -53,19 +49,15 @@ class UsersInteractor implements UsersUsecase {
     String password,
     UserEntity user,
   ) async {
-    try {
-      switch (platform) {
-        case PlatformType.google:
-          await authRepository.signInWithGoogle();
-          break;
-        case PlatformType.email:
-          await authRepository.signInWithEmail(password, user);
-          break;
-        default:
-          throw '不正なログイン方法です';
-      }
-    } catch (e) {
-      authRepository.signOut();
+    switch (platform) {
+      case PlatformType.google:
+        await authRepository.signInWithGoogle();
+        break;
+      case PlatformType.email:
+        await authRepository.signInWithEmail(password, user);
+        break;
+      default:
+        throw '不正なログイン方法です';
     }
 
     // ユーザーが存在をDBで確認し、存在しない場合はサインアウトする。

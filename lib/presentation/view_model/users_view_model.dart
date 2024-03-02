@@ -19,8 +19,10 @@ class UserViewModel {
     this.usersNotifier,
   );
 
-  Future<void> signUpWith(
-      {required PlatformType platform, required Function onSuccess}) async {
+  Future<void> signUpWith({
+    required PlatformType platform,
+    required Function onSuccess,
+  }) async {
     try {
       await usersNotifier.signUpWith(platform);
     } catch (e) {
@@ -31,8 +33,10 @@ class UserViewModel {
     onSuccess();
   }
 
-  Future<void> signInWith(
-      {required PlatformType platform, required Function onSuccess}) async {
+  Future<void> signInWith({
+    required PlatformType platform,
+    required Function onSuccess,
+  }) async {
     try {
       await usersNotifier.signInWith(platform);
     } catch (e) {
