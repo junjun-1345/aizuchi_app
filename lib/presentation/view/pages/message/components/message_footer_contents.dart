@@ -92,7 +92,7 @@ class MessageFooterContents extends ConsumerWidget {
                         minLines: 1,
                         cursorColor: BrandColor.baseRed,
                         decoration: const InputDecoration(
-                          hintText: "メッセージを入力してください",
+                          hintText: "メッセージを入力",
                           filled: true,
                           //これがないと余白をとりすぎる
                           isDense: true,

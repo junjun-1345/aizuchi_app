@@ -14,8 +14,6 @@ final userCreatedAtProvider = StateProvider<DateTime>((_) => DateTime.now());
 final userActiveDayProvider = StateProvider<int>((_) => 0);
 final userCharactorProvider =
     StateProvider<CharactorEnum>((_) => CharactorEnum.unknown);
-final passwordProvider = StateProvider<String>((_) => "");
-final errorProvider = StateProvider<String?>((_) => "");
 final professionProvider = StateProvider<String>((_) => "");
 final dailyKeyProvider = StateProvider<String>((_) => "");
 final isConversationProvider = StateProvider<bool>((_) => false);

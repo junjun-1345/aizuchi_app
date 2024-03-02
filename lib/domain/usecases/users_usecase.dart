@@ -2,12 +2,12 @@ import 'package:aizuchi_app/domain/entity/enums/platform.dart';
 import 'package:aizuchi_app/domain/entity/models/user.dart';
 
 abstract class UsersUsecase {
-  Future<bool> signUpWith(
+  Future<void> signUpWith(
     PlatformType platform,
     String password,
     UserEntity user,
   );
-  Future<bool> signInWith(
+  Future<void> signInWith(
     PlatformType platform,
     String password,
     UserEntity user,

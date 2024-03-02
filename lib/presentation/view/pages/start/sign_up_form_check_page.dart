@@ -1,9 +1,9 @@
 import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
-import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/state/user_providers.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
-import 'package:aizuchi_app/presentation/view/widget/text_widget.dart';
+import 'package:aizuchi_app/presentation/view/pages/start/components/text_widget.dart';
+import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,7 +13,7 @@ class SignUpFormCheckPage extends HookConsumerWidget {
   const SignUpFormCheckPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final usersNotifier = ref.watch(usersNotifierProvider.notifier);
+    final userViewModel = ref.read(userViewModelProvider);
     final usersState = ref.watch(userProvider);
 
     return GestureDetector(
@@ -134,7 +134,7 @@ class SignUpFormCheckPage extends HookConsumerWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        usersNotifier.signOut();
+                        userViewModel.signOut();
                         context.router.pop(
                           const SignUpRoute(),
                         );
@@ -146,7 +146,7 @@ class SignUpFormCheckPage extends HookConsumerWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           try {
-                            usersNotifier.register();
+                            userViewModel.register();
                           } catch (e) {
                             print(e);
                           }

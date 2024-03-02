@@ -3,13 +3,14 @@ import 'package:aizuchi_app/domain/entity/enums/platform.dart';
 import 'package:aizuchi_app/domain/entity/models/user.dart';
 import 'package:aizuchi_app/domain/usecases/users_usecase.dart';
 import 'package:aizuchi_app/presentation/model/user_model.dart';
+import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/state/user_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ///
 // /// Provider
 final usersNotifierProvider =
-    StateNotifierProvider<UsersNotifier, AsyncValue<UserModel>>(
+    StateNotifierProvider.autoDispose<UsersNotifier, AsyncValue<UserModel>>(
   (ref) {
     return UsersNotifier(ref, ref.watch(usersUsecaseProvider))..initialize();
   },
@@ -27,27 +28,23 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
   final UsersUsecase _usersUseCase;
 
   void initialize() async {
+    print("初期化");
     final UserEntity entity = await _usersUseCase.read();
     final UserModel user = UserModel.fromEntity(entity);
     state = AsyncValue.data(user);
     print(state.asData?.value.dailyKey);
   }
 
-  Future<bool> signUpWith(PlatformType platform) async {
+  Future<void> signUpWith(PlatformType platform) async {
     final UserModel form = ref.read(userProvider);
     final String password = ref.read(passwordProvider);
-    final bool result =
-        await _usersUseCase.signUpWith(platform, password, form.toEntity());
-    return result;
+    await _usersUseCase.signUpWith(platform, password, form.toEntity());
   }
 
-  Future<bool> signInWith(PlatformType platform) async {
+  Future<void> signInWith(PlatformType platform) async {
     final UserModel form = ref.read(userProvider);
     final String password = ref.read(passwordProvider);
-    final bool result =
-        await _usersUseCase.signInWith(platform, password, form.toEntity());
-
-    return result;
+    await _usersUseCase.signInWith(platform, password, form.toEntity());
   }
 
   void signOut() async {

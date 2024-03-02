@@ -3,6 +3,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final emotionProvider = StateProvider<EmotionType>((_) => EmotionType.neutral);
 
+final errorProvider = StateProvider.autoDispose<String>((_) => "");
+
+final passwordProvider = StateProvider<String>((_) => "");
+
 final isWaitngProvider = StateNotifierProvider<IsWaitngNotifier, bool>((ref) {
   return IsWaitngNotifier();
 });

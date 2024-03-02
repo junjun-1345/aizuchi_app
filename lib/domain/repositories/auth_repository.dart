@@ -1,16 +1,16 @@
 import 'package:aizuchi_app/domain/entity/models/user.dart';
 
 abstract class AuthRepository {
-  Future<bool> signUpWithEmail(
+  Future<void> signUpWithEmail(
     String password,
     UserEntity user,
   );
-  Future<bool> signUpWithGoogle();
-  Future<bool> signInWithEmail(
+  Future<void> signUpWithGoogle();
+  Future<void> signInWithEmail(
     String password,
     UserEntity user,
   );
-  Future<bool> signInWithGoogle();
+  Future<void> signInWithGoogle();
   Future<void> signOut();
   Future<void> accountDalete();
 }
