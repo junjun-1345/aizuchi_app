@@ -127,10 +127,15 @@ class SignUpPage extends HookConsumerWidget {
                         }
                       },
                     ),
-                    Text(
-                      error,
-                      style: const TextStyle(
-                        color: Colors.red,
+                    TextButton(
+                      onPressed: () {
+                        ref.read(errorProvider.notifier).state = "";
+                      },
+                      child: Text(
+                        error,
+                        style: const TextStyle(
+                          color: Colors.red,
+                        ),
                       ),
                     ),
                     TextButton(
