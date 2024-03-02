@@ -1,12 +1,12 @@
 import 'package:aizuchi_app/domain/entity/enums/platform.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/state/user_providers.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/components/text_widget.dart';
 import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -20,17 +20,16 @@ class SignInPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final UserViewModel userViewModel = ref.read(userViewModelProvider);
-    final userEmailState = ref.watch(userEmailProvider.notifier);
-    final userPasswordState = ref.watch(passwordProvider.notifier);
-    final emailController = useTextEditingController();
-    final passwordController = useTextEditingController();
-    final formKey = useMemoized(GlobalKey<FormState>.new);
-    final isObscure = useState(true);
-    final errorMessage = useState("");
-
-    final router = context.router;
-
-    //TODO: 2024/01/19　サインインボタンの機能関係実装
+    final StateController<String> userEmailState =
+        ref.watch(userEmailProvider.notifier);
+    final StateController<String> userPasswordState =
+        ref.watch(passwordProvider.notifier);
+    final TextEditingController emailController = useTextEditingController();
+    final TextEditingController passwordController = useTextEditingController();
+    final GlobalKey<FormState> formKey = useMemoized(GlobalKey<FormState>.new);
+    final ValueNotifier<bool> isObscure = useState(true);
+    final String error = ref.watch(errorProvider);
+    final StackRouter router = context.router;
 
     Widget singInWithGoogleButton() {
       return SizedBox(
@@ -43,22 +42,11 @@ class SignInPage extends HookConsumerWidget {
           ),
           text: "Googleでログイン",
           onPressed: () async {
-            try {
-              final result =
-                  await userViewModel.signInWith(PlatformType.google);
-              if (result) {
-                router.push(const MessageRoute());
-              } else {
-                errorMessage.value = "アカウントがまだ登録されていません";
-              }
-            } on FirebaseAuthException catch (e) {
-              print("UI firebaseエラー${e.toString()}");
-              // errorMessage.value = e.toString();
-            } catch (e) {
-              errorMessage.value = "エラーが発生しました。もう一度お試しください。";
-              print("UIエラー${e.toString()}");
-              errorMessage.value = e.toString();
-            }
+            await userViewModel.signInWith(
+                platform: PlatformType.google,
+                onSuccess: () {
+                  router.push(const MessageRoute());
+                });
           },
         ),
       );
@@ -89,17 +77,11 @@ class SignInPage extends HookConsumerWidget {
             formKey.currentState!.validate();
             userEmailState.state = emailController.text;
             userPasswordState.state = passwordController.text;
-            try {
-              final result = await userViewModel.signInWith(PlatformType.email);
-              if (result) {
-                router.push(const MessageRoute());
-              } else {
-                errorMessage.value = "アカウントがまだ登録されていません";
-              }
-            } catch (e) {
-              errorMessage.value = "エラーが発生しました。もう一度お試しください。";
-              print(e.toString());
-            }
+            await userViewModel.signInWith(
+                platform: PlatformType.email,
+                onSuccess: () {
+                  router.push(const MessageRoute());
+                });
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: BrandColor.baseRed,
@@ -208,7 +190,7 @@ class SignInPage extends HookConsumerWidget {
                   }),
                   registerButton(),
                   Text(
-                    errorMessage.value,
+                    error,
                     style: const TextStyle(
                       color: Colors.red,
                     ),

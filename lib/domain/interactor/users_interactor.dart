@@ -15,56 +15,65 @@ class UsersInteractor implements UsersUsecase {
       this.userDBRepository, this.authRepository, this.localDBRepository);
 
   @override
-  Future<bool> signUpWith(
+  Future<void> signUpWith(
     PlatformType platform,
     String password,
     UserEntity user,
   ) async {
     // 既存はfalse 新規はtrue を返す。
-    if (platform == PlatformType.google) {
-      if (await authRepository.signUpWithGoogle()) {
-        localDBRepository.setIsSignUpTrue();
-        return true;
-      } else {
-        authRepository.signOut();
-        return false;
+    try {
+      switch (platform) {
+        case PlatformType.google:
+          await authRepository.signUpWithGoogle();
+          break;
+        case PlatformType.email:
+          await authRepository.signUpWithEmail(password, user);
+          break;
+        default:
+          throw '不正なサインアップ方法です';
       }
-    } else if (platform == PlatformType.email) {
-      if (await authRepository.signUpWithEmail(password, user)) {
-        localDBRepository.setIsSignUpTrue();
-        return true;
-      } else {
-        authRepository.signOut();
-        return false;
-      }
-    } else {
-      throw Exception('不正なサインアップ方法です');
+    } catch (e) {
+      authRepository.signOut();
     }
+
+    // ユーザーが存在をDBで確認し、存在する場合はサインアウトする。
+    try {
+      await userDBRepository.read();
+    } catch (e) {
+      localDBRepository.setIsSignUpTrue();
+      return;
+    }
+    authRepository.signOut();
+    throw 'ユーザーが存在します。';
   }
 
-  // trueで次のフローへ
   @override
-  Future<bool> signInWith(
+  Future<void> signInWith(
     PlatformType platform,
     String password,
     UserEntity user,
   ) async {
-    // 一度サインインしてIDをもらう
-    if (platform == PlatformType.google) {
-      await authRepository.signInWithGoogle();
-    } else if (platform == PlatformType.email) {
-      await authRepository.signInWithEmail(password, user);
-    } else {
-      throw Exception('不正なログイン方法です');
+    try {
+      switch (platform) {
+        case PlatformType.google:
+          await authRepository.signInWithGoogle();
+          break;
+        case PlatformType.email:
+          await authRepository.signInWithEmail(password, user);
+          break;
+        default:
+          throw '不正なログイン方法です';
+      }
+    } catch (e) {
+      authRepository.signOut();
     }
-    // ユーザー情報あるか確認
+
+    // ユーザーが存在をDBで確認し、存在しない場合はサインアウトする。
     try {
       await userDBRepository.read();
-      return true;
     } catch (e) {
-      //FIXME: print消す
-      // print("ユーザー情報がありません");
-      return false;
+      authRepository.signOut();
+      throw 'ユーザーが存在しません。';
     }
   }
 
@@ -75,6 +84,7 @@ class UsersInteractor implements UsersUsecase {
 
   @override
   Future<void> signOut() {
+    localDBRepository.setIsSignUpFalse();
     return authRepository.signOut();
   }
 
@@ -110,7 +120,6 @@ class UsersInteractor implements UsersUsecase {
     );
 
     userDBRepository.create(user);
-
     localDBRepository.setIsSignUpFalse();
     return user;
   }

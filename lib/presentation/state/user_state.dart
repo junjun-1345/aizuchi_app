@@ -3,6 +3,7 @@ import 'package:aizuchi_app/domain/entity/enums/platform.dart';
 import 'package:aizuchi_app/domain/entity/models/user.dart';
 import 'package:aizuchi_app/domain/usecases/users_usecase.dart';
 import 'package:aizuchi_app/presentation/model/user_model.dart';
+import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/state/user_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -34,21 +35,16 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     print(state.asData?.value.dailyKey);
   }
 
-  Future<bool> signUpWith(PlatformType platform) async {
+  Future<void> signUpWith(PlatformType platform) async {
     final UserModel form = ref.read(userProvider);
     final String password = ref.read(passwordProvider);
-    final bool result =
-        await _usersUseCase.signUpWith(platform, password, form.toEntity());
-    return result;
+    await _usersUseCase.signUpWith(platform, password, form.toEntity());
   }
 
-  Future<bool> signInWith(PlatformType platform) async {
+  Future<void> signInWith(PlatformType platform) async {
     final UserModel form = ref.read(userProvider);
     final String password = ref.read(passwordProvider);
-    final bool result =
-        await _usersUseCase.signInWith(platform, password, form.toEntity());
-
-    return result;
+    await _usersUseCase.signInWith(platform, password, form.toEntity());
   }
 
   void signOut() async {

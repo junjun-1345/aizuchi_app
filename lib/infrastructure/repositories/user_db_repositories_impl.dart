@@ -50,7 +50,7 @@ class UserDBsRepositoryImpl implements UserDBRepository {
       final userData = UserData.fromJson(map);
       return userData.toEntity();
     } catch (e) {
-      return throw ("fetchUser エラー:$e");
+      throw ("fetchUser エラー:$e");
     }
   }
 

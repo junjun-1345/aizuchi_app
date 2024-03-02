@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/domain/entity/enums/platform.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/state/user_providers.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
@@ -19,17 +20,17 @@ class SignUpPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userViewModel = ref.watch(userViewModelProvider);
-    final userEmailState = ref.watch(userEmailProvider.notifier);
-    final userPasswordState = ref.watch(passwordProvider.notifier);
-    final emailController = useTextEditingController();
-    final passwordController = useTextEditingController();
-    final errorMessage = useState("");
-
-    final formKey = useMemoized(GlobalKey<FormState>.new);
-    final isObscure = useState(true);
-
-    final router = context.router;
+    final UserViewModel userViewModel = ref.read(userViewModelProvider);
+    final StateController<String> userEmailState =
+        ref.watch(userEmailProvider.notifier);
+    final StateController<String> userPasswordState =
+        ref.watch(passwordProvider.notifier);
+    final TextEditingController emailController = useTextEditingController();
+    final TextEditingController passwordController = useTextEditingController();
+    final GlobalKey<FormState> formKey = useMemoized(GlobalKey<FormState>.new);
+    final ValueNotifier<bool> isObscure = useState(true);
+    final String error = ref.watch(errorProvider);
+    final StackRouter router = context.router;
 
     Widget singUpWithGoogleButton() {
       return SizedBox(
@@ -42,19 +43,11 @@ class SignUpPage extends HookConsumerWidget {
           ),
           text: "Googleで登録",
           onPressed: () async {
-            try {
-              final result =
-                  await userViewModel.signUpWith(PlatformType.google);
-              if (result) {
-                router.push(const SignUpFormNameRoute());
-              } else {
-                errorMessage.value = "アカウントが既に登録されています";
-              }
-            } catch (e) {
-              errorMessage.value = "エラーが発生しました。もう一度お試しください。";
-              print(e.toString());
-              // errorMessage.value = e.toString();
-            }
+            userViewModel.signUpWith(
+                platform: PlatformType.google,
+                onSuccess: () {
+                  router.push(const SignUpFormNameRoute());
+                });
           },
         ),
       );
@@ -85,17 +78,6 @@ class SignUpPage extends HookConsumerWidget {
             formKey.currentState!.validate();
             userEmailState.state = emailController.text;
             userPasswordState.state = passwordController.text;
-            try {
-              final result = await userViewModel.signUpWith(PlatformType.email);
-              if (result) {
-                router.push(const SignUpFormNameRoute());
-              } else {
-                errorMessage.value = "アカウントが既に登録されています";
-              }
-            } catch (e) {
-              errorMessage.value = "エラーが発生しました。もう一度お試しください。";
-              print(e.toString());
-            }
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: BrandColor.baseRed,
@@ -240,7 +222,7 @@ class SignUpPage extends HookConsumerWidget {
                     }),
                     registerButton(),
                     Text(
-                      errorMessage.value,
+                      error,
                       // "エラー",
                       style: const TextStyle(
                         color: Colors.red,

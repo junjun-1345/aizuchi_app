@@ -1,4 +1,5 @@
 import 'package:aizuchi_app/domain/entity/enums/platform.dart';
+import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,12 +19,28 @@ class UserViewModel {
     this.usersNotifier,
   );
 
-  Future<bool> signUpWith(PlatformType platform) async {
-    return usersNotifier.signUpWith(platform);
+  Future<void> signUpWith(
+      {required PlatformType platform, required Function onSuccess}) async {
+    try {
+      await usersNotifier.signUpWith(platform);
+    } catch (e) {
+      print('エラーをキャッチしました: $e');
+      ref.read(errorProvider.notifier).state = e.toString();
+      return;
+    }
+    onSuccess();
   }
 
-  Future<bool> signInWith(PlatformType platform) async {
-    return usersNotifier.signInWith(platform);
+  Future<void> signInWith(
+      {required PlatformType platform, required Function onSuccess}) async {
+    try {
+      await usersNotifier.signInWith(platform);
+    } catch (e) {
+      print('エラーをキャッチしました: $e');
+      ref.read(errorProvider.notifier).state = e.toString();
+      return;
+    }
+    onSuccess();
   }
 
   Future<void> signOut() async {
