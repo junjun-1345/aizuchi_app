@@ -44,6 +44,11 @@ ChatGPT を活用した
 
 ## ディレクトリ構成
 
+
+![aizuchi](https://github.com/junjun-1345/aizuchi_app/assets/76525601/228b09f9-fed7-4701-a404-f436265ca6ee)
+
+
+
 <p align="right">(<a href="#top">トップへ</a>)</p>
 
 ## 開発環境構築
