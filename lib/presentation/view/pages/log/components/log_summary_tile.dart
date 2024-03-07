@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:flutter/material.dart';
 
 class LogSummaryTile extends StatelessWidget {
@@ -9,7 +10,7 @@ class LogSummaryTile extends StatelessWidget {
       height: 100,
       width: 347,
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: BrandColor.baseRed,
         borderRadius: BorderRadius.circular(16),
       ),
       child: const Padding(
@@ -60,21 +61,33 @@ class SummaryPart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(icon),
+        Icon(
+          icon,
+          color: Colors.white,
+        ),
         Text(
           title,
-          style: const TextStyle(fontSize: 12),
+          style: const TextStyle(
+            fontSize: 12,
+            color: Colors.white,
+          ),
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
               value,
-              style: const TextStyle(fontSize: 24),
+              style: const TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+              ),
             ),
             Text(
               unit,
-              style: const TextStyle(fontSize: 12),
+              style: const TextStyle(
+                fontSize: 12,
+                color: Colors.white,
+              ),
             ),
           ],
         )
