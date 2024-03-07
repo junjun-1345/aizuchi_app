@@ -1,9 +1,11 @@
-import 'package:aizuchi_app/domain/entity/models/color.dart';
-import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
+import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
+import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/view/pages/log/components/log_carousel.dart';
+import 'package:aizuchi_app/presentation/view/pages/log/components/log_summary_tile.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 @RoutePage()
 class LogPage extends ConsumerWidget {
@@ -11,26 +13,27 @@ class LogPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      drawer: const HamburgerMenu(),
-      drawerScrimColor: BrandColor.base,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: BrandColor.textBlack),
-      ),
-      body: Center(
-        child: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(8),
-          child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: 80),
-                Text('LogPage'),
-              ]),
+    Future<void> signOut() async {
+      await FirebaseAuth.instance.signOut();
+      context.router.replace(const SignInRoute());
+      // final authenticated = FirebaseAuth.instance.currentUser != null;
+      // print(authenticated);
+    }
+
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('ログ'),
+        LogSummaryTile(),
+        SizedBox(
+          height: 24,
         ),
-      ),
+        LogCarousel(),
+        SizedBox(
+          height: 24,
+        ),
+      
+      ],
     );
   }
 }
