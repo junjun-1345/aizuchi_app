@@ -1,4 +1,6 @@
 import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/view/pages/log/components/log_carousel.dart';
+import 'package:aizuchi_app/presentation/view/pages/log/components/log_summary_tile.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,28 +18,20 @@ class LogPage extends StatelessWidget {
       // print(authenticated);
     }
 
-    return Container(
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('MessagePage'),
-          const Text("もふもふ", style: TextStyle(fontSize: 80)),
-          const Text("LOGIN", style: TextStyle(fontSize: 80)),
-          ElevatedButton(
-            onPressed: () {
-              signOut();
-            },
-            child: const Text('LOGOUT'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              signOut();
-            },
-            child: const Text('LOGOUT'),
-          ),
-        ],
-      ),
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('ログ'),
+        LogSummaryTile(),
+        SizedBox(
+          height: 24,
+        ),
+        LogCarousel(),
+        SizedBox(
+          height: 24,
+        ),
+      
+      ],
     );
   }
 }
