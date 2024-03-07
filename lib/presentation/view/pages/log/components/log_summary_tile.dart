@@ -1,4 +1,5 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -21,6 +22,7 @@ class LogSummaryTile extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.12,
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
+        color: BrandColor.baseRed,
         color: BrandColor.baseRed,
         borderRadius: BorderRadius.circular(16),
       ),
