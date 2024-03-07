@@ -1,3 +1,5 @@
+import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:aizuchi_app/presentation/view/pages/log/components/select_week.dart';
 import 'package:flutter/material.dart';
 
 class DaysCarouselTile extends StatelessWidget {
@@ -11,83 +13,46 @@ class DaysCarouselTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.red,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(16),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(
+              SizedBox(
                 height: 16,
               ),
-              const DiaryTile(),
-              const SizedBox(
+              DiaryTile(),
+              SizedBox(
                 height: 8,
               ),
-              const DiaryTile(),
-              const SizedBox(
+              DiaryTile(),
+              SizedBox(
                 height: 8,
               ),
-              const DiaryTile(),
-              const SizedBox(
+              DiaryTile(),
+              SizedBox(
                 height: 8,
               ),
-              const DiaryTile(),
-              const SizedBox(
+              DiaryTile(),
+              SizedBox(
                 height: 8,
               ),
-              const DiaryTile(),
-              const SizedBox(
+              DiaryTile(),
+              SizedBox(
                 height: 8,
               ),
-              const DiaryTile(),
-              const SizedBox(
+              DiaryTile(),
+              SizedBox(
                 height: 8,
               ),
-              const DiaryTile(),
-              const SizedBox(
+              DiaryTile(),
+              SizedBox(
                 height: 24,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () {},
-                    borderRadius: BorderRadius.circular(100),
-                    child: Container(
-                      height: 25,
-                      width: 25,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          border: Border.all(width: 1)),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  const Text(
-                    '1/13(水) 〜 1/19(火)',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    borderRadius: BorderRadius.circular(100),
-                    child: Container(
-                      height: 25,
-                      width: 25,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          border: Border.all(width: 1)),
-                    ),
-                  ),
-                ],
-              ),
+              SelectWeekPart(),
             ],
           ),
         ),
@@ -106,7 +71,9 @@ class DiaryTile extends StatelessWidget {
     return Container(
       height: 60,
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(8)),
+        color: BrandColor.base,
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: const Row(
         children: [
           SizedBox(
