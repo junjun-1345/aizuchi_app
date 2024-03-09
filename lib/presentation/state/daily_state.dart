@@ -9,12 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final dailyNotifierProvider =
     StateNotifierProvider<DailyNotifier, AsyncValue<List<DailyModel>>>(
-  (ref) {
-    return DailyNotifier(
-      ref,
-      ref.watch(dailyUsecaseProvider),
-    );
-  },
+  (ref) => DailyNotifier(ref, ref.watch(dailyUsecaseProvider))..initialize(),
 );
 
 class DailyNotifier extends StateNotifier<AsyncValue<List<DailyModel>>> {

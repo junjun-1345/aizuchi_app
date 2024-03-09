@@ -15,7 +15,7 @@ final messagesNotifierProvider =
   return MessagesNotifier(
     ref,
     ref.watch(messagesUsecaseProvider),
-  );
+  )..initialize();
 });
 
 class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
@@ -26,7 +26,6 @@ class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
 
   final Ref ref;
   final MessageUsecases _messageUsecase;
-
   void initialize() async {
     print("messagesNotifierProvider initialize");
     final List<MessageEntity> messageEntity = await _messageUsecase.readAll();
