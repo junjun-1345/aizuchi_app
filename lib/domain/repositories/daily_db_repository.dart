@@ -1,4 +1,5 @@
 import 'package:aizuchi_app/domain/entity/models/daily.dart';
+import 'package:aizuchi_app/mock/daily_mock.dart';
 
 abstract class DailyDBRepository {
   Future<void> create(DailyEntity daily);
