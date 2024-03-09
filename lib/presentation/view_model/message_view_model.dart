@@ -1,4 +1,5 @@
 import 'package:aizuchi_app/presentation/state/app_state.dart';
+import 'package:aizuchi_app/presentation/state/daily_state.dart';
 import 'package:aizuchi_app/presentation/state/message_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 
@@ -9,6 +10,7 @@ final messageViewModelProvider = Provider<MessageViewModel>(
     ref,
     ref.read(messagesNotifierProvider.notifier),
     ref.read(usersNotifierProvider.notifier),
+    ref.read(dailyNotifierProvider.notifier),
     ref.read(isWaitngProvider.notifier),
   ),
 );
@@ -17,12 +19,14 @@ class MessageViewModel {
   final Ref ref;
   final MessagesNotifier messagesNotifier;
   final UsersNotifier usersNotifier;
+  final DailyNotifier dailyNotifier;
   final IsWaitngNotifier isWaitngNotifier;
 
   MessageViewModel(
     this.ref,
     this.messagesNotifier,
     this.usersNotifier,
+    this.dailyNotifier,
     this.isWaitngNotifier,
   );
 
@@ -33,7 +37,7 @@ class MessageViewModel {
     usersNotifier.createDailyKey();
     await messagesNotifier.createDateMessage();
     await messagesNotifier.createEmotionMessage();
-
+    await dailyNotifier.saveEmotion();
     await messagesNotifier.createAssistantMessage();
 
     isWaitngNotifier.stopWaiting();
@@ -79,6 +83,7 @@ class MessageViewModel {
     usersNotifier.isMessageOverLimitReset();
 
     final String summary = await messagesNotifier.createSummary();
+    await dailyNotifier.saveSummary(summary);
 
     print("サマリー$summary");
 

@@ -12,8 +12,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final messagesNotifierProvider =
     StateNotifierProvider<MessagesNotifier, AsyncValue<List<MessageModel>>>(
         (ref) {
-  return MessagesNotifier(ref, ref.watch(messagesUsecaseProvider))
-    ..initialize();
+  return MessagesNotifier(
+    ref,
+    ref.watch(messagesUsecaseProvider),
+  )..initialize();
 });
 
 class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
@@ -24,7 +26,6 @@ class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
 
   final Ref ref;
   final MessageUsecases _messageUsecase;
-
   void initialize() async {
     final List<MessageEntity> messageEntity = await _messageUsecase.readAll();
     final List<MessageModel> messages = messageEntity

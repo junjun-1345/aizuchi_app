@@ -1,5 +1,7 @@
+import 'package:aizuchi_app/domain/interactor/daily_interactor.dart';
 import 'package:aizuchi_app/domain/interactor/messages_interactor.dart';
 import 'package:aizuchi_app/domain/interactor/users_interactor.dart';
+import 'package:aizuchi_app/domain/usecases/daily_usecase.dart';
 import 'package:aizuchi_app/domain/usecases/messages_usecase.dart';
 import 'package:aizuchi_app/domain/usecases/users_usecase.dart';
 import 'package:aizuchi_app/infrastructure/data_model.dart';
@@ -20,5 +22,12 @@ final messagesUsecaseProvider = Provider<MessageUsecases>((ref) {
     ref.watch(messageDBRepositoryProvider),
     ref.watch(geminiRepositoryProvider),
     ref.watch(gptRepositoryProvider),
+  );
+});
+
+final dailyUsecaseProvider = Provider<DailyUsecases>((ref) {
+  return DailyInteractor(
+    ref.watch(dailyDBRepositoryProvider),
+    ref.watch(userDBRepositoryProvider),
   );
 });
