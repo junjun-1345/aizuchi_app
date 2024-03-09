@@ -8,7 +8,8 @@ class LogCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      options: CarouselOptions(height: 550),
+      options:
+          CarouselOptions(height: MediaQuery.of(context).size.height * 0.54),
       items: const [
         DaysCarouselTile(),
         DaysCarouselTile(),

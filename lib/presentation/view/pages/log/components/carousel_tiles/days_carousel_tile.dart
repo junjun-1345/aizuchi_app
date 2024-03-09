@@ -26,31 +26,31 @@ class DaysCarouselTile extends StatelessWidget {
               ),
               DiaryTile(),
               SizedBox(
-                height: 8,
+                height: 4,
               ),
               DiaryTile(),
               SizedBox(
-                height: 8,
+                height: 4,
               ),
               DiaryTile(),
               SizedBox(
-                height: 8,
+                height: 4,
               ),
               DiaryTile(),
               SizedBox(
-                height: 8,
+                height: 4,
               ),
               DiaryTile(),
               SizedBox(
-                height: 8,
+                height: 4,
               ),
               DiaryTile(),
               SizedBox(
-                height: 8,
+                height: 4,
               ),
               DiaryTile(),
               SizedBox(
-                height: 24,
+                height: 16,
               ),
               SelectWeekPart(),
             ],
@@ -69,7 +69,7 @@ class DiaryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: MediaQuery.of(context).size.height * 0.06,
       decoration: BoxDecoration(
         color: BrandColor.base,
         borderRadius: BorderRadius.circular(8),
