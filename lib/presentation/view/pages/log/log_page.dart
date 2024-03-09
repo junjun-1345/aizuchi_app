@@ -23,7 +23,7 @@ class LogPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            height: 50,
+            height: 40,
           ),
           Text(
             'ログ',
