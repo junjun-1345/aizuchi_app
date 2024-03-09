@@ -25,7 +25,7 @@ class LogPage extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            height: 50,
+            height: 40,
           ),
           Text(
             'ログ',
