@@ -21,20 +21,30 @@ class LogPage extends HookConsumerWidget {
           .getWeeklySummary(selectDate.value);
     }
 
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text('ログ'),
-        LogSummaryTile(),
-        SizedBox(
-          height: 24,
-        ),
-        LogCarousel(),
-        SizedBox(
-          height: 24,
-        ),
-      
-      ],
+    return const Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 50,
+          ),
+          Text(
+            'ログ',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+          ),
+          SizedBox(
+            height: 32,
+          ),
+          LogSummaryTile(),
+          SizedBox(
+            height: 24,
+          ),
+          LogCarousel(),
+          SizedBox(
+            height: 24,
+          ),
+        ],
+      ),
     );
   }
 }
