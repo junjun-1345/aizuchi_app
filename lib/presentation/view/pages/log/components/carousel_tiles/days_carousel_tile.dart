@@ -1,14 +1,23 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:aizuchi_app/presentation/model/daily_model.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/select_week.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class DaysCarouselTile extends StatelessWidget {
   const DaysCarouselTile({
-    super.key,
-  });
+    required this.dailyList,
+    Key? key,
+  }) : super(key: key);
+
+  final List<DailyModel> dailyList;
 
   @override
   Widget build(BuildContext context) {
+    // ロケールデータを初期化
+    initializeDateFormatting(Localizations.localeOf(context).languageCode);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Container(
@@ -16,43 +25,21 @@ class DaysCarouselTile extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
         ),
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              DiaryTile(),
-              SizedBox(
-                height: 4,
-              ),
-              DiaryTile(),
-              SizedBox(
-                height: 4,
-              ),
-              DiaryTile(),
-              SizedBox(
-                height: 4,
-              ),
-              DiaryTile(),
-              SizedBox(
-                height: 4,
-              ),
-              DiaryTile(),
-              SizedBox(
-                height: 4,
-              ),
-              DiaryTile(),
-              SizedBox(
-                height: 4,
-              ),
-              DiaryTile(),
-              SizedBox(
+              DiaryTile(
+                  day: DateFormat.EEEE('ja').format(dailyList[0].createdAt)[0],
+                  summary: dailyList[0].summary),
+              const SizedBox(
                 height: 16,
               ),
-              SelectWeekPart(),
+              const SelectWeekPart(),
             ],
           ),
         ),
@@ -63,8 +50,13 @@ class DaysCarouselTile extends StatelessWidget {
 
 class DiaryTile extends StatelessWidget {
   const DiaryTile({
-    super.key,
-  });
+    required this.day,
+    this.summary,
+    Key? key,
+  }) : super(key: key);
+
+  final String day;
+  final String? summary;
 
   @override
   Widget build(BuildContext context) {
@@ -74,26 +66,26 @@ class DiaryTile extends StatelessWidget {
         color: BrandColor.base,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: const Row(
+      child: Row(
         children: [
-          SizedBox(
+          const SizedBox(
             width: 16,
           ),
           Text(
-            '火',
-            style: TextStyle(fontSize: 16),
+            day,
+            style: const TextStyle(fontSize: 16),
           ),
-          SizedBox(
+          const SizedBox(
             width: 12,
           ),
           Expanded(
             child: Text(
-              'カフェで課題をした後、梅田で田中先輩とご飯に行った。',
-              style: TextStyle(fontSize: 10),
+              summary ?? '',
+              style: const TextStyle(fontSize: 10),
               maxLines: 2,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 8,
           ),
         ],
