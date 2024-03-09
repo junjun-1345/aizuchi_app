@@ -9,15 +9,9 @@ class LogCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(height: 550),
-      items: [
-        const DaysCarouselTile(),
-        Container(
-          height: 432,
-          decoration: BoxDecoration(
-            color: Colors.red,
-            borderRadius: BorderRadius.circular(16),
-          ),
-        )
+      items: const [
+        DaysCarouselTile(),
+        DaysCarouselTile(),
       ],
     );
   }
