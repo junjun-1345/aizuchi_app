@@ -1,10 +1,12 @@
 import 'package:aizuchi_app/domain/repositories/auth_repository.dart';
+import 'package:aizuchi_app/domain/repositories/daily_db_repository.dart';
 import 'package:aizuchi_app/domain/repositories/gpt_repository.dart';
 import 'package:aizuchi_app/domain/repositories/message_db_repository.dart';
 import 'package:aizuchi_app/domain/repositories/gemini_repository.dart';
 import 'package:aizuchi_app/domain/repositories/local_db_repository.dart';
 import 'package:aizuchi_app/domain/repositories/user_db_repository.dart';
 import 'package:aizuchi_app/infrastructure/repositories/auth_repositories_impl.dart';
+import 'package:aizuchi_app/infrastructure/repositories/daily_db_repositories_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/gpt_repository_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/message_db_repositories_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/gemini_repository_impl.dart';
@@ -34,4 +36,8 @@ final geminiRepositoryProvider = Provider<GeminiRepository>((ref) {
 
 final gptRepositoryProvider = Provider<GptRepository>((ref) {
   return GptRepositoryImpl();
+});
+
+final dailyDBRepositoryProvider = Provider<DailyDBRepository>((ref) {
+  return DailyDBRepositoryImpl();
 });
