@@ -1,5 +1,6 @@
-import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/state/daily_state.dart';
+import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_carousel.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_summary_tile.dart';
 import 'package:auto_route/auto_route.dart';
@@ -20,20 +21,30 @@ class LogPage extends ConsumerWidget {
       // print(authenticated);
     }
 
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text('ログ'),
-        LogSummaryTile(),
-        SizedBox(
-          height: 24,
-        ),
-        LogCarousel(),
-        SizedBox(
-          height: 24,
-        ),
-      
-      ],
+    return const Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 40,
+          ),
+          Text(
+            'ログ',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+          ),
+          SizedBox(
+            height: 32,
+          ),
+          LogSummaryTile(),
+          SizedBox(
+            height: 24,
+          ),
+          LogCarousel(),
+          SizedBox(
+            height: 24,
+          ),
+        ],
+      ),
     );
   }
 }
