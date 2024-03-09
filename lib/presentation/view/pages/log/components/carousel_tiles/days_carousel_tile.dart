@@ -8,7 +8,6 @@ class DaysCarouselTile extends ConsumerWidget {
   const DaysCarouselTile({
     required this.dailyList,
     required this.logStartDay,
-    Key? key,
   }) : super(key: key);
 
   final List<SummaryModel?> dailyList;
