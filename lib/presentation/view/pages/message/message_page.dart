@@ -1,7 +1,7 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
-import 'package:aizuchi_app/presentation/state/message_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_contents.dart';
+import 'package:aizuchi_app/presentation/view/pages/message/components/message_emotion_select_dialog.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_footer_contents.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_overlimit_dialog.dart';
 import 'package:auto_route/auto_route.dart';
@@ -13,7 +13,6 @@ class MessagePage extends HookConsumerWidget {
   const MessagePage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final messagesState = ref.watch(messagesNotifierProvider);
     final usersState = ref.watch(usersNotifierProvider);
 
     return GestureDetector(
@@ -30,42 +29,34 @@ class MessagePage extends HookConsumerWidget {
           ),
           body: usersState.when(
             data: (data) {
-              // 会話が上限に達した場合のダイアログ
               if (data.isMessageOverLimit) {
+                WidgetsBinding.instance.addPostFrameCallback(
+                  (_) {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const MessageOverLimitDialog();
+                      },
+                    );
+                  },
+                );
+              } else if (!data.isConversation) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   showDialog(
                     context: context,
                     builder: (context) {
-                      return const MessageOverLimitDialog();
+                      return const MessageEmotionSelectDailog();
                     },
                   );
                 });
               }
-              return Column(
+              return const Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   // コンテント
-                  Expanded(
-                    child: messagesState.when(
-                      data: (messages) => ListView.builder(
-                        // reverse: true,
-                        itemCount: messages.length,
-                        itemBuilder: (context, index) {
-                          final message = messages[index];
-                          return MessageContents(
-                            type: message.type,
-                            message: message,
-                          );
-                        },
-                      ),
-                      loading: () =>
-                          const Center(child: CircularProgressIndicator()),
-                      error: (error, _) =>
-                          Center(child: Text('エラーが発生しました: $error')),
-                    ),
-                  ),
+                  MessageContents(),
                   // フッター
-                  const MessageFooterContents(),
+                  MessageFooterContents(),
                 ],
               );
             },

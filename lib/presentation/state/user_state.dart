@@ -12,7 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final usersNotifierProvider =
     StateNotifierProvider.autoDispose<UsersNotifier, AsyncValue<UserModel>>(
   (ref) {
-    return UsersNotifier(ref, ref.watch(usersUsecaseProvider))..initialize();
+    return UsersNotifier(ref, ref.watch(usersUsecaseProvider));
   },
 );
 
@@ -28,6 +28,7 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
   final UsersUsecase _usersUseCase;
 
   void initialize() async {
+    print("usersNotifierProvider initialize");
     final UserEntity entity = await _usersUseCase.read();
     final UserModel user = UserModel.fromEntity(entity);
     state = AsyncValue.data(user);
@@ -58,13 +59,11 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
 
   void createDailyKey() {
     final String newDailyKey = _usersUseCase.createKey();
-    print("キー作成");
     state.whenData(
       (user) {
         final UserModel updatedUser = user.copyWith(dailyKey: newDailyKey);
         _usersUseCase.update(updatedUser.toEntity());
         state = AsyncValue.data(updatedUser);
-        print("キー作成完了");
       },
     );
   }

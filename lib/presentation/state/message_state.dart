@@ -15,7 +15,7 @@ final messagesNotifierProvider =
   return MessagesNotifier(
     ref,
     ref.watch(messagesUsecaseProvider),
-  )..initialize();
+  );
 });
 
 class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
@@ -26,7 +26,9 @@ class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
 
   final Ref ref;
   final MessageUsecases _messageUsecase;
+
   void initialize() async {
+    print("messagesNotifierProvider initialize");
     final List<MessageEntity> messageEntity = await _messageUsecase.readAll();
     final List<MessageModel> messages = messageEntity
         .map((message) => MessageModel.fromEntity(message))
@@ -44,7 +46,7 @@ class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
           MessageModel.fromEntity(datetimeMessageEntity);
       state = AsyncValue.data([...?state.value, datetimeMessage]);
     } catch (e) {
-      print("日時メッセージ $e");
+      throw Exception("日時メッセージの作成に失敗しました$e");
     }
   }
 
@@ -59,7 +61,7 @@ class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
           MessageModel.fromEntity(emtionMessageEntity);
       state = AsyncValue.data([...?state.value, emtionMessage]);
     } catch (e) {
-      print("感情メッセージ $e");
+      throw Exception("感情メッセージの作成に失敗しました$e");
     }
   }
 
@@ -74,7 +76,7 @@ class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
 
       state = AsyncValue.data([...?state.value, newMessage]);
     } catch (e) {
-      print("メッセージ $e");
+      throw Exception("ユーザーメッセージの作成に失敗しました$e");
     }
   }
 
@@ -113,8 +115,6 @@ class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
   }
 
   bool canReplyLLMMessage(String key) {
-    print("チェック");
-
     final List<MessageEntity> messagesEntity = state.asData!.value
         .map((messageModel) => messageModel.toEntity())
         .toList();
