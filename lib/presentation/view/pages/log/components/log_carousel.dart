@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 class LogCarousel extends StatelessWidget {
   const LogCarousel({
     required this.dailyList,
+    required this.logStartDay,
     super.key,
   });
 
   final List<DailyModel> dailyList;
+  final DateTime logStartDay;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class LogCarousel extends StatelessWidget {
       items: [
         DaysCarouselTile(
           dailyList: dailyList,
+          logStartDay: logStartDay,
         ),
       ],
     );
