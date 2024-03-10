@@ -249,4 +249,6 @@ class FakeDailyUsecases implements DailyUsecases {
     // TODO: implement update
     throw UnimplementedError();
   }
+
+  // その他の必要なメソッドをフェイクで実装
 }
