@@ -1,4 +1,3 @@
-import 'package:aizuchi_app/domain/domain_module.dart';
 import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
 import 'package:aizuchi_app/domain/entity/models/daily.dart';
 import 'package:aizuchi_app/domain/usecases/daily_usecase.dart';
