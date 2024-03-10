@@ -1,23 +1,19 @@
 import 'package:aizuchi_app/domain/entity/enums/message.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/model/message_model.dart';
+import 'package:aizuchi_app/presentation/state/message_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MessageContents extends StatelessWidget {
-  final MessageType type;
-  final MessageModel message;
-
-  const MessageContents({
-    super.key,
-    required this.type,
-    required this.message,
-  });
+class MessageContents extends ConsumerWidget {
+  const MessageContents({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final messagesState = ref.watch(messagesNotifierProvider);
 
-    Widget userMessageContent() {
+    Widget userMessageContent(String content) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Align(
@@ -42,7 +38,7 @@ class MessageContents extends StatelessWidget {
                   horizontal: 16,
                 ),
                 child: Text(
-                  message.content,
+                  content,
                   style: const TextStyle(
                     color: BrandColor.textBlack,
                     fontWeight: FontWeight.w500,
@@ -55,7 +51,7 @@ class MessageContents extends StatelessWidget {
       );
     }
 
-    Widget assistantMessageContent() {
+    Widget assistantMessageContent(String content) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Align(
@@ -90,7 +86,7 @@ class MessageContents extends StatelessWidget {
                       horizontal: 16,
                     ),
                     child: Text(
-                      message.content,
+                      content,
                       style: const TextStyle(
                         color: BrandColor.textBlack,
                         fontWeight: FontWeight.w500,
@@ -105,7 +101,7 @@ class MessageContents extends StatelessWidget {
       );
     }
 
-    Widget emotionContent() {
+    Widget emotionContent(String content) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Align(
@@ -117,7 +113,7 @@ class MessageContents extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Text(
-                message.content,
+                content,
                 style: const TextStyle(fontSize: 64),
               ),
             ),
@@ -126,7 +122,7 @@ class MessageContents extends StatelessWidget {
       );
     }
 
-    Widget dateContent() {
+    Widget dateContent(DateTime content) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Align(
@@ -144,7 +140,7 @@ class MessageContents extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 2, horizontal: 16),
                 child: Text(
-                  "${message.createdAt.month}月${message.createdAt.day}日",
+                  "${content.month}月${content.day}日",
                   style: const TextStyle(
                       fontSize: 12, color: BrandColor.textBlack),
                 ),
@@ -155,17 +151,34 @@ class MessageContents extends StatelessWidget {
       );
     }
 
-    switch (type) {
-      case MessageType.user:
-        return userMessageContent();
-      case MessageType.assistant:
-        return assistantMessageContent();
-      case MessageType.emotion:
-        return emotionContent();
-      case MessageType.datetime:
-        return dateContent();
-      default:
-        return const SizedBox();
+    Widget buildMessageContent(MessageModel message) {
+      switch (message.type) {
+        case MessageType.user:
+          return userMessageContent(message.content);
+        case MessageType.assistant:
+          return assistantMessageContent(message.content);
+        case MessageType.emotion:
+          return emotionContent(message.content);
+        case MessageType.datetime:
+          return dateContent(message.createdAt);
+        default:
+          return const SizedBox.shrink();
+      }
     }
+
+    return Expanded(
+      child: messagesState.when(
+        data: (messages) => ListView.builder(
+          // reverse: true,  // コメントアウトを外してリストを逆順に表示したい場合
+          itemCount: messages.length,
+          itemBuilder: (context, index) {
+            final message = messages[index];
+            return buildMessageContent(message);
+          },
+        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, _) => Center(child: Text('エラーが発生しました: $error')),
+      ),
+    );
   }
 }
