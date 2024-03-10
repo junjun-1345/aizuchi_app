@@ -8,7 +8,10 @@ class DaysCarouselTile extends StatelessWidget {
   const DaysCarouselTile({
     required this.dailyList,
     required this.logStartDay,
+    Key? key,
   }) : super(key: key);
+
+  final List<DailyModel> dailyList;
   final DateTime logStartDay;
 
   @override
