@@ -14,6 +14,8 @@ class MessagePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final usersState = ref.watch(usersNotifierProvider);
+    final datetimeNow = DateTime.now();
+    final today = "${datetimeNow.year}_${datetimeNow.month}_${datetimeNow.day}";
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -40,7 +42,7 @@ class MessagePage extends HookConsumerWidget {
                     );
                   },
                 );
-              } else if (!data.isConversation) {
+              } else if (!data.isConversation && data.dailyKey != today) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   showDialog(
                     context: context,
