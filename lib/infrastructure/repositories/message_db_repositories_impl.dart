@@ -25,13 +25,10 @@ class MessageDBRepositoryImpl implements MessageDBRepository {
         },
       );
     } on FirebaseException catch (e) {
-      // Firestoreからデータを取得する際にFirebaseExceptionが発生した場合の処理
-      print(e.message);
-      throw Exception('Firestoreにデータを作成できませんでした。');
+      throw Exception('Firestoreにデータを作成できませんでした。$e');
     } catch (e) {
       // その他の例外が発生した場合の処理
-      print(e.toString());
-      throw Exception('データの作成中に未知のエラーが発生しました。');
+      throw Exception('データの作成中に未知のエラーが発生しました。$e');
     }
   }
 
@@ -66,12 +63,10 @@ class MessageDBRepositoryImpl implements MessageDBRepository {
       return messages;
     } on FirebaseException catch (e) {
       // Firestoreからデータを取得する際にFirebaseExceptionが発生した場合の処理
-      print(e.message);
-      throw Exception('Firestoreからデータを取得できませんでした。');
+      throw Exception('Firestoreからデータを取得できませんでした。$e');
     } catch (e) {
       // その他の例外が発生した場合の処理
-      print(e.toString());
-      throw Exception('データの取得中に未知のエラーが発生しました。');
+      throw Exception('データの取得中に未知のエラーが発生しました。$e');
     }
   }
 
@@ -97,11 +92,9 @@ class MessageDBRepositoryImpl implements MessageDBRepository {
       });
       await batch.commit();
     } on FirebaseException catch (e) {
-      print(e.message);
-      throw Exception('Firestoreのコレクションを削除できませんでした。');
+      throw Exception('Firestoreのコレクションを削除できませんでした。$e');
     } catch (e) {
-      print(e.toString());
-      throw Exception('データの削除中に未知のエラーが発生しました。');
+      throw Exception('データの削除中に未知のエラーが発生しました。$e');
     }
   }
 }

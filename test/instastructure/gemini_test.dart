@@ -127,9 +127,6 @@ void main() {
       } catch (e) {
         fail('API connection failed: $e');
       }
-
-      print(response);
-
       // 応答を検証
       expect(response.isNotEmpty, true);
     });
