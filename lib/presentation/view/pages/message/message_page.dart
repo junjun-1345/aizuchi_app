@@ -42,7 +42,7 @@ class MessagePage extends HookConsumerWidget {
                     );
                   },
                 );
-              } else if (!data.isConversation && data.dailyKey != today) {
+              } else if (!data.isConversation) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   showDialog(
                     context: context,
