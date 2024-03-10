@@ -4,6 +4,7 @@ import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -13,6 +14,7 @@ import 'package:timezone/data/latest_all.dart' as tz;
 ///
 
 void main() async {
+  await initializeDateFormatting();
   WidgetsFlutterBinding.ensureInitialized();
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation("Asia/Tokyo"));
