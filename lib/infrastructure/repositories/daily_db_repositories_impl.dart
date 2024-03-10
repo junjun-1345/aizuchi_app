@@ -8,8 +8,6 @@ class DailyDBRepositoryImpl implements DailyDBRepository {
   @override
   Future<List<DailyEntity>> read(DateTime startDay, DateTime endDay) async {
     final id = FirebaseAuth.instance.currentUser?.uid ?? '';
-    print("スタートデイ:$startDay");
-    print("エンドデイ:$endDay");
     try {
       final List<DailyEntity> dailies = [];
       await FirebaseFirestore.instance
@@ -30,7 +28,6 @@ class DailyDBRepositoryImpl implements DailyDBRepository {
           dailies.add(newDaily);
         }
       });
-      print(dailies.length);
       return dailies;
     } catch (e) {
       throw Exception('データの取得中にエラーが発生しました');
