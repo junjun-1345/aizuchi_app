@@ -77,16 +77,12 @@ class MessageViewModel {
   }
 
   Future<void> createSummary() async {
-    print("サマリー作成");
     isWaitngNotifier.startWaiting();
     usersNotifier.isConversationEnd();
     usersNotifier.isMessageOverLimitReset();
 
     final String summary = await messagesNotifier.createSummary();
     await dailyNotifier.saveSummary(summary);
-
-    print("サマリー$summary");
-
     isWaitngNotifier.stopWaiting();
   }
 }

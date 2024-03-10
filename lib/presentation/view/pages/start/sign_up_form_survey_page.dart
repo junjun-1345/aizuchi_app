@@ -94,7 +94,6 @@ class SignUpFormSurveyPage extends HookConsumerWidget {
                               const SignUpFormCheckRoute(),
                             );
                             professionNotifier.state = choiceProfession.value;
-                            print("push");
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: BrandColor.baseRed,
