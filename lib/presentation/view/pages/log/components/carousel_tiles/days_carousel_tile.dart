@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class DaysCarouselTile extends ConsumerWidget {
   const DaysCarouselTile({
     required this.dailyList,
+    required this.logStartDay,
     Key? key,
   }) : super(key: key);
 
