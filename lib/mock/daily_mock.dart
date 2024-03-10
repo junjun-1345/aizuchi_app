@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
 import 'package:aizuchi_app/domain/entity/models/daily.dart';
+import 'package:aizuchi_app/domain/usecases/daily_usecase.dart';
 
 class DailyMock {
   static final monthly = [
@@ -203,4 +204,38 @@ class DailyMock {
         emotion: EmotionType.discontent,
         summary: "グループディスカッションで無視され、がっかりした。"),
   ];
+}
+
+class FakeDailyUsecases implements DailyUsecases {
+  @override
+  Future<List<DailyEntity>> readMonth() async {
+    // フェイクのデータを返します
+    return DailyMock.monthly;
+  }
+
+  @override
+  Future<void> create(DailyEntity daily) {
+    // TODO: implement create
+    throw UnimplementedError();
+  }
+
+  @override
+  DateTime parseDate(String dateString) {
+    // TODO: implement parseDate
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<DailyEntity>> readWeek() {
+    // TODO: implement readWeek
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> update(DailyEntity daily) {
+    // TODO: implement update
+    throw UnimplementedError();
+  }
+
+  // その他の必要なメソッドをフェイクで実装
 }
