@@ -3,20 +3,28 @@ import 'package:aizuchi_app/presentation/model/daily_model.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/select_week.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 class DaysCarouselTile extends StatelessWidget {
   const DaysCarouselTile({
     required this.dailyList,
+    required this.logStartDay,
     Key? key,
   }) : super(key: key);
 
   final List<DailyModel> dailyList;
+  final DateTime logStartDay;
 
   @override
   Widget build(BuildContext context) {
-    // ロケールデータを初期化
-    initializeDateFormatting(Localizations.localeOf(context).languageCode);
+    final DateTime endDay = logStartDay.add(const Duration(days: 6));
+    final List<DailyModel> weekLogs = dailyList
+        .where(
+          (element) =>
+              element.createdAt
+                  .isAfter(logStartDay.add(const Duration(days: -1))) &&
+              element.createdAt.isBefore(endDay),
+        )
+        .toList();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -33,13 +41,17 @@ class DaysCarouselTile extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              DiaryTile(
-                  day: DateFormat.EEEE('ja').format(dailyList[0].createdAt)[0],
-                  summary: dailyList[0].summary),
+              for (DailyModel weekLog in weekLogs)
+                DailyTyle(
+                  day: DateFormat.EEEE('ja').format(weekLog.createdAt)[0],
+                  summary: weekLog.summary,
+                ),
               const SizedBox(
                 height: 16,
               ),
-              const SelectWeekPart(),
+              SelectWeekPart(
+                logStartDay: logStartDay,
+              ),
             ],
           ),
         ),
@@ -48,8 +60,8 @@ class DaysCarouselTile extends StatelessWidget {
   }
 }
 
-class DiaryTile extends StatelessWidget {
-  const DiaryTile({
+class DailyTyle extends StatelessWidget {
+  const DailyTyle({
     required this.day,
     this.summary,
     Key? key,
@@ -60,35 +72,38 @@ class DiaryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.06,
-      decoration: BoxDecoration(
-        color: BrandColor.base,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        children: [
-          const SizedBox(
-            width: 16,
-          ),
-          Text(
-            day,
-            style: const TextStyle(fontSize: 16),
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          Expanded(
-            child: Text(
-              summary ?? '',
-              style: const TextStyle(fontSize: 10),
-              maxLines: 2,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.06,
+        decoration: BoxDecoration(
+          color: BrandColor.base,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 16,
             ),
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-        ],
+            Text(
+              day,
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(
+              width: 12,
+            ),
+            Expanded(
+              child: Text(
+                summary ?? '',
+                style: const TextStyle(fontSize: 10),
+                maxLines: 2,
+              ),
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+          ],
+        ),
       ),
     );
   }

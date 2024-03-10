@@ -3,6 +3,7 @@ import 'package:aizuchi_app/presentation/state/daily_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_carousel.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_summary_tile.dart';
+import 'package:aizuchi_app/presentation/view_model/log_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class LogPage extends ConsumerWidget {
 
     final dailyState = ref.watch(dailyNotifierProvider);
     final userState = ref.watch(usersNotifierProvider);
+    final logViewModel = ref.watch(logViewModelProvider);
 
     return Scaffold(
       body: userState.when(
@@ -52,6 +54,7 @@ class LogPage extends ConsumerWidget {
                   ),
                   LogCarousel(
                     dailyList: data,
+                    logStartDay: logViewModel.logStartDay,
                   ),
                   const SizedBox(
                     height: 24,
