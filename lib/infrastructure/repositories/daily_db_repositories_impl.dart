@@ -8,7 +8,7 @@ class DailyDBRepositoryImpl implements DailyDBRepository {
   @override
   Future<List<DailyEntity>> read(DateTime startDate, DateTime endDate) async {
     final id = FirebaseAuth.instance.currentUser?.uid ?? '';
-
+¥
     try {
       final List<DailyEntity> dailies = [];
       await FirebaseFirestore.instance
