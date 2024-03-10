@@ -2,6 +2,7 @@ import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_carousel.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_summary_tile.dart';
+import 'package:aizuchi_app/presentation/view_model/log_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,29 +20,60 @@ class LogPage extends ConsumerWidget {
       // print(authenticated);
     }
 
-    return const Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 50,
-          ),
-          Text(
-            'ログ',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-          ),
-          SizedBox(
-            height: 32,
-          ),
-          LogSummaryTile(),
-          SizedBox(
-            height: 24,
-          ),
-          LogCarousel(),
-          SizedBox(
-            height: 24,
-          ),
-        ],
+    final dailyState = ref.watch(dailyNotifierProvider);
+    final userState = ref.watch(usersNotifierProvider);
+    final logViewModel = ref.watch(logViewModelProvider);
+
+    return Scaffold(
+      body: userState.when(
+        data: (user) {
+          return dailyState.when(
+            data: (data) => Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  const Text(
+                    'ログ',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  LogSummaryTile(
+                    messageAmount: data.length,
+                    activeDays: user.activeDay,
+                    createdAt: user.createdAt,
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  LogCarousel(
+                    dailyList: data,
+                    logStartDay: logViewModel.logStartDay,
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                ],
+              ),
+            ),
+            loading: () {
+              return const Center(child: CircularProgressIndicator());
+            },
+            error: (Object error, StackTrace stackTrace) {
+              return const Text("エラーが発生しました");
+            },
+          );
+        },
+        loading: () {
+          return const Center(child: CircularProgressIndicator());
+        },
+        error: (Object error, StackTrace stackTrace) {
+          return const Text("ユーザー情報の取得中にエラーが発生しました");
+        },
       ),
     );
   }
