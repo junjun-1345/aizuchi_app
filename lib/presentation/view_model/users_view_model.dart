@@ -26,7 +26,6 @@ class UserViewModel {
     try {
       await usersNotifier.signUpWith(platform);
     } catch (e) {
-      print('エラーをキャッチしました: $e');
       ref.read(errorProvider.notifier).state = e.toString();
       return;
     }
@@ -40,7 +39,6 @@ class UserViewModel {
     try {
       await usersNotifier.signInWith(platform);
     } catch (e) {
-      print('エラーをキャッチしました: $e');
       ref.read(errorProvider.notifier).state = e.toString();
       return;
     }

@@ -36,9 +36,6 @@ final userProvider = StateProvider<UserModel>((ref) {
   final isConversation = ref.watch(isConversationProvider);
   final isAssistant = ref.watch(isAssistantProvider);
   final isMessageOverLimit = ref.watch(isMessageOverLimitProvider);
-
-  print("更新されました");
-
   return UserModel(
     id: id,
     name: name,
