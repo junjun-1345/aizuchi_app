@@ -24,6 +24,8 @@ dependencies:
   url_launcher:
   roggle:
   uuid:
+  # 課金
+  purchases_flutter:
 
   # firebase
   firebase_core:
