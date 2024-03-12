@@ -22,7 +22,7 @@ class SelectWeekPart extends ConsumerWidget {
       children: [
         GestureDetector(
           onTap: () {
-            ref.read(logViewModelProvider).changeToNextWeek();
+            ref.read(logViewModelProvider).changeToPrevWeek();
           },
           child: Container(
             height: 25,
