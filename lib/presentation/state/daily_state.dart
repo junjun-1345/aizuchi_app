@@ -11,12 +11,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final dailyNotifierProvider =
     StateNotifierProvider<DailyNotifier, AsyncValue<List<DailyModel>>>(
   (ref) {
-    // 環境やフラグに基づいて FakeDailyUsecases か実際の dailyUsecaseProvider を選択
-    // final usecase = ref.watch(dailyUsecaseProvider);
-    // 開発やテストのために FakeDailyUsecases を使用
-    final usecase = FakeDailyUsecases();
-
-    return DailyNotifier(ref, usecase);
+    return DailyNotifier(
+      ref,
+      //本番
+      // ref.watch(dailyUsecaseProvider);
+      //mock
+      FakeDailyUsecases(),
+    );
   },
 );
 
