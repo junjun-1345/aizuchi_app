@@ -12,7 +12,10 @@ final dailyNotifierProvider =
   (ref) {
     return DailyNotifier(
       ref,
-      // ref.watch(dailyUsecaseProvider),
+
+      //本番
+      // ref.watch(dailyUsecaseProvider);
+      //mock
 
       FakeDailyUsecases(),
     );
