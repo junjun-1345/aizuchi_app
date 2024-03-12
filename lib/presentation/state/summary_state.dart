@@ -1,4 +1,3 @@
-// import 'package:aizuchi_app/domain/domain_module.dart';
 import 'package:aizuchi_app/domain/entity/models/daily.dart';
 import 'package:aizuchi_app/domain/usecases/daily_usecase.dart';
 import 'package:aizuchi_app/mock/daily_mock.dart';
@@ -10,9 +9,11 @@ final summaryNotifierProvider =
   (ref) {
     return SummaryNotifier(
       ref,
-      // ref.watch(dailyUsecaseProvider),
 
-      // Mock
+      //本番
+      // ref.watch(dailyUsecaseProvider);
+      //mock
+
       FakeDailyUsecases(),
     );
   },

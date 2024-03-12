@@ -1,24 +1,24 @@
-import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/summary_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_carousel.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_summary_tile.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 @RoutePage()
-class LogPage extends ConsumerWidget {
+class LogPage extends HookConsumerWidget {
   const LogPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Future<void> signOut() async {
-      await FirebaseAuth.instance.signOut();
-      context.router.replace(const SignInRoute());
-      // final authenticated = FirebaseAuth.instance.currentUser != null;
-      // print(authenticated);
+    final selectDate = useState(DateTime(0));
+
+    Future<void> get() async {
+      ref
+          .read(summaryNotifierProvider.notifier)
+          .getWeeklySummary(selectDate.value);
     }
 
     final userState = ref.watch(usersNotifierProvider);
