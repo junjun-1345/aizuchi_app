@@ -4,5 +4,5 @@ abstract class DailyDBRepository {
   Future<void> create(DailyEntity daily);
   Future<void> updateLatest(DailyEntity daily);
   Future<List<DailyEntity>> readAll();
-  Future<List<DailyEntity>> read(DateTime startDay, DateTime endDay);
+  Future<List<DailyEntity>> read(DateTime startDate, DateTime endDate);
 }
