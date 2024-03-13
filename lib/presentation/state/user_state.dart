@@ -57,52 +57,65 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     state = AsyncValue.data(user);
   }
 
-  void createDailyKey() {
+  Future<void> createDailyKey() async {
     final String newDailyKey = _usersUseCase.createKey();
+    await _usersUseCase.update(dailyKey: newDailyKey);
     state.whenData(
       (user) {
         final UserModel updatedUser = user.copyWith(dailyKey: newDailyKey);
-        _usersUseCase.update(updatedUser.toEntity());
+
         state = AsyncValue.data(updatedUser);
       },
     );
   }
 
-  void isConversationStart() {
+  Future<void> isConversationStart() async {
+    await _usersUseCase.update(isConversation: true);
     state.whenData(
       (user) {
         final UserModel updatedUser = user.copyWith(isConversation: true);
-        _usersUseCase.update(updatedUser.toEntity());
         state = AsyncValue.data(updatedUser);
       },
     );
   }
 
-  void isConversationEnd() {
+  Future<void> isConversationEnd() async {
+    await _usersUseCase.update(isConversation: false);
     state.whenData(
       (user) {
         final UserModel updatedUser = user.copyWith(isConversation: false);
-        _usersUseCase.update(updatedUser.toEntity());
         state = AsyncValue.data(updatedUser);
       },
     );
   }
 
-  void isMessageOverLimitReset() {
+  Future<void> isMessageOverLimitReset() async {
+    await _usersUseCase.update(isMessageOverLimit: false);
     state.whenData(
       (user) {
         final UserModel updatedUser = user.copyWith(isMessageOverLimit: false);
-        _usersUseCase.update(updatedUser.toEntity());
         state = AsyncValue.data(updatedUser);
       },
     );
   }
 
-  void messageOverLimit() {
+  Future<void> messageOverLimit() async {
+    await _usersUseCase.update(isMessageOverLimit: true);
     state.whenData(
       (user) {
         final UserModel updatedUser = user.copyWith(isMessageOverLimit: true);
-        _usersUseCase.update(updatedUser.toEntity());
+        state = AsyncValue.data(updatedUser);
+      },
+    );
+  }
+
+  Future<void> updateTotalMessages() async {
+    final int totalMessages = ref.read(totalMessagesProvider);
+    await _usersUseCase.update(totalMessages: totalMessages);
+    state.whenData(
+      (user) {
+        final UserModel updatedUser =
+            user.copyWith(totalMessages: totalMessages);
         state = AsyncValue.data(updatedUser);
       },
     );

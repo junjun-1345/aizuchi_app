@@ -1,8 +1,27 @@
+import 'package:aizuchi_app/domain/entity/enums/character.dart';
+import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/domain/entity/models/user.dart';
 
 abstract class UserDBRepository {
   Future<void> create(UserEntity form);
   Future<UserEntity> read();
   Future<void> delete();
-  void update(UserEntity form);
+  Future<UserEntity> update({
+    String? id,
+    String? name,
+    String? email,
+    DateTime? birthday,
+    SexEnum? sex,
+    bool? billing,
+    bool? init,
+    DateTime? createdAt,
+    int? activeDay,
+    CharactorEnum? charactor,
+    String? profession,
+    String? dailyKey,
+    bool? isConversation,
+    bool? isAssistant,
+    bool? isMessageOverLimit,
+    int? totalMessages,
+  });
 }
