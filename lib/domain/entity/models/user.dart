@@ -17,6 +17,7 @@ class UserEntity {
   final bool isConversation;
   final bool isAssistant;
   final bool isMessageOverLimit;
+  final int totalMessages;
 
   UserEntity({
     required this.id,
@@ -34,5 +35,43 @@ class UserEntity {
     required this.isConversation,
     required this.isAssistant,
     required this.isMessageOverLimit,
+    required this.totalMessages,
   });
+
+  UserEntity copyWith({
+    String? id,
+    String? name,
+    String? email,
+    DateTime? birthday,
+    SexEnum? sex,
+    bool? billing,
+    bool? init,
+    DateTime? createdAt,
+    int? activeDay,
+    CharactorEnum? charactor,
+    String? profession,
+    String? dailyKey,
+    bool? isConversation,
+    bool? isAssistant,
+    bool? isMessageOverLimit,
+    int? totalMessages,
+  }) =>
+      UserEntity(
+        id: id ?? this.id,
+        createdAt: createdAt ?? this.createdAt,
+        name: name ?? this.name,
+        email: email ?? this.email,
+        birthday: birthday ?? this.birthday,
+        sex: sex ?? this.sex,
+        billing: billing ?? this.billing,
+        init: init ?? this.init,
+        activeDay: activeDay ?? this.activeDay,
+        charactor: charactor ?? this.charactor,
+        profession: profession ?? this.profession,
+        dailyKey: dailyKey ?? this.dailyKey,
+        isConversation: isConversation ?? this.isConversation,
+        isAssistant: isAssistant ?? this.isAssistant,
+        isMessageOverLimit: isMessageOverLimit ?? this.isMessageOverLimit,
+        totalMessages: totalMessages ?? this.totalMessages,
+      );
 }
