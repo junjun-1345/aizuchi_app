@@ -226,8 +226,11 @@ class FakeDailyUsecases implements DailyUsecases {
 
   @override
   DateTime parseDate(String dateString) {
-    // TODO: implement parseDate
-    throw UnimplementedError();
+    List<String> parts = dateString.split('_');
+    int year = int.parse(parts[0]);
+    int month = int.parse(parts[1]);
+    int day = int.parse(parts[2]);
+    return DateTime(year, month, day);
   }
 
   @override
