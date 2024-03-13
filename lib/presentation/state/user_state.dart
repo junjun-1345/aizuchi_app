@@ -57,7 +57,7 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     state = AsyncValue.data(user);
   }
 
-  Future<void> createDailyKey() async {
+  Future<Future<void>> createDailyKey() async async {
     final String newDailyKey = _usersUseCase.createKey();
     await _usersUseCase.update(dailyKey: newDailyKey);
     state.whenData(
@@ -68,7 +68,8 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     );
   }
 
-  Future<void> isConversationStart() async {
+  Future<Future<void>> isConversationStart() async async {
+    await _usersUseCase.update(isConversation: true);
     await _usersUseCase.update(isConversation: true);
     state.whenData(
       (user) {
@@ -78,7 +79,8 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     );
   }
 
-  Future<void> isConversationEnd() async {
+  Future<Future<void>> isConversationEnd() async async {
+    await _usersUseCase.update(isConversation: false);
     await _usersUseCase.update(isConversation: false);
     state.whenData(
       (user) {
@@ -88,7 +90,8 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     );
   }
 
-  Future<void> isMessageOverLimitReset() async {
+  Future<Future<void>> isMessageOverLimitReset() async async {
+    await _usersUseCase.update(isMessageOverLimit: false);
     await _usersUseCase.update(isMessageOverLimit: false);
     state.whenData(
       (user) {
@@ -98,7 +101,8 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     );
   }
 
-  Future<void> messageOverLimit() async {
+  Future<Future<void>> messageOverLimit() async async {
+    await _usersUseCase.update(isMessageOverLimit: true);
     await _usersUseCase.update(isMessageOverLimit: true);
     state.whenData(
       (user) {
