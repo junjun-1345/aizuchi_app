@@ -19,6 +19,7 @@ final dailyKeyProvider = StateProvider<String>((_) => "");
 final isConversationProvider = StateProvider<bool>((_) => false);
 final isAssistantProvider = StateProvider<bool>((_) => true);
 final isMessageOverLimitProvider = StateProvider<bool>((_) => false);
+final totalMessagesProvider = StateProvider<int>((_) => 0);
 
 final userProvider = StateProvider<UserModel>((ref) {
   final id = ref.watch(userIdProvider);
@@ -36,6 +37,7 @@ final userProvider = StateProvider<UserModel>((ref) {
   final isConversation = ref.watch(isConversationProvider);
   final isAssistant = ref.watch(isAssistantProvider);
   final isMessageOverLimit = ref.watch(isMessageOverLimitProvider);
+  final totalMessages = ref.watch(totalMessagesProvider);
   return UserModel(
     id: id,
     name: name,
@@ -52,5 +54,6 @@ final userProvider = StateProvider<UserModel>((ref) {
     isConversation: isConversation,
     isAssistant: isAssistant,
     isMessageOverLimit: isMessageOverLimit,
+    totalMessages: totalMessages,
   );
 });
