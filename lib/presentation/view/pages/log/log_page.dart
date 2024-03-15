@@ -27,55 +27,53 @@ class LogPage extends ConsumerWidget {
     final logViewModel = ref.watch(logViewModelProvider);
 
     return Scaffold(
-      body: userState.when(
-        data: (user) {
-          return dailyState.when(
-            data: (data) => Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  const Text(
-                    'ログ',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  LogSummaryTile(
-                    messageAmount: data.length,
-                    activeDays: user.activeDay,
-                    createdAt: user.createdAt,
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  LogCarousel(
-                    dailyList: data,
-                    logStartDay: logViewModel.logStartDay,
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                ],
-              ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 40,
             ),
-            loading: () {
-              return const Center(child: CircularProgressIndicator());
-            },
-            error: (Object error, StackTrace stackTrace) {
-              return const Text("エラーが発生しました");
-            },
-          );
-        },
-        loading: () {
-          return const Center(child: CircularProgressIndicator());
-        },
-        error: (Object error, StackTrace stackTrace) {
-          return const Text("ユーザー情報の取得中にエラーが発生しました");
-        },
+            const Text(
+              'ログ',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(
+              height: 32,
+            ),
+            userState.when(
+              data: (data) => LogSummaryTile(
+                messageAmount: data.totalMessages,
+                activeDays: data.activeDay,
+                createdAt: data.createdAt,
+              ),
+              loading: () {
+                return const CircularProgressIndicator();
+              },
+              error: (Object error, StackTrace stackTrace) {
+                return const Text("エラーが発生しました");
+              },
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            dailyState.when(
+              data: (data) => LogCarousel(
+                dailyList: data,
+                logStartDay: logViewModel.logStartDay,
+              ),
+              loading: () {
+                return const CircularProgressIndicator();
+              },
+              error: (Object error, StackTrace stackTrace) {
+                return const Text("エラーが発生しました");
+              },
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+          ],
+        ),
       ),
     );
   }
