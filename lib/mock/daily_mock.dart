@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
 import 'package:aizuchi_app/domain/entity/models/daily.dart';
+import 'package:aizuchi_app/domain/usecases/daily_usecase.dart';
 
 class DailyMock {
   static final monthly = [
@@ -203,4 +204,49 @@ class DailyMock {
         emotion: EmotionType.discontent,
         summary: "グループディスカッションで無視され、がっかりした。"),
   ];
+}
+
+class FakeDailyUsecases implements DailyUsecases {
+  @override
+  Future<List<DailyEntity>> readMonth({DateTime? endDate}) async {
+    final DateTime endDay = endDate ?? DateTime.now();
+    final DateTime startDay = DateTime(endDay.year, endDay.month + 1, 0);
+    return DailyMock.monthlyRandom
+        .where((daily) =>
+            daily.createdAt.isAfter(startDay) &&
+            daily.createdAt.isBefore(endDay))
+        .toList();
+  }
+
+  @override
+  Future<void> create(DailyEntity daily) {
+    // TODO: implement create
+    throw UnimplementedError();
+  }
+
+  @override
+  DateTime parseDate(String dateString) {
+    List<String> parts = dateString.split('_');
+    int year = int.parse(parts[0]);
+    int month = int.parse(parts[1]);
+    int day = int.parse(parts[2]);
+    return DateTime(year, month, day);
+  }
+
+  @override
+  Future<List<DailyEntity>> readWeek({DateTime? endDate}) async {
+    final DateTime endDay = endDate ?? DateTime.now();
+    final DateTime startDay = endDay.add(const Duration(days: -7));
+    return DailyMock.monthlyRandom
+        .where((daily) =>
+            daily.createdAt.isAfter(startDay) &&
+            daily.createdAt.isBefore(endDay))
+        .toList();
+  }
+
+  @override
+  Future<void> update(DailyEntity daily) {
+    // TODO: implement update
+    throw UnimplementedError();
+  }
 }
