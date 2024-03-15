@@ -16,18 +16,18 @@ class DailyInteractor implements DailyUsecases {
   }
 
   @override
-  Future<List<DailyEntity>> readMonth() async {
+  Future<List<DailyEntity>> readMonth({DateTime? endDate}) async {
     final UserEntity user = await userRepository.read();
-    final DateTime startDay = parseDate(user.dailyKey);
-    final DateTime endDay = DateTime(startDay.year, startDay.month + 1, 0);
+    final DateTime endDay = endDate ?? parseDate(user.dailyKey);
+    final DateTime startDay = DateTime(endDay.year, endDay.month + 1, 0);
     return dailyRepository.read(startDay, endDay);
   }
 
   @override
-  Future<List<DailyEntity>> readWeek() async {
+  Future<List<DailyEntity>> readWeek({DateTime? endDate}) async {
     final UserEntity user = await userRepository.read();
-    final DateTime startDay = parseDate(user.dailyKey);
-    final DateTime endDay = startDay.add(const Duration(days: -7));
+    final DateTime endDay = endDate ?? parseDate(user.dailyKey);
+    final DateTime startDay = endDay.add(const Duration(days: -7));
     return dailyRepository.read(startDay, endDay);
   }
 
@@ -45,4 +45,3 @@ class DailyInteractor implements DailyUsecases {
     return DateTime(year, month, day);
   }
 }
-
