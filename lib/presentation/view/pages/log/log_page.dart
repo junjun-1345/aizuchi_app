@@ -22,20 +22,61 @@ class LogPage extends ConsumerWidget {
       // print(authenticated);
     }
 
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text('ログ'),
-        LogSummaryTile(),
-        SizedBox(
-          height: 24,
-        ),
-        LogCarousel(),
-        SizedBox(
-          height: 24,
-        ),
-      
-      ],
+    final dailyState = ref.watch(dailyNotifierProvider);
+    final userState = ref.watch(usersNotifierProvider);
+    final logViewModel = ref.watch(logViewModelProvider);
+
+    return Scaffold(
+      body: userState.when(
+        data: (user) {
+          return dailyState.when(
+            data: (data) => Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  const Text(
+                    'ログ',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  LogSummaryTile(
+                    messageAmount: data.length,
+                    activeDays: user.activeDay,
+                    createdAt: user.createdAt,
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  LogCarousel(
+                    dailyList: data,
+                    logStartDay: logViewModel.logStartDay,
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                ],
+              ),
+            ),
+            loading: () {
+              return const Center(child: CircularProgressIndicator());
+            },
+            error: (Object error, StackTrace stackTrace) {
+              return const Text("エラーが発生しました");
+            },
+          );
+        },
+        loading: () {
+          return const Center(child: CircularProgressIndicator());
+        },
+        error: (Object error, StackTrace stackTrace) {
+          return const Text("ユーザー情報の取得中にエラーが発生しました");
+        },
+      ),
     );
   }
 }
