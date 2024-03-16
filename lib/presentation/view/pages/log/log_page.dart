@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/daily_state.dart';
+import 'package:aizuchi_app/presentation/state/summary_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_carousel.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_summary_tile.dart';
@@ -25,6 +26,7 @@ class LogPage extends ConsumerWidget {
     final dailyState = ref.watch(dailyNotifierProvider);
     final userState = ref.watch(usersNotifierProvider);
     final logViewModel = ref.watch(logViewModelProvider);
+    final summaryState = ref.watch(summaryNotifierProvider);
 
     return Scaffold(
       body: Center(
@@ -57,7 +59,7 @@ class LogPage extends ConsumerWidget {
             const SizedBox(
               height: 24,
             ),
-            dailyState.when(
+            summaryState.when(
               data: (data) => LogCarousel(
                 dailyList: data,
                 logStartDay: logViewModel.logStartDay,
