@@ -5,12 +5,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class SelectWeekPart extends HookConsumerWidget {
+class SelectWeekPart extends HookConsumerWidget {
   const SelectWeekPart({
-    required this.logStartDay,
     super.key,
   });
-
-  final DateTime logStartDay;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
