@@ -1,10 +1,8 @@
 import 'package:aizuchi_app/presentation/router/router.dart';
-import 'package:aizuchi_app/presentation/state/daily_state.dart';
 import 'package:aizuchi_app/presentation/state/summary_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_carousel.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_summary_tile.dart';
-import 'package:aizuchi_app/presentation/view_model/log_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +21,8 @@ class LogPage extends ConsumerWidget {
       // print(authenticated);
     }
 
-    final dailyState = ref.watch(dailyNotifierProvider);
     final userState = ref.watch(usersNotifierProvider);
-    final logViewModel = ref.watch(logViewModelProvider);
+
     final summaryState = ref.watch(summaryNotifierProvider);
 
     return Scaffold(
@@ -62,7 +59,6 @@ class LogPage extends ConsumerWidget {
             summaryState.when(
               data: (data) => LogCarousel(
                 dailyList: data,
-                logStartDay: logViewModel.logStartDay,
               ),
               loading: () {
                 return const CircularProgressIndicator();
