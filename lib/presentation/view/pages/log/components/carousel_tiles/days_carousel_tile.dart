@@ -1,17 +1,20 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/model/summary_model.dart';
+import 'package:aizuchi_app/presentation/model/summary_model.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/select_week.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+class DaysCarouselTile extends ConsumerWidget {
 class DaysCarouselTile extends ConsumerWidget {
   const DaysCarouselTile({
     required this.dailyList,
-    required this.logStartDay,
     Key? key,
   }) : super(key: key);
 
   final List<SummaryModel?> dailyList;
+  final List<SummaryModel> dailyList;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
