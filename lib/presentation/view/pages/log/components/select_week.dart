@@ -11,9 +11,12 @@ class SelectWeekPart extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final logEndDate = useState(DateTime.now());
-    final logStartDate =
-        useState(DateTime.now().subtract(const Duration(days: 6)));
+    final logEndDate = useState(
+      DateTime.now().subtract(Duration(days: DateTime.now().weekday - 7)),
+    );
+    final logStartDate = useState(
+      DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)),
+    );
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -22,9 +25,9 @@ class SelectWeekPart extends HookConsumerWidget {
         GestureDetector(
           onTap: () {
             logEndDate.value =
-                logEndDate.value.subtract(const Duration(days: 1));
+                logEndDate.value.subtract(const Duration(days: 7));
             logStartDate.value =
-                logStartDate.value.subtract(const Duration(days: 1));
+                logStartDate.value.subtract(const Duration(days: 7));
             ref
                 .read(summaryNotifierProvider.notifier)
                 .getWeeklySummary(logEndDate.value);
@@ -60,9 +63,9 @@ class SelectWeekPart extends HookConsumerWidget {
         ),
         GestureDetector(
           onTap: () {
-            logEndDate.value = logEndDate.value.add(const Duration(days: 1));
+            logEndDate.value = logEndDate.value.add(const Duration(days: 7));
             logStartDate.value =
-                logStartDate.value.add(const Duration(days: 1));
+                logStartDate.value.add(const Duration(days: 7));
             ref
                 .read(summaryNotifierProvider.notifier)
                 .getWeeklySummary(logEndDate.value);

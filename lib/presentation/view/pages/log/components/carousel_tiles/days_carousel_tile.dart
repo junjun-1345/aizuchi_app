@@ -1,31 +1,31 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
-import 'package:aizuchi_app/presentation/model/daily_model.dart';
+import 'package:aizuchi_app/presentation/model/summary_model.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/select_week.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class DaysCarouselTile extends StatelessWidget {
+class DaysCarouselTile extends ConsumerWidget {
   const DaysCarouselTile({
     required this.dailyList,
-    required this.logStartDay,
     Key? key,
   }) : super(key: key);
 
-  final List<DailyModel> dailyList;
-  final DateTime logStartDay;
+  final List<SummaryModel> dailyList;
 
   @override
-  Widget build(BuildContext context) {
-    final DateTime endDay = logStartDay.add(const Duration(days: 6));
-    final List<DailyModel> weekLogs = dailyList
-        .where(
-          (element) =>
-              element.createdAt
-                  .isAfter(logStartDay.add(const Duration(days: -1))) &&
-              element.createdAt.isBefore(endDay),
-        )
-        .toList();
+  Widget build(BuildContext context, WidgetRef ref) {
+    // 曜日ごとのデータを格納するリスト
+    final List<SummaryModel?> weekDays = List.filled(7, null);
 
+    // 曜日ごとにデータを挿入
+    for (final summary in dailyList) {
+      // 曜日のインデックスを取得
+      final dayIndex = (summary.createdAt.weekday + 6) % 7;
+      // データがすでにあるかどうかをチェックし、ない場合にのみデータを挿入
+      if (weekDays[dayIndex] == null) {
+        weekDays[dayIndex] = summary;
+      }
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Container(
@@ -38,20 +38,14 @@ class DaysCarouselTile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(
-                height: 16,
-              ),
-              for (DailyModel weekLog in weekLogs)
-                DailyTyle(
-                  day: DateFormat.EEEE('ja').format(weekLog.createdAt)[0],
-                  summary: weekLog.summary,
+              const SizedBox(height: 16),
+              for (final summary in weekDays)
+                DailyTile(
+                  day: _fetchDayOfWeek(weekDays.indexOf(summary)),
+                  summary: summary?.content ?? '',
                 ),
-              const SizedBox(
-                height: 16,
-              ),
-              SelectWeekPart(
-                logStartDay: logStartDay,
-              ),
+              const SizedBox(height: 16),
+              const SelectWeekPart(),
             ],
           ),
         ),
@@ -60,15 +54,36 @@ class DaysCarouselTile extends StatelessWidget {
   }
 }
 
-class DailyTyle extends StatelessWidget {
-  const DailyTyle({
+String _fetchDayOfWeek(int dayIndex) {
+  switch (dayIndex) {
+    case 0:
+      return '月';
+    case 1:
+      return '火';
+    case 2:
+      return '水';
+    case 3:
+      return '木';
+    case 4:
+      return '金';
+    case 5:
+      return '土';
+    case 6:
+      return '日';
+    default:
+      return '';
+  }
+}
+
+class DailyTile extends StatelessWidget {
+  const DailyTile({
     required this.day,
-    this.summary,
+    required this.summary,
     Key? key,
   }) : super(key: key);
 
   final String day;
-  final String? summary;
+  final String summary;
 
   @override
   Widget build(BuildContext context) {
@@ -82,26 +97,20 @@ class DailyTyle extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const SizedBox(
-              width: 16,
-            ),
+            const SizedBox(width: 16),
             Text(
               day,
               style: const TextStyle(fontSize: 16),
             ),
-            const SizedBox(
-              width: 12,
-            ),
+            const SizedBox(width: 12),
             Expanded(
               child: Text(
-                summary ?? '',
+                summary.isNotEmpty ? summary : '',
                 style: const TextStyle(fontSize: 10),
                 maxLines: 2,
               ),
             ),
-            const SizedBox(
-              width: 8,
-            ),
+            const SizedBox(width: 8),
           ],
         ),
       ),

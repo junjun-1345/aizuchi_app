@@ -1,4 +1,4 @@
-import 'package:aizuchi_app/presentation/model/daily_model.dart';
+import 'package:aizuchi_app/presentation/model/summary_model.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/carousel_tiles/days_carousel_tile.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -6,12 +6,10 @@ import 'package:flutter/material.dart';
 class LogCarousel extends StatelessWidget {
   const LogCarousel({
     required this.dailyList,
-    required this.logStartDay,
     super.key,
   });
 
-  final List<DailyModel> dailyList;
-  final DateTime logStartDay;
+  final List<SummaryModel> dailyList;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,6 @@ class LogCarousel extends StatelessWidget {
       items: [
         DaysCarouselTile(
           dailyList: dailyList,
-          logStartDay: logStartDay,
         ),
       ],
     );
