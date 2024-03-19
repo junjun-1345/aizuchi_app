@@ -45,3 +45,4 @@ class DailyInteractor implements DailyUsecases {
     return DateTime(year, month, day);
   }
 }
+

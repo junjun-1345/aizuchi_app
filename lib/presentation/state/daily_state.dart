@@ -1,7 +1,9 @@
+
+import 'package:aizuchi_app/domain/domain_module.dart';
 import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
 import 'package:aizuchi_app/domain/entity/models/daily.dart';
 import 'package:aizuchi_app/domain/usecases/daily_usecase.dart';
-import 'package:aizuchi_app/mock/daily_mock.dart';
+
 import 'package:aizuchi_app/presentation/model/daily_model.dart';
 import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
@@ -12,9 +14,9 @@ final dailyNotifierProvider =
   (ref) {
     return DailyNotifier(
       ref,
-      // ref.watch(dailyUsecaseProvider),
 
-      FakeDailyUsecases(),
+      ref.watch(dailyUsecaseProvider),
+
     );
   },
 );

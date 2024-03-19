@@ -15,7 +15,9 @@ final messagesNotifierProvider =
   return MessagesNotifier(
     ref,
     ref.watch(messagesUsecaseProvider),
-  )..initialize();
+
+  );
+
 });
 
 class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
