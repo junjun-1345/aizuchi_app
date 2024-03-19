@@ -28,7 +28,7 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
   final UsersUsecase _usersUseCase;
 
   void initialize() async {
-    print("usersNotifierProvider initialize");
+
     final UserEntity entity = await _usersUseCase.read();
     final UserModel user = UserModel.fromEntity(entity);
     state = AsyncValue.data(user);
