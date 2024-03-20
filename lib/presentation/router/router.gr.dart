@@ -33,6 +33,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const MessagePage(),
       );
     },
+    PlanRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PlanPage(),
+      );
+    },
     RootRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -122,6 +128,20 @@ class MessageRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MessageRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PlanPage]
+class PlanRoute extends PageRouteInfo<void> {
+  const PlanRoute({List<PageRouteInfo>? children})
+      : super(
+          PlanRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PlanRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

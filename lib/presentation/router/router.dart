@@ -2,6 +2,7 @@ import 'package:aizuchi_app/presentation/view/pages/calender/calendar_page.dart'
 import 'package:aizuchi_app/presentation/view/pages/message/message_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/log_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/root_page.dart';
+import 'package:aizuchi_app/presentation/view/pages/settings/plan_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_up_form_birthdate_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_up_form_check_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_up_form_name_page.dart';
@@ -71,8 +72,12 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
             AutoRoute(
               path: 'Calendar',
               page: CalenderRoute.page,
-            )
+            ),
           ],
+        ),
+        AutoRoute(
+          path: '/Plan',
+          page: PlanRoute.page,
         ),
       ];
 

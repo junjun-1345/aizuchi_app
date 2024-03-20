@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
+import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_contents.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_emotion_select_dialog.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_footer_contents.dart';
@@ -21,6 +22,8 @@ class MessagePage extends HookConsumerWidget {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       behavior: HitTestBehavior.opaque, // これを追加！！！
       child: Scaffold(
+          drawer: const HamburgerMenu(),
+          drawerScrimColor: BrandColor.base,
           appBar: AppBar(
             title: const Text(
               "もうふちゃん 会話",
@@ -28,6 +31,7 @@ class MessagePage extends HookConsumerWidget {
             ),
             elevation: 0,
             backgroundColor: Colors.transparent,
+            iconTheme: const IconThemeData(color: BrandColor.textBlack),
           ),
           body: usersState.when(
             data: (data) {
