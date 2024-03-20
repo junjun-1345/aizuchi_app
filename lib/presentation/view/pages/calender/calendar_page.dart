@@ -1,6 +1,8 @@
+import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/message_state.dart';
 import 'package:aizuchi_app/presentation/state/user_providers.dart';
+import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,13 @@ class CalenderPage extends ConsumerWidget {
     }
 
     return Scaffold(
+      drawer: const HamburgerMenu(),
+      drawerScrimColor: BrandColor.base,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: BrandColor.textBlack),
+      ),
       body: Container(
         alignment: Alignment.center,
         child: Column(
