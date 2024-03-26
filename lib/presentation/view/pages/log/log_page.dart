@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/presentation/state/daily_state.dart';
 import 'package:aizuchi_app/presentation/state/summary_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_carousel.dart';
@@ -22,8 +23,10 @@ class LogPage extends HookConsumerWidget {
     }
 
     final userState = ref.watch(usersNotifierProvider);
-
+    final dailyState = ref.watch(dailyNotifierProvider);
     final summaryState = ref.watch(summaryNotifierProvider);
+    print(dailyState);
+    print(summaryState);
 
     return Scaffold(
       body: Center(
@@ -56,10 +59,13 @@ class LogPage extends HookConsumerWidget {
             const SizedBox(
               height: 24,
             ),
-            summaryState.when(
-              data: (data) => LogCarousel(
-                dailyList: data,
-              ),
+            dailyState.when(
+              data: (data) {
+                print('data$data');
+                return LogCarousel(
+                  dailyList: data,
+                );
+              },
               loading: () {
                 return const CircularProgressIndicator();
               },

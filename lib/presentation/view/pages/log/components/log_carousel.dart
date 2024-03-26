@@ -2,6 +2,9 @@ import 'package:aizuchi_app/presentation/model/summary_model.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/carousel_tiles/days_carousel_tile.dart';
 import 'package:aizuchi_app/presentation/model/summary_model.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/carousel_tiles/days_carousel_tile.dart';
+import 'package:aizuchi_app/presentation/model/daily_model.dart';
+import 'package:aizuchi_app/presentation/view/pages/log/components/carousel_tiles/days_carousel_tile.dart';
+import 'package:aizuchi_app/presentation/view/pages/log/components/carousel_tiles/emotion_stock_tile.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +27,30 @@ class LogCarousel extends StatelessWidget {
   });
 
   final List<SummaryModel> dailyList;
+  const LogCarousel({
+    required this.dailyList,
+    super.key,
+  });
+
+  final List<SummaryModel> dailyList;
+  const LogCarousel({
+    required this.dailyList,
+    super.key,
+  });
+
+  final List<SummaryModel> dailyList;
+  const LogCarousel({
+    required this.dailyList,
+    super.key,
+  });
+
+  final List<SummaryModel> dailyList;
+  const LogCarousel({
+    required this.dailyList,
+    super.key,
+  });
+
+  final List<DailyModel> dailyList;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +69,23 @@ class LogCarousel extends StatelessWidget {
         DaysCarouselTile(
           dailyList: dailyList,
         ),
+      items: [
+        DaysCarouselTile(
+          dailyList: dailyList,
+        ),
+      items: [
+        DaysCarouselTile(
+          dailyList: dailyList,
+        ),
+      items: [
+        DaysCarouselTile(
+          dailyList: dailyList,
+        ),
+      items: [
+        DaysCarouselTile(
+          dailyList: dailyList,
+        ),
+        EmotionStockTile(dailyList: dailyList),
       ],
     );
   }

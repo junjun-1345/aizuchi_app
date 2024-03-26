@@ -13,8 +13,7 @@ class DaysCarouselTile extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  final List<SummaryModel?> dailyList;
-  final List<SummaryModel> dailyList;
+  final List<DailyModel> dailyList;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
