@@ -1,5 +1,3 @@
-
-import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/summary_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_carousel.dart';
@@ -12,19 +10,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 @RoutePage()
 class LogPage extends ConsumerWidget {
-
   const LogPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
-    Future<void> signOut() async {
-      await FirebaseAuth.instance.signOut();
-      context.router.replace(const SignInRoute());
-      // final authenticated = FirebaseAuth.instance.currentUser != null;
-      // print(authenticated);
-    }
-
     final userState = ref.watch(usersNotifierProvider);
 
     final summaryState = ref.watch(summaryNotifierProvider);
@@ -73,7 +62,6 @@ class LogPage extends ConsumerWidget {
             ),
             const SizedBox(
               height: 24,
-
             ),
           ],
         ),
