@@ -1,11 +1,12 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/model/daily_model.dart';
-import 'package:aizuchi_app/presentation/view/pages/log/components/select_week.dart';
+import 'package:aizuchi_app/presentation/view/pages/log/components/select_month.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class EmotionStockTile extends ConsumerWidget {
+class EmotionStockTile extends HookConsumerWidget {
   const EmotionStockTile({
     required this.dailyList,
     Key? key,
@@ -22,6 +23,11 @@ class EmotionStockTile extends ConsumerWidget {
           .length
           .toDouble());
     }
+    final logStartDate =
+        useState(DateTime(DateTime.now().year, DateTime.now().month, 1));
+    final logEndDate = useState(
+        DateTime(DateTime.now().year, DateTime.now().month + 1, 1)
+            .subtract(const Duration(days: 1)));
 
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -48,10 +54,10 @@ class EmotionStockTile extends ConsumerWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       color: BrandColor.baseRed),
-                  child: const Center(
+                  child: Center(
                     child: Text(
-                      '11月',
-                      style: TextStyle(
+                      '${logStartDate.value.month}月',
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 12,
                           fontWeight: FontWeight.bold),
@@ -69,7 +75,10 @@ class EmotionStockTile extends ConsumerWidget {
                 ),
                 const SizedBox(height: 16),
 
-                const SelectWeekPart(),
+                SelectMonthPart(
+                  logStartDate: logStartDate,
+                  logEndDate: logEndDate,
+                ),
               ],
             ),
           ),
