@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LogSummaryTile extends StatelessWidget {
   const LogSummaryTile({
@@ -29,19 +30,19 @@ class LogSummaryTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SummaryPart(
-              icon: Icons.check_circle_outline,
+              icon: FontAwesomeIcons.circleCheck,
               title: '登録から',
               value: registeredDays.toString(),
               unit: '日',
             ),
             SummaryPart(
-              icon: Icons.chat_bubble_outline_sharp,
+              icon: FontAwesomeIcons.comments,
               title: '会話数',
               value: messageAmount.toString(),
               unit: '回',
             ),
             SummaryPart(
-              icon: Icons.chat_bubble_outline_rounded,
+              icon: FontAwesomeIcons.calendarCheck,
               title: '会話した日',
               value: activeDays.toString(),
               unit: '日',
@@ -71,7 +72,7 @@ class SummaryPart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(
+        FaIcon(
           icon,
           color: Colors.white,
         ),
