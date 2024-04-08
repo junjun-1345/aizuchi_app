@@ -8,4 +8,6 @@ abstract class Env {
   static String geminiKey = _Env.geminiKey;
   @EnviedField(varName: 'CHATGPT_API_KEY', obfuscate: true)
   static String gptKey = _Env.gptKey;
+  @EnviedField(varName: 'IOS_REVENUECAT_API_KEY', obfuscate: true)
+  static String iosRevenucatApiKey = _Env.iosRevenucatApiKey;
 }

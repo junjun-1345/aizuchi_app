@@ -1,10 +1,10 @@
+import 'package:aizuchi_app/domain/domain_module.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/firebase_options.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz;
 
@@ -30,6 +30,8 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appRouter = ref.watch(appRouterProvider);
+    //FIXME: 呼び出す階層を変更
+    ref.read(subscriptionUsecaseProvider).configureSDK();
 
     return MaterialApp.router(
       routerConfig: appRouter.config(
