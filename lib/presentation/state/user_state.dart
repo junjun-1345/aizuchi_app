@@ -107,4 +107,16 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
       },
     );
   }
+
+  void isSubscriptionUpdate() {
+    final isSubscription = ref.read(userIsSubscriptionProvider);
+    state.whenData(
+      (user) {
+        final UserModel updatedUser =
+            user.copyWith(isSubscription: isSubscription);
+        _usersUseCase.update(updatedUser.toEntity());
+        state = AsyncValue.data(updatedUser);
+      },
+    );
+  }
 }

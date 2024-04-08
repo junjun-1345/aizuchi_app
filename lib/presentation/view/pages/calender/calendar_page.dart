@@ -37,19 +37,19 @@ class CalenderPage extends ConsumerWidget {
             const Text('CalenderPage'),
             ElevatedButton(
               onPressed: () {
-                ref.read(isConversationProvider.notifier).state = true;
+                ref.read(userIsConversationProvider.notifier).state = true;
               },
               child: const Text('isConversationProvider True'),
             ),
             ElevatedButton(
               onPressed: () {
-                ref.read(isConversationProvider.notifier).state = false;
+                ref.read(userIsConversationProvider.notifier).state = false;
               },
               child: const Text('isConversationProvider False'),
             ),
             ElevatedButton(
               onPressed: () {
-                ref.read(dailyKeyProvider.notifier).state = "";
+                ref.read(userDailyKeyProvider.notifier).state = "";
               },
               child: const Text('daiky Key Reset'),
             ),
@@ -57,7 +57,7 @@ class CalenderPage extends ConsumerWidget {
               onPressed: () {
                 // print(ref.watch(datetimeKeyProvider).toString());
 
-                ref.read(isConversationProvider.notifier).state = false;
+                ref.read(userIsConversationProvider.notifier).state = false;
                 // ref.read(diaryKeyProvider.notifier).state = "";
                 ref.read(messagesNotifierProvider.notifier).deleteAll();
               },

@@ -99,7 +99,7 @@ class UsersInteractor implements UsersUsecase {
       email: "",
       birthday: form.birthday,
       sex: form.sex,
-      billing: false,
+      isSubscription: false,
       init: true,
       createdAt: DateTime.now(),
       activeDay: 0,

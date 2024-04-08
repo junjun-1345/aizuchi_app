@@ -7,7 +7,7 @@ class UserEntity {
   final String email;
   final DateTime birthday;
   final SexEnum sex;
-  final bool billing;
+  final bool isSubscription;
   final bool init;
   final DateTime createdAt;
   final int activeDay;
@@ -24,7 +24,7 @@ class UserEntity {
     required this.email,
     required this.birthday,
     required this.sex,
-    required this.billing,
+    required this.isSubscription,
     required this.init,
     required this.createdAt,
     required this.activeDay,
