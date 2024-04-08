@@ -2,6 +2,7 @@ import 'package:aizuchi_app/domain/entity/enums/vertical.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/components/attention_dialog.dart';
+import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,7 +30,7 @@ class HamburgerMenu extends ConsumerWidget {
               const SizedBox(height: 24),
               _buildServiceSection(context),
               const SizedBox(height: 36),
-              _buildLogOutSection(context),
+              _buildLogOutSection(context, ref),
               const SizedBox(height: 24),
               _buildAccountDeletionSection(context),
             ],
@@ -180,7 +181,7 @@ class HamburgerMenu extends ConsumerWidget {
     );
   }
 
-  Widget _buildLogOutSection(BuildContext context) {
+  Widget _buildLogOutSection(BuildContext context, WidgetRef ref) {
     return _buildSectionButton(
       text: "ログアウト",
       onPressed: () => showDialog(
@@ -188,7 +189,10 @@ class HamburgerMenu extends ConsumerWidget {
         builder: (context) => AttentionDialog(
           title: 'ログアウト',
           content: 'ログアウトします。\nよろしいですか？',
-          onPressed: () {},
+          onPressed: () {
+            ref.read(userViewModelProvider).signOut();
+            context.router.replace(const SignInRoute());
+          },
         ),
       ),
     );
