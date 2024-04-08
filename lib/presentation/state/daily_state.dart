@@ -12,9 +12,9 @@ final dailyNotifierProvider =
     StateNotifierProvider<DailyNotifier, AsyncValue<List<DailyModel>>>(
   (ref) {
     // 環境やフラグに基づいて FakeDailyUsecases か実際の dailyUsecaseProvider を選択
-    // final usecase = ref.watch(dailyUsecaseProvider);
+    final usecase = ref.watch(dailyUsecaseProvider);
     // 開発やテストのために FakeDailyUsecases を使用
-    final usecase = FakeDailyUsecases();
+    // final usecase = FakeDailyUsecases();
 
     return DailyNotifier(ref, usecase);
   },
