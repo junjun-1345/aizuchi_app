@@ -22,7 +22,7 @@ class SignUpPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final UserViewModel userViewModel = ref.read(userViewModelProvider);
-    final StateController<String> userEmailState =
+    final StateController<String?> userEmailState =
         ref.watch(userEmailProvider.notifier);
     final StateController<String> userPasswordState =
         ref.watch(passwordProvider.notifier);
