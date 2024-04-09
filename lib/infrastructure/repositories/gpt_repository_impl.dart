@@ -82,7 +82,6 @@ class GptRepositoryImpl implements GptRepository {
     final replyJsonMap = jsonDecode(response.body);
     final replyContent = replyJsonMap["choices"][0]["message"]["content"];
 
-    print("トータルトークン : ${replyJsonMap["usage"]["total_tokens"]}");
     // 文字化け対策（utf8）変換
     final reply = utf8.decode(replyContent.runes.toList()).toString();
 

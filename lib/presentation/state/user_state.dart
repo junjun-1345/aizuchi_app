@@ -28,7 +28,7 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
   final UsersUsecase _usersUseCase;
 
   void initialize() async {
-
+    print("usersNotifierProvider initialize");
     final UserEntity entity = await _usersUseCase.read();
     final UserModel user = UserModel.fromEntity(entity);
     state = AsyncValue.data(user);
@@ -110,12 +110,24 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
   }
 
   Future<void> updateTotalMessages() async {
-    final int totalMessages = ref.read(totalMessagesProvider);
+    final int totalMessages = ref.read(totalMessagesProvider) ?? 0;
     await _usersUseCase.update(totalMessages: totalMessages);
     state.whenData(
       (user) {
         final UserModel updatedUser =
             user.copyWith(totalMessages: totalMessages);
+        state = AsyncValue.data(updatedUser);
+      },
+    );
+  }
+
+  void isSubscriptionUpdate() {
+    final isSubscription = ref.read(userIsSubscriptionProvider);
+    state.whenData(
+      (user) {
+        final UserModel updatedUser =
+            user.copyWith(isSubscription: isSubscription);
+        _usersUseCase.update(isSubscription: isSubscription);
         state = AsyncValue.data(updatedUser);
       },
     );

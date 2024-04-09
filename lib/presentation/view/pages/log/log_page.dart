@@ -1,8 +1,5 @@
-import 'package:aizuchi_app/presentation/state/summary_state.dart';
-import 'package:aizuchi_app/presentation/state/user_state.dart';
-import 'package:aizuchi_app/presentation/view/pages/log/components/log_carousel.dart';
-import 'package:aizuchi_app/presentation/view/pages/log/components/log_summary_tile.dart';
-
+import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
@@ -14,56 +11,24 @@ class LogPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userState = ref.watch(usersNotifierProvider);
-
-    final summaryState = ref.watch(summaryNotifierProvider);
-
     return Scaffold(
+      drawer: const HamburgerMenu(),
+      drawerScrimColor: BrandColor.base,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: BrandColor.textBlack),
+      ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 40,
-            ),
-            const Text(
-              'ログ',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            userState.when(
-              data: (data) => LogSummaryTile(
-                messageAmount: data.totalMessages,
-                activeDays: data.activeDay,
-                createdAt: data.createdAt,
-              ),
-              loading: () {
-                return const CircularProgressIndicator();
-              },
-              error: (Object error, StackTrace stackTrace) {
-                return const Text("エラーが発生しました");
-              },
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            summaryState.when(
-              data: (data) => LogCarousel(
-                dailyList: data,
-              ),
-              loading: () {
-                return const CircularProgressIndicator();
-              },
-              error: (Object error, StackTrace stackTrace) {
-                return const Text("エラーが発生しました");
-              },
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-          ],
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(8),
+          child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 80),
+                Text('LogPage'),
+              ]),
         ),
       ),
     );

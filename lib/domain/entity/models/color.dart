@@ -11,5 +11,6 @@ class BrandColor {
 
   static const white = Colors.white;
   static const black = Color(0xff333333);
+  static const red = Color.fromARGB(255, 255, 0, 0);
   static const textBlack = Color(0xff3D5065);
 }

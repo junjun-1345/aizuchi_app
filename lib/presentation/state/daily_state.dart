@@ -1,9 +1,7 @@
-
 import 'package:aizuchi_app/domain/domain_module.dart';
 import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
 import 'package:aizuchi_app/domain/entity/models/daily.dart';
 import 'package:aizuchi_app/domain/usecases/daily_usecase.dart';
-
 import 'package:aizuchi_app/presentation/model/daily_model.dart';
 import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
@@ -12,12 +10,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final dailyNotifierProvider =
     StateNotifierProvider<DailyNotifier, AsyncValue<List<DailyModel>>>(
   (ref) {
-    return DailyNotifier(
-      ref,
-
-      ref.watch(dailyUsecaseProvider),
-
-    );
+    // 環境やフラグに基づいて FakeDailyUsecases か実際の dailyUsecaseProvider を選択
+    final usecase = ref.watch(dailyUsecaseProvider);
+    // 開発やテストのために FakeDailyUsecases を使用
+    // final usecase = FakeDailyUsecases();
+    return DailyNotifier(ref, usecase);
   },
 );
 
@@ -34,7 +31,6 @@ class DailyNotifier extends StateNotifier<AsyncValue<List<DailyModel>>> {
     final List<DailyEntity> dailiesEntity = await _dailyUsecase.readMonth();
     final List<DailyModel> dailies =
         dailiesEntity.map((daily) => DailyModel.fromEntity(daily)).toList();
-    print("daily初期化");
     state = AsyncValue.data(dailies);
   }
 

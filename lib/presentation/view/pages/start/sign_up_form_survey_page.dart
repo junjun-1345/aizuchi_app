@@ -29,7 +29,7 @@ class SignUpFormSurveyPage extends HookConsumerWidget {
       "士業",
       "その他",
     ];
-    final professionNotifier = ref.watch(professionProvider.notifier);
+    final professionNotifier = ref.watch(userProfessionProvider.notifier);
     return GestureDetector(
       onTap: () => choiceProfession.value = "",
       child: Scaffold(

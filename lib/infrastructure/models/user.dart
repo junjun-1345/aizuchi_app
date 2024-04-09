@@ -10,7 +10,7 @@ class UserFields {
     email,
     birthday,
     sex,
-    billing,
+    isSubscription,
     init,
     createdAt,
     activeDay,
@@ -28,7 +28,7 @@ class UserFields {
   static const String email = 'email';
   static const String birthday = 'birthday';
   static const String sex = 'sex';
-  static const String billing = 'billing';
+  static const String isSubscription = 'isSubscription';
   static const String init = 'init';
   static const String createdAt = 'createdAt';
   static const String activeDay = 'activeDay';
@@ -47,7 +47,7 @@ class UserData {
   final String email;
   final Timestamp birthday;
   final String sex;
-  final bool billing;
+  final bool isSubscription;
   final bool init;
   final Timestamp createdAt;
   final int activeDay;
@@ -65,7 +65,7 @@ class UserData {
     required this.email,
     required this.birthday,
     required this.sex,
-    required this.billing,
+    required this.isSubscription,
     required this.init,
     required this.createdAt,
     required this.activeDay,
@@ -84,7 +84,7 @@ class UserData {
     String? email,
     Timestamp? birthday,
     String? sex,
-    bool? billing,
+    bool? isSubscription,
     bool? init,
     Timestamp? createdAt,
     int? activeDay,
@@ -103,7 +103,7 @@ class UserData {
         email: email ?? this.email,
         birthday: birthday ?? this.birthday,
         sex: sex ?? this.sex,
-        billing: billing ?? this.billing,
+        isSubscription: isSubscription ?? this.isSubscription,
         init: init ?? this.init,
         activeDay: activeDay ?? this.activeDay,
         charactor: charactor ?? this.charactor,
@@ -121,7 +121,7 @@ class UserData {
         email: json[UserFields.email] as String,
         birthday: json[UserFields.createdAt] as Timestamp,
         sex: json[UserFields.sex] as String,
-        billing: json[UserFields.billing] as bool,
+        isSubscription: json[UserFields.isSubscription] as bool,
         init: json[UserFields.init] as bool,
         createdAt: json[UserFields.createdAt] as Timestamp,
         activeDay: json[UserFields.activeDay] as int,
@@ -140,7 +140,7 @@ class UserData {
         UserFields.email: email,
         UserFields.birthday: birthday,
         UserFields.sex: sex,
-        UserFields.billing: billing,
+        UserFields.isSubscription: isSubscription,
         UserFields.init: init,
         UserFields.createdAt: createdAt,
         UserFields.activeDay: activeDay,
@@ -159,7 +159,7 @@ class UserData {
         email: entity.email,
         birthday: Timestamp.fromDate(entity.birthday),
         sex: entity.sex.sexValue!,
-        billing: entity.billing,
+        isSubscription: entity.isSubscription,
         init: entity.init,
         createdAt: Timestamp.fromDate(entity.createdAt),
         activeDay: entity.activeDay,
@@ -178,7 +178,7 @@ class UserData {
         email: email,
         birthday: birthday.toDate(),
         sex: SexExtension.from(sex),
-        billing: billing,
+        isSubscription: isSubscription,
         init: init,
         createdAt: createdAt.toDate(),
         activeDay: activeDay,
