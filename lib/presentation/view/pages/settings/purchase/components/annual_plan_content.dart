@@ -40,14 +40,14 @@ class AnnualPlanContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "¥500/月",
+                  "¥750/月",
                   style: TextStyle(
                       color: BrandColor.baseRed,
                       fontSize: 20,
                       fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  "※12ヶ月分一括 ¥6,000",
+                  "※12ヶ月分一括 ¥9,000",
                   style: TextStyle(
                       color: BrandColor.baseRed,
                       fontSize: 12,

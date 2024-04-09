@@ -12,7 +12,7 @@ class PurchasesFlutterRepositoryImpl implements PurchasesFlutterRepository {
   bool isSubscribed = false;
   late Offerings offerings;
   FirebaseAuth auth = FirebaseAuth.instance;
-  static final _key = Env.iosRevenucatApiKey;
+  static final _key = Env.revenucatProdApiKey;
 
   @override
   Future<void> configureSDK() async {
@@ -43,6 +43,10 @@ class PurchasesFlutterRepositoryImpl implements PurchasesFlutterRepository {
           ),
         )
         .toList();
+
+    planList.map((e) {
+      print(e.name);
+    });
     return planList;
   }
 
@@ -54,7 +58,11 @@ class PurchasesFlutterRepositoryImpl implements PurchasesFlutterRepository {
       CustomerInfo customerInfo = await Purchases.getCustomerInfo();
       //FIXME: 直書き良くないかも
       EntitlementInfo? entitlement =
-          customerInfo.entitlements.all["entitlement_test_a"];
+          customerInfo.entitlements.all["aizuchi_premium_subscription_default"];
+
+      //dev
+      // EntitlementInfo? entitlement =
+      //     customerInfo.entitlements.all["offering_test_a"];
 
       if (entitlement == null || entitlement.isActive == false) {
         status = SubscriptionModel(
@@ -97,7 +105,11 @@ class PurchasesFlutterRepositoryImpl implements PurchasesFlutterRepository {
 
       //FIXME: 直書き良くないかも
       EntitlementInfo? entitlement =
-          customerInfo.entitlements.all["entitlement_test_a"];
+          customerInfo.entitlements.all["aizuchi_premium_subscription_default"];
+
+      //dev
+      // EntitlementInfo? entitlement =
+      //     customerInfo.entitlements.all["offering_test_a"];
       return entitlement!.isActive;
     } on Exception {
       throw "エラーが発生しました";
@@ -110,7 +122,11 @@ class PurchasesFlutterRepositoryImpl implements PurchasesFlutterRepository {
       CustomerInfo customerInfo = await Purchases.restorePurchases();
       //FIXME: 直書き良くないかも
       EntitlementInfo? entitlement =
-          customerInfo.entitlements.all["entitlement_test_a"];
+          customerInfo.entitlements.all["aizuchi_premium_subscription_default"];
+
+      //dev
+      // EntitlementInfo? entitlement =
+      //     customerInfo.entitlements.all["offering_test_a"];
       return entitlement!.isActive;
     } on Exception {
       throw "エラーが発生しました";

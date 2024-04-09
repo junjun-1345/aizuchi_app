@@ -1,4 +1,5 @@
 import 'package:aizuchi_app/domain/entity/enums/plan.dart';
+import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/components/completed_dialog.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/annual_plan_content.dart';
@@ -32,7 +33,7 @@ class _PlanListContentsState extends ConsumerState<PlanListContents> {
           return const Text('An error has occurred!');
         } else {
           return Column(
-            children: snapshot.data!.reversed.map(
+            children: snapshot.data!.map(
               (element) {
                 switch (element.planType) {
                   case PlanType.monthly:
@@ -63,11 +64,15 @@ class _PlanListContentsState extends ConsumerState<PlanListContents> {
                                 showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
-                                    title: const Text('Error'),
-                                    content: Text('An error occurred: $e'),
+                                    title: const Text('エラー'),
+                                    content: const Text('エラーが発生しました。'),
                                     actions: <Widget>[
                                       TextButton(
-                                        child: const Text('OK'),
+                                        child: const Text(
+                                          'OK',
+                                          style: TextStyle(
+                                              color: BrandColor.baseRed),
+                                        ),
                                         onPressed: () =>
                                             Navigator.of(context).pop(),
                                       ),
@@ -111,11 +116,15 @@ class _PlanListContentsState extends ConsumerState<PlanListContents> {
                                 showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
-                                    title: const Text('Error'),
-                                    content: Text('An error occurred: $e'),
+                                    title: const Text('エラー'),
+                                    content: const Text('エラーが発生しました。'),
                                     actions: <Widget>[
                                       TextButton(
-                                        child: const Text('OK'),
+                                        child: const Text(
+                                          'OK',
+                                          style: TextStyle(
+                                              color: BrandColor.baseRed),
+                                        ),
                                         onPressed: () =>
                                             Navigator.of(context).pop(),
                                       ),

@@ -20,7 +20,7 @@ class MonthlyPlanContent extends StatelessWidget {
                   color: BrandColor.baseRed),
             ),
             Text(
-              "¥650/月",
+              "¥980/月",
               style: TextStyle(
                   color: BrandColor.baseRed,
                   fontSize: 20,
