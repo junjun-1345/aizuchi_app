@@ -70,7 +70,6 @@ class UserViewModel {
     try {
       await usersUsecase.updateEmail(email);
     } catch (e) {
-      print("キャッチ$e");
       ref.read(errorProvider.notifier).state = e.toString();
       onError();
       return;

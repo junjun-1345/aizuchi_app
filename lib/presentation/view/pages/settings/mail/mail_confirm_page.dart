@@ -1,6 +1,5 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
-import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
 import 'package:aizuchi_app/presentation/view/components/error_dialog.dart';
@@ -19,7 +18,6 @@ class MailConfrimPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userViewModel = ref.read(userViewModelProvider);
     final emailController = useTextEditingController();
-    final error = ref.watch(errorProvider);
     final formKey = useMemoized(GlobalKey<FormState>.new);
     return Scaffold(
       appBar: AppBar(
@@ -78,7 +76,11 @@ class MailConfrimPage extends HookConsumerWidget {
                                       context.router
                                           .replace(const MessageRoute());
                                     },
-                                    child: const Text("OK"),
+                                    child: const Text(
+                                      "OK",
+                                      style:
+                                          TextStyle(color: BrandColor.baseRed),
+                                    ),
                                   ),
                                 ],
                               );
@@ -86,7 +88,6 @@ class MailConfrimPage extends HookConsumerWidget {
                           );
                         },
                         onError: () {
-                          print("UI$error");
                           showDialog(
                             context: context,
                             builder: (context) {
