@@ -22,7 +22,7 @@ class MailConfrimPage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "加入プラン",
+          "メールアドレス変更",
           style: TextStyle(color: BrandColor.black),
         ),
         elevation: 0,
