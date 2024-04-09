@@ -14,9 +14,10 @@ class CalenderPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final router = context.router;
     Future<void> signOut() async {
       await FirebaseAuth.instance.signOut();
-      context.router.replace(const SignInRoute());
+      router.replace(const SignInRoute());
       // final authenticated = FirebaseAuth.instance.currentUser != null;
       // print(authenticated);
     }
