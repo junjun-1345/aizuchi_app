@@ -20,6 +20,7 @@ class UserFields {
     isConversation,
     isAssistant,
     isMessageOverLimit,
+    totalMessages,
   ];
 
   static const String id = 'id';
@@ -37,6 +38,7 @@ class UserFields {
   static const String isConversation = 'isConversation';
   static const String isAssistant = 'isAssistant';
   static const String isMessageOverLimit = 'isMessageOverLimit';
+  static const String totalMessages = 'totalMessages';
 }
 
 class UserData {
@@ -55,6 +57,7 @@ class UserData {
   final bool isConversation;
   final bool isAssistant;
   final bool isMessageOverLimit;
+  final int totalMessages;
 
   UserData({
     required this.id,
@@ -72,9 +75,10 @@ class UserData {
     required this.isConversation,
     required this.isAssistant,
     required this.isMessageOverLimit,
+    required this.totalMessages,
   });
 
-  UserData copy({
+  UserData copyWith({
     String? id,
     String? name,
     String? email,
@@ -90,6 +94,7 @@ class UserData {
     bool? isConversation,
     bool? isAssistant,
     bool? isMessageOverLimit,
+    int? totalMessages,
   }) =>
       UserData(
         id: id ?? this.id,
@@ -107,6 +112,7 @@ class UserData {
         isConversation: isConversation ?? this.isConversation,
         isAssistant: isAssistant ?? this.isAssistant,
         isMessageOverLimit: isMessageOverLimit ?? this.isMessageOverLimit,
+        totalMessages: totalMessages ?? this.totalMessages,
       );
 
   static UserData fromJson(Map<String, Object?> json) => UserData(
@@ -125,6 +131,7 @@ class UserData {
         isConversation: json[UserFields.isConversation] as bool,
         isAssistant: json[UserFields.isAssistant] as bool,
         isMessageOverLimit: json[UserFields.isMessageOverLimit] as bool,
+        totalMessages: json[UserFields.totalMessages] as int,
       );
 
   Map<String, Object?> toJson() => {
@@ -143,6 +150,7 @@ class UserData {
         UserFields.isConversation: isConversation,
         UserFields.isAssistant: isAssistant,
         UserFields.isMessageOverLimit: isMessageOverLimit,
+        UserFields.totalMessages: totalMessages,
       };
 
   static UserData fromEntity(UserEntity entity) => UserData(
@@ -161,6 +169,7 @@ class UserData {
         isConversation: entity.isConversation,
         isAssistant: entity.isAssistant,
         isMessageOverLimit: entity.isMessageOverLimit,
+        totalMessages: entity.totalMessages,
       );
 
   UserEntity toEntity() => UserEntity(
@@ -179,5 +188,6 @@ class UserData {
         isConversation: isConversation,
         isAssistant: isAssistant,
         isMessageOverLimit: isMessageOverLimit,
+        totalMessages: totalMessages,
       );
 }

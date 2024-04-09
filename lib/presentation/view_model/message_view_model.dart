@@ -85,6 +85,9 @@ class MessageViewModel {
 
     final String summary = await messagesNotifier.createSummary();
     await dailyNotifier.saveSummary(summary);
+
+    usersNotifier.updateTotalMessages();
+
     isWaitngNotifier.stopWaiting();
   }
 }

@@ -18,6 +18,7 @@ class UserModel {
   final bool isConversation;
   final bool isAssistant;
   final bool isMessageOverLimit;
+  final int totalMessages;
 
   const UserModel({
     required this.id,
@@ -35,6 +36,7 @@ class UserModel {
     required this.isConversation,
     required this.isAssistant,
     required this.isMessageOverLimit,
+    required this.totalMessages,
   });
 
   UserModel copyWith({
@@ -53,6 +55,7 @@ class UserModel {
     bool? isConversation,
     bool? isAssistant,
     bool? isMessageOverLimit,
+    int? totalMessages,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -70,6 +73,7 @@ class UserModel {
       isConversation: isConversation ?? this.isConversation,
       isAssistant: isAssistant ?? this.isAssistant,
       isMessageOverLimit: isMessageOverLimit ?? this.isMessageOverLimit,
+      totalMessages: totalMessages ?? this.totalMessages,
     );
   }
 
@@ -89,6 +93,7 @@ class UserModel {
         isConversation: userEntity.isConversation,
         isAssistant: userEntity.isAssistant,
         isMessageOverLimit: userEntity.isMessageOverLimit,
+        totalMessages: userEntity.totalMessages,
       );
 
   UserEntity toEntity() => UserEntity(
@@ -107,5 +112,6 @@ class UserModel {
         isConversation: isConversation,
         isAssistant: isAssistant,
         isMessageOverLimit: isMessageOverLimit,
+        totalMessages: totalMessages,
       );
 }

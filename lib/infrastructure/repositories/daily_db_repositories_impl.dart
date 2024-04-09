@@ -6,16 +6,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class DailyDBRepositoryImpl implements DailyDBRepository {
   @override
-  Future<List<DailyEntity>> read(DateTime startDay, DateTime endDay) async {
+  Future<List<DailyEntity>> read(DateTime startDate, DateTime endDate) async {
     final id = FirebaseAuth.instance.currentUser?.uid ?? '';
+
     try {
       final List<DailyEntity> dailies = [];
       await FirebaseFirestore.instance
           .collection('users')
           .doc(id)
           .collection('dailies')
-          .where('createdAt', isLessThanOrEqualTo: endDay)
-          .where('createdAt', isGreaterThanOrEqualTo: startDay)
+          .where('createdAt', isLessThanOrEqualTo: endDate)
+          .where('createdAt', isGreaterThanOrEqualTo: startDate)
           .orderBy('createdAt', descending: true) // 必要に応じて並び替え
           .get()
           .then((querySnapshot) {
@@ -28,6 +29,7 @@ class DailyDBRepositoryImpl implements DailyDBRepository {
           dailies.add(newDaily);
         }
       });
+      print(dailies.length);
       return dailies;
     } catch (e) {
       throw Exception('データの取得中にエラーが発生しました');
