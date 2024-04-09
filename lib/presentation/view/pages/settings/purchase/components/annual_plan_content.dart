@@ -2,7 +2,9 @@ import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:flutter/material.dart';
 
 class AnnualPlanContent extends StatelessWidget {
-  const AnnualPlanContent({super.key});
+  const AnnualPlanContent({required this.price, super.key});
+
+  final int price;
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +28,10 @@ class AnnualPlanContent extends StatelessWidget {
             ),
           ],
         ),
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               "年額プラン",
               style: TextStyle(
                   fontSize: 28,
@@ -40,15 +42,15 @@ class AnnualPlanContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "¥750/月",
-                  style: TextStyle(
+                  "¥${(price / 12).floor()}/月",
+                  style: const TextStyle(
                       color: BrandColor.baseRed,
                       fontSize: 20,
                       fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  "※12ヶ月分一括 ¥9,000",
-                  style: TextStyle(
+                  "※12ヶ月分一括 ¥$price",
+                  style: const TextStyle(
                       color: BrandColor.baseRed,
                       fontSize: 12,
                       fontWeight: FontWeight.w600),

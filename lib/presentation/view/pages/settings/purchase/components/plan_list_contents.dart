@@ -40,7 +40,9 @@ class _PlanListContentsState extends ConsumerState<PlanListContents> {
                     return Column(
                       children: [
                         PlanButton(
-                          const MonthlyPlanContent(),
+                          MonthlyPlanContent(
+                            price: element.price,
+                          ),
                           () async {
                             try {
                               await subscriptionViewModel
@@ -92,7 +94,9 @@ class _PlanListContentsState extends ConsumerState<PlanListContents> {
                     return Column(
                       children: [
                         PlanButton(
-                          const AnnualPlanContent(),
+                          AnnualPlanContent(
+                            price: element.price,
+                          ),
                           () async {
                             try {
                               await subscriptionViewModel
