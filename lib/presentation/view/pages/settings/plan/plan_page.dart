@@ -34,7 +34,6 @@ class PlanPage extends ConsumerWidget {
           child: FutureBuilder(
             future: subscribedInfo,
             builder: (context, snapshot) {
-              print("plan: ${snapshot.data}");
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator();
               } else if (snapshot.hasError) {
@@ -50,7 +49,9 @@ class PlanPage extends ConsumerWidget {
                       ListItem(
                         title: "加入プラン",
                         value: "未加入",
-                        onTap: () => print("tap"),
+                        onTap: () {
+                          null;
+                        },
                       ),
                       const SizedBox(height: 24),
                       ListItem(
@@ -73,7 +74,9 @@ class PlanPage extends ConsumerWidget {
                       ListItem(
                         title: "加入プラン",
                         value: data.planName ?? "未加入",
-                        onTap: () => print("tap"),
+                        onTap: () {
+                          null;
+                        },
                       ),
                       const SizedBox(height: 24),
                       ListItem(

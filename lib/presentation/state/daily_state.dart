@@ -33,7 +33,6 @@ class DailyNotifier extends StateNotifier<AsyncValue<List<DailyModel>>> {
     final List<DailyEntity> dailiesEntity = await _dailyUsecase.readMonth();
     final List<DailyModel> dailies =
         dailiesEntity.map((daily) => DailyModel.fromEntity(daily)).toList();
-    print("daily初期化");
     state = AsyncValue.data(dailies);
   }
 

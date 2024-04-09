@@ -56,10 +56,7 @@ class PurchasesFlutterRepositoryImpl implements PurchasesFlutterRepository {
       EntitlementInfo? entitlement =
           customerInfo.entitlements.all["entitlement_test_a"];
 
-      print("entitlement: $entitlement");
-
       if (entitlement == null || entitlement.isActive == false) {
-        print("null");
         status = SubscriptionModel(
           isActive: false,
           planName: null,
@@ -68,7 +65,6 @@ class PurchasesFlutterRepositoryImpl implements PurchasesFlutterRepository {
         );
         return status;
       } else {
-        print("not null");
         status = SubscriptionModel(
           isActive: entitlement.isActive,
           planName: entitlement.identifier,
@@ -111,18 +107,14 @@ class PurchasesFlutterRepositoryImpl implements PurchasesFlutterRepository {
   @override
   Future<bool> restorePurchase() async {
     try {
-      print("リストア");
-
       CustomerInfo customerInfo = await Purchases.restorePurchases();
       //FIXME: 直書き良くないかも
       EntitlementInfo? entitlement =
           customerInfo.entitlements.all["entitlement_test_a"];
-      print("リストアデータ$entitlement");
       return entitlement!.isActive;
     } on Exception {
       throw "エラーが発生しました";
     } catch (e) {
-      print("リストア :$e");
       throw "エラーが発生しました";
     }
   }

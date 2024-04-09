@@ -28,7 +28,6 @@ class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
   final MessageUsecases _messageUsecase;
 
   void initialize() async {
-    print("messagesNotifierProvider initialize");
     final List<MessageEntity> messageEntity = await _messageUsecase.readAll();
     final List<MessageModel> messages = messageEntity
         .map((message) => MessageModel.fromEntity(message))

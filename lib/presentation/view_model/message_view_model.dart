@@ -37,8 +37,6 @@ class MessageViewModel {
     // true　なし
     isWaitngNotifier.startWaiting();
     usersNotifier.isConversationStart();
-    print("メッセージ開始");
-
     usersNotifier.createDailyKey();
     await messagesNotifier.createDateMessage();
     await messagesNotifier.createEmotionMessage();
@@ -70,7 +68,6 @@ class MessageViewModel {
 
     if (!isSubscription) {
       if (isMessageOverLimit) {
-        print("制限オーバー");
         usersNotifier.messageOverLimit();
         isWaitngNotifier.stopWaiting();
         return;

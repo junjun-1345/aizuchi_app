@@ -86,7 +86,6 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         ),
       ];
 
-  //FIXME: 2024/01/15　ここまで完了。
   //FIXME: サインイン途中にアプリが切られた場合の挙動を作成。未サインイン状態。
 
   @override

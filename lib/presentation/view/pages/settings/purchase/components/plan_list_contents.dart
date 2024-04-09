@@ -4,11 +4,9 @@ import 'package:aizuchi_app/presentation/view/components/completed_dialog.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/annual_plan_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/monthly_plan_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/plan_button.dart';
-import 'package:aizuchi_app/presentation/view/pages/start/sign_in_page.dart';
 import 'package:aizuchi_app/presentation/view_model/subscription_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class PlanListContents extends ConsumerStatefulWidget {

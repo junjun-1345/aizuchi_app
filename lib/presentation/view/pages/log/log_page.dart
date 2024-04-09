@@ -22,10 +22,12 @@ class LogPage extends ConsumerWidget {
         child: Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.all(8),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const SizedBox(height: 80),
-            const Text('LogPage'),
-          ]),
+          child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 80),
+                Text('LogPage'),
+              ]),
         ),
       ),
     );
