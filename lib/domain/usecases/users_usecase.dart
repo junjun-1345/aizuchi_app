@@ -24,7 +24,6 @@ abstract class UsersUsecase {
     String? email,
     DateTime? birthday,
     SexEnum? sex,
-    bool? billing,
     bool? init,
     DateTime? createdAt,
     int? activeDay,

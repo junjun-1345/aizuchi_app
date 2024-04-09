@@ -14,6 +14,7 @@ final dailyNotifierProvider =
     final usecase = ref.watch(dailyUsecaseProvider);
     // 開発やテストのために FakeDailyUsecases を使用
     // final usecase = FakeDailyUsecases();
+    return DailyNotifier(ref, usecase);
   },
 );
 
