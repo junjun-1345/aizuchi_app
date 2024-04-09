@@ -37,4 +37,6 @@ abstract class UsersUsecase {
     bool? isSubscription,
   });
   String createKey();
+  Future<String?> readEmail();
+  Future<void> updateEmail(String email);
 }

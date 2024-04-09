@@ -27,6 +27,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const LogPage(),
       );
     },
+    MailConfrimRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MailConfrimPage(),
+      );
+    },
     MessageRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -120,6 +126,20 @@ class LogRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'LogRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MailConfrimPage]
+class MailConfrimRoute extends PageRouteInfo<void> {
+  const MailConfrimRoute({List<PageRouteInfo>? children})
+      : super(
+          MailConfrimRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MailConfrimRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

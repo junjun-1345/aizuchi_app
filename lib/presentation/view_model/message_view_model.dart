@@ -36,8 +36,8 @@ class MessageViewModel {
 
     // true　なし
     isWaitngNotifier.startWaiting();
-    usersNotifier.isConversationStart();
-    usersNotifier.createDailyKey();
+    await usersNotifier.isConversationStart();
+    await usersNotifier.createDailyKey();
     await messagesNotifier.createDateMessage();
     await messagesNotifier.createEmotionMessage();
     await dailyNotifier.saveEmotion();
@@ -68,7 +68,7 @@ class MessageViewModel {
 
     if (!isSubscription) {
       if (isMessageOverLimit) {
-        usersNotifier.messageOverLimit();
+        await usersNotifier.messageOverLimit();
         isWaitngNotifier.stopWaiting();
         return;
       }
@@ -80,13 +80,13 @@ class MessageViewModel {
 
   Future<void> createSummary() async {
     isWaitngNotifier.startWaiting();
-    usersNotifier.isConversationEnd();
-    usersNotifier.isMessageOverLimitReset();
+    await usersNotifier.isConversationEnd();
+    await usersNotifier.isMessageOverLimitReset();
 
     final String summary = await messagesNotifier.createSummary();
     await dailyNotifier.saveSummary(summary);
 
-    usersNotifier.updateTotalMessages();
+    await usersNotifier.updateTotalMessages();
 
     isWaitngNotifier.stopWaiting();
   }

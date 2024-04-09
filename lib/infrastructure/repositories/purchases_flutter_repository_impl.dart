@@ -43,10 +43,6 @@ class PurchasesFlutterRepositoryImpl implements PurchasesFlutterRepository {
           ),
         )
         .toList();
-
-    planList.map((e) {
-      print(e.name);
-    });
     return planList;
   }
 

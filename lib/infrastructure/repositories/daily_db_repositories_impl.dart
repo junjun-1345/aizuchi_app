@@ -29,7 +29,7 @@ class DailyDBRepositoryImpl implements DailyDBRepository {
           dailies.add(newDaily);
         }
       });
-      print(dailies.length);
+
       return dailies;
     } catch (e) {
       throw Exception('データの取得中にエラーが発生しました');

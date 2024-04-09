@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final emotionProvider = StateProvider<EmotionType>((_) => EmotionType.neutral);
 
-final errorProvider = StateProvider.autoDispose<String>((_) => "");
+final errorProvider = StateProvider<String>((_) => "");
 
 final passwordProvider = StateProvider<String>((_) => "");
 

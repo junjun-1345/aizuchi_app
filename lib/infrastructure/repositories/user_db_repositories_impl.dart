@@ -46,6 +46,7 @@ class UserDBsRepositoryImpl implements UserDBRepository {
     }
   }
 
+  @override
   Future<UserEntity> update({
     String? id,
     String? name,

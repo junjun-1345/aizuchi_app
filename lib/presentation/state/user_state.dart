@@ -28,7 +28,6 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
   final UsersUsecase _usersUseCase;
 
   void initialize() async {
-    print("usersNotifierProvider initialize");
     final UserEntity entity = await _usersUseCase.read();
     final UserModel user = UserModel.fromEntity(entity);
     state = AsyncValue.data(user);
@@ -63,7 +62,6 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     state.whenData(
       (user) {
         final UserModel updatedUser = user.copyWith(dailyKey: newDailyKey);
-
         state = AsyncValue.data(updatedUser);
       },
     );

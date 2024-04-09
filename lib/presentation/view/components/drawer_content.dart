@@ -61,13 +61,13 @@ class HamburgerMenu extends ConsumerWidget {
       children: [
         _buildSectionTitle("アカウント"),
         _buildSectionItem(
-          title: "認証設定",
+          title: "認証連携",
           icon: Icons.manage_accounts_sharp,
           onTap: () {},
           verticalType: VerticalType.top,
         ),
         _buildSectionItem(
-          title: "アカウント",
+          title: "プロフィール",
           icon: Icons.account_circle,
           onTap: () {},
           verticalType: VerticalType.none,
@@ -81,6 +81,22 @@ class HamburgerMenu extends ConsumerWidget {
             );
           },
           verticalType: VerticalType.bottom,
+        ),
+        _buildSectionItem(
+          title: "メールアドレス",
+          icon: Icons.mail,
+          onTap: () {
+            context.router.push(
+              const MailConfrimRoute(),
+            );
+          },
+          verticalType: VerticalType.none,
+        ),
+        _buildSectionItem(
+          title: "パスワード",
+          icon: Icons.lock,
+          onTap: () {},
+          verticalType: VerticalType.none,
         ),
       ],
     );
