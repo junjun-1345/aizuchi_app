@@ -2,6 +2,7 @@ import 'package:aizuchi_app/presentation/view/pages/calender/calendar_page.dart'
 import 'package:aizuchi_app/presentation/view/pages/message/message_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/log_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/root_page.dart';
+import 'package:aizuchi_app/presentation/view/pages/settings/mail/mail_confirm_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/plan/plan_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/purchase_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_up_form_birthdate_page.dart';
@@ -83,6 +84,10 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         AutoRoute(
           path: '/Purchase',
           page: PurchaseRoute.page,
+        ),
+        AutoRoute(
+          path: '/MailConfirm',
+          page: MailConfrimRoute.page,
         ),
       ];
 

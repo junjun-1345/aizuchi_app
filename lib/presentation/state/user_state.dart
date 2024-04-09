@@ -63,7 +63,6 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     state.whenData(
       (user) {
         final UserModel updatedUser = user.copyWith(dailyKey: newDailyKey);
-
         state = AsyncValue.data(updatedUser);
       },
     );

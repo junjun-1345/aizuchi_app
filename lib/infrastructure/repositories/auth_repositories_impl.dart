@@ -136,4 +136,30 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> accountDalete() async {
     await FirebaseAuth.instance.currentUser?.delete();
   }
+
+  @override
+  Future<void> updateEmail(String email) async {
+    try {
+      await FirebaseAuth.instance.currentUser?.updateEmail(email);
+      // ignore: empty_catches
+    } on FirebaseAuthException catch (e) {
+      print(e.code);
+      switch (e.code) {
+        case 'email-already-in-use':
+          throw 'このメールアドレスは既に別の認証方法で使用されています。\n他のメールアドレスを使用してください。';
+        case 'requires-recent-login':
+          throw 'セキュリティ上の理由から、再度ログインしてください。';
+        default:
+          throw 'エラーが発生しました。もう一度お試しください。';
+      }
+    } on Exception {
+      throw 'エラーが発生しました。もう一度お試しください。';
+    }
+  }
+
+  @override
+  Future<String?> readEmail() async {
+    print(FirebaseAuth.instance.currentUser?.email);
+    return FirebaseAuth.instance.currentUser?.email;
+  }
 }

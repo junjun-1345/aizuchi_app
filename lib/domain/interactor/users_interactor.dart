@@ -158,4 +158,14 @@ class UsersInteractor implements UsersUsecase {
     final String key = "${now.year}_${now.month}_${now.day}";
     return key;
   }
+
+  @override
+  Future<void> updateEmail(String email) {
+    return authRepository.updateEmail(email);
+  }
+
+  @override
+  Future<String?> readEmail() async {
+    return await authRepository.readEmail();
+  }
 }
