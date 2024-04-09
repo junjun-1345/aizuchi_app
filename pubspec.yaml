@@ -12,13 +12,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
+  cupertino_icons:
 
   # util
   envied:
   freezed_annotation:
   shared_preferences:
-  timezone: ^0.9.2
+  timezone:
   auto_route:
   intl:
   url_launcher:
@@ -43,7 +43,7 @@ dependencies:
 
   # UI
   fl_chart:
-  carousel_slider: ^4.2.1
+  carousel_slider:
   sign_in_button:
   flutter_datetime_picker_plus:
 
