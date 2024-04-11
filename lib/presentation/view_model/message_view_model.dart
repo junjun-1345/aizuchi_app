@@ -69,6 +69,7 @@ class MessageViewModel {
     if (!isSubscription) {
       if (isMessageOverLimit) {
         await usersNotifier.messageOverLimit();
+
         isWaitngNotifier.stopWaiting();
         return;
       }
