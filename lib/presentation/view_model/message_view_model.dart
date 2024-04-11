@@ -65,7 +65,6 @@ class MessageViewModel {
 
     if (!isBilling) {
       if (isMessageOverLimit) {
-        print("制限オーバー");
         usersNotifier.messageOverLimit();
         isWaitngNotifier.stopWaiting();
         return;

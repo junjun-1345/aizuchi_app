@@ -36,7 +36,6 @@ class EmotionStockTile extends HookConsumerWidget {
             emotionCounts[dailyModel.emotion]! + 1;
       }
     }
-    print(emotionCounts);
 
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -106,7 +105,6 @@ class EmotionStockBarChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<double> emotionAmounts = emotionCounts.values.toList();
-    print(emotionAmounts);
     final List<String?> emotions =
         emotionCounts.keys.map((emotion) => emotion.emotionValue).toList();
 
