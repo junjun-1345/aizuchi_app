@@ -1,5 +1,5 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
-import 'package:aizuchi_app/presentation/model/daily_model.dart';
+import 'package:aizuchi_app/presentation/model/summary_model.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/select_week.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,12 +10,12 @@ class DaysCarouselTile extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  final List<DailyModel> dailyList;
+  final List<SummaryModel> dailyList;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // 曜日ごとのデータを格納するリスト
-    final List<DailyModel?> weekDays = List.filled(7, null);
+    final List<SummaryModel?> weekDays = List.filled(7, null);
 
     // 曜日ごとにデータを挿入
     for (final summary in dailyList) {
@@ -42,7 +42,7 @@ class DaysCarouselTile extends ConsumerWidget {
               for (final summary in weekDays)
                 DailyTile(
                   day: _fetchDayOfWeek(weekDays.indexOf(summary)),
-                  summary: summary?.summary ?? '',
+                  summary: summary?.content ?? '',
                 ),
               const SizedBox(height: 16),
               const SelectWeekPart(),
