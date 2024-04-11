@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/model/daily_model.dart';
@@ -34,6 +36,7 @@ class EmotionStockTile extends HookConsumerWidget {
             emotionCounts[dailyModel.emotion]! + 1;
       }
     }
+    print(emotionCounts);
 
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -103,12 +106,13 @@ class EmotionStockBarChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<double> emotionAmounts = emotionCounts.values.toList();
+    print(emotionAmounts);
     final List<String?> emotions =
         emotionCounts.keys.map((emotion) => emotion.emotionValue).toList();
 
     return BarChart(
       BarChartData(
-        maxY: 31,
+        maxY: emotionAmounts.reduce(max),
         backgroundColor: BrandColor.base,
         borderData: FlBorderData(
           border: const Border(
