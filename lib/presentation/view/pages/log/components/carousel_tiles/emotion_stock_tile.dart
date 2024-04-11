@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/model/daily_model.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/select_month.dart';
@@ -16,18 +17,23 @@ class EmotionStockTile extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<double> emotionAmounts = [];
-    for (var emotion in emotions) {
-      emotionAmounts.add(dailyList
-          .where((element) => element.emotion == emotion)
-          .length
-          .toDouble());
-    }
     final logStartDate =
         useState(DateTime(DateTime.now().year, DateTime.now().month, 1));
     final logEndDate = useState(
         DateTime(DateTime.now().year, DateTime.now().month + 1, 1)
             .subtract(const Duration(days: 1)));
+
+    final Map<EmotionType, double> emotionCounts = {
+      for (var type in EmotionType.values) type: 0,
+    };
+
+    for (var dailyModel in dailyList) {
+      // 感情ごとにカウントを増やす
+      if (emotionCounts.containsKey(dailyModel.emotion)) {
+        emotionCounts[dailyModel.emotion] =
+            emotionCounts[dailyModel.emotion]! + 1;
+      }
+    }
 
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -71,7 +77,7 @@ class EmotionStockTile extends HookConsumerWidget {
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.38,
-                  child: EmotionStockBarChart(emotionAmounts: emotionAmounts),
+                  child: EmotionStockBarChart(emotionCounts: emotionCounts),
                 ),
                 const SizedBox(height: 16),
 
@@ -89,16 +95,20 @@ class EmotionStockTile extends HookConsumerWidget {
 class EmotionStockBarChart extends StatelessWidget {
   const EmotionStockBarChart({
     super.key,
-    required this.emotionAmounts,
+    required this.emotionCounts,
   });
 
-  final List<double> emotionAmounts;
+  final Map<EmotionType, double> emotionCounts;
 
   @override
   Widget build(BuildContext context) {
+    final List<double> emotionAmounts = emotionCounts.values.toList();
+    final List<String?> emotions =
+        emotionCounts.keys.map((emotion) => emotion.emotionValue).toList();
+
     return BarChart(
       BarChartData(
-        maxY: 7,
+        maxY: 31,
         backgroundColor: BrandColor.base,
         borderData: FlBorderData(
           border: const Border(
@@ -122,7 +132,7 @@ class EmotionStockBarChart extends StatelessWidget {
                 sideTitles: SideTitles(
               showTitles: true,
               getTitlesWidget: (value, meta) => Text(
-                emotions[value.toInt()],
+                emotions[value.toInt()]!,
                 style: const TextStyle(fontSize: 18),
               ),
             ))),
@@ -130,18 +140,15 @@ class EmotionStockBarChart extends StatelessWidget {
         gridData: const FlGridData(show: false),
         barGroups: [
           ...List.generate(
-            emotions.length,
+            5,
             (index) => BarChartGroupData(
               x: index,
               barRods: [
-                ...List.generate(
-                  1,
-                  (index) => BarChartRodData(
-                    toY: emotionAmounts[index],
-                    width: 20,
-                    color: const Color(0xffF6AB6F),
-                  ),
-                )
+                BarChartRodData(
+                  toY: emotionAmounts[index].toDouble(),
+                  width: 20,
+                  color: const Color(0xffF6AB6F),
+                ),
               ],
             ),
           ),
@@ -150,11 +157,3 @@ class EmotionStockBarChart extends StatelessWidget {
     );
   }
 }
-
-const List<String> emotions = [
-  '🥳',
-  '😆',
-  '🙂',
-  '😫',
-  '😭',
-];

@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/presentation/state/daily_state.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -25,6 +26,9 @@ class SelectMonthPart extends HookConsumerWidget {
             logEndDate.value =
                 DateTime(logEndDate.value.year, logEndDate.value.month, 1)
                     .subtract(const Duration(days: 1));
+            ref
+                .read(dailyNotifierProvider.notifier)
+                .getMonthlyDaily(logEndDate.value);
           },
           child: Container(
             height: 25,
@@ -62,7 +66,9 @@ class SelectMonthPart extends HookConsumerWidget {
             logEndDate.value =
                 DateTime(logEndDate.value.year, logEndDate.value.month + 2, 1)
                     .subtract(const Duration(days: 1));
-            print(logEndDate);
+            ref
+                .read(dailyNotifierProvider.notifier)
+                .getMonthlyDaily(logEndDate.value);
           },
           child: Container(
             height: 25,
