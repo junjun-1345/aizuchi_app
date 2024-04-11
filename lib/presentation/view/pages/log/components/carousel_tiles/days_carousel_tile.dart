@@ -10,22 +10,12 @@ class DaysCarouselTile extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  final List<SummaryModel> dailyList;
+
+  final List<SummaryModel?> dailyList;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 曜日ごとのデータを格納するリスト
-    final List<SummaryModel?> weekDays = List.filled(7, null);
 
-    // 曜日ごとにデータを挿入
-    for (final summary in dailyList) {
-      // 曜日のインデックスを取得
-      final dayIndex = (summary.createdAt.weekday + 6) % 7;
-      // データがすでにあるかどうかをチェックし、ない場合にのみデータを挿入
-      if (weekDays[dayIndex] == null) {
-        weekDays[dayIndex] = summary;
-      }
-    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Container(
@@ -39,10 +29,12 @@ class DaysCarouselTile extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 16),
-              for (final summary in weekDays)
+
+              for (int i = 0; i < 7; i++)
                 DailyTile(
-                  day: _fetchDayOfWeek(weekDays.indexOf(summary)),
-                  summary: summary?.content ?? '',
+                  day: _fetchDayOfWeek(i),
+                  summary: _getSummaryForDay(dailyList, i),
+
                 ),
               const SizedBox(height: 16),
               const SelectWeekPart(),
@@ -53,6 +45,15 @@ class DaysCarouselTile extends ConsumerWidget {
     );
   }
 }
+
+String _getSummaryForDay(List<SummaryModel?> dailyList, int dayIndex) {
+  final summaryForDay = dailyList.firstWhere(
+    (summary) => summary!.createdAt.weekday == dayIndex + 1,
+    orElse: () => SummaryModel(content: '', createdAt: DateTime.now()),
+  );
+  return summaryForDay?.content ?? '';
+}
+
 
 String _fetchDayOfWeek(int dayIndex) {
   switch (dayIndex) {

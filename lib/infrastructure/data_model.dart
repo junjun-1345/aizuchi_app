@@ -4,6 +4,7 @@ import 'package:aizuchi_app/domain/repositories/gpt_repository.dart';
 import 'package:aizuchi_app/domain/repositories/message_db_repository.dart';
 import 'package:aizuchi_app/domain/repositories/gemini_repository.dart';
 import 'package:aizuchi_app/domain/repositories/local_db_repository.dart';
+import 'package:aizuchi_app/domain/repositories/purchases_flutter_repository.dart';
 import 'package:aizuchi_app/domain/repositories/user_db_repository.dart';
 import 'package:aizuchi_app/infrastructure/repositories/auth_repositories_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/daily_db_repositories_impl.dart';
@@ -11,6 +12,7 @@ import 'package:aizuchi_app/infrastructure/repositories/gpt_repository_impl.dart
 import 'package:aizuchi_app/infrastructure/repositories/message_db_repositories_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/gemini_repository_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/local_db_repositories_impl.dart';
+import 'package:aizuchi_app/infrastructure/repositories/purchases_flutter_repository_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/user_db_repositories_impl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -40,4 +42,8 @@ final gptRepositoryProvider = Provider<GptRepository>((ref) {
 
 final dailyDBRepositoryProvider = Provider<DailyDBRepository>((ref) {
   return DailyDBRepositoryImpl();
+});
+
+final purchasesFlutterProvider = Provider<PurchasesFlutterRepository>((ref) {
+  return PurchasesFlutterRepositoryImpl();
 });

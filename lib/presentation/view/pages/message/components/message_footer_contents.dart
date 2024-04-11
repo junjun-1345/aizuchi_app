@@ -1,10 +1,12 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/state/messsage_providers.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/error_dialog.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_emotion_select_dialog.dart';
 import 'package:aizuchi_app/presentation/view_model/message_view_model.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -79,7 +81,9 @@ class MessageFooterContents extends ConsumerWidget {
                             // elevation: 0,
                             shape: const StadiumBorder(),
                             backgroundColor: BrandColor.baseRed),
-                        onPressed: () {},
+                        onPressed: () {
+                          context.router.push(const PurchaseRoute());
+                        },
                         child: const Text(
                           "Aizuchi Premium >",
                           style: TextStyle(

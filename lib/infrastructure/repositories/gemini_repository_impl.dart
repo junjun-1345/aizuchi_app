@@ -16,7 +16,6 @@ import 'package:http/http.dart' as http;
 class GenimiRepositoryImpl implements GeminiRepository {
   @override
   Future<String> createSummary(String message) {
-    // TODO: implement createSummary
     throw UnimplementedError();
   }
 

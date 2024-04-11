@@ -27,10 +27,28 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const LogPage(),
       );
     },
+    MailConfrimRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MailConfrimPage(),
+      );
+    },
     MessageRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const MessagePage(),
+      );
+    },
+    PlanRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PlanPage(),
+      );
+    },
+    PurchaseRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PurchasePage(),
       );
     },
     RootRoute.name: (routeData) {
@@ -113,6 +131,20 @@ class LogRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [MailConfrimPage]
+class MailConfrimRoute extends PageRouteInfo<void> {
+  const MailConfrimRoute({List<PageRouteInfo>? children})
+      : super(
+          MailConfrimRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MailConfrimRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [MessagePage]
 class MessageRoute extends PageRouteInfo<void> {
   const MessageRoute({List<PageRouteInfo>? children})
@@ -122,6 +154,34 @@ class MessageRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MessageRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PlanPage]
+class PlanRoute extends PageRouteInfo<void> {
+  const PlanRoute({List<PageRouteInfo>? children})
+      : super(
+          PlanRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PlanRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PurchasePage]
+class PurchaseRoute extends PageRouteInfo<void> {
+  const PurchaseRoute({List<PageRouteInfo>? children})
+      : super(
+          PurchaseRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PurchaseRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

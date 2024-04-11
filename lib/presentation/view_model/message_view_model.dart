@@ -31,10 +31,13 @@ class MessageViewModel {
   );
 
   Future<void> sendTodayFirstMessage() async {
-    isWaitngNotifier.startWaiting();
-    usersNotifier.isConversationStart();
+    // 課金チェック
+    // false
 
-    usersNotifier.createDailyKey();
+    // true　なし
+    isWaitngNotifier.startWaiting();
+    await usersNotifier.isConversationStart();
+    await usersNotifier.createDailyKey();
     await messagesNotifier.createDateMessage();
     await messagesNotifier.createEmotionMessage();
     await dailyNotifier.saveEmotion();
@@ -44,8 +47,8 @@ class MessageViewModel {
   }
 
   Future<void> sendMessage() async {
-    final bool isBilling =
-        ref.read(usersNotifierProvider).asData!.value.billing;
+    final bool isSubscription =
+        ref.read(usersNotifierProvider).asData!.value.isSubscription;
     final bool isAssistant =
         ref.read(usersNotifierProvider).asData!.value.isAssistant;
     final String dailyKey =
@@ -63,9 +66,11 @@ class MessageViewModel {
     final bool isMessageOverLimit =
         messagesNotifier.canReplyLLMMessage(dailyKey);
 
-    if (!isBilling) {
+    if (!isSubscription) {
       if (isMessageOverLimit) {
-        usersNotifier.messageOverLimit();
+
+        await usersNotifier.messageOverLimit();
+
         isWaitngNotifier.stopWaiting();
         return;
       }
@@ -77,13 +82,15 @@ class MessageViewModel {
 
   Future<void> createSummary() async {
     isWaitngNotifier.startWaiting();
-    usersNotifier.isConversationEnd();
-    usersNotifier.isMessageOverLimitReset();
+    await usersNotifier.isConversationEnd();
+    await usersNotifier.isMessageOverLimitReset();
 
     final String summary = await messagesNotifier.createSummary();
     await dailyNotifier.saveSummary(summary);
 
-    usersNotifier.updateTotalMessages();
+
+    await usersNotifier.updateTotalMessages();
+
 
     isWaitngNotifier.stopWaiting();
   }

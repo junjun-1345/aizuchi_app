@@ -3,23 +3,24 @@ import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/presentation/model/user_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final userIdProvider = StateProvider<String>((_) => "");
-final userNameProvider = StateProvider<String>((_) => "");
-final userEmailProvider = StateProvider<String>((_) => "");
-final userBirthdayProvider = StateProvider<DateTime>((_) => DateTime.now());
-final userSexProvider = StateProvider<SexEnum>((_) => SexEnum.unknown);
-final userBillingProvider = StateProvider<bool>((_) => false);
-final userInitProvider = StateProvider<bool>((_) => false);
-final userCreatedAtProvider = StateProvider<DateTime>((_) => DateTime.now());
-final userActiveDayProvider = StateProvider<int>((_) => 0);
-final userCharactorProvider =
-    StateProvider<CharactorEnum>((_) => CharactorEnum.unknown);
-final professionProvider = StateProvider<String>((_) => "");
-final dailyKeyProvider = StateProvider<String>((_) => "");
-final isConversationProvider = StateProvider<bool>((_) => false);
-final isAssistantProvider = StateProvider<bool>((_) => true);
-final isMessageOverLimitProvider = StateProvider<bool>((_) => false);
-final totalMessagesProvider = StateProvider<int>((_) => 0);
+
+final userIdProvider = StateProvider<String?>((_) => null);
+final userNameProvider = StateProvider<String?>((_) => null);
+final userEmailProvider = StateProvider<String?>((_) => null);
+final userBirthdayProvider = StateProvider<DateTime?>((_) => null);
+final userSexProvider = StateProvider<SexEnum?>((_) => null);
+final userIsSubscriptionProvider = StateProvider<bool?>((_) => null);
+final userInitProvider = StateProvider<bool?>((_) => null);
+final userCreatedAtProvider = StateProvider<DateTime?>((_) => null);
+final userActiveDayProvider = StateProvider<int?>((_) => null);
+final userCharactorProvider = StateProvider<CharactorEnum?>((_) => null);
+final userProfessionProvider = StateProvider<String?>((_) => null);
+final userDailyKeyProvider = StateProvider<String?>((_) => null);
+final userIsConversationProvider = StateProvider<bool?>((_) => null);
+final userIsAssistantProvider = StateProvider<bool?>((_) => true);
+final userIsMessageOverLimitProvider = StateProvider<bool?>((_) => null);
+final totalMessagesProvider = StateProvider<int?>((_) => 0);
+
 
 final userProvider = StateProvider<UserModel>((ref) {
   final id = ref.watch(userIdProvider);
@@ -27,33 +28,35 @@ final userProvider = StateProvider<UserModel>((ref) {
   final email = ref.watch(userEmailProvider);
   final birthday = ref.watch(userBirthdayProvider);
   final sex = ref.watch(userSexProvider);
-  final billing = ref.watch(userBillingProvider);
+  final isSubscription = ref.watch(userIsSubscriptionProvider);
   final init = ref.watch(userInitProvider);
   final createdAt = ref.watch(userCreatedAtProvider);
   final activeDay = ref.watch(userActiveDayProvider);
   final charactor = ref.watch(userCharactorProvider);
-  final profession = ref.watch(professionProvider);
-  final dailyKey = ref.watch(dailyKeyProvider);
-  final isConversation = ref.watch(isConversationProvider);
-  final isAssistant = ref.watch(isAssistantProvider);
-  final isMessageOverLimit = ref.watch(isMessageOverLimitProvider);
+
+  final profession = ref.watch(userProfessionProvider);
+  final dailyKey = ref.watch(userDailyKeyProvider);
+  final isConversation = ref.watch(userIsConversationProvider);
+  final isAssistant = ref.watch(userIsAssistantProvider);
+  final isMessageOverLimit = ref.watch(userIsMessageOverLimitProvider);
   final totalMessages = ref.watch(totalMessagesProvider);
   return UserModel(
-    id: id,
-    name: name,
-    email: email,
-    birthday: birthday,
-    sex: sex,
-    billing: billing,
-    init: init,
-    createdAt: createdAt,
-    activeDay: activeDay,
-    charactor: charactor,
-    profession: profession,
-    dailyKey: dailyKey,
-    isConversation: isConversation,
-    isAssistant: isAssistant,
-    isMessageOverLimit: isMessageOverLimit,
-    totalMessages: totalMessages,
+    id: id ?? "",
+    name: name ?? "",
+    email: email ?? "",
+    birthday: birthday ?? DateTime(2000, 1, 1),
+    sex: sex ?? SexEnum.unknown,
+    isSubscription: isSubscription ?? false,
+    init: init ?? false,
+    createdAt: createdAt ?? DateTime.now(),
+    activeDay: activeDay ?? 0,
+    charactor: charactor ?? CharactorEnum.unknown,
+    profession: profession ?? "",
+    dailyKey: dailyKey ?? "",
+    isConversation: isConversation ?? false,
+    isAssistant: isAssistant ?? true,
+    isMessageOverLimit: isMessageOverLimit ?? false,
+    totalMessages: totalMessages ?? 0,
+
   );
 });

@@ -1,5 +1,7 @@
+import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view_model/message_view_model.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -16,7 +18,9 @@ class MessageOverLimitDialog extends ConsumerWidget {
           const Text('もっとお話できるプランを見る'),
           const SizedBox(height: 8),
           AppButton.medium(
-            onPressed: () {},
+            onPressed: () {
+              context.router.push(const PurchaseRoute());
+            },
             text: 'Aizuchi Premium >',
           ),
           const SizedBox(height: 24),

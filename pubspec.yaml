@@ -24,6 +24,8 @@ dependencies:
   url_launcher:
   roggle:
   uuid:
+  # 課金
+  purchases_flutter: ^6.25.0
 
   # firebase
   firebase_core:
@@ -55,6 +57,7 @@ dependencies:
   http: ^1.1.0
   flutter_timezone: ^1.0.8
   in_app_purchase: ^3.1.11
+  font_awesome_flutter: ^10.7.0
 
 dev_dependencies:
   auto_route_generator:

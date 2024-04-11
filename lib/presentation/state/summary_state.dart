@@ -31,7 +31,7 @@ class SummaryNotifier extends StateNotifier<AsyncValue<List<SummaryModel>>> {
     final List<DailyEntity> dailiesEntity = await _dailyUsecase.readWeek();
     final List<SummaryModel> summaries =
         dailiesEntity.map((daily) => SummaryModel.fromEntity(daily)).toList();
-    print("初期化$summaries");
+
     state = AsyncValue.data(summaries);
   }
 

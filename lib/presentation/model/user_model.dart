@@ -8,7 +8,7 @@ class UserModel {
   final String email;
   final DateTime birthday;
   final SexEnum sex;
-  final bool billing;
+  final bool isSubscription;
   final bool init;
   final DateTime createdAt;
   final int activeDay;
@@ -26,7 +26,7 @@ class UserModel {
     required this.email,
     required this.birthday,
     required this.sex,
-    required this.billing,
+    required this.isSubscription,
     required this.init,
     required this.createdAt,
     required this.activeDay,
@@ -45,7 +45,7 @@ class UserModel {
     String? email,
     DateTime? birthday,
     SexEnum? sex,
-    bool? billing,
+    bool? isSubscription,
     bool? init,
     DateTime? createdAt,
     int? activeDay,
@@ -63,7 +63,7 @@ class UserModel {
       email: email ?? this.email,
       birthday: birthday ?? this.birthday,
       sex: sex ?? this.sex,
-      billing: billing ?? this.billing,
+      isSubscription: isSubscription ?? this.isSubscription,
       init: init ?? this.init,
       createdAt: createdAt ?? this.createdAt,
       activeDay: activeDay ?? this.activeDay,
@@ -83,7 +83,7 @@ class UserModel {
         email: userEntity.email,
         birthday: userEntity.birthday,
         sex: userEntity.sex,
-        billing: userEntity.billing,
+        isSubscription: userEntity.isSubscription,
         init: userEntity.init,
         createdAt: userEntity.createdAt,
         activeDay: userEntity.activeDay,
@@ -102,7 +102,7 @@ class UserModel {
         email: email,
         birthday: birthday,
         sex: sex,
-        billing: billing,
+        isSubscription: isSubscription,
         init: init,
         createdAt: createdAt,
         activeDay: activeDay,

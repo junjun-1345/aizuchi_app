@@ -77,7 +77,8 @@ class UsersInteractor implements UsersUsecase {
     String? email,
     DateTime? birthday,
     SexEnum? sex,
-    bool? billing,
+
+    bool? isSubscription,
     bool? init,
     DateTime? createdAt,
     int? activeDay,
@@ -95,7 +96,9 @@ class UsersInteractor implements UsersUsecase {
       email: email,
       birthday: birthday,
       sex: sex,
-      billing: billing,
+
+      isSubscription: isSubscription,
+
       init: init,
       createdAt: createdAt,
       activeDay: activeDay,
@@ -134,7 +137,7 @@ class UsersInteractor implements UsersUsecase {
       email: "",
       birthday: form.birthday,
       sex: form.sex,
-      billing: false,
+      isSubscription: false,
       init: true,
       createdAt: DateTime.now(),
       activeDay: 0,
@@ -157,5 +160,15 @@ class UsersInteractor implements UsersUsecase {
     final DateTime now = DateTime.now();
     final String key = "${now.year}_${now.month}_${now.day}";
     return key;
+  }
+
+  @override
+  Future<void> updateEmail(String email) {
+    return authRepository.updateEmail(email);
+  }
+
+  @override
+  Future<String?> readEmail() async {
+    return await authRepository.readEmail();
   }
 }

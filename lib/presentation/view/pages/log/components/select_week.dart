@@ -18,6 +18,13 @@ class SelectWeekPart extends HookConsumerWidget {
       DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)),
     );
 
+
+    final DateTime endDay = DateTime(
+        logEndDate.value.year, logEndDate.value.month, logEndDate.value.day);
+    final DateTime today =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,31 +68,34 @@ class SelectWeekPart extends HookConsumerWidget {
         const SizedBox(
           width: 8,
         ),
-        GestureDetector(
-          onTap: () {
-            logEndDate.value = logEndDate.value.add(const Duration(days: 7));
-            logStartDate.value =
-                logStartDate.value.add(const Duration(days: 7));
-            ref
-                .read(summaryNotifierProvider.notifier)
-                .getWeeklySummary(logEndDate.value);
-          },
-          child: Container(
-            height: 25,
-            width: 25,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              border: Border.all(
-                width: 1,
-                color: const Color(0xffe79f95),
+
+        if (endDay.isBefore(today))
+          GestureDetector(
+            onTap: () {
+              logEndDate.value = logEndDate.value.add(const Duration(days: 7));
+              logStartDate.value =
+                  logStartDate.value.add(const Duration(days: 7));
+              ref
+                  .read(summaryNotifierProvider.notifier)
+                  .getWeeklySummary(logEndDate.value);
+            },
+            child: Container(
+              height: 25,
+              width: 25,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(
+                  width: 1,
+                  color: const Color(0xffe79f95),
+                ),
+              ),
+              child: const Icon(
+                Icons.navigate_next,
+                color: Color(0xffe79f95),
               ),
             ),
-            child: const Icon(
-              Icons.navigate_next,
-              color: Color(0xffe79f95),
-            ),
           ),
-        ),
+
       ],
     );
   }
