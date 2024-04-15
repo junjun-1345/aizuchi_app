@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "860227011726",
+    "project_id": "aizuchi-prod",
+    "storage_bucket": "aizuchi-prod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860227011726:android:a175704b22dae531d3f5df",
+        "android_client_info": {
+          "package_name": "jp.co.dotlog.aizuchi.prod"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860227011726-d3iibe5pfv7j8kj1ivld8ep87umnv2ha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgdb1dmbjmoB2fKOhZBBEboFs8g5C_PF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860227011726-d3iibe5pfv7j8kj1ivld8ep87umnv2ha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

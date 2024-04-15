@@ -52,4 +52,5 @@ env.g.dart
 .fvm/flutter_sdk
 
 **/ios/Flutter/Dart-Defines.xcconfig
-+ **/ios/Runner/GoogleService-Info.plist
+**/ios/Runner/GoogleService-Info.plist
+**/android/app/google-services.json

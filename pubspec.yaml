@@ -51,7 +51,6 @@ dependencies:
   # 未設定
   flutter_local_notifications: ^16.3.2
   email_validator: ^2.1.17
-  flutter_native_timezone: ^2.0.0
   path_provider: ^2.1.1
   rxdart: ^0.27.7
   http: ^1.1.0
