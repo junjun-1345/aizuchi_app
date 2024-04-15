@@ -50,3 +50,6 @@ env.g.dart
 
 # FVM
 .fvm/flutter_sdk
+
+**/ios/Flutter/Dart-Defines.xcconfig
++ **/ios/Runner/GoogleService-Info.plist
