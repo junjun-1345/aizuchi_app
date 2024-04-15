@@ -24,6 +24,8 @@ abstract class UsersUsecase {
     String? email,
     DateTime? birthday,
     SexEnum? sex,
+
+
     bool? init,
     DateTime? createdAt,
     int? activeDay,
@@ -34,7 +36,9 @@ abstract class UsersUsecase {
     bool? isAssistant,
     bool? isMessageOverLimit,
     int? totalMessages,
+
     bool? isSubscription,
+
   });
   String createKey();
   Future<String?> readEmail();

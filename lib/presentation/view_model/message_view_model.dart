@@ -68,7 +68,9 @@ class MessageViewModel {
 
     if (!isSubscription) {
       if (isMessageOverLimit) {
+
         await usersNotifier.messageOverLimit();
+
         isWaitngNotifier.stopWaiting();
         return;
       }
@@ -86,7 +88,9 @@ class MessageViewModel {
     final String summary = await messagesNotifier.createSummary();
     await dailyNotifier.saveSummary(summary);
 
+
     await usersNotifier.updateTotalMessages();
+
 
     isWaitngNotifier.stopWaiting();
   }

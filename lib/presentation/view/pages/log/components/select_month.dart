@@ -1,43 +1,36 @@
-import 'package:aizuchi_app/presentation/state/summary_state.dart';
+import 'package:aizuchi_app/presentation/state/daily_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class SelectWeekPart extends HookConsumerWidget {
-  const SelectWeekPart({
+class SelectMonthPart extends HookConsumerWidget {
+  const SelectMonthPart({
+    required this.logStartDate,
+    required this.logEndDate,
     super.key,
   });
 
+  final ValueNotifier<DateTime> logStartDate;
+  final ValueNotifier<DateTime> logEndDate;
+
+  bool get lastMonth => logEndDate.value.month == DateTime.now().month;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final logEndDate = useState(
-      DateTime.now().subtract(Duration(days: DateTime.now().weekday - 7)),
-    );
-    final logStartDate = useState(
-      DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)),
-    );
-
-
-    final DateTime endDay = DateTime(
-        logEndDate.value.year, logEndDate.value.month, logEndDate.value.day);
-    final DateTime today =
-        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         GestureDetector(
           onTap: () {
+            logStartDate.value = DateTime(
+                logStartDate.value.year, logStartDate.value.month - 1, 1);
             logEndDate.value =
-                logEndDate.value.subtract(const Duration(days: 7));
-            logStartDate.value =
-                logStartDate.value.subtract(const Duration(days: 7));
+                DateTime(logEndDate.value.year, logEndDate.value.month, 1)
+                    .subtract(const Duration(days: 1));
             ref
-                .read(summaryNotifierProvider.notifier)
-                .getWeeklySummary(logEndDate.value);
+                .read(dailyNotifierProvider.notifier)
+                .getMonthlyDaily(logEndDate.value);
           },
           child: Container(
             height: 25,
@@ -68,16 +61,17 @@ class SelectWeekPart extends HookConsumerWidget {
         const SizedBox(
           width: 8,
         ),
-
-        if (endDay.isBefore(today))
+        if (!lastMonth)
           GestureDetector(
             onTap: () {
-              logEndDate.value = logEndDate.value.add(const Duration(days: 7));
-              logStartDate.value =
-                  logStartDate.value.add(const Duration(days: 7));
+              logStartDate.value = DateTime(
+                  logStartDate.value.year, logStartDate.value.month + 1, 1);
+              logEndDate.value =
+                  DateTime(logEndDate.value.year, logEndDate.value.month + 2, 1)
+                      .subtract(const Duration(days: 1));
               ref
-                  .read(summaryNotifierProvider.notifier)
-                  .getWeeklySummary(logEndDate.value);
+                  .read(dailyNotifierProvider.notifier)
+                  .getMonthlyDaily(logEndDate.value);
             },
             child: Container(
               height: 25,
@@ -95,7 +89,6 @@ class SelectWeekPart extends HookConsumerWidget {
               ),
             ),
           ),
-
       ],
     );
   }

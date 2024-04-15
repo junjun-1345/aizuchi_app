@@ -77,6 +77,7 @@ class UsersInteractor implements UsersUsecase {
     String? email,
     DateTime? birthday,
     SexEnum? sex,
+
     bool? isSubscription,
     bool? init,
     DateTime? createdAt,
@@ -95,7 +96,9 @@ class UsersInteractor implements UsersUsecase {
       email: email,
       birthday: birthday,
       sex: sex,
+
       isSubscription: isSubscription,
+
       init: init,
       createdAt: createdAt,
       activeDay: activeDay,

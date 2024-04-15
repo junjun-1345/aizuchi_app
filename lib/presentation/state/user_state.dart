@@ -62,6 +62,7 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     state.whenData(
       (user) {
         final UserModel updatedUser = user.copyWith(dailyKey: newDailyKey);
+
         state = AsyncValue.data(updatedUser);
       },
     );
@@ -108,12 +109,15 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
   }
 
   Future<void> updateTotalMessages() async {
+
     final int totalMessages = ref.read(totalMessagesProvider) ?? 0;
+
     await _usersUseCase.update(totalMessages: totalMessages);
     state.whenData(
       (user) {
         final UserModel updatedUser =
             user.copyWith(totalMessages: totalMessages);
+
         state = AsyncValue.data(updatedUser);
       },
     );
@@ -126,6 +130,7 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
         final UserModel updatedUser =
             user.copyWith(isSubscription: isSubscription);
         _usersUseCase.update(isSubscription: isSubscription);
+
         state = AsyncValue.data(updatedUser);
       },
     );
