@@ -10,11 +10,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final dailyNotifierProvider =
     StateNotifierProvider<DailyNotifier, AsyncValue<List<DailyModel>>>(
   (ref) {
-    // 環境やフラグに基づいて FakeDailyUsecases か実際の dailyUsecaseProvider を選択
-    final usecase = ref.watch(dailyUsecaseProvider);
-    // 開発やテストのために FakeDailyUsecases を使用
-    // final usecase = FakeDailyUsecases();
-    return DailyNotifier(ref, usecase);
+    return DailyNotifier(
+      ref,
+      ref.watch(dailyUsecaseProvider),
+      // FakeDailyUsecases(),
+    );
   },
 );
 
@@ -60,7 +60,6 @@ class DailyNotifier extends StateNotifier<AsyncValue<List<DailyModel>>> {
   }
 
   Future<List<DailyModel>> getMonthlyDaily(DateTime endDate) async {
-    print(endDate.toString());
     final List<DailyEntity> dailiesEntity =
         await _dailyUsecase.readMonth(endDate: endDate);
     final List<DailyModel> dailies =
