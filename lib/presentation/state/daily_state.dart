@@ -10,13 +10,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final dailyNotifierProvider =
     StateNotifierProvider<DailyNotifier, AsyncValue<List<DailyModel>>>(
   (ref) {
-
     return DailyNotifier(
       ref,
       ref.watch(dailyUsecaseProvider),
       // FakeDailyUsecases(),
     );
-
   },
 );
 
@@ -62,7 +60,6 @@ class DailyNotifier extends StateNotifier<AsyncValue<List<DailyModel>>> {
   }
 
   Future<List<DailyModel>> getMonthlyDaily(DateTime endDate) async {
-    print(endDate.toString());
     final List<DailyEntity> dailiesEntity =
         await _dailyUsecase.readMonth(endDate: endDate);
     final List<DailyModel> dailies =
