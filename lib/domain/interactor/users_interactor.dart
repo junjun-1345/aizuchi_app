@@ -26,6 +26,9 @@ class UsersInteractor implements UsersUsecase {
       case PlatformType.google:
         await authRepository.signUpWithGoogle();
         break;
+      case PlatformType.apple:
+        await authRepository.signUpWithApple();
+        break;
       case PlatformType.email:
         await authRepository.signUpWithEmail(password, user);
         break;
@@ -53,6 +56,9 @@ class UsersInteractor implements UsersUsecase {
     switch (platform) {
       case PlatformType.google:
         await authRepository.signInWithGoogle();
+        break;
+      case PlatformType.apple:
+        await authRepository.signInWithApple();
         break;
       case PlatformType.email:
         await authRepository.signInWithEmail(password, user);
