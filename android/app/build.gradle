@@ -32,6 +32,18 @@ if (project.hasProperty('dart-defines')) {
         }
 }
 
+task selectGoogleServicesJson(type: Copy) {
+    from "src/${dartDefines.flavor}/google-services.json"
+    into './'
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'processDebugGoogleServices' || task.name == 'processReleaseGoogleServices') {
+        task.dependsOn selectGoogleServicesJson
+    }
+}
+
+
 apply plugin: 'com.android.application'
 // START: FlutterFire Configuration
 apply plugin: 'com.google.gms.google-services'
@@ -45,7 +57,7 @@ android {
     ndkVersion flutter.ndkVersion
 
     compileOptions {
-        multiDexEnabled true
+        // multiDexEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -55,8 +67,10 @@ android {
     }
 
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-        main.res.srcDirs = ['src/main/res', "src/${dartDefines.flavor}/res"]
+        main {
+            java.srcDirs += 'src/main/kotlin'
+            res.srcDirs = ['src/main/res', "src/${dartDefines.flavor}/res"]
+        }
     }
 
     defaultConfig {
