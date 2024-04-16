@@ -78,8 +78,6 @@ PODS:
   - Flutter (1.0.0)
   - flutter_local_notifications (0.0.1):
     - Flutter
-  - flutter_native_timezone (0.0.1):
-    - Flutter
   - flutter_timezone (0.0.1):
     - Flutter
   - google_sign_in_ios (0.0.1):
@@ -150,7 +148,6 @@ DEPENDENCIES:
   - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `10.22.0`)
   - Flutter (from `Flutter`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
-  - flutter_native_timezone (from `.symlinks/plugins/flutter_native_timezone/ios`)
   - flutter_timezone (from `.symlinks/plugins/flutter_timezone/ios`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/darwin`)
   - in_app_purchase_storekit (from `.symlinks/plugins/in_app_purchase_storekit/darwin`)
@@ -203,8 +200,6 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
-  flutter_native_timezone:
-    :path: ".symlinks/plugins/flutter_native_timezone/ios"
   flutter_timezone:
     :path: ".symlinks/plugins/flutter_timezone/ios"
   google_sign_in_ios:
@@ -248,7 +243,6 @@ SPEC CHECKSUMS:
   FirebaseSharedSwift: 48076404e6e52372290d15a07d2ed1d2f1754023
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_local_notifications: 4cde75091f6327eb8517fa068a0a5950212d2086
-  flutter_native_timezone: 5f05b2de06c9776b4cc70e1839f03de178394d22
   flutter_timezone: ffb07bdad3c6276af8dada0f11978d8a1f8a20bb
   google_sign_in_ios: 7c205d44fdc266640375c6ac33d96ba3983dbe02
   GoogleSignIn: b232380cf495a429b8095d3178a8d5855b42e842
