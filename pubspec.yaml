@@ -12,13 +12,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
+  cupertino_icons:
 
   # util
   envied:
   freezed_annotation:
   shared_preferences:
-  timezone: ^0.9.2
+  timezone:
   auto_route:
   intl:
   url_launcher:
@@ -43,7 +43,7 @@ dependencies:
 
   # UI
   fl_chart:
-  carousel_slider: ^4.2.1
+  carousel_slider:
   sign_in_button:
   flutter_datetime_picker_plus:
 
@@ -51,7 +51,6 @@ dependencies:
   # 未設定
   flutter_local_notifications: ^16.3.2
   email_validator: ^2.1.17
-  flutter_native_timezone: ^2.0.0
   path_provider: ^2.1.1
   rxdart: ^0.27.7
   http: ^1.1.0
@@ -70,6 +69,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
