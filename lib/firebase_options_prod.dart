@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart'
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options.dart';
+/// import 'firebase_options_prod.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDZn92SDxH6DQDX9QWdvqUHAACu3MMzstc',
-    appId: '1:457635486876:android:329413011e8baa4687e159',
-    messagingSenderId: '457635486876',
-    projectId: 'aizuchi-stg',
-    storageBucket: 'aizuchi-stg.appspot.com',
+    apiKey: 'AIzaSyDgdb1dmbjmoB2fKOhZBBEboFs8g5C_PF0',
+    appId: '1:860227011726:android:5d5c227bbbddc904d3f5df',
+    messagingSenderId: '860227011726',
+    projectId: 'aizuchi-prod',
+    storageBucket: 'aizuchi-prod.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBps7nRLrnbR-ISGgvZAZy_ocI_gq1lUyA',
-    appId: '1:457635486876:ios:96505f9c43d6928587e159',
-    messagingSenderId: '457635486876',
-    projectId: 'aizuchi-stg',
-    storageBucket: 'aizuchi-stg.appspot.com',
-    iosClientId: '457635486876-pndtegr2nd6j8jkq49rb0l3oki7jm96a.apps.googleusercontent.com',
-    iosBundleId: 'dartDefines.aizuchiApp.RunnerTests',
+    apiKey: 'AIzaSyCJm8osvC1IHWF1eTBzR8Jl7GUEJepTsog',
+    appId: '1:860227011726:ios:25417a99cd78d9add3f5df',
+    messagingSenderId: '860227011726',
+    projectId: 'aizuchi-prod',
+    storageBucket: 'aizuchi-prod.appspot.com',
+    iosClientId: '860227011726-14ls6k5d01l2ipbl7rtku385oqlpihs5.apps.googleusercontent.com',
+    iosBundleId: 'jp.co.dotlog.aizuchi.prod',
   );
 }

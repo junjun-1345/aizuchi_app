@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart'
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options.dart';
+/// import 'firebase_options_stg.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDZn92SDxH6DQDX9QWdvqUHAACu3MMzstc',
-    appId: '1:457635486876:android:329413011e8baa4687e159',
+    appId: '1:457635486876:android:1ebf49da68702fdf87e159',
     messagingSenderId: '457635486876',
     projectId: 'aizuchi-stg',
     storageBucket: 'aizuchi-stg.appspot.com',
@@ -59,11 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBps7nRLrnbR-ISGgvZAZy_ocI_gq1lUyA',
-    appId: '1:457635486876:ios:96505f9c43d6928587e159',
+    appId: '1:457635486876:ios:1c2846f3457718f187e159',
     messagingSenderId: '457635486876',
     projectId: 'aizuchi-stg',
     storageBucket: 'aizuchi-stg.appspot.com',
-    iosClientId: '457635486876-pndtegr2nd6j8jkq49rb0l3oki7jm96a.apps.googleusercontent.com',
-    iosBundleId: 'dartDefines.aizuchiApp.RunnerTests',
+    iosClientId: '457635486876-0ah4t30jbkck0kj5s2edipvhtq3oda50.apps.googleusercontent.com',
+    iosBundleId: 'jp.co.dotlog.aizuchi.stg',
   );
 }
