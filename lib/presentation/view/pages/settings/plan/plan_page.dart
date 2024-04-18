@@ -60,7 +60,6 @@ class PlanPage extends ConsumerWidget {
                         onTap: () async {
                           await subscriptionViewModel.checkSubscriptionStatus();
                           await subscriptionViewModel.restorePurchase();
-                          // await Purchases.restorePurchases();
                         },
                       ),
                       const SizedBox(height: 24),
@@ -73,7 +72,7 @@ class PlanPage extends ConsumerWidget {
                       const SizedBox(height: 48),
                       ListItem(
                         title: "加入プラン",
-                        value: data.planName ?? "未加入",
+                        value: "AIzuchiプレミアムプラン",
                         onTap: () {
                           null;
                         },
