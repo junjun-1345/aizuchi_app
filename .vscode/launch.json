@@ -21,6 +21,13 @@
       "type": "dart",
       "flutterMode": "debug",
       "args": ["--dart-define-from-file=dart_defines/prod.env"]
+    },
+    {
+      "name": "Release dev",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "args": ["--dart-define-from-file=dart_defines/dev.env"]
     }
   ]
 }
