@@ -30,7 +30,7 @@ class SelectMonthPart extends HookConsumerWidget {
                     .subtract(const Duration(days: 1));
             ref
                 .read(dailyNotifierProvider.notifier)
-                .getMonthlyDaily(logEndDate.value);
+                .addMonthlyDaily(logEndDate.value);
           },
           child: Container(
             height: 25,
@@ -71,7 +71,7 @@ class SelectMonthPart extends HookConsumerWidget {
                       .subtract(const Duration(days: 1));
               ref
                   .read(dailyNotifierProvider.notifier)
-                  .getMonthlyDaily(logEndDate.value);
+                  .addMonthlyDaily(logEndDate.value);
             },
             child: Container(
               height: 25,

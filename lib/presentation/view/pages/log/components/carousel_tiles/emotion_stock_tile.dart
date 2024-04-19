@@ -30,8 +30,9 @@ class EmotionStockTile extends HookConsumerWidget {
     };
 
     for (var dailyModel in dailyList) {
-      // 感情ごとにカウントを増やす
-      if (emotionCounts.containsKey(dailyModel.emotion)) {
+      // 月が同じかつ感情が存在する場合
+      if (emotionCounts.containsKey(dailyModel.emotion) &&
+          dailyModel.createdAt.month == logStartDate.value.month) {
         emotionCounts[dailyModel.emotion] =
             emotionCounts[dailyModel.emotion]! + 1;
       }
