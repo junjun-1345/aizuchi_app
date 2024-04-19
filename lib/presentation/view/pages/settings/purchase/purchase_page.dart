@@ -55,9 +55,6 @@ class PurchasePage extends ConsumerWidget {
                         ),
                       ),
                       const PlanListContents(),
-                      // SizedBox(
-                      //   height: 24,
-                      // ),
                       const Text("※無料トライアルは年額プランのみとなります。"),
                       const SizedBox(
                         height: 24,
