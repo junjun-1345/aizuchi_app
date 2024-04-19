@@ -30,20 +30,24 @@ class PurchasesFlutterRepositoryImpl implements PurchasesFlutterRepository {
   @override
   Future<List<Plan>> getPackages() async {
     Offerings? offerings;
-    offerings = await Purchases.getOfferings();
-    offerings.current?.availablePackages.forEach((element) {});
-    final List<Plan> planList;
-    planList = offerings.current!.availablePackages
-        .map(
-          (e) => Plan(
-            id: e.identifier,
-            name: e.storeProduct.title,
-            price: e.storeProduct.price.toInt(),
-            planType: e.packageType.toPlanType(),
-          ),
-        )
-        .toList();
-    return planList;
+    try {
+      offerings = await Purchases.getOfferings();
+      offerings.current?.availablePackages.forEach((element) {});
+      final List<Plan> planList;
+      planList = offerings.current!.availablePackages
+          .map(
+            (e) => Plan(
+              id: e.identifier,
+              name: e.storeProduct.title,
+              price: e.storeProduct.price.toInt(),
+              planType: e.packageType.toPlanType(),
+            ),
+          )
+          .toList();
+      return planList;
+    } catch (e) {
+      throw Exception('データの取得中にエラーが発生しました。$e');
+    }
   }
 
   @override
@@ -54,7 +58,7 @@ class PurchasesFlutterRepositoryImpl implements PurchasesFlutterRepository {
       CustomerInfo customerInfo = await Purchases.getCustomerInfo();
       //FIXME: 直書き良くないかも
       EntitlementInfo? entitlement =
-          customerInfo.entitlements.all["aizuchi_premium_subscription_default"];
+          customerInfo.entitlements.all["aizuchi_premium_subscription"];
 
       //dev
       // EntitlementInfo? entitlement =
@@ -101,7 +105,7 @@ class PurchasesFlutterRepositoryImpl implements PurchasesFlutterRepository {
 
       //FIXME: 直書き良くないかも
       EntitlementInfo? entitlement =
-          customerInfo.entitlements.all["aizuchi_premium_subscription_default"];
+          customerInfo.entitlements.all["aizuchi_premium_subscription"];
 
       //dev
       // EntitlementInfo? entitlement =
@@ -118,7 +122,7 @@ class PurchasesFlutterRepositoryImpl implements PurchasesFlutterRepository {
       CustomerInfo customerInfo = await Purchases.restorePurchases();
       //FIXME: 直書き良くないかも
       EntitlementInfo? entitlement =
-          customerInfo.entitlements.all["aizuchi_premium_subscription_default"];
+          customerInfo.entitlements.all["aizuchi_premium_subscription"];
 
       //dev
       // EntitlementInfo? entitlement =

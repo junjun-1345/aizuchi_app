@@ -54,7 +54,6 @@ void main() async {
     print('packageName: $packageName');
     print('version: $version');
     print('buildNumber: $buildNumber');
-    print('googleReversedClientId: $googleReversedClientId');
   }
 
   const app = MyApp();
@@ -67,8 +66,6 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const flavor = String.fromEnvironment('flavor');
-    print(flavor);
     final appRouter = ref.watch(appRouterProvider);
     //FIXME: 呼び出す階層を変更
     ref.read(subscriptionUsecaseProvider).configureSDK();
