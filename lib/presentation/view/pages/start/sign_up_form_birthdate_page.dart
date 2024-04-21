@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/user_providers.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/components/sign_up_form_widget.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class SignUpFormBirthDatePage extends HookConsumerWidget {
                     ),
                     SizedBox(
                       width: double.infinity,
-                      child: ElevatedButton(
+                      child: AppButton.base(
                         onPressed: () {
                           DatePicker.showDatePicker(context,
                               showTitleActions: true,
@@ -53,13 +54,11 @@ class SignUpFormBirthDatePage extends HookConsumerWidget {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: Text(
-                          birthDate.value == DateTime(0)
-                              ? "生年月日を入力"
-                              : "${birthDate.value.year}年 ${birthDate.value.month}月 ${birthDate.value.day}日",
-                          style: const TextStyle(
-                            color: BrandColor.black,
-                          ),
+                        text: birthDate.value == DateTime(0)
+                            ? "生年月日を入力"
+                            : "${birthDate.value.year}年 ${birthDate.value.month}月 ${birthDate.value.day}日",
+                        textStyle: const TextStyle(
+                          color: BrandColor.black,
                         ),
                       ),
                     ),

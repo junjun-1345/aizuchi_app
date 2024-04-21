@@ -3,6 +3,7 @@ import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/state/messsage_providers.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
+import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/error_dialog.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_emotion_select_dialog.dart';
 import 'package:aizuchi_app/presentation/view_model/message_view_model.dart';
@@ -53,7 +54,7 @@ class MessageFooterContents extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ElevatedButton(
+              AppButton.base(
                 onPressed: () {
                   if (isWaiting) {
                     showDialog(
@@ -67,28 +68,18 @@ class MessageFooterContents extends ConsumerWidget {
                     ref.read(messageViewModelProvider).createSummary();
                   }
                 },
-                style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    shape: const StadiumBorder(),
-                    backgroundColor: BrandColor.baseRed),
-                child: const Text("終了"),
+                text: "終了",
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: isMessageOverLimit
-                    ? ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            // elevation: 0,
-                            shape: const StadiumBorder(),
-                            backgroundColor: BrandColor.baseRed),
+                    ? AppButton.base(
                         onPressed: () {
                           context.router.push(const PurchaseRoute());
                         },
-                        child: const Text(
-                          "Aizuchi Premium >",
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
-                        ),
+                        text: "Aizuchi Premium >",
+                        textStyle: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
                       )
                     : TextField(
                         keyboardType: TextInputType.multiline,
@@ -151,7 +142,7 @@ class MessageFooterContents extends ConsumerWidget {
           isWaiting
               ? const CircularProgressIndicator()
               : Expanded(
-                  child: ElevatedButton(
+                  child: AppButton.base(
                     onPressed: dailyKey == today
                         ? null
                         : () {
@@ -165,7 +156,7 @@ class MessageFooterContents extends ConsumerWidget {
                         elevation: 0,
                         shape: const StadiumBorder(),
                         backgroundColor: BrandColor.baseRed),
-                    child: const Text("日記を書く"),
+                    text: ("日記を書く"),
                   ),
                 ),
         ],
