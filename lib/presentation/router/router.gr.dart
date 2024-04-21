@@ -33,6 +33,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const MailConfrimPage(),
       );
     },
+    MeasurementRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MeasurementPage(),
+      );
+    },
     MessageRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -55,6 +61,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const RootPage(),
+      );
+    },
+    SearchRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SearchPage(),
       );
     },
     SignInRoute.name: (routeData) {
@@ -145,6 +157,20 @@ class MailConfrimRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [MeasurementPage]
+class MeasurementRoute extends PageRouteInfo<void> {
+  const MeasurementRoute({List<PageRouteInfo>? children})
+      : super(
+          MeasurementRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MeasurementRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [MessagePage]
 class MessageRoute extends PageRouteInfo<void> {
   const MessageRoute({List<PageRouteInfo>? children})
@@ -196,6 +222,20 @@ class RootRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'RootRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SearchPage]
+class SearchRoute extends PageRouteInfo<void> {
+  const SearchRoute({List<PageRouteInfo>? children})
+      : super(
+          SearchRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SearchRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
