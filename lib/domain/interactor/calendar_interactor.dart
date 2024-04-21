@@ -35,4 +35,10 @@ class CalendarInteractor implements CalendarUsecases {
 
     return calendar;
   }
+
+  @override
+  DateTime calculatedDate(int index) {
+    final DateTime now = DateTime.now();
+    return DateTime(now.year, now.month - index);
+  }
 }
