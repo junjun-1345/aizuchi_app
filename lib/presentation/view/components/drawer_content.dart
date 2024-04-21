@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/domain/entity/enums/vertical.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/attention_dialog.dart';
 import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
@@ -14,6 +15,7 @@ class HamburgerMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final userState = ref.watch(usersNotifierProvider);
     return Drawer(
       child: SingleChildScrollView(
         child: Container(
@@ -21,7 +23,21 @@ class HamburgerMenu extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(16, 56, 16, 24),
           child: Column(
             children: <Widget>[
-              _buildPromoSection(context),
+              userState.when(
+                data: (data) {
+                  if (!data.isSubscription) {
+                    return _buildPromoSection(context);
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+                loading: () {
+                  return const CircularProgressIndicator();
+                },
+                error: (error, stack) {
+                  return const Text('エラーが発生しました。');
+                },
+              ),
               const SizedBox(height: 24),
               _buildFeatureSection(context),
               const SizedBox(height: 24),
@@ -262,7 +278,7 @@ class HamburgerMenu extends ConsumerWidget {
                   context.router.push(const PurchaseRoute());
                 },
                 text: 'プレミアム　>',
-                textStyle: TextStyle(fontWeight: FontWeight.w800),
+                textStyle: const TextStyle(fontWeight: FontWeight.w800),
               ),
             ],
           ),
