@@ -82,7 +82,8 @@ class SignUpFormSurveyPage extends HookConsumerWidget {
                     children: [
                       IconButton(
                         onPressed: () {
-                          context.router.pop(const SignUpFormBirthDateRoute());
+                          context.router
+                              .maybePop(const SignUpFormBirthDateRoute());
                         },
                         icon: const Icon(Icons.arrow_back),
                       ),
