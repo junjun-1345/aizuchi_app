@@ -1,6 +1,8 @@
 import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
 import 'package:aizuchi_app/domain/entity/models/calendar.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 class CalenderItem extends StatelessWidget {
@@ -15,7 +17,9 @@ class CalenderItem extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => print("tap"),
+        onTap: () => context.router.push(
+          LimitMessageRoute(selectedDate: data.date),
+        ),
         splashColor: Colors.black.withOpacity(0.2),
         highlightColor: Colors.black.withOpacity(0.1),
         borderRadius: BorderRadius.circular(8),

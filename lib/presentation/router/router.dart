@@ -1,4 +1,5 @@
 import 'package:aizuchi_app/presentation/view/pages/calender/calendar_page.dart';
+import 'package:aizuchi_app/presentation/view/pages/message/limit_message_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/message_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/log_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/root_page.dart';
@@ -14,6 +15,7 @@ import 'package:aizuchi_app/presentation/view/pages/start/sign_up_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_in_page.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -88,6 +90,10 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         AutoRoute(
           path: '/MailConfirm',
           page: MailConfrimRoute.page,
+        ),
+        AutoRoute(
+          path: '/LimitMessage',
+          page: LimitMessageRoute.page,
         ),
       ];
 
