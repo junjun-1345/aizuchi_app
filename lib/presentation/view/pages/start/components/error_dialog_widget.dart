@@ -31,7 +31,7 @@ class CustomErrorWidget extends StatelessWidget {
           ElevatedButton(
             // goRouterなど使っている場合、initialRouteに遷移などして対策
             // popでも良い
-            onPressed: () => AutoRouter.of(context).pop(),
+            onPressed: () => AutoRouter.of(context).maybePop(),
             child: const Text('OK'),
           ),
         ],

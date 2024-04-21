@@ -135,7 +135,7 @@ class SignUpFormCheckPage extends HookConsumerWidget {
                     IconButton(
                       onPressed: () {
                         userViewModel.signOut();
-                        context.router.pop(
+                        context.router.maybePop(
                           const SignUpRoute(),
                         );
                       },
