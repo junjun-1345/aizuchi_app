@@ -3,9 +3,10 @@ import 'package:aizuchi_app/domain/entity/models/daily.dart';
 
 abstract class CalendarUsecases {
   Future<List<List<CalendarEntity>>> createCalendar(
-    int yaer,
+    int year,
     int month,
     bool isWeekStartMonday,
     List<DailyEntity> monthlyEmotions,
   );
+  DateTime calculatedDate(int index);
 }
