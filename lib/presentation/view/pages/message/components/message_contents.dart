@@ -3,15 +3,39 @@ import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/model/message_model.dart';
 import 'package:aizuchi_app/presentation/state/message_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MessageContents extends ConsumerWidget {
-  const MessageContents({super.key});
+class MessageContents extends HookConsumerWidget {
+  const MessageContents({super.key, this.selectedDate});
+
+  final DateTime? selectedDate;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final messagesState = ref.watch(messagesNotifierProvider);
+    final ScrollController scrollController = ScrollController();
+
+    // スクロールを最下部に移動する関数
+    void scrollToBottom() {
+      if (scrollController.hasClients) {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+        );
+      }
+    }
+
+    // 初回描画後にスクロールを最下部に移動
+    WidgetsBinding.instance.addPostFrameCallback((_) => scrollToBottom());
+
+    // ListViewが更新されるたびにスクロールする
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) => scrollToBottom());
+      return scrollController.dispose; // コンポーネントが破棄されるときにコントローラを破棄
+    }, const []);
 
     Widget userMessageContent(String content) {
       return Padding(
@@ -168,14 +192,36 @@ class MessageContents extends ConsumerWidget {
 
     return Expanded(
       child: messagesState.when(
-        data: (messages) => ListView.builder(
-          // reverse: true,  // コメントアウトを外してリストを逆順に表示したい場合
-          itemCount: messages.length,
-          itemBuilder: (context, index) {
-            final message = messages[index];
-            return buildMessageContent(message);
-          },
-        ),
+        data: (messages) {
+          final List<MessageModel> filteredMessages;
+          if (selectedDate != null) {
+            print("selectedDate: $selectedDate");
+            filteredMessages = messages.where((message) {
+              return message.createdAt.year == selectedDate?.year &&
+                  message.createdAt.month == selectedDate?.month &&
+                  message.createdAt.day == selectedDate?.day;
+            }).toList();
+          } else {
+            filteredMessages = messages;
+          }
+
+          if (filteredMessages.isEmpty) {
+            return const Center(
+              child: Text("メッセージが存在しません",
+                  style: TextStyle(fontSize: 16, color: Colors.black)),
+            );
+          }
+
+          return ListView.builder(
+            controller: scrollController,
+            itemCount: filteredMessages.length,
+            itemBuilder: (context, index) {
+              final message = filteredMessages[index];
+
+              return buildMessageContent(message);
+            },
+          );
+        },
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, _) => Center(child: Text('エラーが発生しました: $error')),
       ),

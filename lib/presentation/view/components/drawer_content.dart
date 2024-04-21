@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/domain/entity/enums/vertical.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/attention_dialog.dart';
 import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
@@ -20,7 +21,7 @@ class HamburgerMenu extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(16, 56, 16, 24),
           child: Column(
             children: <Widget>[
-              _buildPromoSection(),
+              _buildPromoSection(context),
               const SizedBox(height: 24),
               _buildFeatureSection(context),
               const SizedBox(height: 24),
@@ -40,10 +41,10 @@ class HamburgerMenu extends ConsumerWidget {
     );
   }
 
-  Widget _buildPromoSection() {
+  Widget _buildPromoSection(BuildContext context) {
     return Column(
       children: [
-        _buildPromoBanner(),
+        _buildPromoBanner(context),
       ],
     );
   }
@@ -229,7 +230,7 @@ class HamburgerMenu extends ConsumerWidget {
     );
   }
 
-  Widget _buildPromoBanner() {
+  Widget _buildPromoBanner(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -249,18 +250,19 @@ class HamburgerMenu extends ConsumerWidget {
                     fontSize: 24,
                     fontWeight: FontWeight.w800),
               ),
-              ElevatedButton(
+              AppButton.base(
+                width: 200,
                 style: ElevatedButton.styleFrom(
                   fixedSize: const Size.fromWidth(200),
                   foregroundColor: BrandColor.baseRed,
                   backgroundColor: BrandColor.white,
                   shape: const StadiumBorder(),
                 ),
-                onPressed: () {},
-                child: const Text(
-                  'プレミアム　>',
-                  style: TextStyle(fontWeight: FontWeight.w800),
-                ),
+                onPressed: () {
+                  context.router.push(const PurchaseRoute());
+                },
+                text: 'プレミアム　>',
+                textStyle: TextStyle(fontWeight: FontWeight.w800),
               ),
             ],
           ),
