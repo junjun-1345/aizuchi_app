@@ -8,6 +8,7 @@ import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HamburgerMenu extends ConsumerWidget {
@@ -193,7 +194,9 @@ class HamburgerMenu extends ConsumerWidget {
         _buildSectionItem(
           title: "このアプリを友だちに知らせる",
           icon: Icons.arrow_circle_left,
-          onTap: () => launchUrl(urlPrivacyPolicy),
+          onTap: () async {
+            await Share.share('Aizuchiを使ってみよう'); // TODO:シェア文章
+          },
           verticalType: VerticalType.bottom,
           isLink: true,
         ),
