@@ -85,9 +85,6 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
       await FirebaseAuth.instance.signInWithCredential(credential);
-      final UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-      print('userCredential:$userCredential');
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'account-exists-with-different-credential':
