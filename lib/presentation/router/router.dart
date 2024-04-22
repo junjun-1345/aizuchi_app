@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/presentation/view/components/web_view.dart';
 import 'package:aizuchi_app/presentation/view/pages/calender/calendar_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/measurement/measurement_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/limit_message_page.dart';
@@ -104,6 +105,10 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         AutoRoute(
           path: '/LimitMessage',
           page: LimitMessageRoute.page,
+        ),
+        AutoRoute(
+          path: '/WebViewPage',
+          page: WebViewRoute.page,
         ),
       ];
 
