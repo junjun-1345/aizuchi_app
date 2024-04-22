@@ -2,6 +2,7 @@ import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/user_providers.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/components/sign_up_form_widget.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -30,30 +31,25 @@ class SignUpFormSexPage extends HookConsumerWidget {
                   children: [
                     const SignUpFormWidget(index: 2, content: "性別"),
                     for (int i = 1; i < 4; i++) ...{
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            choiceIndex.value = SexEnum.values[i];
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                choiceIndex.value == SexEnum.values[i]
-                                    ? BrandColor.baseRed
-                                    : Colors.white,
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
+                      AppButton.base(
+                        onPressed: () {
+                          choiceIndex.value = SexEnum.values[i];
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              choiceIndex.value == SexEnum.values[i]
+                                  ? BrandColor.baseRed
+                                  : Colors.white,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Text(
-                            SexEnum.values[i].sexValue ?? "",
-                            style: TextStyle(
-                              color: choiceIndex.value == SexEnum.values[i]
-                                  ? BrandColor.white
-                                  : BrandColor.black,
-                            ),
-                          ),
+                        ),
+                        text: SexEnum.values[i].sexValue ?? "",
+                        textStyle: TextStyle(
+                          color: choiceIndex.value == SexEnum.values[i]
+                              ? BrandColor.white
+                              : BrandColor.black,
                         ),
                       ),
                     },
@@ -68,7 +64,7 @@ class SignUpFormSexPage extends HookConsumerWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        context.router.pop(
+                        context.router.maybePop(
                           const SignUpFormNameRoute(),
                         );
                       },

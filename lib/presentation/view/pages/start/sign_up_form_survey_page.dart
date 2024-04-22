@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/user_providers.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/components/sign_up_form_widget.dart';
 
 import 'package:auto_route/auto_route.dart';
@@ -44,31 +45,25 @@ class SignUpFormSurveyPage extends HookConsumerWidget {
                     children: [
                       const SignUpFormWidget(index: 4, content: "職業"),
                       for (int i = 0; i < professionList.length; i++) ...{
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              choiceProfession.value = professionList[i];
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  choiceProfession.value == professionList[i]
-                                      ? BrandColor.baseRed
-                                      : Colors.white,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
+                        AppButton.base(
+                          onPressed: () {
+                            choiceProfession.value = professionList[i];
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                choiceProfession.value == professionList[i]
+                                    ? BrandColor.baseRed
+                                    : Colors.white,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            child: Text(
-                              professionList[i],
-                              style: TextStyle(
-                                color:
-                                    choiceProfession.value == professionList[i]
-                                        ? BrandColor.white
-                                        : BrandColor.black,
-                              ),
-                            ),
+                          ),
+                          text: professionList[i],
+                          textStyle: TextStyle(
+                            color: choiceProfession.value == professionList[i]
+                                ? BrandColor.white
+                                : BrandColor.black,
                           ),
                         )
                       }
@@ -82,28 +77,27 @@ class SignUpFormSurveyPage extends HookConsumerWidget {
                     children: [
                       IconButton(
                         onPressed: () {
-                          context.router.pop(const SignUpFormBirthDateRoute());
+                          context.router
+                              .maybePop(const SignUpFormBirthDateRoute());
                         },
                         icon: const Icon(Icons.arrow_back),
                       ),
-                      SizedBox(
+                      AppButton.base(
                         width: 120,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            context.router.push(
-                              const SignUpFormCheckRoute(),
-                            );
-                            professionNotifier.state = choiceProfession.value;
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: BrandColor.baseRed,
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                          ),
-                          child: const Text("確認する"),
-                        ),
+                        onPressed: () {
+                          context.router.push(
+                            const SignUpFormCheckRoute(),
+                          );
+                          professionNotifier.state = choiceProfession.value;
+                        },
+                        // style: ElevatedButton.styleFrom(
+                        //   backgroundColor: BrandColor.baseRed,
+                        //   elevation: 0,
+                        //   shape: RoundedRectangleBorder(
+                        //     borderRadius: BorderRadius.circular(24),
+                        //   ),
+                        // ),
+                        text: "確認する",
                       ),
                     ],
                   ),

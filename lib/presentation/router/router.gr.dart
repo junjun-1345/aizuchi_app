@@ -21,6 +21,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CalenderPage(),
       );
     },
+    LimitMessageRoute.name: (routeData) {
+      final args = routeData.argsAs<LimitMessageRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: LimitMessagePage(
+          key: args.key,
+          selectedDate: args.selectedDate,
+        ),
+      );
+    },
     LogRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -126,6 +136,44 @@ class CalenderRoute extends PageRouteInfo<void> {
   static const String name = 'CalenderRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [LimitMessagePage]
+class LimitMessageRoute extends PageRouteInfo<LimitMessageRouteArgs> {
+  LimitMessageRoute({
+    Key? key,
+    required DateTime selectedDate,
+    List<PageRouteInfo>? children,
+  }) : super(
+          LimitMessageRoute.name,
+          args: LimitMessageRouteArgs(
+            key: key,
+            selectedDate: selectedDate,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'LimitMessageRoute';
+
+  static const PageInfo<LimitMessageRouteArgs> page =
+      PageInfo<LimitMessageRouteArgs>(name);
+}
+
+class LimitMessageRouteArgs {
+  const LimitMessageRouteArgs({
+    this.key,
+    required this.selectedDate,
+  });
+
+  final Key? key;
+
+  final DateTime selectedDate;
+
+  @override
+  String toString() {
+    return 'LimitMessageRouteArgs{key: $key, selectedDate: $selectedDate}';
+  }
 }
 
 /// generated route for

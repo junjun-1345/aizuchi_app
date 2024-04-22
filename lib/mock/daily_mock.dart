@@ -208,7 +208,7 @@ class DailyMock {
 
 class FakeDailyUsecases implements DailyUsecases {
   @override
-  Future<List<DailyEntity>> readMonth({DateTime? endDate}) async {
+  Future<List<DailyEntity>> readMonthly({DateTime? endDate}) async {
     final DateTime endDay = endDate ?? DateTime.now();
     final DateTime startDay = DateTime(endDay.year, endDay.month + 1, 0);
     return DailyMock.monthlyRandom
@@ -247,6 +247,12 @@ class FakeDailyUsecases implements DailyUsecases {
   @override
   Future<void> update(DailyEntity daily) {
     // TODO: implement update
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<DailyEntity>> readMonth(int year, int month) {
+    // TODO: implement readMonth
     throw UnimplementedError();
   }
 }

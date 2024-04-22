@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,8 @@ class PromotionBunner extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.w800),
           ),
-          ElevatedButton(
+          AppButton.base(
+            width: 200,
             style: ElevatedButton.styleFrom(
               fixedSize: const Size.fromWidth(200),
               foregroundColor: BrandColor.baseRed,
@@ -35,10 +37,8 @@ class PromotionBunner extends StatelessWidget {
             onPressed: () {
               context.router.push(const PurchaseRoute());
             },
-            child: const Text(
-              'プレミアム　>',
-              style: TextStyle(fontWeight: FontWeight.w800),
-            ),
+            text: 'プレミアム　>',
+            textStyle: TextStyle(fontWeight: FontWeight.w800),
           ),
         ],
       ),

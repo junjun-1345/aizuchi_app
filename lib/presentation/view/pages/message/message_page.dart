@@ -20,7 +20,7 @@ class MessagePage extends HookConsumerWidget {
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      behavior: HitTestBehavior.opaque, // これを追加！！！
+      behavior: HitTestBehavior.opaque,
       child: Scaffold(
           drawer: const HamburgerMenu(),
           drawerScrimColor: BrandColor.base,

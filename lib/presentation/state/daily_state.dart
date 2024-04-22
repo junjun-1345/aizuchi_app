@@ -28,7 +28,7 @@ class DailyNotifier extends StateNotifier<AsyncValue<List<DailyModel>>> {
   final DailyUsecases _dailyUsecase;
 
   void initialize() async {
-    final List<DailyEntity> dailiesEntity = await _dailyUsecase.readMonth();
+    final List<DailyEntity> dailiesEntity = await _dailyUsecase.readMonthly();
     final List<DailyModel> dailies =
         dailiesEntity.map((daily) => DailyModel.fromEntity(daily)).toList();
     state = AsyncValue.data(dailies);
@@ -59,13 +59,20 @@ class DailyNotifier extends StateNotifier<AsyncValue<List<DailyModel>>> {
     });
   }
 
-  Future<List<DailyModel>> getMonthlyDaily(DateTime endDate) async {
+  Future<List<DailyModel>> addMonthlyDaily(DateTime endDate) async {
+    print("endDate: $endDate");
+
+    // 既に取得済みの月のデータがある場合は取得しない
+    if (state.value!.any((daily) =>
+        daily.createdAt.year == endDate.year &&
+        daily.createdAt.month == endDate.month)) {
+      return state.value!;
+    }
     final List<DailyEntity> dailiesEntity =
-        await _dailyUsecase.readMonth(endDate: endDate);
+        await _dailyUsecase.readMonthly(endDate: endDate);
     final List<DailyModel> dailies =
         dailiesEntity.map((daily) => DailyModel.fromEntity(daily)).toList();
-    state = AsyncValue.data(dailies);
-
+    state = AsyncValue.data(state.value! + dailies);
     return dailies;
   }
 }

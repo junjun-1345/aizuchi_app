@@ -15,11 +15,9 @@ class DailyDBRepositoryImpl implements DailyDBRepository {
           .collection('users')
           .doc(id)
           .collection('dailies')
-
           .where('createdAt', isGreaterThanOrEqualTo: startDate)
           .where('createdAt', isLessThanOrEqualTo: endDate)
           .orderBy('createdAt', descending: true)
-
           .get()
           .then((querySnapshot) {
         for (var doc in querySnapshot.docs) {

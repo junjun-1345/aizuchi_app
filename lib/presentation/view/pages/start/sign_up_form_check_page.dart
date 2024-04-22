@@ -2,6 +2,7 @@ import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/user_providers.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/components/text_widget.dart';
 import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
@@ -135,34 +136,31 @@ class SignUpFormCheckPage extends HookConsumerWidget {
                     IconButton(
                       onPressed: () {
                         userViewModel.signOut();
-                        context.router.pop(
+                        context.router.maybePop(
                           const SignUpRoute(),
                         );
                       },
                       icon: const Icon(Icons.arrow_back),
                     ),
-                    SizedBox(
-                      width: 120,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          try {
-                            userViewModel.register();
-                          } catch (e) {
-                            print(e);
-                          }
-                          context.router.push(
-                            const MessageRoute(),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: BrandColor.baseRed,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24),
-                          ),
+                    AppButton.base(
+                      onPressed: () {
+                        try {
+                          userViewModel.register();
+                        } catch (e) {
+                          print(e);
+                        }
+                        context.router.push(
+                          const MessageRoute(),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: BrandColor.baseRed,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
                         ),
-                        child: const Text("登録する"),
                       ),
+                      text: "登録する",
                     ),
                   ],
                 ),

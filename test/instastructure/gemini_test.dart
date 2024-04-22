@@ -18,6 +18,7 @@ void main() {
       final repository = MessagesInteractor(
           messageDBRepository, geminiRepository, gptRepository);
       // テスト用のメッセージリストを作成
+      // ignore: unused_local_variable
       final messages = [
         MessageEntity(
             id: "2024_2_3",

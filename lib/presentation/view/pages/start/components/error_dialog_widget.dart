@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
@@ -28,11 +29,11 @@ class CustomErrorWidget extends StatelessWidget {
             style: const TextStyle(fontSize: 16.0),
           ),
           const SizedBox(height: 10.0),
-          ElevatedButton(
+          AppButton.base(
             // goRouterなど使っている場合、initialRouteに遷移などして対策
             // popでも良い
-            onPressed: () => AutoRouter.of(context).pop(),
-            child: const Text('OK'),
+            onPressed: () => AutoRouter.of(context).maybePop(),
+            text: 'OK',
           ),
         ],
       ),
