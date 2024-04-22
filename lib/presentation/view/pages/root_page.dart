@@ -14,7 +14,13 @@ class RootPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final usersNotifier = ref.watch(usersNotifierProvider);
     return AutoTabsRouter(
-      routes: const [CalenderRoute(), MessageRoute(), LogRoute()],
+      routes: const [
+        CalenderRoute(),
+        LogRoute(),
+        MessageRoute(),
+        MeasurementRoute(),
+        SearchRoute(),
+      ],
       builder: (context, child) {
         final tabsRouter = context.tabsRouter;
         return usersNotifier.when(
@@ -23,7 +29,8 @@ class RootPage extends ConsumerWidget {
               body: child,
               backgroundColor: BrandColor.baseDark,
               bottomNavigationBar: NavigationBar(
-                backgroundColor: BrandColor.white,
+                surfaceTintColor: Colors.transparent,
+                backgroundColor: Colors.white,
                 indicatorColor: BrandColor.baseRed,
                 selectedIndex: tabsRouter.activeIndex,
                 height: 56,
@@ -41,6 +48,17 @@ class RootPage extends ConsumerWidget {
                   ),
                   NavigationDestination(
                     icon: Icon(
+                      Icons.history,
+                      color: BrandColor.baseRed,
+                    ),
+                    selectedIcon: Icon(
+                      Icons.history,
+                      color: BrandColor.white,
+                    ),
+                    label: 'きろく',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(
                       Icons.message_rounded,
                       color: BrandColor.baseRed,
                     ),
@@ -52,15 +70,26 @@ class RootPage extends ConsumerWidget {
                   ),
                   NavigationDestination(
                     icon: Icon(
-                      Icons.history,
+                      Icons.psychology_alt,
                       color: BrandColor.baseRed,
                     ),
                     selectedIcon: Icon(
-                      Icons.history,
+                      Icons.psychology_alt,
                       color: BrandColor.white,
                     ),
-                    label: 'ログ',
-                  )
+                    label: 'そくてい',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(
+                      Icons.search,
+                      color: BrandColor.baseRed,
+                    ),
+                    selectedIcon: Icon(
+                      Icons.search,
+                      color: BrandColor.white,
+                    ),
+                    label: 'しらべる',
+                  ),
                 ],
                 onDestinationSelected: (index) {
                   if (!data.isConversation) {
