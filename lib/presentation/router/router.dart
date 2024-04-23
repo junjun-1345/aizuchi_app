@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/presentation/view/pages/calender/calendar_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/measurement/measurement_page.dart';
+import 'package:aizuchi_app/presentation/view/pages/message/limit_message_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/message_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/log_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/root_page.dart';

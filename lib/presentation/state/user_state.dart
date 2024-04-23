@@ -28,6 +28,7 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
   final UsersUsecase _usersUseCase;
 
   void initialize() async {
+    print("usersNotifierProvider initialize");
     final UserEntity entity = await _usersUseCase.read();
     final UserModel user = UserModel.fromEntity(entity);
     state = AsyncValue.data(user);
@@ -56,19 +57,19 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     state = AsyncValue.data(user);
   }
 
-  Future<Future<void>> createDailyKey() async async {
+  Future<void> createDailyKey() async {
     final String newDailyKey = _usersUseCase.createKey();
     await _usersUseCase.update(dailyKey: newDailyKey);
     state.whenData(
       (user) {
         final UserModel updatedUser = user.copyWith(dailyKey: newDailyKey);
+
         state = AsyncValue.data(updatedUser);
       },
     );
   }
 
-  Future<Future<void>> isConversationStart() async async {
-    await _usersUseCase.update(isConversation: true);
+  Future<void> isConversationStart() async {
     await _usersUseCase.update(isConversation: true);
     state.whenData(
       (user) {
@@ -78,8 +79,7 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     );
   }
 
-  Future<Future<void>> isConversationEnd() async async {
-    await _usersUseCase.update(isConversation: false);
+  Future<void> isConversationEnd() async {
     await _usersUseCase.update(isConversation: false);
     state.whenData(
       (user) {
@@ -89,8 +89,7 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     );
   }
 
-  Future<Future<void>> isMessageOverLimitReset() async async {
-    await _usersUseCase.update(isMessageOverLimit: false);
+  Future<void> isMessageOverLimitReset() async {
     await _usersUseCase.update(isMessageOverLimit: false);
     state.whenData(
       (user) {
@@ -100,8 +99,7 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     );
   }
 
-  Future<Future<void>> messageOverLimit() async async {
-    await _usersUseCase.update(isMessageOverLimit: true);
+  Future<void> messageOverLimit() async {
     await _usersUseCase.update(isMessageOverLimit: true);
     state.whenData(
       (user) {

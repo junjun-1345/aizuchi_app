@@ -2,6 +2,7 @@ import 'package:aizuchi_app/domain/entity/enums/vertical.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
+import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/attention_dialog.dart';
 import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
@@ -25,7 +26,7 @@ class HamburgerMenu extends ConsumerWidget {
               userState.when(
                 data: (data) {
                   if (!data.isSubscription) {
-                    return _buildPromoSection();
+                    return _buildPromoSection(context);
                   } else {
                     return const SizedBox();
                   }

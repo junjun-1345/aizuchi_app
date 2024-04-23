@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class SelectWeekPart extends HookConsumerWidget {
-class SelectWeekPart extends HookConsumerWidget {
   const SelectWeekPart({
     super.key,
   });
