@@ -76,6 +76,35 @@ class AppButton {
     );
   }
 
+  static Widget mediumInherit({
+    String text = "",
+    double height = AppButton.mediumHeight,
+    double width = double.infinity,
+    Key? key,
+    required void Function()? onPressed,
+    void Function()? onLongPress,
+    void Function(bool)? onHover,
+    void Function(bool)? onFocusChange,
+    ButtonStyle? style,
+    TextStyle? textStyle,
+    FocusNode? focusNode,
+    bool autofocus = false,
+  }) {
+    return AppButton.base(
+      text: text,
+      height: height,
+      width: width,
+      onPressed: onPressed,
+      onLongPress: onLongPress,
+      onHover: onHover,
+      onFocusChange: onFocusChange,
+      textStyle: const TextStyle(
+          inherit: false, fontSize: 16, fontWeight: FontWeight.w600),
+      focusNode: focusNode,
+      autofocus: autofocus,
+    );
+  }
+
   static Widget google({
     String text = "",
     double? height,
