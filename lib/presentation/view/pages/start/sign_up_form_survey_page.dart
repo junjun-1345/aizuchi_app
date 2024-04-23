@@ -82,21 +82,14 @@ class SignUpFormSurveyPage extends HookConsumerWidget {
                         },
                         icon: const Icon(Icons.arrow_back),
                       ),
-                      AppButton.base(
-                        width: 120,
+                      AppButton.mediumInherit(
+                        width: 160,
                         onPressed: () {
                           context.router.push(
                             const SignUpFormCheckRoute(),
                           );
                           professionNotifier.state = choiceProfession.value;
                         },
-                        // style: ElevatedButton.styleFrom(
-                        //   backgroundColor: BrandColor.baseRed,
-                        //   elevation: 0,
-                        //   shape: RoundedRectangleBorder(
-                        //     borderRadius: BorderRadius.circular(24),
-                        //   ),
-                        // ),
                         text: "確認する",
                       ),
                     ],

@@ -142,7 +142,8 @@ class SignUpFormCheckPage extends HookConsumerWidget {
                       },
                       icon: const Icon(Icons.arrow_back),
                     ),
-                    AppButton.base(
+                    AppButton.mediumInherit(
+                      width: 160,
                       onPressed: () {
                         try {
                           userViewModel.register();
