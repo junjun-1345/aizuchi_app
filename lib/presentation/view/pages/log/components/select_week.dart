@@ -18,10 +18,12 @@ class SelectWeekPart extends HookConsumerWidget {
       DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)),
     );
 
+
     final DateTime endDay = DateTime(
         logEndDate.value.year, logEndDate.value.month, logEndDate.value.day);
     final DateTime today =
         DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -66,6 +68,7 @@ class SelectWeekPart extends HookConsumerWidget {
         const SizedBox(
           width: 8,
         ),
+
         if (endDay.isBefore(today))
           GestureDetector(
             onTap: () {
@@ -92,6 +95,7 @@ class SelectWeekPart extends HookConsumerWidget {
               ),
             ),
           ),
+
       ],
     );
   }

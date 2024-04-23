@@ -278,7 +278,10 @@ class HamburgerMenu extends ConsumerWidget {
                   context.router.push(const PurchaseRoute());
                 },
                 text: 'プレミアム　>',
+
                 textStyle: TextStyle(fontWeight: FontWeight.w800),
+
+               
               ),
             ],
           ),

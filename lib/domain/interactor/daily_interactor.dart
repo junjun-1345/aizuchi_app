@@ -19,7 +19,9 @@ class DailyInteractor implements DailyUsecases {
   Future<List<DailyEntity>> readMonthly({DateTime? endDate}) async {
     final UserEntity user = await userRepository.read();
     final DateTime endDay = endDate ?? parseDate(user.dailyKey);
+
     final DateTime startDay = DateTime(endDay.year, endDay.month, 1);
+
     return dailyRepository.read(startDay, endDay);
   }
 

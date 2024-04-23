@@ -10,10 +10,13 @@ class DaysCarouselTile extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
+
   final List<SummaryModel> dailyList;
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Container(
@@ -27,10 +30,12 @@ class DaysCarouselTile extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 16),
+
               for (int i = 0; i < 7; i++)
                 DailyTile(
                   day: _fetchDayOfWeek(i),
                   summary: _getSummaryForDay(dailyList, i),
+
                 ),
               const SizedBox(height: 16),
               const SelectWeekPart(),
@@ -49,6 +54,7 @@ String _getSummaryForDay(List<SummaryModel?> dailyList, int dayIndex) {
   );
   return summaryForDay?.content ?? '';
 }
+
 
 String _fetchDayOfWeek(int dayIndex) {
   switch (dayIndex) {
