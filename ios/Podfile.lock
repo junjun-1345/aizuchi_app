@@ -139,6 +139,8 @@ PODS:
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - sign_in_with_apple (0.0.1):
+    - Flutter
   - url_launcher_ios (0.0.1):
     - Flutter
 
@@ -157,6 +159,7 @@ DEPENDENCIES:
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - purchases_flutter (from `.symlinks/plugins/purchases_flutter/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - sign_in_with_apple (from `.symlinks/plugins/sign_in_with_apple/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
@@ -217,6 +220,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/purchases_flutter/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
+  sign_in_with_apple:
+    :path: ".symlinks/plugins/sign_in_with_apple/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
@@ -238,7 +243,10 @@ SPEC CHECKSUMS:
   FirebaseCoreExtension: af5fd85e817ea9d19f9a2659a376cf9cf99f03c0
   FirebaseCoreInternal: bcb5acffd4ea05e12a783ecf835f2210ce3dc6af
   FirebaseDatabase: 09752515c6abf792b6f61ca6d0354952a8c1feb9
-  FirebaseFirestore: 28a64e3c0a697baf96f7943c8a25f88b23d8e9c5
+
+  FirebaseFirestore: 455ba4bf3f0e1da88f77aaa76dc506d920396346
+
+
   FirebaseFirestoreAbseilBinary: bd0451946879e0e01327c8efc35896bb273009c4
   FirebaseFirestoreBinary: 7eccf62d9204bd1b8915bf4f30406f6b13a5f01a
   FirebaseFirestoreGRPCBoringSSLBinary: c3007e61593e4583ec3bb8b34ce654663663b690
@@ -265,8 +273,11 @@ SPEC CHECKSUMS:
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   RevenueCat: f33d2bb58e75afc68d3a8cf193971f008f553a2c
   shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
+
+  sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
+
   url_launcher_ios: 6116280ddcfe98ab8820085d8d76ae7449447586
 
 PODFILE CHECKSUM: 7371001e81fbdc58c92b25d0a848c5f82aa08066
 
-COCOAPODS: 1.15.0
+COCOAPODS: 1.15.2
