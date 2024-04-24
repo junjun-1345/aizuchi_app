@@ -9,7 +9,6 @@ import 'package:aizuchi_app/presentation/view/pages/log/components/log_summary_t
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 @RoutePage()

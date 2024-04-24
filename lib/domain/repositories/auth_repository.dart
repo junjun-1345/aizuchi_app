@@ -6,11 +6,13 @@ abstract class AuthRepository {
     UserEntity user,
   );
   Future<void> signUpWithGoogle();
+  Future<void> signUpWithApple();
   Future<void> signInWithEmail(
     String password,
     UserEntity user,
   );
   Future<void> signInWithGoogle();
+  Future<void> signInWithApple();
   Future<void> signOut();
   Future<void> accountDalete();
   Future<String?> readEmail();

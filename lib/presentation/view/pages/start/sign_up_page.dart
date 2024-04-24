@@ -96,7 +96,13 @@ class SignUpPage extends HookConsumerWidget {
                     ),
                     AppButton.apple(
                       text: "Appleで登録",
-                      onPressed: () async {},
+                      onPressed: () async {
+                        await userViewModel.signUpWith(
+                            platform: PlatformType.apple,
+                            onSuccess: () {
+                              router.push(const SignUpFormNameRoute());
+                            });
+                      },
                     ),
                     const SizedBox(
                       height: 32,
