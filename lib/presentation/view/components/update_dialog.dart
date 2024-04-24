@@ -4,7 +4,6 @@ import 'package:aizuchi_app/domain/entity/enums/shared_preferences_key.dart';
 import 'package:aizuchi_app/domain/entity/enums/update.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/infrastructure/data_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -46,9 +45,10 @@ class UpdatePromptDialog extends ConsumerWidget {
               String url;
               // プラットフォームごとにURLを切り替え
               if (Platform.isAndroid) {
-                url = "googlePlayUrl";
+                // TODO: Google PlayのURLを設定
+                url = "";
               } else if (Platform.isIOS) {
-                url = "appStoreUrl";
+                url = "https://itunes.apple.com/jp/app/6479214928";
               } else {
                 // サポートされていないプラットフォームの場合
                 print('Unsupported platform');
