@@ -33,7 +33,6 @@ class RootPage extends ConsumerWidget {
           data: (data) {
             updateRequest.then(
               (updateRequestTypeValue) {
-                print("updateRequestTypeValue: $updateRequestTypeValue");
                 if (updateRequestTypeValue == UpdateRequestType.cancelable ||
                     updateRequestTypeValue == UpdateRequestType.forcibly) {
                   return showDialog(

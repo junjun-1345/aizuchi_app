@@ -51,8 +51,7 @@ class UpdatePromptDialog extends ConsumerWidget {
                 url = "https://itunes.apple.com/jp/app/6479214928";
               } else {
                 // サポートされていないプラットフォームの場合
-                print('Unsupported platform');
-                return;
+                throw ('Unsupported platform');
               }
               Uri uri = Uri(path: url);
               await launchUrl(uri);

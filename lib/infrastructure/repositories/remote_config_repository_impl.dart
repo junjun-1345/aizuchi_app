@@ -25,7 +25,7 @@ class RemoteConfigRepositoryImpl implements RemoteConfigRepository {
     try {
       await rc.fetchAndActivate();
     } catch (e) {
-      print("Failed to fetch and activate: $e");
+      throw ("Failed to fetch and activate: $e");
     }
   }
 
@@ -46,10 +46,6 @@ class RemoteConfigRepositoryImpl implements RemoteConfigRepository {
     final latestVersion = Version.parse(updateInfo.latestVersion);
     final requiredVersion = Version.parse(updateInfo.requiredVersion);
     final enabledAt = updateInfo.enabledAt;
-
-    print("appVersion: $appVersion");
-    print("latestVersion: $latestVersion");
-    print("requiredVersion: $requiredVersion");
 
     // 現在のバージョンより新しいバージョンが指定されているか
     final hasNewVersion =

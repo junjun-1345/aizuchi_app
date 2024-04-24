@@ -147,7 +147,7 @@ class SignUpFormCheckPage extends HookConsumerWidget {
                         try {
                           userViewModel.register();
                         } catch (e) {
-                          print(e);
+                          rethrow;
                         }
                         context.router.push(
                           const MessageRoute(),
