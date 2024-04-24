@@ -1,7 +1,10 @@
+import 'package:aizuchi_app/domain/domain_module.dart';
+import 'package:aizuchi_app/domain/entity/enums/update.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
+import 'package:aizuchi_app/presentation/view/components/update_dialog.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,6 +16,9 @@ class RootPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final usersNotifier = ref.watch(usersNotifierProvider);
+    final updateRequest =
+        ref.watch(remoteConfigUsecaseProvider).updateRequest();
+
     return AutoTabsRouter(
       routes: const [
         CalenderRoute(),
@@ -25,6 +31,20 @@ class RootPage extends ConsumerWidget {
         final tabsRouter = context.tabsRouter;
         return usersNotifier.when(
           data: (data) {
+            updateRequest.then(
+              (updateRequestTypeValue) {
+                print("updateRequestTypeValue: $updateRequestTypeValue");
+                if (updateRequestTypeValue == UpdateRequestType.cancelable ||
+                    updateRequestTypeValue == UpdateRequestType.forcibly) {
+                  return showDialog(
+                    context: context,
+                    builder: (context) => UpdatePromptDialog(
+                      updateRequestType: updateRequestTypeValue,
+                    ),
+                  );
+                }
+              },
+            );
             return Scaffold(
               body: child,
               backgroundColor: BrandColor.baseDark,
