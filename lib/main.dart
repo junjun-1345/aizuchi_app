@@ -1,6 +1,6 @@
-import 'package:aizuchi_app/domain/domain_module.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/view_model/config_view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -67,21 +67,25 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appRouter = ref.watch(appRouterProvider);
-    //FIXME: 呼び出す階層を変更
-    ref.read(subscriptionUsecaseProvider).configureSDK();
+    final configViewModel = ref.read(configViewModelProvider);
 
-    return MaterialApp.router(
-      routerConfig: appRouter.config(
-          // 再評価するリスナーを設定
-          // reevaluateListenable: authProvider,
+    return FutureBuilder(
+      future: configViewModel.initialConfig(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        return MaterialApp.router(
+          routerConfig: appRouter.config(
+              // 再評価するリスナーを設定
+              // reevaluateListenable: authProvider,
+              ),
+          title: 'Flutter Demo',
+          color: BrandColor.base,
+          theme: ThemeData(
+            scaffoldBackgroundColor: BrandColor.base,
+            primarySwatch: Colors.blue,
+            fontFamily: 'ZenMaruGothic',
           ),
-      title: 'Flutter Demo',
-      color: BrandColor.base,
-      theme: ThemeData(
-        scaffoldBackgroundColor: BrandColor.base,
-        primarySwatch: Colors.blue,
-        fontFamily: 'ZenMaruGothic',
-      ),
+        );
+      },
     );
   }
 }
