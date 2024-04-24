@@ -60,8 +60,6 @@ class DailyNotifier extends StateNotifier<AsyncValue<List<DailyModel>>> {
   }
 
   Future<List<DailyModel>> addMonthlyDaily(DateTime endDate) async {
-    print("endDate: $endDate");
-
     // 既に取得済みの月のデータがある場合は取得しない
     if (state.value!.any((daily) =>
         daily.createdAt.year == endDate.year &&

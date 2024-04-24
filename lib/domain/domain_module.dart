@@ -1,9 +1,11 @@
 import 'package:aizuchi_app/domain/interactor/calendar_interactor.dart';
+import 'package:aizuchi_app/domain/interactor/remote_config_interactor.dart';
 import 'package:aizuchi_app/domain/interactor/subscription_interactor.dart';
 import 'package:aizuchi_app/domain/interactor/daily_interactor.dart';
 import 'package:aizuchi_app/domain/interactor/messages_interactor.dart';
 import 'package:aizuchi_app/domain/interactor/users_interactor.dart';
 import 'package:aizuchi_app/domain/usecases/calendar_usecase.dart';
+import 'package:aizuchi_app/domain/usecases/remote_config_usecase.dart';
 import 'package:aizuchi_app/domain/usecases/subscription_usecase.dart';
 import 'package:aizuchi_app/domain/usecases/daily_usecase.dart';
 import 'package:aizuchi_app/domain/usecases/messages_usecase.dart';
@@ -45,4 +47,11 @@ final subscriptionUsecaseProvider = Provider<SubscriptionUsecases>((ref) {
 
 final calendarUsecaseProvider = Provider<CalendarUsecases>((ref) {
   return CalendarInteractor();
+});
+
+final remoteConfigUsecaseProvider = Provider<RemoteConfgUsecase>((ref) {
+  return RemoteConfigInteractor(
+    ref.watch(remoteConfigProvider),
+    ref.watch(sharedPreferencesProvider),
+  );
 });

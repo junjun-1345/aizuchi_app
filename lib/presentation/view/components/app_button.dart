@@ -4,6 +4,7 @@ import 'package:sign_in_button/sign_in_button.dart';
 
 class AppButton {
   static const double mediumHeight = 40;
+  static const double smallHeight = 24;
 
   static Widget base({
     String text = "",
@@ -49,8 +50,35 @@ class AppButton {
 
   static Widget medium({
     String text = "",
-    double height = AppButton.mediumHeight,
     double width = double.infinity,
+    Key? key,
+    required void Function()? onPressed,
+    void Function()? onLongPress,
+    void Function(bool)? onHover,
+    void Function(bool)? onFocusChange,
+    ButtonStyle? style,
+    TextStyle? textStyle,
+    FocusNode? focusNode,
+    bool autofocus = false,
+  }) {
+    return AppButton.base(
+      text: text,
+      width: width,
+      onPressed: onPressed,
+      onLongPress: onLongPress,
+      onHover: onHover,
+      onFocusChange: onFocusChange,
+      style: style,
+      textStyle: textStyle,
+      focusNode: focusNode,
+      autofocus: autofocus,
+    );
+  }
+
+  static Widget small({
+    String text = "",
+    double height = AppButton.smallHeight,
+    double width = 100,
     Key? key,
     required void Function()? onPressed,
     void Function()? onLongPress,
@@ -70,7 +98,12 @@ class AppButton {
       onHover: onHover,
       onFocusChange: onFocusChange,
       style: style,
-      textStyle: textStyle,
+      textStyle: textStyle ??
+          const TextStyle(
+              inherit: false,
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w600),
       focusNode: focusNode,
       autofocus: autofocus,
     );

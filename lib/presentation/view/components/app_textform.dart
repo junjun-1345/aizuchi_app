@@ -11,7 +11,10 @@ class AppTextForm {
     double? width,
     int? maxLines,
     int? maxLength,
+    int? minLines,
+    Color? curosrColor,
     TextInputType textInputType = TextInputType.text,
+    InputDecoration? decoration,
     String hintText = '',
     bool? enabled,
     bool autofocus = false,
@@ -23,6 +26,7 @@ class AppTextForm {
     Alignment alignment = Alignment.center,
     Function(String)? onChanged,
     Function()? onEditingComplete,
+    Function(String)? onFieldSubmitted,
     String? Function(String?)? validator,
     Key? key,
   }) {
@@ -35,53 +39,57 @@ class AppTextForm {
         validator: validator,
         onChanged: onChanged,
         onEditingComplete: onEditingComplete,
+        onFieldSubmitted: onFieldSubmitted,
         autofocus: autofocus,
         obscureText: obscureText,
         textAlign: textAlign,
         style: style,
         maxLines: maxLines,
         maxLength: maxLength,
+        minLines: minLines,
+        cursorColor: curosrColor,
         keyboardType: textInputType,
         enabled: enabled,
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-          hintText: hintText,
-          hintStyle: const TextStyle(
-            fontSize: 14,
-            color: Colors.black54,
-          ),
-          fillColor: Colors.white,
-          filled: true,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(
-              color: Colors.black54,
-              width: 2.0,
+        decoration: decoration ??
+            InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+              hintText: hintText,
+              hintStyle: const TextStyle(
+                fontSize: 14,
+                color: Colors.black54,
+              ),
+              fillColor: Colors.white,
+              filled: true,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(
+                  color: Colors.black54,
+                  width: 2.0,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(
+                  color: Colors.black12,
+                  width: 1.0,
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                  width: 1.0,
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                  width: 2.0,
+                ),
+              ),
+              suffixIcon: suffixIcon,
             ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(
-              color: Colors.black12,
-              width: 1.0,
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(
-              color: Colors.red,
-              width: 1.0,
-            ),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(
-              color: Colors.red,
-              width: 2.0,
-            ),
-          ),
-          suffixIcon: suffixIcon,
-        ),
       ),
     );
   }
@@ -190,6 +198,45 @@ class AppTextForm {
           ),
           color: BrandColor.baseRed,
           onPressed: onPressed),
+    );
+  }
+
+  static Widget messageField(
+    TextEditingController controller, {
+    double? height,
+    double? width,
+    bool isDisabled = false,
+    bool obscureText = false,
+    bool autofocus = false,
+    Function(String)? onFieldSubmitted,
+    Function()? onEditingComplete,
+  }) {
+    return AppTextForm.base(
+      controller,
+      textInputType: TextInputType.multiline,
+      maxLines: 6,
+      minLines: 1,
+      curosrColor: BrandColor.baseRed,
+      decoration: InputDecoration(
+        fillColor: Colors.grey[200],
+        hintText: "メッセージを入力",
+        filled: true,
+        //これがないと余白をとりすぎる
+        isDense: true,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        focusedBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(24),
+          ),
+        ),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(24),
+          ),
+        ),
+      ),
+      onFieldSubmitted: onFieldSubmitted,
+      onEditingComplete: onEditingComplete,
     );
   }
 }
