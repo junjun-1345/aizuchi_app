@@ -48,7 +48,7 @@ class UpdatePromptDialog extends ConsumerWidget {
                 // TODO: Google PlayのURLを設定
                 url = "";
               } else if (Platform.isIOS) {
-                url = "https://itunes.apple.com/jp/app/6479214928";
+                url = "https://itunes.apple.com/jp/aizuchi/app/id6479214928";
               } else {
                 // サポートされていないプラットフォームの場合
                 throw ('Unsupported platform');

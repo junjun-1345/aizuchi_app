@@ -1,7 +1,5 @@
 import 'package:aizuchi_app/domain/entity/enums/character.dart';
 import 'package:aizuchi_app/domain/entity/enums/sex.dart';
-import 'package:aizuchi_app/domain/entity/enums/character.dart';
-import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/domain/entity/models/user.dart';
 
 abstract class UserDBRepository {
@@ -14,9 +12,7 @@ abstract class UserDBRepository {
     String? email,
     DateTime? birthday,
     SexEnum? sex,
-
     bool? isSubscription,
-
     bool? init,
     DateTime? createdAt,
     int? activeDay,
