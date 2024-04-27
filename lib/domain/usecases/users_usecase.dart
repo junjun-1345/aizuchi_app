@@ -16,7 +16,7 @@ abstract class UsersUsecase {
   );
   Future<void> signOut();
   Future<UserEntity> register(UserEntity user);
-  Future<void> delete(String id);
+  Future<void> delete();
   Future<UserEntity> read();
   Future<UserEntity> update({
     String? id,
@@ -24,8 +24,6 @@ abstract class UsersUsecase {
     String? email,
     DateTime? birthday,
     SexEnum? sex,
-
-
     bool? init,
     DateTime? createdAt,
     int? activeDay,
@@ -36,9 +34,7 @@ abstract class UsersUsecase {
     bool? isAssistant,
     bool? isMessageOverLimit,
     int? totalMessages,
-
     bool? isSubscription,
-
   });
   String createKey();
   Future<String?> readEmail();
