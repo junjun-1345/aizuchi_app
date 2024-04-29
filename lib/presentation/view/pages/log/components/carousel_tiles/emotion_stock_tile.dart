@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:aizuchi_app/domain/utils/datetime_utils.dart';
 import 'package:aizuchi_app/presentation/model/daily_model.dart';
-import 'package:aizuchi_app/presentation/view/pages/log/components/select_month.dart';
+import 'package:aizuchi_app/presentation/view/pages/log/components/select_date.dart';
+import 'package:aizuchi_app/presentation/view_model/log_view_model.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -19,21 +21,34 @@ class EmotionStockTile extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final logStartDate =
-        useState(DateTime(DateTime.now().year, DateTime.now().month, 1));
-    final logEndDate = useState(
-        DateTime(DateTime.now().year, DateTime.now().month + 1, 1)
-            .subtract(const Duration(days: 1)));
+    final logViewModel = ref.read(logViewModelProvider);
+    final now = DateTime.now();
+
+    final startDateState = useState(now.firstDayOfMonth);
+    final endDateState = useState(now.lastDayOfMonth);
+    final isLatest = now.firstDayOfMonth == startDateState.value;
+
+    List<DailyModel> getMonthlyList() {
+      return logViewModel
+          .filterDailiesByDateRange(
+            dailyList,
+            startDateState.value,
+            endDateState.value,
+          )
+          .toList();
+    }
+
+    final List<DailyModel> monthlyList = getMonthlyList();
 
     final Map<EmotionType, double> emotionCounts = {
       for (var type in EmotionType.values) type: 0,
     };
 
-    for (var dailyModel in dailyList) {
+    for (var dailyModel in monthlyList) {
       // 月が同じかつ感情が存在する場合
       if (emotionCounts.containsKey(dailyModel.emotion) &&
-          dailyModel.createdAt.month == logStartDate.value.month) {
-        emotionCounts[dailyModel.emotion] =
+          dailyModel.createdAt.month == startDateState.value.month) {
+        emotionCounts[dailyModel.emotion!] =
             emotionCounts[dailyModel.emotion]! + 1;
       }
     }
@@ -65,7 +80,7 @@ class EmotionStockTile extends HookConsumerWidget {
                       color: BrandColor.baseRed),
                   child: Center(
                     child: Text(
-                      '${logStartDate.value.month}月',
+                      '${startDateState.value.month}月',
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 12,
@@ -83,10 +98,11 @@ class EmotionStockTile extends HookConsumerWidget {
                   child: EmotionStockBarChart(emotionCounts: emotionCounts),
                 ),
                 const SizedBox(height: 16),
-
-                SelectMonthPart(
-                  logStartDate: logStartDate,
-                  logEndDate: logEndDate,
+                SelectDatePart(
+                  startDate: startDateState,
+                  endDate: endDateState,
+                  isMonthly: true,
+                  isLatest: isLatest,
                 ),
               ],
             ),

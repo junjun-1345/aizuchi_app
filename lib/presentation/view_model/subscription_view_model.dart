@@ -24,8 +24,12 @@ class SubscriptionViewModel {
   final SubscriptionUsecases subscriptionUsecase;
   final IsWaitngNotifier isWaitngNotifier;
 
-  SubscriptionViewModel(this.ref, this.usersNotifier, this.subscriptionUsecase,
-      this.isWaitngNotifier);
+  SubscriptionViewModel(
+    this.ref,
+    this.usersNotifier,
+    this.subscriptionUsecase,
+    this.isWaitngNotifier,
+  );
 
   Future<void> configureSDK() async {
     await subscriptionUsecase.configureSDK();
