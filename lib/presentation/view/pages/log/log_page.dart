@@ -55,38 +55,25 @@ class LogPage extends HookConsumerWidget {
             const SizedBox(
               height: 24,
             ),
-            CarouselSlider(
-              options: CarouselOptions(
-                  height: MediaQuery.of(context).size.height * 0.54),
-              items: [
-                dailyState.when(
-                  data: (data) => DaysCarouselTile(dailyList: data),
-                  loading: () {
-                    return const CircularProgressIndicator();
-                  },
-                  error: (Object error, StackTrace stackTrace) {
-                    return const Text("エラーが発生しました");
-                  },
-                ),
-                dailyState.when(
-                  data: (data) => EmotionStockTile(dailyList: data),
-                  loading: () {
-                    return const CircularProgressIndicator();
-                  },
-                  error: (Object error, StackTrace stackTrace) {
-                    return const Text("エラーが発生しました");
-                  },
-                ),
-                dailyState.when(
-                  data: (data) => EmotionGraphTile(dailyList: data),
-                  loading: () {
-                    return const CircularProgressIndicator();
-                  },
-                  error: (Object error, StackTrace stackTrace) {
-                    return const Text("エラーが発生しました");
-                  },
-                ),
-              ],
+            dailyState.when(
+              data: (data) {
+                return CarouselSlider(
+                  options: CarouselOptions(
+                      enableInfiniteScroll: false,
+                      height: MediaQuery.of(context).size.height * 0.54),
+                  items: [
+                    DaysCarouselTile(dailyList: data),
+                    EmotionGraphTile(dailyList: data),
+                    EmotionStockTile(dailyList: data),
+                  ],
+                );
+              },
+              loading: () {
+                return const CircularProgressIndicator();
+              },
+              error: (Object error, StackTrace stackTrace) {
+                return const Text("エラーが発生しました");
+              },
             ),
             const SizedBox(
               height: 24,
