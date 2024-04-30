@@ -112,7 +112,11 @@ class HamburgerMenu extends ConsumerWidget {
         _buildSectionItem(
           title: "パスワード",
           icon: Icons.lock,
-          onTap: () {},
+          onTap: () {
+            context.router.push(
+              const PasswordChangeRoute(),
+            );
+          },
           verticalType: VerticalType.none,
         ),
       ],

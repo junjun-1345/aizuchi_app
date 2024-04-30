@@ -80,4 +80,19 @@ class UserViewModel {
     }
     onSuccess();
   }
+
+  Future<void> updatePassword({
+    required String email,
+    required Function onSuccess,
+    required Function onError,
+  }) async {
+    try {
+      await usersUsecase.updatePassword(email);
+    } catch (e) {
+      ref.read(errorProvider.notifier).state = e.toString();
+      onError();
+      return;
+    }
+    onSuccess();
+  }
 }

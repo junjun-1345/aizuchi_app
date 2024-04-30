@@ -39,4 +39,5 @@ abstract class UsersUsecase {
   String createKey();
   Future<String?> readEmail();
   Future<void> updateEmail(String email);
+  Future<void> updatePassword(String email);
 }
