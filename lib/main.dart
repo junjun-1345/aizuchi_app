@@ -70,21 +70,21 @@ class MyApp extends ConsumerWidget {
     final configViewModel = ref.read(configViewModelProvider);
 
     return FutureBuilder(
-      future: configViewModel.initialConfig(),
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        return MaterialApp.router(
-          routerConfig: appRouter.config(
-              // 再評価するリスナーを設定
-              // reevaluateListenable: authProvider,
-              ),
-
-      title: 'AIzuchi',
-      color: BrandColor.base,
-      theme: ThemeData(
-        scaffoldBackgroundColor: BrandColor.base,
-        primarySwatch: Colors.blue,
-        fontFamily: 'ZenMaruGothic',
-      ),
-    );
+        future: configViewModel.initialConfig(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          return MaterialApp.router(
+            routerConfig: appRouter.config(
+                // 再評価するリスナーを設定
+                // reevaluateListenable: authProvider,
+                ),
+            title: 'AIzuchi',
+            color: BrandColor.base,
+            theme: ThemeData(
+              scaffoldBackgroundColor: BrandColor.base,
+              primarySwatch: Colors.blue,
+              fontFamily: 'ZenMaruGothic',
+            ),
+          );
+        });
   }
 }
