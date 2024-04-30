@@ -8,7 +8,7 @@ import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
 
 class HamburgerMenu extends ConsumerWidget {
   const HamburgerMenu({super.key});
@@ -150,10 +150,13 @@ class HamburgerMenu extends ConsumerWidget {
   }
 
   Widget _buildServiceSection(BuildContext context) {
-    final Uri urlContact = Uri.parse('https://aizuchi-log.studio.site/contact');
-    final Uri urlTerm = Uri.parse('https://aizuchi-log.studio.site/terms');
-    final Uri urlPrivacyPolicy =
-        Uri.parse('https://aizuchi-log.studio.site/privacypolicy');
+    final Uri urlContact = Uri.parse('https://aizuchi.app/contact');
+    final Uri urlTerm = Uri.parse('https://aizuchi.app/terms');
+    final Uri urlX = Uri.parse('https://twitter.com/mofu_aizuchi');
+    final Uri urlFAQ = Uri.parse('https://aizuchi.app/faq');
+    final Uri urlPrivacyPolicy = Uri.parse('https://aizuchi.app/privacypolicy');
+    final Uri urlInsta =
+        Uri.parse('https://www.instagram.com/mofumofu_aizuchi/');
 
     return Column(
       children: [
@@ -161,56 +164,58 @@ class HamburgerMenu extends ConsumerWidget {
         _buildSectionItem(
           title: "ご意見・お問い合わせ",
           icon: Icons.textsms,
-          onTap: () => launchUrl(urlContact),
+          onTap: () => context.router.push(WebViewRoute(uri: urlContact)),
           verticalType: VerticalType.top,
           isLink: true,
         ),
         _buildSectionItem(
           title: "バグや障害状況（X）",
           icon: Icons.campaign,
-          onTap: () => launchUrl(urlPrivacyPolicy),
+          onTap: () => context.router.push(WebViewRoute(uri: urlX)),
           verticalType: VerticalType.bottom,
           isLink: true,
         ),
         _buildSectionItem(
           title: "FAQ",
           icon: Icons.priority_high,
-          onTap: () => launchUrl(urlPrivacyPolicy),
+          onTap: () => context.router.push(WebViewRoute(uri: urlFAQ)),
           verticalType: VerticalType.bottom,
           isLink: true,
         ),
         _buildSectionItem(
           title: "規約",
           icon: Icons.assignment,
-          onTap: () => launchUrl(urlTerm),
+          onTap: () => context.router.push(WebViewRoute(uri: urlTerm)),
           verticalType: VerticalType.none,
           isLink: true,
         ),
         _buildSectionItem(
           title: "プライバシーポリシー",
           icon: Icons.error,
-          onTap: () => launchUrl(urlPrivacyPolicy),
+          onTap: () => context.router.push(WebViewRoute(uri: urlPrivacyPolicy)),
           verticalType: VerticalType.bottom,
           isLink: true,
         ),
         _buildSectionItem(
           title: "このアプリを友だちに知らせる",
           icon: Icons.arrow_circle_left,
-          onTap: () => launchUrl(urlPrivacyPolicy),
+          onTap: () async {
+            await Share.share('Aizuchiを友達に教える');
+          },
           verticalType: VerticalType.bottom,
           isLink: true,
         ),
         _buildSectionItem(
           title: "Instagramをフォローする",
           icon: Icons.arrow_circle_left,
-          onTap: () => launchUrl(urlPrivacyPolicy),
+          onTap: () => context.router.push(WebViewRoute(uri: urlInsta)),
           verticalType: VerticalType.bottom,
           isLink: true,
         ),
         _buildSectionItem(
           title: "ライセンス",
           icon: Icons.arrow_circle_left,
-          onTap: () => launchUrl(urlPrivacyPolicy),
+          onTap: () => showLicensePage(context: context),
           verticalType: VerticalType.bottom,
           isLink: true,
         ),
