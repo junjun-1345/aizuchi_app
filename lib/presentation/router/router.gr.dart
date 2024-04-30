@@ -55,6 +55,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const MessagePage(),
       );
     },
+    PasswordChangeRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PasswordChangePage(),
+      );
+    },
     PlanRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -228,6 +234,20 @@ class MessageRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MessageRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PasswordChangePage]
+class PasswordChangeRoute extends PageRouteInfo<void> {
+  const PasswordChangeRoute({List<PageRouteInfo>? children})
+      : super(
+          PasswordChangeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PasswordChangeRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

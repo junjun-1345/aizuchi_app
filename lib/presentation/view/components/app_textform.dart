@@ -106,7 +106,8 @@ class AppTextForm {
       bool autofocus = false,
       int? maxLength,
       Function(String)? onChanged,
-      Function()? onEditingComplete}) {
+      Function()? onEditingComplete,
+      String? Function(String?)? validator}) {
     return AppTextForm.base(
       controller,
       height: height ?? AppTextForm.mediumHeight,
@@ -121,12 +122,13 @@ class AppTextForm {
       autofocus: autofocus,
       onChanged: onChanged,
       onEditingComplete: onEditingComplete,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return validatorhintText;
-        }
-        return null;
-      },
+      validator: validator ??
+          (value) {
+            if (value!.isEmpty) {
+              return validatorhintText;
+            }
+            return null;
+          },
     );
   }
 
@@ -166,12 +168,14 @@ class AppTextForm {
     TextEditingController controller, {
     double? height,
     double? width,
+    String? hintText,
     bool isDisabled = false,
     bool obscureText = false,
     bool autofocus = false,
     required VoidCallback? onPressed,
     Function(String)? onChanged,
     Function()? onEditingComplete,
+    String? Function(String?)? validator,
   }) {
     return AppTextForm.base(
       controller,
@@ -179,19 +183,20 @@ class AppTextForm {
       width: width,
       maxLines: 1,
       textInputType: TextInputType.visiblePassword,
-      hintText: 'パスワードを入力',
+      hintText: hintText ?? 'パスワードを入力',
       enabled: !isDisabled,
       style: const TextStyle(fontSize: 14),
       obscureText: !obscureText,
       autofocus: autofocus,
       onChanged: onChanged,
       onEditingComplete: onEditingComplete,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'パスワードを入力してください';
-        }
-        return null;
-      },
+      validator: validator ??
+          (value) {
+            if (value!.isEmpty) {
+              return 'パスワードを入力してください';
+            }
+            return null;
+          },
       suffixIcon: IconButton(
           icon: Icon(
             obscureText ? Icons.visibility_off : Icons.visibility,

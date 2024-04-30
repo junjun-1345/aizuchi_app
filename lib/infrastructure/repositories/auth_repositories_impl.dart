@@ -257,4 +257,35 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<String?> readEmail() async {
     return FirebaseAuth.instance.currentUser?.email;
   }
+
+  @override
+  Future<void> updatePassword(String email) {
+    try {
+      return FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      // ignore: empty_catches
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'account-exists-with-different-credential':
+          throw 'このメールアドレスは既に別の認証方法で使用されています。\nログイン方法を選択してください。\nログイン後、現在の認証情報をアカウントにリンクすることができます。';
+        case 'invalid-credential':
+          throw '認証情報が無効か、期限切れです。\nもう一度試してみてください。';
+        case 'operation-not-allowed':
+          throw 'このタイプのアカウントは有効になっていません。\nサポートに連絡してください。';
+        case 'user-disabled':
+          throw 'このユーザーアカウントは無効にされています。\nサポートに連絡してください。';
+        case 'user-not-found':
+          throw '提供されたメールアドレスに対応するユーザーが見つかりませんでした。\nメールアドレスが正しいか確認してください。';
+        case 'wrong-password':
+          throw 'パスワードが間違っているか、\nこのメールアドレスにはパスワードが設定されていません。\nもう一度試してみてください。';
+        case 'invalid-verification-code':
+          throw '認証の確認コードが無効です。\nコードを確認して再入力してください。';
+        case 'invalid-verification-id':
+          throw '認証の確認IDが無効です。\nもう一度認証プロセスを開始してください。';
+        default:
+          throw 'エラーが発生しました。もう一度お試しください。';
+      }
+    } on Exception {
+      throw 'エラーが発生しました。もう一度お試しください。';
+    }
+  }
 }

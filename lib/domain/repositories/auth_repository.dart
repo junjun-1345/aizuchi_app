@@ -17,4 +17,5 @@ abstract class AuthRepository {
   Future<void> accountDalete();
   Future<String?> readEmail();
   Future<void> updateEmail(String email);
+  Future<void> updatePassword(String email);
 }

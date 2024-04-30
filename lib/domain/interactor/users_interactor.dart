@@ -174,4 +174,9 @@ class UsersInteractor implements UsersUsecase {
   Future<String?> readEmail() async {
     return await authRepository.readEmail();
   }
+
+  @override
+  Future<void> updatePassword(String email) {
+    return authRepository.updatePassword(email);
+  }
 }
