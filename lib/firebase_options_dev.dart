@@ -54,7 +54,8 @@ class DefaultFirebaseOptions {
     appId: '1:64609432781:android:1cf09b675a7482f4db2584',
     messagingSenderId: '64609432781',
     projectId: 'aizuchi-dotlog',
-    databaseURL: 'https://aizuchi-dotlog-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://aizuchi-dotlog-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'aizuchi-dotlog.appspot.com',
   );
 
@@ -63,9 +64,11 @@ class DefaultFirebaseOptions {
     appId: '1:64609432781:ios:d7f9aa1e2865c8b4db2584',
     messagingSenderId: '64609432781',
     projectId: 'aizuchi-dotlog',
-    databaseURL: 'https://aizuchi-dotlog-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://aizuchi-dotlog-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'aizuchi-dotlog.appspot.com',
-    iosClientId: '64609432781-v0fdcd7abpp1fpeuvavl4rqhtfagbvft.apps.googleusercontent.com',
+    iosClientId:
+        '64609432781-v0fdcd7abpp1fpeuvavl4rqhtfagbvft.apps.googleusercontent.com',
     iosBundleId: 'jp.co.dotlog.aizuchi.dev',
   );
 }

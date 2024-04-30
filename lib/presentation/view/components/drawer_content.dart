@@ -49,7 +49,7 @@ class HamburgerMenu extends ConsumerWidget {
               const SizedBox(height: 36),
               _buildLogOutSection(context, ref),
               const SizedBox(height: 24),
-              _buildAccountDeletionSection(context),
+              _buildAccountDeletionSection(context, ref),
             ],
           ),
         ),
@@ -236,7 +236,7 @@ class HamburgerMenu extends ConsumerWidget {
     );
   }
 
-  Widget _buildAccountDeletionSection(BuildContext context) {
+  Widget _buildAccountDeletionSection(BuildContext context, WidgetRef ref) {
     return _buildSectionButton(
       text: "アカウント削除",
       isAttentionColorRed: true,
@@ -245,7 +245,12 @@ class HamburgerMenu extends ConsumerWidget {
         builder: (context) => AttentionDialog(
           title: 'アカウント削除',
           content: 'アカウントを削除します。\nよろしいですか？',
-          onPressed: () {},
+          onPressed: () async {
+            await ref
+                .read(userViewModelProvider)
+                .delete()
+                .then((value) => context.router.replace(const SignInRoute()));
+          },
         ),
       ),
     );
@@ -283,7 +288,7 @@ class HamburgerMenu extends ConsumerWidget {
                   context.router.push(const PurchaseRoute());
                 },
                 text: 'プレミアム　>',
-                textStyle: const TextStyle(fontWeight: FontWeight.w800),
+                textStyle: TextStyle(fontWeight: FontWeight.w800),
               ),
             ],
           ),

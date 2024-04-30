@@ -195,7 +195,6 @@ class MessageContents extends HookConsumerWidget {
         data: (messages) {
           final List<MessageModel> filteredMessages;
           if (selectedDate != null) {
-            print("selectedDate: $selectedDate");
             filteredMessages = messages.where((message) {
               return message.createdAt.year == selectedDate?.year &&
                   message.createdAt.month == selectedDate?.month &&

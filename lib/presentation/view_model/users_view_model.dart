@@ -58,6 +58,10 @@ class UserViewModel {
     usersNotifier.register();
   }
 
+  Future<void> delete() async {
+    usersUsecase.delete();
+  }
+
   Future<String?> readEmail() async {
     return await usersUsecase.readEmail();
   }

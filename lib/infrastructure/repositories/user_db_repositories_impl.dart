@@ -46,18 +46,14 @@ class UserDBsRepositoryImpl implements UserDBRepository {
     }
   }
 
-
   @override
-
   Future<UserEntity> update({
     String? id,
     String? name,
     String? email,
     DateTime? birthday,
     SexEnum? sex,
-
     bool? isSubscription,
-
     bool? init,
     DateTime? createdAt,
     int? activeDay,
@@ -79,9 +75,7 @@ class UserDBsRepositoryImpl implements UserDBRepository {
         email: email ?? user.email,
         birthday: birthday ?? user.birthday,
         sex: sex ?? user.sex,
-
         isSubscription: isSubscription ?? user.isSubscription,
-
         init: init ?? user.init,
         createdAt: createdAt ?? user.createdAt,
         activeDay: activeDay ?? user.activeDay,

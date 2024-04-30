@@ -21,49 +21,52 @@ class SignUpFormNamePage extends HookConsumerWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        body: SafeArea(
-          child: Form(
-            key: formKey,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 80),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SignUpFormWidget(
-                    content: 'ニックネーム',
-                    index: 1,
-                  ),
-                  AppTextForm.medium(
-                    nameController,
-                    hintText: "ニックネームを入力",
-                    validatorhintText: "ニックネームを入力してください",
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          userViewModel.signOut();
-                          context.router.maybePop(
-                            const SignUpRoute(),
-                          );
-                        },
-                        icon: const Icon(Icons.arrow_back),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            context.router.push(
-                              const SignUpFormSexRoute(),
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: Form(
+              key: formKey,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 80),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SignUpFormWidget(
+                      content: 'ニックネーム',
+                      index: 1,
+                    ),
+                    AppTextForm.medium(
+                      nameController,
+                      hintText: "ニックネームを入力",
+                      validatorhintText: "ニックネームを入力してください",
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            userViewModel.signOut();
+                            context.router.maybePop(
+                              const SignUpRoute(),
                             );
-                            nameNotifier.state = nameController.text;
-                          }
-                        },
-                        icon: const Icon(Icons.arrow_forward),
-                      ),
-                    ],
-                  ),
-                ],
+                          },
+                          icon: const Icon(Icons.arrow_back),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              context.router.push(
+                                const SignUpFormSexRoute(),
+                              );
+                              nameNotifier.state = nameController.text;
+                            }
+                          },
+                          icon: const Icon(Icons.arrow_forward),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -64,7 +64,13 @@ class SignInPage extends HookConsumerWidget {
                   ),
                   AppButton.apple(
                     text: "Appleでログイン",
-                    onPressed: () async {},
+                    onPressed: () async {
+                      await userViewModel.signInWith(
+                          platform: PlatformType.apple,
+                          onSuccess: () {
+                            router.push(const MessageRoute());
+                          });
+                    },
                   ),
                   const SizedBox(
                     height: 32,

@@ -22,7 +22,11 @@ class SearchPage extends HookConsumerWidget {
           iconTheme: const IconThemeData(color: BrandColor.textBlack),
         ),
         body: const Center(
-          child: Text("調べる"),
+          child: Column(
+            children: [
+              Text("調べる"),
+            ],
+          ),
         ));
   }
 }
