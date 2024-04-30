@@ -140,6 +140,7 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         SignUpFormSexRoute.name,
         SignUpFormSurveyRoute.name,
         SignUpFormCheckRoute.name,
+        PasswordChangeRoute.name,
         // LoadingRoute.name,
         // ErrorRoute.name,
       ].contains(routeName)) {
