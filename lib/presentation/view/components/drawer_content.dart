@@ -196,7 +196,7 @@ class HamburgerMenu extends ConsumerWidget {
           title: "このアプリを友だちに知らせる",
           icon: Icons.arrow_circle_left,
           onTap: () async {
-            await Share.share('Aizuchiを使ってみよう'); // TODO:シェア文章
+            await Share.share('Aizuchiを友達に教える');
           },
           verticalType: VerticalType.bottom,
           isLink: true,
