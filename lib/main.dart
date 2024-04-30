@@ -75,7 +75,7 @@ class MyApp extends ConsumerWidget {
           // 再評価するリスナーを設定
           // reevaluateListenable: authProvider,
           ),
-      title: 'Flutter Demo',
+      title: 'AIzuchi',
       color: BrandColor.base,
       theme: ThemeData(
         scaffoldBackgroundColor: BrandColor.base,
