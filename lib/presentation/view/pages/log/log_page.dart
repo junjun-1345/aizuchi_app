@@ -1,9 +1,9 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/daily_state.dart';
-import 'package:aizuchi_app/presentation/state/summary_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/carousel_tiles/days_carousel_tile.dart';
+import 'package:aizuchi_app/presentation/view/pages/log/components/carousel_tiles/emotion_graph_tile.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/carousel_tiles/emotion_stock_tile.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/log_summary_tile.dart';
 import 'package:auto_route/auto_route.dart';
@@ -19,7 +19,6 @@ class LogPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userState = ref.watch(usersNotifierProvider);
     final dailyState = ref.watch(dailyNotifierProvider);
-    final summaryState = ref.watch(summaryNotifierProvider);
 
     return Scaffold(
       drawer: const HamburgerMenu(),
@@ -56,29 +55,25 @@ class LogPage extends HookConsumerWidget {
             const SizedBox(
               height: 24,
             ),
-            CarouselSlider(
-              options: CarouselOptions(
-                  height: MediaQuery.of(context).size.height * 0.54),
-              items: [
-                summaryState.when(
-                  data: (data) => DaysCarouselTile(dailyList: data),
-                  loading: () {
-                    return const CircularProgressIndicator();
-                  },
-                  error: (Object error, StackTrace stackTrace) {
-                    return const Text("エラーが発生しました");
-                  },
-                ),
-                dailyState.when(
-                  data: (data) => EmotionStockTile(dailyList: data),
-                  loading: () {
-                    return const CircularProgressIndicator();
-                  },
-                  error: (Object error, StackTrace stackTrace) {
-                    return const Text("エラーが発生しました");
-                  },
-                ),
-              ],
+            dailyState.when(
+              data: (data) {
+                return CarouselSlider(
+                  options: CarouselOptions(
+                      enableInfiniteScroll: false,
+                      height: MediaQuery.of(context).size.height * 0.54),
+                  items: [
+                    DaysCarouselTile(dailyList: data),
+                    EmotionGraphTile(dailyList: data),
+                    EmotionStockTile(dailyList: data),
+                  ],
+                );
+              },
+              loading: () {
+                return const CircularProgressIndicator();
+              },
+              error: (Object error, StackTrace stackTrace) {
+                return const Text("エラーが発生しました");
+              },
             ),
             const SizedBox(
               height: 24,

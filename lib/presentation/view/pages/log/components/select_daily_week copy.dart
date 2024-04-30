@@ -1,13 +1,18 @@
-import 'package:aizuchi_app/presentation/state/summary_state.dart';
+import 'package:aizuchi_app/presentation/state/daily_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class SelectWeekPart extends HookConsumerWidget {
-  const SelectWeekPart({
+class SelectDailyWeekPart extends HookConsumerWidget {
+  const SelectDailyWeekPart({
+    required this.logStartDate,
+    required this.logEndDate,
     super.key,
   });
+
+  final ValueNotifier<DateTime> logStartDate;
+  final ValueNotifier<DateTime> logEndDate;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,12 +23,10 @@ class SelectWeekPart extends HookConsumerWidget {
       DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)),
     );
 
-
     final DateTime endDay = DateTime(
         logEndDate.value.year, logEndDate.value.month, logEndDate.value.day);
     final DateTime today =
         DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -35,9 +38,10 @@ class SelectWeekPart extends HookConsumerWidget {
                 logEndDate.value.subtract(const Duration(days: 7));
             logStartDate.value =
                 logStartDate.value.subtract(const Duration(days: 7));
+            //FIXME:　修正
             ref
-                .read(summaryNotifierProvider.notifier)
-                .getWeeklySummary(logEndDate.value);
+                .read(dailyNotifierProvider.notifier)
+                .addMonthlyDaily(logEndDate.value);
           },
           child: Container(
             height: 25,
@@ -68,16 +72,16 @@ class SelectWeekPart extends HookConsumerWidget {
         const SizedBox(
           width: 8,
         ),
-
         if (endDay.isBefore(today))
           GestureDetector(
             onTap: () {
               logEndDate.value = logEndDate.value.add(const Duration(days: 7));
               logStartDate.value =
                   logStartDate.value.add(const Duration(days: 7));
+              //FIXME:　修正
               ref
-                  .read(summaryNotifierProvider.notifier)
-                  .getWeeklySummary(logEndDate.value);
+                  .read(dailyNotifierProvider.notifier)
+                  .addMonthlyDaily(logEndDate.value);
             },
             child: Container(
               height: 25,
@@ -95,7 +99,6 @@ class SelectWeekPart extends HookConsumerWidget {
               ),
             ),
           ),
-
       ],
     );
   }

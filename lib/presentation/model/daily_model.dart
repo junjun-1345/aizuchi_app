@@ -3,8 +3,8 @@ import 'package:aizuchi_app/domain/entity/models/daily.dart';
 
 class DailyModel {
   final DateTime createdAt;
-  final EmotionType emotion;
-  final String summary;
+  final EmotionType? emotion;
+  final String? summary;
 
   DailyModel({
     required this.createdAt,
@@ -20,8 +20,8 @@ class DailyModel {
 
   DailyEntity toEntity() => DailyEntity(
         createdAt: createdAt,
-        emotion: emotion,
-        summary: summary,
+        emotion: emotion!,
+        summary: summary!,
       );
 
   DailyModel copyWith(

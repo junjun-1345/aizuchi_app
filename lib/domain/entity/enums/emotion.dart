@@ -1,9 +1,9 @@
 enum EmotionType {
-  joyful, // 楽しい
-  content, // 満足している
-  neutral, // 中立
+  sad, // 悲しい
   discontent, // 不満を感じている
-  sad // 悲しい
+  neutral, // 中立
+  content, // 満足している
+  joyful, // 楽しい
 }
 
 extension EmotionTypeExtension on EmotionType {
