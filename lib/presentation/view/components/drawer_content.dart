@@ -9,7 +9,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HamburgerMenu extends ConsumerWidget {
   const HamburgerMenu({super.key});
@@ -147,9 +146,13 @@ class HamburgerMenu extends ConsumerWidget {
   }
 
   Widget _buildServiceSection(BuildContext context) {
-    final Uri urlContact = Uri.parse('https://aizuchi-log.studio.site/contact');
+    final Uri urlContact = Uri.parse('https://aizuchi.app/contact');
     final Uri urlTerm = Uri.parse('https://aizuchi.app/terms');
+    final Uri urlX = Uri.parse('https://twitter.com/mofu_aizuchi');
+    final Uri urlFAQ = Uri.parse('https://aizuchi.app/faq');
     final Uri urlPrivacyPolicy = Uri.parse('https://aizuchi.app/privacypolicy');
+    final Uri urlInsta =
+        Uri.parse('https://www.instagram.com/mofumofu_aizuchi/');
 
     return Column(
       children: [
@@ -164,16 +167,14 @@ class HamburgerMenu extends ConsumerWidget {
         _buildSectionItem(
           title: "バグや障害状況（X）",
           icon: Icons.campaign,
-          onTap: () =>
-              context.router.push(WebViewRoute(uri: urlTerm)), // TODO:ココ置き換え
+          onTap: () => context.router.push(WebViewRoute(uri: urlX)),
           verticalType: VerticalType.bottom,
           isLink: true,
         ),
         _buildSectionItem(
           title: "FAQ",
           icon: Icons.priority_high,
-          onTap: () =>
-              context.router.push(WebViewRoute(uri: urlTerm)), // TODO:ココ置き換え
+          onTap: () => context.router.push(WebViewRoute(uri: urlFAQ)),
           verticalType: VerticalType.bottom,
           isLink: true,
         ),
@@ -203,16 +204,14 @@ class HamburgerMenu extends ConsumerWidget {
         _buildSectionItem(
           title: "Instagramをフォローする",
           icon: Icons.arrow_circle_left,
-          onTap: () =>
-              context.router.push(WebViewRoute(uri: urlTerm)), // TODO:ココ置き換え
+          onTap: () => context.router.push(WebViewRoute(uri: urlInsta)),
           verticalType: VerticalType.bottom,
           isLink: true,
         ),
         _buildSectionItem(
           title: "ライセンス",
           icon: Icons.arrow_circle_left,
-          onTap: () =>
-              context.router.push(WebViewRoute(uri: urlTerm)), // TODO:ココ置き換え
+          onTap: () => showLicensePage(context: context),
           verticalType: VerticalType.bottom,
           isLink: true,
         ),
