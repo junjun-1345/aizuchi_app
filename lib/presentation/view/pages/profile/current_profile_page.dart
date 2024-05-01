@@ -1,6 +1,6 @@
-import 'package:aizuchi_app/domain/domain_module.dart';
 import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/pages/profile/components/profile_tile.dart';
 import 'package:auto_route/auto_route.dart';
@@ -14,7 +14,6 @@ class CurrentProfilePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userUsecase = ref.read(usersUsecaseProvider);
     final userState = ref.watch(usersNotifierProvider);
 
     return Scaffold(
@@ -39,10 +38,6 @@ class CurrentProfilePage extends HookConsumerWidget {
                     currentData: data.sex.sexValue ?? '',
                   ),
                   ProfileTile(
-                    title: 'ニックネーム',
-                    currentData: data.name,
-                  ),
-                  ProfileTile(
                     title: '生年月日',
                     currentData: DateFormat('yyyy/MM/dd').format(data.birthday),
                   ),
@@ -61,7 +56,9 @@ class CurrentProfilePage extends HookConsumerWidget {
                           backgroundColor: BrandColor.baseRed,
                           elevation: 0,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          context.router.push(const EditProfileRoute());
+                        },
                         child: const Text(
                           'プロフィール設定',
                           style: TextStyle(
