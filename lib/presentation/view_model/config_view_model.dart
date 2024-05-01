@@ -25,6 +25,6 @@ class ConfigViewModel {
 
   Future<void> initialConfig() async {
     await ref.read(subscriptionUsecaseProvider).configureSDK();
-    await ref.read(remoteConfigUsecaseProvider).updateRequest();
+    await ref.read(remoteConfigUsecaseProvider).congigFRC();
   }
 }
