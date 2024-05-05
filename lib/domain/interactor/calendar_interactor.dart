@@ -3,7 +3,7 @@ import 'package:aizuchi_app/domain/entity/models/calendar.dart';
 import 'package:aizuchi_app/domain/entity/models/daily.dart';
 import 'package:aizuchi_app/domain/usecases/calendar_usecase.dart';
 
-class CalendarInteractor implements CalendarUsecases {
+class CalendarInteractor implements CalendarUsecase {
   @override
   Future<List<List<CalendarEntity>>> createCalendar(int year, int month,
       bool isWeekStartMonday, List<DailyEntity> monthlyEmotions) async {

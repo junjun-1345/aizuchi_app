@@ -4,7 +4,7 @@ import 'package:aizuchi_app/domain/repositories/daily_db_repository.dart';
 import 'package:aizuchi_app/domain/repositories/user_db_repository.dart';
 import 'package:aizuchi_app/domain/usecases/daily_usecase.dart';
 
-class DailyInteractor implements DailyUsecases {
+class DailyInteractor implements DailyUsecase {
   final DailyDBRepository dailyRepository;
   final UserDBRepository userRepository;
 

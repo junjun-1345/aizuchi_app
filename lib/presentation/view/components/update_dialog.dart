@@ -31,11 +31,11 @@ class UpdatePromptDialog extends ConsumerWidget {
             TextButton(
               onPressed: () async {
                 Navigator.pop(context);
-                await ref.read(sharedPreferencesProvider).save(
+                await ref.read(sharedPreferencesRepositoryProvider).save(
                       SharedPreferencesKey.cancelledUpdateDateTime,
                       DateTime.now().toString(),
                     );
-                ref.invalidate(remoteConfigProvider);
+                ref.invalidate(remoteConfigRepositoryProvider);
               },
               child: const Text('キャンセル',
                   style: TextStyle(color: BrandColor.baseRed)),

@@ -15,7 +15,7 @@ class PlanPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final subscribedInfo =
-        ref.read(subscriptionUsecaseProvider).checkSubscriptionStatus();
+        ref.read(appUsecaseProvider).checkSubscriptionStatus();
     final subscriptionViewModel = ref.read(subscriptionViewModelProvider);
 
     return Scaffold(

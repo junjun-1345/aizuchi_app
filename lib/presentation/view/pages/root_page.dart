@@ -16,8 +16,7 @@ class RootPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final usersNotifier = ref.watch(usersNotifierProvider);
-    final updateRequest =
-        ref.watch(remoteConfigUsecaseProvider).updateRequest();
+    final updateRequest = ref.watch(appUsecaseProvider).updateRequest();
 
     return AutoTabsRouter(
       routes: const [
