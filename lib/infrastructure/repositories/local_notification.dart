@@ -81,13 +81,11 @@ class LocalNotificationRepositoryImpl implements LocalNotificationRepository {
 
   @override
   Future<void> cancelAllNotifications() async {
-    print("cancelAllNotifications");
     await flutterLocalNotificationsPlugin.cancelAll();
   }
 
   @override
   Future<void> requestPermission() async {
-    print("通知許可をリクエストします");
     if (Platform.isIOS || Platform.isMacOS) {
       await _requestPermissionsIOSMac();
     } else if (Platform.isAndroid) {
