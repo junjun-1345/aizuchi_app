@@ -3,4 +3,6 @@ abstract class LocalNotificationRepository {
   Future<void> test();
   Future<void> scheduleDailyNotificationAt(int hour, int minute);
   Future<void> cancelAllNotifications();
+  Future<void> requestPermission();
+  Future<bool> checkNotificationPermission();
 }

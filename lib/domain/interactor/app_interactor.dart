@@ -93,4 +93,9 @@ class AppInteractor implements AppUsecase {
         .remove(SharedPreferencesKey.scheduleDailyNotificationTime);
     return await localNotificationRepository.cancelAllNotifications();
   }
+
+  @override
+  Future<bool> checkNotificationPermission() {
+    return localNotificationRepository.checkNotificationPermission();
+  }
 }

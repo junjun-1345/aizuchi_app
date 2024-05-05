@@ -7,6 +7,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
 class NotificationPage extends ConsumerWidget {
@@ -46,43 +48,79 @@ class NotificationPage extends ConsumerWidget {
                 String formattedHour = _formatTwoDigits(hour ?? 00);
                 String formattedMinute = _formatTwoDigits(minute ?? 00);
 
-                return Column(
-                  children: [
-                    const SizedBox(height: 48),
-                    ListItem(
-                      title: "時間",
-                      value: "$formattedHour:$formattedMinute",
-                      onTap: () {
-                        _showTimePickerDialog(context, ref, 20, 00);
-                      },
-                    ),
-                    const SizedBox(height: 24),
-                    AppButton.medium(
-                        text: "通知をOFFにする",
-                        onPressed: () {
-                          ref.read(appUsecaseProvider).cancelAllNotifications();
-                          showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                    title: const Text("通知設定"),
-                                    content: const Text("通知をOFFに変更しました。"),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () {
-                                          context.router
-                                              .replace(const MessageRoute());
-                                        },
-                                        child: const Text(
-                                          'OK',
-                                          style: TextStyle(
-                                              color: BrandColor.baseRed),
-                                        ),
-                                      ),
-                                    ],
-                                  ));
-                        }),
-                    const SizedBox(height: 24),
-                  ],
+                return FutureBuilder(
+                  future: ref
+                      .read(appUsecaseProvider)
+                      .checkNotificationPermission(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return const Text('An error has occurred!');
+                    } else if (!snapshot.hasData) {
+                      return const Text('An error has occurred!');
+                    }
+                    final hasPermission = snapshot.data ?? false;
+                    return Column(
+                      children: [
+                        const SizedBox(height: 48),
+                        hasPermission
+                            ? ListItem(
+                                title: "時間",
+                                value: "$formattedHour:$formattedMinute",
+                                onTap: () {
+                                  _showTimePickerDialog(context, ref, 20, 00);
+                                },
+                              )
+                            : const SizedBox(),
+                        const SizedBox(height: 24),
+                        ListItem(
+                          title: "通知の許可",
+                          value: hasPermission ? "許可済" : "未許可",
+                          onTap: () {
+                            null;
+                          },
+                        ),
+                        const SizedBox(height: 24),
+                        hasPermission
+                            ? AppButton.medium(
+                                text: "通知をOFFにする",
+                                onPressed: () {
+                                  ref
+                                      .read(appUsecaseProvider)
+                                      .cancelAllNotifications();
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                            title: const Text("通知設定"),
+                                            content:
+                                                const Text("通知をOFFに変更しました。"),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () {
+                                                  context.router.replace(
+                                                      const MessageRoute());
+                                                },
+                                                child: const Text(
+                                                  'OK',
+                                                  style: TextStyle(
+                                                      color:
+                                                          BrandColor.baseRed),
+                                                ),
+                                              ),
+                                            ],
+                                          ));
+                                })
+                            : AppButton.medium(
+                                text: "通知を許可する",
+                                onPressed: () {
+                                  openAppNotificationSettings(context);
+                                },
+                              ),
+                        const SizedBox(height: 24),
+                      ],
+                    );
+                  },
                 );
               }
             },
@@ -90,6 +128,20 @@ class NotificationPage extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  Future<void> openAppNotificationSettings(BuildContext context) async {
+    if (Theme.of(context).platform == TargetPlatform.iOS) {
+      const url = 'app-settings:';
+      final uri = Uri.parse(url);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri);
+      } else {
+        print("設定ページを開くことができません。");
+      }
+    } else {
+      openAppSettings();
+    }
   }
 
   Future<void> _showTimePickerDialog(

@@ -26,6 +26,7 @@ dependencies:
   uuid:
   # 課金
   purchases_flutter: ^6.25.0
+  permission_handler:
 
   # firebase
   firebase_core: ^2.30.0

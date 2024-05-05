@@ -13,4 +13,5 @@ abstract class AppUsecase {
   Future<void> scheduleDailyNotificationAt(int hour, int minute);
   Future<Map<String, int>> readNotifications();
   Future<void> cancelAllNotifications();
+  Future<bool> checkNotificationPermission();
 }

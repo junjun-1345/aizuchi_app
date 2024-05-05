@@ -57,7 +57,7 @@ class LocalNotificationRepositoryImpl implements LocalNotificationRepository {
 
   @override
   Future<void> initializeNotifications() async {
-    await _requestPermission();
+    await requestPermission();
     await _initializeNotifications();
   }
 
@@ -85,12 +85,27 @@ class LocalNotificationRepositoryImpl implements LocalNotificationRepository {
     await flutterLocalNotificationsPlugin.cancelAll();
   }
 
-  Future<void> _requestPermission() async {
+  @override
+  Future<void> requestPermission() async {
+    print("通知許可をリクエストします");
     if (Platform.isIOS || Platform.isMacOS) {
       await _requestPermissionsIOSMac();
     } else if (Platform.isAndroid) {
       await _requestPermissionsAndroid();
     }
+  }
+
+  @override
+  Future<bool> checkNotificationPermission() async {
+    final bool? isGranted = await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+    return isGranted ?? false;
   }
 
   Future<void> _requestPermissionsIOSMac() async {
