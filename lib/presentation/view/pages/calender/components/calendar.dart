@@ -35,7 +35,7 @@ class Calendar extends ConsumerWidget {
 
   Widget _buildCalendar(
     BuildContext context,
-    CalendarUsecases calendarUsecases,
+    CalendarUsecase calendarUsecases,
     List<DailyModel> state,
     DateTime customDate,
   ) {

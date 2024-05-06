@@ -130,7 +130,11 @@ class HamburgerMenu extends ConsumerWidget {
         _buildSectionItem(
           title: "通知設定",
           icon: Icons.notifications_active,
-          onTap: () {},
+          onTap: () {
+            context.router.push(
+              const NotificationRoute(),
+            );
+          },
           verticalType: VerticalType.top,
         ),
         _buildSectionItem(

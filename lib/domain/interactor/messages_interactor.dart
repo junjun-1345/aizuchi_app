@@ -6,7 +6,7 @@ import 'package:aizuchi_app/domain/repositories/gpt_repository.dart';
 import 'package:aizuchi_app/domain/repositories/message_db_repository.dart';
 import 'package:aizuchi_app/domain/usecases/messages_usecase.dart';
 
-class MessagesInteractor implements MessageUsecases {
+class MessagesInteractor implements MessageUsecase {
   final MessageDBRepository messageDBRepository;
   final GeminiRepository geminiRepository;
   final GptRepository gptRepository;
