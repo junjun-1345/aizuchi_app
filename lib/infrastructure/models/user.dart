@@ -119,7 +119,7 @@ class UserData {
         id: json[UserFields.id] as String,
         name: json[UserFields.name] as String,
         email: json[UserFields.email] as String,
-        birthday: json[UserFields.createdAt] as Timestamp,
+        birthday: json[UserFields.birthday] as Timestamp,
         sex: json[UserFields.sex] as String,
         isSubscription: json[UserFields.isSubscription] as bool,
         init: json[UserFields.init] as bool,
