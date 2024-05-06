@@ -24,7 +24,7 @@ class EditProfilePage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('プロフィール編集'),
+        title: const Text('プロフィール'),
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -58,6 +58,7 @@ class EditProfilePage extends HookConsumerWidget {
                     child: ProfileTile(
                       title: '性別',
                       currentData: choiceSex.value.sexValue ?? '',
+                      withBorder: true,
                     ),
                   ),
                   GestureDetector(
@@ -71,6 +72,7 @@ class EditProfilePage extends HookConsumerWidget {
                       title: '生年月日',
                       currentData:
                           DateFormat('yyyy/MM/dd').format(choiceBirthday.value),
+                      withBorder: true,
                     ),
                   ),
                   GestureDetector(
@@ -84,6 +86,7 @@ class EditProfilePage extends HookConsumerWidget {
                     child: ProfileTile(
                       title: '職業',
                       currentData: choiceProfession.value,
+                      withBorder: true,
                     ),
                   ),
                   const SizedBox(

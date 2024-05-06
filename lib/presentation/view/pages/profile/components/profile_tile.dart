@@ -6,11 +6,13 @@ class ProfileTile extends StatelessWidget {
   const ProfileTile({
     required this.title,
     required this.currentData,
+    this.withBorder = false,
     super.key,
   });
 
   final String title;
   final String currentData;
+  final bool withBorder;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,9 @@ class ProfileTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: BrandColor.white,
           borderRadius: BorderRadius.circular(10),
+          border: withBorder
+              ? Border.all(width: 0.5, color: BrandColor.baseRed)
+              : null,
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
