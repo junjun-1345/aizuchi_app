@@ -1,5 +1,5 @@
-import 'package:aizuchi_app/domain/entity/enums/shared_preferences_key.dart';
 import 'package:aizuchi_app/domain/repositories/shared_preferences_repository.dart';
+import 'package:aizuchi_app/infrastructure/enums/shared_preferences_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesRepositorImpl implements SharedPreferencesRepository {

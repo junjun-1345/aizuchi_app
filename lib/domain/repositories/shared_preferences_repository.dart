@@ -1,4 +1,4 @@
-import 'package:aizuchi_app/domain/entity/enums/shared_preferences_key.dart';
+import 'package:aizuchi_app/infrastructure/enums/shared_preferences_key.dart';
 
 abstract class SharedPreferencesRepository {
   Future<bool> save<T>(SharedPreferencesKey key, T value);

@@ -1,0 +1,4 @@
+enum SharedPreferencesKey {
+  cancelledUpdateDateTime,
+  scheduleDailyNotificationTime,
+}
