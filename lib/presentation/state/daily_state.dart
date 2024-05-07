@@ -25,7 +25,7 @@ class DailyNotifier extends StateNotifier<AsyncValue<List<DailyModel>>> {
   }
 
   final Ref ref;
-  final DailyUsecases _dailyUsecase;
+  final DailyUsecase _dailyUsecase;
 
   void initialize() async {
     final nowDate =

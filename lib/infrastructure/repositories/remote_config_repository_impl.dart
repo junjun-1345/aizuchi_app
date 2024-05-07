@@ -12,7 +12,7 @@ const flavor = String.fromEnvironment('flavor');
 class RemoteConfigRepositoryImpl implements RemoteConfigRepository {
   static final rc = FirebaseRemoteConfig.instance;
   @override
-  Future<void> congigFRC() async {
+  Future<void> initializeFRC() async {
     const Duration interval =
         flavor == "dev" ? Duration.zero : Duration(hours: 1);
 

@@ -67,6 +67,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const MessagePage(),
       );
     },
+    NotificationRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const NotificationPage(),
+      );
+    },
     PasswordChangeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -284,6 +290,20 @@ class MessageRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MessageRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [NotificationPage]
+class NotificationRoute extends PageRouteInfo<void> {
+  const NotificationRoute({List<PageRouteInfo>? children})
+      : super(
+          NotificationRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NotificationRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

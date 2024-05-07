@@ -1,6 +1,6 @@
+import 'package:aizuchi_app/domain/domain_module.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
-import 'package:aizuchi_app/presentation/view_model/config_view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -67,10 +67,10 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appRouter = ref.watch(appRouterProvider);
-    final configViewModel = ref.read(configViewModelProvider);
+    final appUsecase = ref.read(appUsecaseProvider);
 
     return FutureBuilder(
-        future: configViewModel.initialConfig(),
+        future: appUsecase.initializeAppInfrastructure(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           return MaterialApp.router(
             routerConfig: appRouter.config(

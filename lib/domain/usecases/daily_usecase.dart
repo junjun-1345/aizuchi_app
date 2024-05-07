@@ -1,6 +1,6 @@
 import 'package:aizuchi_app/domain/entity/models/daily.dart';
 
-abstract class DailyUsecases {
+abstract class DailyUsecase {
   Future<void> create(DailyEntity daily);
   Future<void> update(DailyEntity daily);
   Future<List<DailyEntity>> readHalfYearly(DateTime endDate);

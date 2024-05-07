@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/domain/repositories/auth_repository.dart';
 import 'package:aizuchi_app/domain/repositories/daily_db_repository.dart';
 import 'package:aizuchi_app/domain/repositories/gpt_repository.dart';
+import 'package:aizuchi_app/domain/repositories/local_notification_repository.dart';
 import 'package:aizuchi_app/domain/repositories/message_db_repository.dart';
 import 'package:aizuchi_app/domain/repositories/gemini_repository.dart';
 import 'package:aizuchi_app/domain/repositories/local_db_repository.dart';
@@ -11,6 +12,7 @@ import 'package:aizuchi_app/domain/repositories/user_db_repository.dart';
 import 'package:aizuchi_app/infrastructure/repositories/auth_repositories_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/daily_db_repositories_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/gpt_repository_impl.dart';
+import 'package:aizuchi_app/infrastructure/repositories/local_notification.dart';
 import 'package:aizuchi_app/infrastructure/repositories/message_db_repositories_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/gemini_repository_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/local_db_repositories_impl.dart';
@@ -48,14 +50,21 @@ final dailyDBRepositoryProvider = Provider<DailyDBRepository>((ref) {
   return DailyDBRepositoryImpl();
 });
 
-final purchasesFlutterProvider = Provider<PurchasesFlutterRepository>((ref) {
+final purchasesFlutterRepositoryProvider =
+    Provider<PurchasesFlutterRepository>((ref) {
   return PurchasesFlutterRepositoryImpl();
 });
 
-final sharedPreferencesProvider = Provider<SharedPreferencesRepository>((ref) {
+final sharedPreferencesRepositoryProvider =
+    Provider<SharedPreferencesRepository>((ref) {
   return SharedPreferencesRepositorImpl();
 });
 
-final remoteConfigProvider = Provider<RemoteConfigRepository>((ref) {
+final remoteConfigRepositoryProvider = Provider<RemoteConfigRepository>((ref) {
   return RemoteConfigRepositoryImpl();
+});
+
+final localNotificationRepositoryProvider =
+    Provider<LocalNotificationRepository>((ref) {
+  return LocalNotificationRepositoryImpl();
 });

@@ -15,7 +15,7 @@ class PurchasesFlutterRepositoryImpl implements PurchasesFlutterRepository {
   static final _key = Env.revenucatProdApiKey;
 
   @override
-  Future<void> configureSDK() async {
+  Future<void> initializePurchasesFlutter() async {
     await Purchases.setLogLevel(LogLevel.debug);
 
     late PurchasesConfiguration configuration;
