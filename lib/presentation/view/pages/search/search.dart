@@ -24,7 +24,7 @@ class SearchPage extends HookConsumerWidget {
       drawerScrimColor: BrandColor.base,
       appBar: AppBar(
         title: const Text(
-          "調べる",
+          "しらべる",
           style: TextStyle(fontSize: 20, color: BrandColor.textBlack),
         ),
         elevation: 0,
