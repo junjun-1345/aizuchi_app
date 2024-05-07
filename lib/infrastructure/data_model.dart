@@ -1,4 +1,5 @@
 import 'package:aizuchi_app/domain/repositories/auth_repository.dart';
+import 'package:aizuchi_app/domain/repositories/claude_repository.dart';
 import 'package:aizuchi_app/domain/repositories/daily_db_repository.dart';
 import 'package:aizuchi_app/domain/repositories/gpt_repository.dart';
 import 'package:aizuchi_app/domain/repositories/message_db_repository.dart';
@@ -9,6 +10,7 @@ import 'package:aizuchi_app/domain/repositories/remote_config.dart';
 import 'package:aizuchi_app/domain/repositories/shared_preferences_repository.dart';
 import 'package:aizuchi_app/domain/repositories/user_db_repository.dart';
 import 'package:aizuchi_app/infrastructure/repositories/auth_repositories_impl.dart';
+import 'package:aizuchi_app/infrastructure/repositories/claude_repository_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/daily_db_repositories_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/gpt_repository_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/message_db_repositories_impl.dart';
@@ -42,6 +44,10 @@ final geminiRepositoryProvider = Provider<GeminiRepository>((ref) {
 
 final gptRepositoryProvider = Provider<GptRepository>((ref) {
   return GptRepositoryImpl();
+});
+
+final claudeRepositoryProvider = Provider<ClaudeRepository>((ref) {
+  return ClaudeRepositoryImpl();
 });
 
 final dailyDBRepositoryProvider = Provider<DailyDBRepository>((ref) {

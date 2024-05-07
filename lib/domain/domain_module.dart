@@ -28,6 +28,7 @@ final messagesUsecaseProvider = Provider<MessageUsecases>((ref) {
     ref.watch(messageDBRepositoryProvider),
     ref.watch(geminiRepositoryProvider),
     ref.watch(gptRepositoryProvider),
+    ref.watch(claudeRepositoryProvider),
   );
 });
 

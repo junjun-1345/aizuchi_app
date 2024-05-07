@@ -12,4 +12,6 @@ abstract class Env {
   static String revenucatDevelopApiKey = _Env.revenucatDevelopApiKey;
   @EnviedField(varName: 'REVENUECAT_PROD_API_KEY', obfuscate: true)
   static String revenucatProdApiKey = _Env.revenucatProdApiKey;
+  @EnviedField(varName: 'CLAUDE_DEV_API_KEY', obfuscate: true)
+  static String claudeDevApiKey = _Env.claudeDevApiKey;
 }
