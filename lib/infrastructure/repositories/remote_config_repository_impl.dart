@@ -47,10 +47,6 @@ class RemoteConfigRepositoryImpl implements RemoteConfigRepository {
     final requiredVersion = Version.parse(updateInfo.requiredVersion);
     final enabledAt = updateInfo.enabledAt;
 
-    print('appVersion: $appVersion');
-    print('latestVersion: $latestVersion');
-    print('requiredVersion: $requiredVersion');
-
     // 現在のバージョンより新しいバージョンが指定されているか
     final hasNewVersion =
         latestVersion > appVersion || requiredVersion > appVersion;
