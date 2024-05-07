@@ -184,4 +184,55 @@ class AppButton {
       ),
     );
   }
+
+  static Widget smallIcon({
+    String text = "",
+    IconData? iconData,
+    double height = AppButton.smallHeight,
+    double width = 100,
+    Key? key,
+    required void Function()? onPressed,
+    void Function()? onLongPress,
+    void Function(bool)? onHover,
+    void Function(bool)? onFocusChange,
+    ButtonStyle? style,
+    TextStyle? textStyle,
+    FocusNode? focusNode,
+    bool autofocus = false,
+  }) {
+    return SizedBox(
+      width: width,
+      height: height,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        onHover: onHover,
+        onFocusChange: onFocusChange,
+        style: style ??
+            ElevatedButton.styleFrom(
+              backgroundColor: BrandColor.baseRed,
+              shape: const StadiumBorder(),
+              elevation: 0,
+            ),
+        focusNode: focusNode,
+        autofocus: autofocus,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              text,
+              style: textStyle ??
+                  const TextStyle(
+                      inherit: false,
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(width: 4),
+            Icon(iconData, color: Colors.white, size: 16),
+          ],
+        ),
+      ),
+    );
+  }
 }
