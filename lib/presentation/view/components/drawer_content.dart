@@ -96,7 +96,7 @@ class HamburgerMenu extends ConsumerWidget {
         _buildSectionItem(
           title: "加入プラン",
           icon: Icons.confirmation_number,
-          onTap: () => context.router.push(const CurrentProfileRoute()),
+          onTap: () => context.router.push(const PurchaseRoute()),
           verticalType: VerticalType.bottom,
         ),
         _buildSectionItem(
