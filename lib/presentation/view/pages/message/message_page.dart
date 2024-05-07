@@ -30,8 +30,9 @@ class MessagePage extends HookConsumerWidget {
               style: TextStyle(fontSize: 20, color: BrandColor.textBlack),
             ),
             elevation: 0,
-            backgroundColor: Colors.transparent,
+            backgroundColor: BrandColor.base,
             iconTheme: const IconThemeData(color: BrandColor.textBlack),
+            scrolledUnderElevation: 0.0,
           ),
           body: usersState.when(
             data: (data) {
