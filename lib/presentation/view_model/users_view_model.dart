@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/domain/domain_module.dart';
 import 'package:aizuchi_app/domain/entity/enums/platform.dart';
+import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/domain/usecases/app_usecase.dart';
 import 'package:aizuchi_app/domain/usecases/users_usecase.dart';
 import 'package:aizuchi_app/presentation/state/app_state.dart';
@@ -93,6 +94,29 @@ class UserViewModel {
   }) async {
     try {
       await usersUsecase.updatePassword(email);
+    } catch (e) {
+      ref.read(errorProvider.notifier).state = e.toString();
+      onError();
+      return;
+    }
+    onSuccess();
+  }
+
+  Future<void> updateProfile({
+    required String name,
+    required SexEnum sex,
+    required DateTime birthday,
+    required String profession,
+    required Function onSuccess,
+    required Function onError,
+  }) async {
+    try {
+      await usersUsecase.update(
+        name: name,
+        sex: sex,
+        birthday: birthday,
+        profession: profession,
+      );
     } catch (e) {
       ref.read(errorProvider.notifier).state = e.toString();
       onError();

@@ -4,6 +4,8 @@ import 'package:aizuchi_app/presentation/view/pages/measurement/measurement_page
 import 'package:aizuchi_app/presentation/view/pages/message/limit_message_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/message_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/log_page.dart';
+import 'package:aizuchi_app/presentation/view/pages/profile/current_profile_page.dart';
+import 'package:aizuchi_app/presentation/view/pages/profile/edit_profile_page%20.dart';
 import 'package:aizuchi_app/presentation/view/pages/root_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/search/search.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/mail/mail_confirm_page.dart';
@@ -116,6 +118,14 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
           path: '/WebViewPage',
           page: WebViewRoute.page,
         ),
+        AutoRoute(
+          path: '/CurrentProfilePage',
+          page: CurrentProfileRoute.page,
+        ),
+        AutoRoute(
+          path: '/EditProfilePage',
+          page: EditProfileRoute.page,
+          ),
         AutoRoute(
           path: '/NotificationPage',
           page: NotificationRoute.page,

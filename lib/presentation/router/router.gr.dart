@@ -21,6 +21,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CalenderPage(),
       );
     },
+    CurrentProfileRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const CurrentProfilePage(),
+      );
+    },
+    EditProfileRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const EditProfilePage(),
+      );
+    },
     LimitMessageRoute.name: (routeData) {
       final args = routeData.argsAs<LimitMessageRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -156,6 +168,34 @@ class CalenderRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'CalenderRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CurrentProfilePage]
+class CurrentProfileRoute extends PageRouteInfo<void> {
+  const CurrentProfileRoute({List<PageRouteInfo>? children})
+      : super(
+          CurrentProfileRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CurrentProfileRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [EditProfilePage]
+class EditProfileRoute extends PageRouteInfo<void> {
+  const EditProfileRoute({List<PageRouteInfo>? children})
+      : super(
+          EditProfileRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'EditProfileRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

@@ -86,17 +86,17 @@ class HamburgerMenu extends ConsumerWidget {
         _buildSectionItem(
           title: "プロフィール",
           icon: Icons.account_circle,
-          onTap: () {},
+          onTap: () {
+            context.router.push(
+              const CurrentProfileRoute(),
+            );
+          },
           verticalType: VerticalType.none,
         ),
         _buildSectionItem(
           title: "加入プラン",
           icon: Icons.confirmation_number,
-          onTap: () {
-            context.router.push(
-              const PlanRoute(),
-            );
-          },
+          onTap: () => context.router.push(const CurrentProfileRoute()),
           verticalType: VerticalType.bottom,
         ),
         _buildSectionItem(
