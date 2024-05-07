@@ -1,5 +1,4 @@
 import 'package:aizuchi_app/domain/entity/enums/plan.dart';
-import 'package:aizuchi_app/domain/entity/enums/shared_preferences_key.dart';
 import 'package:aizuchi_app/domain/entity/enums/update.dart';
 import 'package:aizuchi_app/domain/entity/models/plan_model.dart';
 import 'package:aizuchi_app/domain/entity/models/subscription_model.dart';
@@ -9,6 +8,7 @@ import 'package:aizuchi_app/domain/repositories/remote_config.dart';
 import 'package:aizuchi_app/domain/repositories/shared_preferences_repository.dart';
 import 'package:aizuchi_app/domain/repositories/user_db_repository.dart';
 import 'package:aizuchi_app/domain/usecases/app_usecase.dart';
+import 'package:aizuchi_app/infrastructure/enums/shared_preferences_key.dart';
 
 class AppInteractor implements AppUsecase {
   final UserDBRepository userRepository;
