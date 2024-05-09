@@ -18,7 +18,7 @@ final logViewModelProvider = Provider<LogViewModel>(
 class LogViewModel {
   final Ref ref;
   final DailyNotifier dailyNotifier;
-  final DailyUsecases dailyUsecases;
+  final DailyUsecase dailyUsecases;
   final OldestUpdateDateNotifier oldestUpdateDateNotifier;
 
   LogViewModel(

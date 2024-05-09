@@ -21,6 +21,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CalenderPage(),
       );
     },
+    CurrentProfileRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const CurrentProfilePage(),
+      );
+    },
+    EditProfileRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const EditProfilePage(),
+      );
+    },
     LimitMessageRoute.name: (routeData) {
       final args = routeData.argsAs<LimitMessageRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -53,6 +65,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const MessagePage(),
+      );
+    },
+    NotificationRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const NotificationPage(),
       );
     },
     PasswordChangeRoute.name: (routeData) {
@@ -155,6 +173,34 @@ class CalenderRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CurrentProfilePage]
+class CurrentProfileRoute extends PageRouteInfo<void> {
+  const CurrentProfileRoute({List<PageRouteInfo>? children})
+      : super(
+          CurrentProfileRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CurrentProfileRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [EditProfilePage]
+class EditProfileRoute extends PageRouteInfo<void> {
+  const EditProfileRoute({List<PageRouteInfo>? children})
+      : super(
+          EditProfileRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'EditProfileRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [LimitMessagePage]
 class LimitMessageRoute extends PageRouteInfo<LimitMessageRouteArgs> {
   LimitMessageRoute({
@@ -244,6 +290,20 @@ class MessageRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MessageRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [NotificationPage]
+class NotificationRoute extends PageRouteInfo<void> {
+  const NotificationRoute({List<PageRouteInfo>? children})
+      : super(
+          NotificationRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NotificationRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

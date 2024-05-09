@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:aizuchi_app/domain/entity/enums/update.dart';
 import 'package:aizuchi_app/domain/repositories/remote_config.dart';
+import 'package:aizuchi_app/domain/utils/string_utils.dart';
+import 'package:aizuchi_app/infrastructure/enums/remote_config_key.dart';
 import 'package:aizuchi_app/infrastructure/models/update.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -12,7 +14,7 @@ const flavor = String.fromEnvironment('flavor');
 class RemoteConfigRepositoryImpl implements RemoteConfigRepository {
   static final rc = FirebaseRemoteConfig.instance;
   @override
-  Future<void> congigFRC() async {
+  Future<void> initializeFRC() async {
     const Duration interval =
         flavor == "dev" ? Duration.zero : Duration(hours: 1);
 
@@ -32,7 +34,8 @@ class RemoteConfigRepositoryImpl implements RemoteConfigRepository {
   @override
   Future<UpdateRequestType> updateRequest(
       String? cancelledUpdateDateTime) async {
-    final string = rc.getString('update_info');
+    final string =
+        rc.getString(RemoteConfigKey.updateInfo.name.camelToSnakeCase);
     if (string.isEmpty) {
       return UpdateRequestType.not;
     }
@@ -66,5 +69,23 @@ class RemoteConfigRepositoryImpl implements RemoteConfigRepository {
     return latestVersion > appVersion && requiredVersion <= appVersion
         ? UpdateRequestType.cancelable
         : UpdateRequestType.forcibly;
+  }
+
+  @override
+  Future<T?> fetch<T>(RemoteConfigKey key) async {
+    if (T.toString() == 'int') {
+      return rc.getInt(key.name.camelToSnakeCase) as T?;
+    }
+    if (T.toString() == 'double') {
+      return rc.getDouble(key.name.camelToSnakeCase) as T?;
+    }
+    if (T.toString() == 'bool') {
+      return rc.getBool(key.name.camelToSnakeCase) as T?;
+    }
+    if (T.toString() == 'String') {
+      return rc.getString(key.name.camelToSnakeCase) as T?;
+    } else {
+      return rc.getValue(key.name.camelToSnakeCase) as T?;
+    }
   }
 }

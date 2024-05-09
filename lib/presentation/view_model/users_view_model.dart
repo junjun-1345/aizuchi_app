@@ -1,5 +1,7 @@
 import 'package:aizuchi_app/domain/domain_module.dart';
 import 'package:aizuchi_app/domain/entity/enums/platform.dart';
+import 'package:aizuchi_app/domain/entity/enums/sex.dart';
+import 'package:aizuchi_app/domain/usecases/app_usecase.dart';
 import 'package:aizuchi_app/domain/usecases/users_usecase.dart';
 import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
@@ -10,6 +12,7 @@ final userViewModelProvider = Provider<UserViewModel>(
     ref,
     ref.read(usersNotifierProvider.notifier),
     ref.read(usersUsecaseProvider),
+    ref.read(appUsecaseProvider),
   ),
 );
 
@@ -17,11 +20,13 @@ class UserViewModel {
   final Ref ref;
   final UsersNotifier usersNotifier;
   final UsersUsecase usersUsecase;
+  final AppUsecase appUsecase;
 
   UserViewModel(
     this.ref,
     this.usersNotifier,
     this.usersUsecase,
+    this.appUsecase,
   );
 
   Future<void> signUpWith({
@@ -56,6 +61,7 @@ class UserViewModel {
 
   Future<void> register() async {
     usersNotifier.register();
+    appUsecase.scheduleDailyNotificationAt(22, 00);
   }
 
   Future<void> delete() async {
@@ -88,6 +94,29 @@ class UserViewModel {
   }) async {
     try {
       await usersUsecase.updatePassword(email);
+    } catch (e) {
+      ref.read(errorProvider.notifier).state = e.toString();
+      onError();
+      return;
+    }
+    onSuccess();
+  }
+
+  Future<void> updateProfile({
+    required String name,
+    required SexEnum sex,
+    required DateTime birthday,
+    required String profession,
+    required Function onSuccess,
+    required Function onError,
+  }) async {
+    try {
+      await usersUsecase.update(
+        name: name,
+        sex: sex,
+        birthday: birthday,
+        profession: profession,
+      );
     } catch (e) {
       ref.read(errorProvider.notifier).state = e.toString();
       onError();

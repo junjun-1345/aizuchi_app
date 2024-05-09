@@ -86,17 +86,17 @@ class HamburgerMenu extends ConsumerWidget {
         _buildSectionItem(
           title: "プロフィール",
           icon: Icons.account_circle,
-          onTap: () {},
+          onTap: () {
+            context.router.push(
+              const CurrentProfileRoute(),
+            );
+          },
           verticalType: VerticalType.none,
         ),
         _buildSectionItem(
           title: "加入プラン",
           icon: Icons.confirmation_number,
-          onTap: () {
-            context.router.push(
-              const PlanRoute(),
-            );
-          },
+          onTap: () => context.router.push(const PurchaseRoute()),
           verticalType: VerticalType.bottom,
         ),
         _buildSectionItem(
@@ -130,7 +130,11 @@ class HamburgerMenu extends ConsumerWidget {
         _buildSectionItem(
           title: "通知設定",
           icon: Icons.notifications_active,
-          onTap: () {},
+          onTap: () {
+            context.router.push(
+              const NotificationRoute(),
+            );
+          },
           verticalType: VerticalType.top,
         ),
         _buildSectionItem(
