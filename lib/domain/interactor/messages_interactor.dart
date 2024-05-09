@@ -54,8 +54,12 @@ class MessagesInteractor implements MessageUsecases {
   }
 
   @override
-  Future<String> createSummary(List<MessageEntity> messages) {
-    return claudeRepository.createSummary(messages);
+  Future<String> createSummary(
+    List<MessageEntity> messages,
+    String key,
+  ) {
+    final filteredMessages = _filterMessages(messages, key);
+    return claudeRepository.createSummary(filteredMessages);
   }
 
   @override

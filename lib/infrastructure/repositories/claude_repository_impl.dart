@@ -19,7 +19,7 @@ class ClaudeRepositoryImpl implements ClaudeRepository {
   Future<String> createSummary(
     List<MessageEntity> messagesEntity,
   ) async {
-    final ClaudeMessage promptUser = ClaudeMessage(
+    final ClaudeMessage promptSummary = ClaudeMessage(
         role: ClaudeRole.user, content: ClaudePrompt.summary.promptValue ?? "");
 
     final ClaudeMessage promptAssistant = ClaudeMessage(
@@ -30,8 +30,8 @@ class ClaudeRepositoryImpl implements ClaudeRepository {
 
     final data = ClaudeContent(
       claudeModel: ClaudeModel.sonnet,
-      maxTokens: 1024,
-      messages: [promptUser, promptAssistant] + messages,
+      maxTokens: 2048,
+      messages: [promptSummary, promptAssistant] + messages,
     );
 
     final map = data.toJson();
@@ -77,8 +77,6 @@ class ClaudeRepositoryImpl implements ClaudeRepository {
       messages: [promptUser, promptAssistant] + messages,
     );
 
-    print("object: ${data.toJson()}");
-
     final map = data.toJson();
     final json = jsonEncode(map);
 
@@ -91,8 +89,6 @@ class ClaudeRepositoryImpl implements ClaudeRepository {
       },
       body: json,
     );
-
-    print("object: ${response.body}");
 
     final replyJsonMap = jsonDecode(response.body);
     final replyContent = replyJsonMap["content"][0]["text"];
