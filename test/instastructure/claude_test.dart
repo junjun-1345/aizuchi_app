@@ -56,8 +56,7 @@ void main() {
         // APIにリクエストを送信し、応答を取得
         String response;
         try {
-          response =
-              await messageUsecase.createSummary(messsages, EmotionType.joyful);
+          response = await messageUsecase.createSummary(messsages, "");
         } catch (e) {
           fail('API connection failed: $e');
         }
