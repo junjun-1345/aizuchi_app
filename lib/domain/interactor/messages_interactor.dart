@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
 import 'package:aizuchi_app/domain/entity/enums/message.dart';
 import 'package:aizuchi_app/domain/entity/models/message.dart';
+import 'package:aizuchi_app/domain/repositories/claude_repository.dart';
 import 'package:aizuchi_app/domain/repositories/gemini_repository.dart';
 import 'package:aizuchi_app/domain/repositories/gpt_repository.dart';
 import 'package:aizuchi_app/domain/repositories/message_db_repository.dart';
@@ -10,11 +11,13 @@ class MessagesInteractor implements MessageUsecase {
   final MessageDBRepository messageDBRepository;
   final GeminiRepository geminiRepository;
   final GptRepository gptRepository;
+  final ClaudeRepository claudeRepository;
 
   MessagesInteractor(
     this.messageDBRepository,
     this.geminiRepository,
     this.gptRepository,
+    this.claudeRepository,
   );
 
   @override
@@ -24,7 +27,7 @@ class MessagesInteractor implements MessageUsecase {
     EmotionType emotion,
   ) async {
     final filteredMessages = _filterMessages(messages, key);
-    final newReplyContent = await gptRepository.reply(
+    final newReplyContent = await claudeRepository.reply(
       filteredMessages,
       emotion,
     );
@@ -51,8 +54,12 @@ class MessagesInteractor implements MessageUsecase {
   }
 
   @override
-  Future<String> createSummary(List<MessageEntity> messages) {
-    return gptRepository.createSummary(messages);
+  Future<String> createSummary(
+    List<MessageEntity> messages,
+    String key,
+  ) {
+    final filteredMessages = _filterMessages(messages, key);
+    return claudeRepository.createSummary(filteredMessages);
   }
 
   @override

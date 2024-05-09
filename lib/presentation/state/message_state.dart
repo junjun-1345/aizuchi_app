@@ -101,7 +101,10 @@ class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
         .map((messageModel) => messageModel.toEntity())
         .toList();
 
-    final String summary = await _messageUsecase.createSummary(messagesEntity);
+    final String summary = await _messageUsecase.createSummary(
+      messagesEntity,
+      key,
+    );
 
     final MessageEntity messageEntity = await _messageUsecase.saveMessage(
         "お疲れ様でした😊", key, MessageType.assistant);
