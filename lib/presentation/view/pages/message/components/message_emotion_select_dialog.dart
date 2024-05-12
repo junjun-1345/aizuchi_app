@@ -12,23 +12,19 @@ class MessageEmotionSelectDailog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Widget selectEmotionButton(EmotionType emotion) {
-      return SizedBox(
-        height: 54,
-        width: 54,
-        child: TextButton(
-          onPressed: () async {
-            ref.read(subscriptionViewModelProvider).checkSubscriptionStatus();
-            ref.read(emotionProvider.notifier).state = emotion;
-            ref.read(messageViewModelProvider).sendTodayFirstMessage();
+      return GestureDetector(
+        onTap: () {
+          ref.read(subscriptionViewModelProvider).checkSubscriptionStatus();
+          ref.read(emotionProvider.notifier).state = emotion;
+          ref.read(messageViewModelProvider).sendTodayFirstMessage();
 
-            Navigator.of(context).pop();
-          },
-          child: Text(
-            emotion.emotionValue ?? "",
-            style: const TextStyle(
-              color: Colors.blue,
-              fontSize: 32,
-            ),
+          Navigator.of(context).pop();
+        },
+        child: Text(
+          emotion.emotionValue ?? "",
+          style: const TextStyle(
+            color: Colors.blue,
+            fontSize: 32,
           ),
         ),
       );
@@ -43,14 +39,18 @@ class MessageEmotionSelectDailog extends ConsumerWidget {
       actions: <Widget>[
         Column(
           children: [
-            Row(
-              children: [
-                selectEmotionButton(EmotionType.joyful),
-                selectEmotionButton(EmotionType.content),
-                selectEmotionButton(EmotionType.neutral),
-                selectEmotionButton(EmotionType.discontent),
-                selectEmotionButton(EmotionType.sad),
-              ],
+            Align(
+              alignment: Alignment.topCenter,
+              child: Wrap(
+                spacing: 20,
+                children: [
+                  selectEmotionButton(EmotionType.joyful),
+                  selectEmotionButton(EmotionType.content),
+                  selectEmotionButton(EmotionType.neutral),
+                  selectEmotionButton(EmotionType.discontent),
+                  selectEmotionButton(EmotionType.sad),
+                ],
+              ),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
