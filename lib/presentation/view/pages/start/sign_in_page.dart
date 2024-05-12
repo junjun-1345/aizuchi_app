@@ -42,105 +42,107 @@ class SignInPage extends HookConsumerWidget {
             alignment: Alignment.center,
             child: Form(
               key: formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  textTitleWidget("アカウントログイン"),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  AppButton.google(
-                    text: "Googleでログイン",
-                    onPressed: () async {
-                      await userViewModel.signInWith(
-                          platform: PlatformType.google,
-                          onSuccess: () {
-                            router.push(const MessageRoute());
-                          });
-                    },
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  AppButton.apple(
-                    text: "Appleでログイン",
-                    onPressed: () async {
-                      await userViewModel.signInWith(
-                          platform: PlatformType.apple,
-                          onSuccess: () {
-                            router.push(const MessageRoute());
-                          });
-                    },
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  const StartDivider(),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  AppTextForm.email(emailController),
-                  AppTextForm.password(
-                    passwordController,
-                    obscureText: isObscure.value,
-                    onPressed: () {
-                      isObscure.value = !isObscure.value;
-                    },
-                  ),
-                  AppButton.medium(
-                    text: "Aizuchiにログイン",
-                    onPressed: () async {
-                      if (formKey.currentState!.validate()) {
-                        userEmailState.state = emailController.text;
-                        userPasswordState.state = passwordController.text;
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    textTitleWidget("アカウントログイン"),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    AppButton.google(
+                      text: "Googleでログイン",
+                      onPressed: () async {
                         await userViewModel.signInWith(
-                          platform: PlatformType.email,
-                          onSuccess: () {
-                            router.push(
-                              const MessageRoute(),
-                            );
-                          },
-                        );
-                      }
-                    },
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      context.router.replace(const PasswordChangeRoute());
-                    },
-                    child: const Text(
-                      "パスワードを忘れた方はこちら",
-                      style: TextStyle(
-                        color: BrandColor.baseRed,
-                        fontSize: 12,
+                            platform: PlatformType.google,
+                            onSuccess: () {
+                              router.push(const MessageRoute());
+                            });
+                      },
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    AppButton.apple(
+                      text: "Appleでログイン",
+                      onPressed: () async {
+                        await userViewModel.signInWith(
+                            platform: PlatformType.apple,
+                            onSuccess: () {
+                              router.push(const MessageRoute());
+                            });
+                      },
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    const StartDivider(),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    AppTextForm.email(emailController),
+                    AppTextForm.password(
+                      passwordController,
+                      obscureText: isObscure.value,
+                      onPressed: () {
+                        isObscure.value = !isObscure.value;
+                      },
+                    ),
+                    AppButton.medium(
+                      text: "Aizuchiにログイン",
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
+                          userEmailState.state = emailController.text;
+                          userPasswordState.state = passwordController.text;
+                          await userViewModel.signInWith(
+                            platform: PlatformType.email,
+                            onSuccess: () {
+                              router.push(
+                                const MessageRoute(),
+                              );
+                            },
+                          );
+                        }
+                      },
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        context.router.replace(const PasswordChangeRoute());
+                      },
+                      child: const Text(
+                        "パスワードを忘れた方はこちら",
+                        style: TextStyle(
+                          color: BrandColor.baseRed,
+                          fontSize: 12,
+                        ),
                       ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      ref.read(errorProvider.notifier).state = "";
-                    },
-                    child: Text(
-                      error,
-                      style: const TextStyle(
-                        color: Colors.red,
+                    TextButton(
+                      onPressed: () {
+                        ref.read(errorProvider.notifier).state = "";
+                      },
+                      child: Text(
+                        error,
+                        style: const TextStyle(
+                          color: Colors.red,
+                        ),
                       ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      context.router.replace(const SignUpRoute());
-                    },
-                    child: const Text(
-                      "まだアカウントをお持ちでない方はこちら",
-                      style: TextStyle(
-                        color: BrandColor.baseRed,
-                        fontSize: 12,
+                    TextButton(
+                      onPressed: () {
+                        context.router.replace(const SignUpRoute());
+                      },
+                      child: const Text(
+                        "まだアカウントをお持ちでない方はこちら",
+                        style: TextStyle(
+                          color: BrandColor.baseRed,
+                          fontSize: 12,
+                        ),
                       ),
                     ),
-                  ),
-                  const StartImage(),
-                ],
+                    const StartImage(),
+                  ],
+                ),
               ),
             ),
           ),
