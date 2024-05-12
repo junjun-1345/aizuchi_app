@@ -34,103 +34,102 @@ class EditProfilePage extends HookConsumerWidget {
               final choiceProfession = useState(data.profession);
               final choiceSex = useState(data.sex);
               final choiceBirthday = useState(data.birthday);
-              return Column(
-                children: [
-                  const SizedBox(
-                    height: 48,
-                  ),
-                  AppTextForm.medium(
-                    nameController,
-                    hintText: "ニックネーム",
-                    validatorhintText: "ニックネームを入力してください",
-                    onChanged: (p0) {
-                      nameController.text = p0;
-                    },
-                  ),
-                  GestureDetector(
-                    onTap: () => showDialog(
-                      context: context,
-                      builder: (context) => EditSexDialog(
-                        choiceSex: choiceSex,
-                        choicedSex: choiceSex.value,
-                      ),
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 48,
                     ),
-                    child: ProfileTile(
-                      title: '性別',
-                      currentData: choiceSex.value.sexValue ?? '',
-                      withBorder: true,
+                    AppTextForm.medium(
+                      nameController,
+                      hintText: "ニックネーム",
+                      validatorhintText: "ニックネームを入力してください",
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () => DatePicker.showDatePicker(context,
-                        showTitleActions: true,
-                        minTime: DateTime(1900, 1, 1),
-                        maxTime: DateTime.now(), onConfirm: (date) {
-                      choiceBirthday.value = date;
-                    }, currentTime: data.birthday, locale: LocaleType.jp),
-                    child: ProfileTile(
-                      title: '生年月日',
-                      currentData:
-                          DateFormat('yyyy/MM/dd').format(choiceBirthday.value),
-                      withBorder: true,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => showDialog(
-                      context: context,
-                      builder: (context) => EditProffesionDialog(
-                        choicedProfession: choiceProfession.value,
-                        choiceProfession: choiceProfession,
-                      ),
-                    ),
-                    child: ProfileTile(
-                      title: '職業',
-                      currentData: choiceProfession.value,
-                      withBorder: true,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: BrandColor.white,
-                          backgroundColor: BrandColor.baseRed,
-                          elevation: 0,
+                    GestureDetector(
+                      onTap: () => showDialog(
+                        context: context,
+                        builder: (context) => EditSexDialog(
+                          choiceSex: choiceSex,
+                          choicedSex: choiceSex.value,
                         ),
-                        onPressed: () async => userViewModel.updateProfile(
-                              name: nameController.text.trim(),
-                              sex: choiceSex.value,
-                              birthday: choiceBirthday.value,
-                              profession: choiceProfession.value,
-                              onSuccess: () {
-                                ref.invalidate(usersNotifierProvider);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("プロフィールが変更されました"),
-                                  ),
-                                );
-                                context.router.maybePop();
-                              },
-                              onError: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("プロフィールの変更に失敗しました"),
-                                  ),
-                                );
-                              },
-                            ),
-                        child: const Text(
-                          '変更',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                      ),
+                      child: ProfileTile(
+                        title: '性別',
+                        currentData: choiceSex.value.sexValue ?? '',
+                        withBorder: true,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => DatePicker.showDatePicker(context,
+                          showTitleActions: true,
+                          minTime: DateTime(1900, 1, 1),
+                          maxTime: DateTime.now(), onConfirm: (date) {
+                        choiceBirthday.value = date;
+                      }, currentTime: data.birthday, locale: LocaleType.jp),
+                      child: ProfileTile(
+                        title: '生年月日',
+                        currentData: DateFormat('yyyy/MM/dd')
+                            .format(choiceBirthday.value),
+                        withBorder: true,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => showDialog(
+                        context: context,
+                        builder: (context) => EditProffesionDialog(
+                          choicedProfession: choiceProfession.value,
+                          choiceProfession: choiceProfession,
+                        ),
+                      ),
+                      child: ProfileTile(
+                        title: '職業',
+                        currentData: choiceProfession.value,
+                        withBorder: true,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: BrandColor.white,
+                            backgroundColor: BrandColor.baseRed,
+                            elevation: 0,
                           ),
-                        )),
-                  ),
-                ],
+                          onPressed: () async => userViewModel.updateProfile(
+                                name: nameController.text.trim(),
+                                sex: choiceSex.value,
+                                birthday: choiceBirthday.value,
+                                profession: choiceProfession.value,
+                                onSuccess: () {
+                                  ref.invalidate(usersNotifierProvider);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("プロフィールが変更されました"),
+                                    ),
+                                  );
+                                  context.router.maybePop();
+                                },
+                                onError: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("プロフィールの変更に失敗しました"),
+                                    ),
+                                  );
+                                },
+                              ),
+                          child: const Text(
+                            '変更',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
               );
             },
             loading: () {

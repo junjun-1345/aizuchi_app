@@ -1,4 +1,5 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -35,9 +36,16 @@ class ProfileTile extends StatelessWidget {
                 title,
                 style: const TextStyle(fontSize: 16),
               ),
-              Text(
-                currentData,
-                style: const TextStyle(fontSize: 16),
+              const SizedBox(
+                width: 16,
+              ),
+              Flexible(
+                child: Text(
+                  currentData,
+                  style: const TextStyle(fontSize: 16),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),
