@@ -77,14 +77,16 @@ class MessageFooterContents extends ConsumerWidget {
               ),
               const SizedBox(width: 8),
               isMessageOverLimit
-                  ? AppButton.medium(
-                      width: screenWidth * 0.8,
-                      onPressed: () {
-                        context.router.push(const PurchaseRoute());
-                      },
-                      text: "Aizuchi Premium >",
-                      textStyle: const TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.bold),
+                  ? Expanded(
+                      child: AppButton.medium(
+                        width: screenWidth * 0.8,
+                        onPressed: () {
+                          context.router.push(const PurchaseRoute());
+                        },
+                        text: "Aizuchi Premium >",
+                        textStyle: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
                     )
                   : Expanded(
                       child: AppTextForm.messageField(
@@ -97,7 +99,7 @@ class MessageFooterContents extends ConsumerWidget {
                         onEditingComplete: () {},
                       ),
                     ),
-              if (!isWaiting)
+              if (!isWaiting && !isMessageOverLimit)
                 IconButton(
                     onPressed: () async {
                       sendMessage();
