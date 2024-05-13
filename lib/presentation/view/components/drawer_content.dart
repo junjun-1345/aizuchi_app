@@ -257,7 +257,7 @@ class HamburgerMenu extends ConsumerWidget {
             await ref
                 .read(userViewModelProvider)
                 .delete()
-                .then((value) => context.router.replace(const SignInRoute()));
+                .then((value) => context.router.replace(const SignUpRoute()));
           },
         ),
       ),

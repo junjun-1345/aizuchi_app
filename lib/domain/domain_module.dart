@@ -17,6 +17,7 @@ final usersUsecaseProvider = Provider<UsersUsecase>(
       ref.watch(userDBRepositoryProvider),
       ref.watch(authRepositoryProvider),
       ref.watch(localDBRepositoryProvider),
+      ref.watch(sharedPreferencesRepositoryProvider),
     );
   }),
 );

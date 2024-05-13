@@ -28,8 +28,9 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
   final UsersUsecase _usersUseCase;
 
   void initialize() async {
-    print("usersNotifierProvider initialize");
-    final UserEntity entity = await _usersUseCase.read();
+    print("users 初期化");
+    final UserEntity? entity = await _usersUseCase.read();
+    if (entity == null) throw 'ログインしてください。';
     final UserModel user = UserModel.fromEntity(entity);
     state = AsyncValue.data(user);
   }
@@ -50,11 +51,9 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     await _usersUseCase.signOut();
   }
 
-  void register() async {
+  Future<void> register() async {
     final UserModel form = ref.read(userProvider);
-    final UserEntity entity = await _usersUseCase.register(form.toEntity());
-    final UserModel user = UserModel.fromEntity(entity);
-    state = AsyncValue.data(user);
+    await _usersUseCase.register(form.toEntity());
   }
 
   Future<void> createDailyKey() async {
@@ -110,7 +109,6 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
   }
 
   Future<void> updateTotalMessages() async {
-
     final int totalMessages = ref.read(totalMessagesProvider) ?? 0;
 
     await _usersUseCase.update(totalMessages: totalMessages);

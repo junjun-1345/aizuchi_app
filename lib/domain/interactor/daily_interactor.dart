@@ -42,7 +42,8 @@ class DailyInteractor implements DailyUsecase {
 
   @override
   Future<List<DailyEntity>> readWeek({DateTime? endDate}) async {
-    final UserEntity user = await userRepository.read();
+    final UserEntity? user = await userRepository.read();
+    if (user == null) throw Exception("ログインしてください。");
     final DateTime endDay = endDate ?? parseDate(user.dailyKey);
     final DateTime startDay = endDay.add(const Duration(days: -7));
     return dailyRepository.read(startDay, endDay);
