@@ -71,8 +71,6 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> signUpWithApple() async {
-    print('signUp');
-
     try {
       final appleCredential = await SignInWithApple.getAppleIDCredential(
         scopes: [
