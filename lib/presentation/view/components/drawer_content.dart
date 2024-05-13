@@ -26,7 +26,8 @@ class HamburgerMenu extends ConsumerWidget {
               userState.when(
                 data: (data) {
                   if (!data.isSubscription) {
-                    return _buildPromoSection(context);
+                    // return _buildPromoSection(context);
+                    return const SizedBox();
                   } else {
                     return const SizedBox();
                   }
