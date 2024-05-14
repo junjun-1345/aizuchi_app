@@ -135,7 +135,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           path: '/WebViewPage',
           page: WebViewRoute.page,
-          guards: [AuthGuard()],
         ),
         AutoRoute(
           path: '/CurrentProfilePage',

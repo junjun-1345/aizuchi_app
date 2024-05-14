@@ -32,6 +32,8 @@ class SignUpPage extends HookConsumerWidget {
     final ValueNotifier<bool> isObscure = useState(true);
     final String error = ref.watch(errorProvider);
     final StackRouter router = context.router;
+    final Uri urlTerm = Uri.parse('https://aizuchi.app/terms');
+    final Uri urlPrivacyPolicy = Uri.parse('https://aizuchi.app/privacypolicy');
 
     Widget descriptionText() {
       return RichText(
@@ -42,14 +44,18 @@ class SignUpPage extends HookConsumerWidget {
               text: '利用規約',
               style: const TextStyle(
                   color: BrandColor.baseRed, fontWeight: FontWeight.bold),
-              recognizer: TapGestureRecognizer()..onTap = () {},
+              recognizer: TapGestureRecognizer()
+                ..onTap = () => context.router.push(WebViewRoute(uri: urlTerm)),
             ),
             const TextSpan(text: 'と'),
             TextSpan(
               text: 'プライバシーポリシー',
               style: const TextStyle(
                   color: BrandColor.baseRed, fontWeight: FontWeight.bold),
-              recognizer: TapGestureRecognizer()..onTap = () {},
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  context.router.push(WebViewRoute(uri: urlPrivacyPolicy));
+                },
             ),
             const TextSpan(text: 'を同意の上、ご登録ください'),
           ],
