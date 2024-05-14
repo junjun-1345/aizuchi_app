@@ -32,31 +32,33 @@ class EditProffesionDialog extends HookConsumerWidget {
 
     return AlertDialog(
       title: const Text('職業を選択'),
-      content: Column(
-        children: [
-          for (int i = 0; i < professionList.length; i++) ...{
-            AppButton.base(
-              onPressed: () {
-                choicingProfession.value = professionList[i];
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: choicingProfession.value == professionList[i]
-                    ? BrandColor.baseRed
-                    : Colors.white,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+      content: SingleChildScrollView(
+        child: Column(
+          children: [
+            for (int i = 0; i < professionList.length; i++) ...{
+              AppButton.base(
+                onPressed: () {
+                  choicingProfession.value = professionList[i];
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: choicingProfession.value == professionList[i]
+                      ? BrandColor.baseRed
+                      : Colors.white,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
-              ),
-              text: professionList[i],
-              textStyle: TextStyle(
-                color: choicingProfession.value == professionList[i]
-                    ? BrandColor.white
-                    : BrandColor.black,
-              ),
-            )
-          },
-        ],
+                text: professionList[i],
+                textStyle: TextStyle(
+                  color: choicingProfession.value == professionList[i]
+                      ? BrandColor.white
+                      : BrandColor.black,
+                ),
+              )
+            },
+          ],
+        ),
       ),
       actionsAlignment: MainAxisAlignment.spaceAround,
       actions: <Widget>[
