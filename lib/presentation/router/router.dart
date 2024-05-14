@@ -116,6 +116,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           path: '/AuthenticationCooperation',
           page: AuthenticationCooperationRoute.page,
+          guards: [AuthGuard()],
         ),
         AutoRoute(
           path: '/MailConfirm',
