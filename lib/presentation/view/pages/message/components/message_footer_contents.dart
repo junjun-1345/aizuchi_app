@@ -1,5 +1,4 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
-import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/state/messsage_providers.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
@@ -8,7 +7,6 @@ import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
 import 'package:aizuchi_app/presentation/view/components/error_dialog.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_emotion_select_dialog.dart';
 import 'package:aizuchi_app/presentation/view_model/message_view_model.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -52,7 +50,7 @@ class MessageFooterContents extends ConsumerWidget {
     Widget inputField(bool isMessageOverLimit) {
       return Column(
         children: [
-          if (isMessageOverLimit) const Text("会話が上限に達しました"),
+          // if (isMessageOverLimit) const Text("会話が上限に達しました"),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,27 +74,37 @@ class MessageFooterContents extends ConsumerWidget {
                 text: "終了",
               ),
               const SizedBox(width: 8),
-              isMessageOverLimit
-                  ? AppButton.medium(
-                      width: screenWidth * 0.8,
-                      onPressed: () {
-                        context.router.push(const PurchaseRoute());
-                      },
-                      text: "Aizuchi Premium >",
-                      textStyle: const TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.bold),
-                    )
-                  : Expanded(
-                      child: AppTextForm.messageField(
-                        messageController,
-                        onFieldSubmitted: (value) async {
-                          sendMessage();
-                        },
+              // isMessageOverLimit
+              //     ? AppButton.medium(
+              //         width: screenWidth * 0.8,
+              //         onPressed: () {
+              //           context.router.push(const PurchaseRoute());
+              //         },
+              //         text: "Aizuchi Premium >",
+              //         textStyle: const TextStyle(
+              //             fontSize: 24, fontWeight: FontWeight.bold),
+              //       )
+              //     : Expanded(
+              //         child: AppTextForm.messageField(
+              //           messageController,
+              //           onFieldSubmitted: (value) async {
+              //             sendMessage();
+              //           },
 
-                        // autofocus: true,
-                        onEditingComplete: () {},
-                      ),
-                    ),
+              //           // autofocus: true,
+              //           onEditingComplete: () {},
+              //         ),
+              //       ),
+              Expanded(
+                child: AppTextForm.messageField(
+                  messageController,
+                  onFieldSubmitted: (value) async {
+                    sendMessage();
+                  },
+                  // autofocus: true,
+                  onEditingComplete: () {},
+                ),
+              ),
               if (!isWaiting)
                 IconButton(
                     onPressed: () async {
