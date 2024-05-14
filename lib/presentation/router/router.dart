@@ -7,7 +7,7 @@ import 'package:aizuchi_app/presentation/view/pages/message/limit_message_page.d
 import 'package:aizuchi_app/presentation/view/pages/message/message_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/log_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/profile/current_profile_page.dart';
-import 'package:aizuchi_app/presentation/view/pages/profile/edit_profile_page%20.dart';
+import 'package:aizuchi_app/presentation/view/pages/profile/edit_profile_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/root_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/search/search.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/auth/authentication_cooperation_page.dart';

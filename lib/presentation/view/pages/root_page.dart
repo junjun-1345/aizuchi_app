@@ -39,6 +39,7 @@ class RootPage extends HookConsumerWidget {
                     (updateRequestTypeValue == UpdateRequestType.cancelable ||
                         updateRequestTypeValue == UpdateRequestType.forcibly)) {
                   isDialogShowing.value = true;
+                  // FIXME: ダイアログの見直し
                   showDialog(
                     context: context,
                     builder: (context) => UpdatePromptDialog(
@@ -118,6 +119,7 @@ class RootPage extends HookConsumerWidget {
                   if (!data.isConversation) {
                     tabsRouter.setActiveIndex(index);
                   } else {
+                    // FIXME: ダイアログの見直し
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(

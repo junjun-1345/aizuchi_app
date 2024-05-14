@@ -30,7 +30,6 @@ class EditSexDialog extends HookConsumerWidget {
                 AppButton.base(
                   onPressed: () {
                     choicingSex.value = SexEnum.values[i];
-                    print(choiceSex.value);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: choicingSex.value == SexEnum.values[i]

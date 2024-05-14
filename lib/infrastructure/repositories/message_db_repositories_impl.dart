@@ -34,7 +34,7 @@ class MessageDBRepositoryImpl implements MessageDBRepository {
 
   @override
   Future<void> delete() {
-    // TODO: implement delete
+    // TODO: massageの削除
     throw UnimplementedError();
   }
 
@@ -72,7 +72,7 @@ class MessageDBRepositoryImpl implements MessageDBRepository {
 
   @override
   Future<void> update(MessageEntity form) {
-    // TODO: implement update
+    // TODO: messageの更新
     throw UnimplementedError();
   }
 

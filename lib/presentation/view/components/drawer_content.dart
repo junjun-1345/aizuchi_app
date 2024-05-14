@@ -58,14 +58,6 @@ class HamburgerMenu extends ConsumerWidget {
     );
   }
 
-  Widget _buildPromoSection(BuildContext context) {
-    return Column(
-      children: [
-        _buildPromoBanner(context),
-      ],
-    );
-  }
-
   Widget _buildFeatureSection(BuildContext context) {
     return _buildSectionItem(
       title: "キャラクター選択",
@@ -235,6 +227,7 @@ class HamburgerMenu extends ConsumerWidget {
   Widget _buildLogOutSection(BuildContext context, WidgetRef ref) {
     return _buildSectionButton(
       text: "ログアウト",
+      // FIXME: ダイアログの見直し
       onPressed: () => showDialog(
         context: context,
         builder: (context) => AttentionDialog(
@@ -253,6 +246,7 @@ class HamburgerMenu extends ConsumerWidget {
     return _buildSectionButton(
       text: "アカウント削除",
       isAttentionColorRed: true,
+      // FIXME: ダイアログの見直し
       onPressed: () => showDialog(
         context: context,
         builder: (context) => AttentionDialog(
@@ -301,7 +295,7 @@ class HamburgerMenu extends ConsumerWidget {
                   context.router.push(const PurchaseRoute());
                 },
                 text: 'プレミアム　>',
-                textStyle: TextStyle(fontWeight: FontWeight.w800),
+                textStyle: const TextStyle(fontWeight: FontWeight.w800),
               ),
             ],
           ),

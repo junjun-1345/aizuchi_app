@@ -49,6 +49,7 @@ class _PlanListContentsState extends ConsumerState<PlanListContents> {
                                   .purchasePackage(PlanType.monthly);
                               // コンテキストが有効な状態でダイアログを表示
                               if (mounted) {
+                                // FIXME: ダイアログの見直し
                                 showDialog(
                                   context: context,
                                   builder: (context) => CompletedDialog(
@@ -63,6 +64,7 @@ class _PlanListContentsState extends ConsumerState<PlanListContents> {
                               }
                             } catch (e) {
                               if (mounted) {
+                                // FIXME: ダイアログの見直し
                                 showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
@@ -103,6 +105,7 @@ class _PlanListContentsState extends ConsumerState<PlanListContents> {
                                   .purchasePackage(PlanType.annual);
                               // コンテキストが有効な状態でダイアログを表示
                               if (mounted) {
+                                // FIXME: ダイアログの見直し
                                 showDialog(
                                   context: context,
                                   builder: (context) => CompletedDialog(
@@ -117,6 +120,7 @@ class _PlanListContentsState extends ConsumerState<PlanListContents> {
                               }
                             } catch (e) {
                               if (mounted) {
+                                // FIXME: ダイアログの見直し
                                 showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(

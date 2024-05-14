@@ -73,7 +73,7 @@ class SignUpFormBirthDatePage extends HookConsumerWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        context.router.pop(
+                        context.router.maybePop(
                           const SignUpFormSexRoute(),
                         );
                       },

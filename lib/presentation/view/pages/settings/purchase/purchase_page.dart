@@ -56,7 +56,8 @@ class PurchasePage extends ConsumerWidget {
                       const SizedBox(
                         height: 24,
                       ),
-                      Text("順次追加予定", style: TextStyle(color: BrandColor.black)),
+                      const Text("順次追加予定",
+                          style: TextStyle(color: BrandColor.black)),
                       // const PlanListContents(),
                       // const Text("※無料トライアルは年額プランのみとなります。"),
                       const SizedBox(

@@ -81,6 +81,7 @@ class PasswordChangePage extends HookConsumerWidget {
 
   void _showConfirmationDialog(BuildContext context, WidgetRef ref,
       UserViewModel userViewModel, String email) {
+    // FIXME: ダイアログの見直し
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

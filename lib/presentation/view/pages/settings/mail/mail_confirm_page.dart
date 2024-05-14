@@ -64,6 +64,7 @@ class MailConfrimPage extends HookConsumerWidget {
                       userViewModel.updateEmail(
                         email: emailController.text,
                         onSuccess: () {
+                          // FIXME: ダイアログの見直し
                           showDialog(
                             context: context,
                             builder: (context) {
@@ -88,6 +89,7 @@ class MailConfrimPage extends HookConsumerWidget {
                           );
                         },
                         onError: () {
+                          // FIXME: ダイアログの見直し
                           showDialog(
                             context: context,
                             builder: (context) {

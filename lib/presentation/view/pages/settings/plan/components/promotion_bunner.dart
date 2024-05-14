@@ -38,7 +38,7 @@ class PromotionBunner extends StatelessWidget {
               context.router.push(const PurchaseRoute());
             },
             text: 'プレミアム　>',
-            textStyle: TextStyle(fontWeight: FontWeight.w800),
+            textStyle: const TextStyle(fontWeight: FontWeight.w800),
           ),
         ],
       ),

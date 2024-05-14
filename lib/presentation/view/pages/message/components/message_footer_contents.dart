@@ -28,6 +28,7 @@ class MessageFooterContents extends ConsumerWidget {
     void sendMessage() {
       if (messageController.text.isNotEmpty) {
         if (isWaiting) {
+          // FIXME: ダイアログの見直し
           showDialog(
               context: context,
               builder: (context) =>
@@ -37,6 +38,7 @@ class MessageFooterContents extends ConsumerWidget {
           ref.read(messageProvider.notifier).state = messageController.text;
           messageViewModel.sendMessage();
         } catch (e) {
+          // FIXME: ダイアログの見直し
           showDialog(
             context: context,
             builder: (context) =>
@@ -60,6 +62,7 @@ class MessageFooterContents extends ConsumerWidget {
                 height: 40,
                 onPressed: () {
                   if (isWaiting) {
+                    // FIXME: ダイアログの見直し
                     showDialog(
                       context: context,
                       builder: (context) => const ErrorDialog(
@@ -109,7 +112,7 @@ class MessageFooterContents extends ConsumerWidget {
                   onEditingComplete: () {},
                 ),
               ),
-              
+
               // 以下の条件分岐は課金実装後に切り替えてください
               // if (!isWaiting && !isMessageOverLimit)
               if (!isWaiting)
@@ -146,6 +149,7 @@ class MessageFooterContents extends ConsumerWidget {
                   onPressed: dailyKey == today
                       ? null
                       : () {
+                          // FIXME: ダイアログの見直し
                           showDialog(
                             context: context,
                             builder: (context) =>

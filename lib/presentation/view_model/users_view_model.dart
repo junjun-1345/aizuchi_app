@@ -76,7 +76,6 @@ class UserViewModel {
     context.router.push(
       const MessageRoute(),
     );
-    print("フロー終了");
   }
 
   Future<void> delete() async {

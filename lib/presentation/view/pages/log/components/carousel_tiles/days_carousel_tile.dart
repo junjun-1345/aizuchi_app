@@ -64,7 +64,7 @@ class DaysCarouselTile extends HookConsumerWidget {
                   isMonthly: false,
                   isLatest: isLatest,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 )
               ],

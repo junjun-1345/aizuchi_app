@@ -28,7 +28,6 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
   final UsersUsecase _usersUseCase;
 
   void initialize() async {
-    print("users 初期化");
     final UserEntity? entity = await _usersUseCase.read();
     if (entity == null) throw 'ログインしてください。';
     final UserModel user = UserModel.fromEntity(entity);
