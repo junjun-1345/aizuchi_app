@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
 class LogSummaryTile extends StatelessWidget {
   const LogSummaryTile({
     required this.createdAt,
@@ -20,7 +19,6 @@ class LogSummaryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final int registeredDays = DateTime.now().difference(createdAt).inDays;
     return Container(
-      height: MediaQuery.of(context).size.height * 0.12,
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
         color: BrandColor.baseRed,
@@ -32,25 +30,19 @@ class LogSummaryTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SummaryPart(
-
               icon: FontAwesomeIcons.circleCheck,
-
               title: '登録から',
               value: registeredDays.toString(),
               unit: '日',
             ),
             SummaryPart(
-
               icon: FontAwesomeIcons.comments,
-
               title: '会話数',
               value: messageAmount.toString(),
               unit: '回',
             ),
             SummaryPart(
-
               icon: FontAwesomeIcons.calendarCheck,
-
               title: '会話した日',
               value: activeDays.toString(),
               unit: '日',
@@ -80,9 +72,7 @@ class SummaryPart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-
         FaIcon(
-
           icon,
           color: Colors.white,
         ),
