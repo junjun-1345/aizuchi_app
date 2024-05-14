@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view_model/message_view_model.dart';
@@ -5,7 +6,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// TODO:　背景修正
 class MessageOverLimitDialog extends ConsumerWidget {
   const MessageOverLimitDialog({super.key});
 
@@ -13,6 +13,7 @@ class MessageOverLimitDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
       title: const Text('会話の上限に達しました。'),
+      backgroundColor: BrandColor.white,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

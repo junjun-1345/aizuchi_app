@@ -35,18 +35,12 @@ class RootPage extends HookConsumerWidget {
           data: (data) {
             updateRequest.then(
               (updateRequestTypeValue) {
-                print("アップデート $updateRequestTypeValue");
                 if (!isDialogShowing.value &&
                     (updateRequestTypeValue == UpdateRequestType.cancelable ||
                         updateRequestTypeValue == UpdateRequestType.forcibly)) {
                   isDialogShowing.value = true;
-                  // showDialog(
-                  //   context: context,
-                  //   builder: (context) => UpdatePromptDialog(
-                  //     updateRequestType: updateRequestTypeValue,
-                  //   ),
-                  // ).then((_) => isDialogShowing.value = false);
 
+                  // FIXME: 挙動が不安定
                   AppDialog.showUpdatePromptDialog(
                       context: context,
                       updateRequestType: updateRequestTypeValue);

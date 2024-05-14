@@ -6,7 +6,6 @@ import 'package:aizuchi_app/presentation/view_model/subscription_view_model.dart
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// TODO:　背景修正
 class MessageEmotionSelectDailog extends ConsumerWidget {
   const MessageEmotionSelectDailog({super.key});
 
@@ -37,6 +36,7 @@ class MessageEmotionSelectDailog extends ConsumerWidget {
         textAlign: TextAlign.center,
       ),
       content: const Text('今日はどんな１日だったー？'),
+      backgroundColor: BrandColor.white,
       actions: <Widget>[
         Column(
           children: [

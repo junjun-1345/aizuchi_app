@@ -58,9 +58,6 @@ class RemoteConfigRepositoryImpl implements RemoteConfigRepository {
     late bool isEnabled;
     isEnabled = isUpdateEnabled(enabledAt, cancelledUpdateDateTime);
 
-    print("isEnabled: $isEnabled");
-    print("hasNewVersion: $hasNewVersion");
-
     if (!isEnabled || !hasNewVersion) {
       return UpdateRequestType.not;
     }
