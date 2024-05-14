@@ -4,7 +4,6 @@ import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_contents.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_emotion_select_dialog.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_footer_contents.dart';
-import 'package:aizuchi_app/presentation/view/pages/message/components/message_overlimit_dialog.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -36,18 +35,19 @@ class MessagePage extends HookConsumerWidget {
           ),
           body: usersState.when(
             data: (data) {
-              if (data.isMessageOverLimit) {
-                WidgetsBinding.instance.addPostFrameCallback(
-                  (_) {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return const MessageOverLimitDialog();
-                      },
-                    );
-                  },
-                );
-              } else if (!data.isConversation && data.dailyKey != today) {
+              // if (data.isMessageOverLimit) {
+              //   WidgetsBinding.instance.addPostFrameCallback(
+              //     (_) {
+              //       showDialog(
+              //         context: context,
+              //         builder: (context) {
+              //           return const MessageOverLimitDialog();
+              //         },
+              //       );
+              //     },
+              //   );
+              // }
+              if (!data.isConversation && data.dailyKey != today) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   showDialog(
                     context: context,
