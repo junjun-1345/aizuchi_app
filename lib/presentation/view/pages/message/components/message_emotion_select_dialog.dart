@@ -42,7 +42,7 @@ class MessageEmotionSelectDailog extends ConsumerWidget {
             Align(
               alignment: Alignment.topCenter,
               child: Wrap(
-                spacing: 20,
+                spacing: 16,
                 children: [
                   selectEmotionButton(EmotionType.joyful),
                   selectEmotionButton(EmotionType.content),
