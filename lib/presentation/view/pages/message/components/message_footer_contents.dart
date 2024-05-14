@@ -50,7 +50,7 @@ class MessageFooterContents extends ConsumerWidget {
     Widget inputField(bool isMessageOverLimit) {
       return Column(
         children: [
-          if (isMessageOverLimit) const Text("会話が上限に達しました"),
+          // if (isMessageOverLimit) const Text("会話が上限に達しました"),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,6 +75,7 @@ class MessageFooterContents extends ConsumerWidget {
               ),
               const SizedBox(width: 8),
               // isMessageOverLimit
+
               //     ? Expanded(
               //         child: AppButton.medium(
               //           width: screenWidth * 0.8,
@@ -108,7 +109,7 @@ class MessageFooterContents extends ConsumerWidget {
                   onEditingComplete: () {},
                 ),
               ),
-
+              
               // 以下の条件分岐は課金実装後に切り替えてください
               // if (!isWaiting && !isMessageOverLimit)
               if (!isWaiting)

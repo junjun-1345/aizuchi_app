@@ -17,7 +17,7 @@ abstract class UsersUsecase {
   Future<void> signOut();
   Future<UserEntity> register(UserEntity user);
   Future<void> delete();
-  Future<UserEntity> read();
+  Future<UserEntity?> read();
   Future<UserEntity> update({
     String? id,
     String? name,

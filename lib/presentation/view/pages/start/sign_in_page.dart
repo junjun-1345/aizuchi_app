@@ -107,7 +107,7 @@ class SignInPage extends HookConsumerWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        context.router.replace(const PasswordChangeRoute());
+                        context.router.push(const PasswordChangeRoute());
                       },
                       child: const Text(
                         "パスワードを忘れた方はこちら",
