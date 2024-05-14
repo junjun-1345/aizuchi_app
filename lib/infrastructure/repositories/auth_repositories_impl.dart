@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/domain/entity/models/user.dart';
 import 'package:aizuchi_app/domain/repositories/auth_repository.dart';
+import 'package:aizuchi_app/infrastructure/enums/auth_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -112,5 +113,19 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> updatePassword(String email) {
     return FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
+
+  @override
+  Future<List<AuthProviderType>> getCurrentUserProvider() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      final List<UserInfo> providerData = user.providerData;
+      return providerData.map((userInfo) {
+        return AuthProviderExtension.from((userInfo.providerId));
+      }).toList();
+    } else {
+      return [];
+    }
   }
 }

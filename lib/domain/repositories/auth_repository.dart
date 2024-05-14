@@ -1,4 +1,5 @@
 import 'package:aizuchi_app/domain/entity/models/user.dart';
+import 'package:aizuchi_app/infrastructure/enums/auth_provider.dart';
 
 abstract class AuthRepository {
   Future<void> signUpWithEmail(
@@ -18,4 +19,5 @@ abstract class AuthRepository {
   Future<String?> readEmail();
   Future<void> updateEmail(String email);
   Future<void> updatePassword(String email);
+  Future<List<AuthProviderType>> getCurrentUserProvider();
 }

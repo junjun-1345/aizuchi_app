@@ -81,7 +81,11 @@ class HamburgerMenu extends ConsumerWidget {
         _buildSectionItem(
           title: "認証連携",
           icon: Icons.manage_accounts_sharp,
-          onTap: () {},
+          onTap: () {
+            context.router.push(
+              const AuthenticationCooperationRoute(),
+            );
+          },
           verticalType: VerticalType.top,
         ),
         _buildSectionItem(
