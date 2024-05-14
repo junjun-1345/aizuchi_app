@@ -7,7 +7,6 @@ class AuthGuard extends AutoRouteGuard {
   Future<void> onNavigation(
       NavigationResolver resolver, StackRouter router) async {
     final isSignIn = FirebaseAuth.instance.currentUser != null;
-    print("isSignIn $isSignIn");
 
     if (isSignIn) {
       resolver.next(true);
