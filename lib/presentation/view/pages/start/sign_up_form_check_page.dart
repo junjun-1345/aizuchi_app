@@ -30,7 +30,7 @@ class SignUpFormCheckPage extends HookConsumerWidget {
                   children: [
                     textTitleWidget("プロフィール"),
                     const SizedBox(
-                      height: 48,
+                      height: 16,
                     ),
                     Container(
                       alignment: Alignment.center,
@@ -53,7 +53,7 @@ class SignUpFormCheckPage extends HookConsumerWidget {
                       ],
                     ),
                     const SizedBox(
-                      height: 56,
+                      height: 12,
                     ),
                     Container(
                       height: 48,
