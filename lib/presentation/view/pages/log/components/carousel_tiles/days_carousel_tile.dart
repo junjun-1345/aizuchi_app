@@ -45,25 +45,30 @@ class DaysCarouselTile extends HookConsumerWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 16),
-              for (int i = 0; i < 7; i++)
-                DailyTile(
-                  day: _fetchDayOfWeek(i),
-                  summary: _getSummaryForDay(weeklyList, i),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 16),
+                for (int i = 0; i < 7; i++)
+                  DailyTile(
+                    day: _fetchDayOfWeek(i),
+                    summary: _getSummaryForDay(weeklyList, i),
+                  ),
+                const SizedBox(height: 16),
+                SelectDatePart(
+                  startDate: startDateState,
+                  endDate: endDateState,
+                  isMonthly: false,
+                  isLatest: isLatest,
                 ),
-              const SizedBox(height: 16),
-              SelectDatePart(
-                startDate: startDateState,
-                endDate: endDateState,
-                isMonthly: false,
-                isLatest: isLatest,
-              ),
-            ],
+                SizedBox(
+                  height: 16,
+                )
+              ],
+            ),
           ),
         ),
       ),

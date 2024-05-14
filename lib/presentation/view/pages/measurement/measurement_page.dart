@@ -3,6 +3,7 @@ import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 @RoutePage()
@@ -33,6 +34,7 @@ class MeasurementPage extends HookConsumerWidget {
                 imgUrl: "mofumofu_icon_1.png",
                 onPreviousResults: null,
                 onStart: null,
+                context: context,
               ),
               const SizedBox(
                 height: 16,
@@ -43,6 +45,7 @@ class MeasurementPage extends HookConsumerWidget {
                 imgUrl: "mofumofu_icon_2.png",
                 onPreviousResults: null,
                 onStart: null,
+                context: context,
               ),
               const SizedBox(
                 height: 16,
@@ -53,6 +56,7 @@ class MeasurementPage extends HookConsumerWidget {
                 imgUrl: "mofumofu_icon_3.png",
                 onPreviousResults: null,
                 onStart: null,
+                context: context,
               ),
               const SizedBox(
                 height: 16,
@@ -65,12 +69,14 @@ class MeasurementPage extends HookConsumerWidget {
     );
   }
 
-  Widget _menuContent(
-      {required String title,
-      required String description,
-      required String imgUrl,
-      required void Function()? onPreviousResults,
-      required void Function()? onStart}) {
+  Widget _menuContent({
+    required String title,
+    required String description,
+    required String imgUrl,
+    required void Function()? onPreviousResults,
+    required void Function()? onStart,
+    required BuildContext context,
+  }) {
     return Container(
       decoration: BoxDecoration(
         color: BrandColor.white,
@@ -93,10 +99,14 @@ class MeasurementPage extends HookConsumerWidget {
               const SizedBox(
                 width: 8,
               ),
-              Text(
-                title,
-                style:
-                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               )
             ],
           ),
@@ -104,8 +114,8 @@ class MeasurementPage extends HookConsumerWidget {
           Row(
             children: [
               AppButton.small(
-                width: 160,
-                height: 32,
+                width: MediaQuery.of(context).size.width * 0.31,
+                height: MediaQuery.of(context).size.width * 0.08,
                 onPressed: onPreviousResults,
                 text: '前回の結果',
                 textStyle: const TextStyle(
@@ -115,23 +125,20 @@ class MeasurementPage extends HookConsumerWidget {
                 width: 8,
               ),
               AppButton.small(
-                width: 160,
-                height: 32,
+                width: MediaQuery.of(context).size.width * 0.31,
+                height: MediaQuery.of(context).size.width * 0.08,
                 onPressed: onStart,
                 text: 'はじめる',
                 textStyle: const TextStyle(
                     fontWeight: FontWeight.w800, color: BrandColor.white),
               ),
-              const SizedBox(
-                width: 2,
-              ),
-              SizedBox(
-                height: 64,
-                width: 64,
-                child: Image.asset('assets/images/$imgUrl'),
+              const Spacer(),
+              Image.asset(
+                'assets/images/$imgUrl',
+                height: MediaQuery.of(context).size.height * 0.08,
               ),
             ],
-          )
+          ),
         ],
       ),
     );

@@ -75,14 +75,17 @@ class MessageFooterContents extends ConsumerWidget {
               ),
               const SizedBox(width: 8),
               // isMessageOverLimit
-              //     ? AppButton.medium(
-              //         width: screenWidth * 0.8,
-              //         onPressed: () {
-              //           context.router.push(const PurchaseRoute());
-              //         },
-              //         text: "Aizuchi Premium >",
-              //         textStyle: const TextStyle(
-              //             fontSize: 24, fontWeight: FontWeight.bold),
+
+              //     ? Expanded(
+              //         child: AppButton.medium(
+              //           width: screenWidth * 0.8,
+              //           onPressed: () {
+              //             context.router.push(const PurchaseRoute());
+              //           },
+              //           text: "Aizuchi Premium >",
+              //           textStyle: const TextStyle(
+              //               fontSize: 24, fontWeight: FontWeight.bold),
+              //         ),
               //       )
               //     : Expanded(
               //         child: AppTextForm.messageField(
@@ -95,6 +98,7 @@ class MessageFooterContents extends ConsumerWidget {
               //           onEditingComplete: () {},
               //         ),
               //       ),
+
               Expanded(
                 child: AppTextForm.messageField(
                   messageController,
@@ -105,6 +109,9 @@ class MessageFooterContents extends ConsumerWidget {
                   onEditingComplete: () {},
                 ),
               ),
+              
+              // 以下の条件分岐は課金実装後に切り替えてください
+              // if (!isWaiting && !isMessageOverLimit)
               if (!isWaiting)
                 IconButton(
                     onPressed: () async {

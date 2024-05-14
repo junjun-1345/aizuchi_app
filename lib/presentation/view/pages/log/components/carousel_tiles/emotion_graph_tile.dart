@@ -37,100 +37,106 @@ class EmotionGraphTile extends HookConsumerWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 8,
-                ),
-                const Text(
-                  '感情グラフ',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  const Text(
+                    '感情グラフ',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
 
-                const SizedBox(
-                  height: 12,
-                ),
-                Container(
-                  width: width,
-                  height: height,
-                  decoration: const BoxDecoration(
-                    color: Colors.black26,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50.0),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Container(
+                    width: width,
+                    height: height,
+                    decoration: const BoxDecoration(
+                      color: Colors.black26,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50.0),
+                      ),
+                    ),
+                    child: Stack(
+                      children: [
+                        AnimatedAlign(
+                          alignment: Alignment(xAlign.value, 0),
+                          duration: const Duration(milliseconds: 300),
+                          child: Container(
+                            width: width * 0.5,
+                            height: height,
+                            decoration: const BoxDecoration(
+                              color: BrandColor.baseRed,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(50.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            selectedMonthlyPage.value = false;
+                            xAlign.value = loginAlign;
+                            loginColor.value = selectedColor;
+                            signInColor.value = normalColor;
+                          },
+                          child: Align(
+                            alignment: const Alignment(-1, 0),
+                            child: Container(
+                              width: width * 0.5,
+                              color: Colors.transparent,
+                              alignment: Alignment.center,
+                              child: Text(
+                                'weekly',
+                                style: TextStyle(
+                                  color: loginColor.value,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            selectedMonthlyPage.value = true;
+                            xAlign.value = signInAlign;
+                            signInColor.value = selectedColor;
+                            loginColor.value = normalColor;
+                          },
+                          child: Align(
+                            alignment: const Alignment(1, 0),
+                            child: Container(
+                              width: width * 0.5,
+                              color: Colors.transparent,
+                              alignment: Alignment.center,
+                              child: Text(
+                                'monthly',
+                                style: TextStyle(
+                                  color: signInColor.value,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: Stack(
-                    children: [
-                      AnimatedAlign(
-                        alignment: Alignment(xAlign.value, 0),
-                        duration: const Duration(milliseconds: 300),
-                        child: Container(
-                          width: width * 0.5,
-                          height: height,
-                          decoration: const BoxDecoration(
-                            color: BrandColor.baseRed,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(50.0),
-                            ),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          selectedMonthlyPage.value = false;
-                          xAlign.value = loginAlign;
-                          loginColor.value = selectedColor;
-                          signInColor.value = normalColor;
-                        },
-                        child: Align(
-                          alignment: const Alignment(-1, 0),
-                          child: Container(
-                            width: width * 0.5,
-                            color: Colors.transparent,
-                            alignment: Alignment.center,
-                            child: Text(
-                              'weekly',
-                              style: TextStyle(
-                                color: loginColor.value,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          selectedMonthlyPage.value = true;
-                          xAlign.value = signInAlign;
-                          signInColor.value = selectedColor;
-                          loginColor.value = normalColor;
-                        },
-                        child: Align(
-                          alignment: const Alignment(1, 0),
-                          child: Container(
-                            width: width * 0.5,
-                            color: Colors.transparent,
-                            alignment: Alignment.center,
-                            child: Text(
-                              'monthly',
-                              style: TextStyle(
-                                color: signInColor.value,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
 
-                /// 棒グラフ
-                selectedMonthlyPage.value
-                    ? MonthlyGraph(dailyList: dailyList)
-                    : WeeklyGraph(dailyList: dailyList),
-              ],
+                  /// 棒グラフ
+                  selectedMonthlyPage.value
+                      ? MonthlyGraph(dailyList: dailyList)
+                      : WeeklyGraph(dailyList: dailyList),
+
+                  const SizedBox(
+                    height: 16,
+                  ),
+                ],
+              ),
             ),
           ),
         ));

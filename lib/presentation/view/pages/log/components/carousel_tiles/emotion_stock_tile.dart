@@ -62,49 +62,54 @@ class EmotionStockTile extends HookConsumerWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  '感情ストック',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                Container(
-                  width: 100,
-                  height: 24,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: BrandColor.baseRed),
-                  child: Center(
-                    child: Text(
-                      '${startDateState.value.month}月',
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    '感情ストック',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Container(
+                    width: 100,
+                    height: 24,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: BrandColor.baseRed),
+                    child: Center(
+                      child: Text(
+                        '${startDateState.value.month}月',
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
-                ),
 
-                /// 棒グラフ
-                const SizedBox(
-                  height: 16,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.38,
-                  child: EmotionStockBarChart(emotionCounts: emotionCounts),
-                ),
-                const SizedBox(height: 16),
-                SelectDatePart(
-                  startDate: startDateState,
-                  endDate: endDateState,
-                  isMonthly: true,
-                  isLatest: isLatest,
-                ),
-              ],
+                  /// 棒グラフ
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.38,
+                    child: EmotionStockBarChart(emotionCounts: emotionCounts),
+                  ),
+                  const SizedBox(height: 16),
+                  SelectDatePart(
+                    startDate: startDateState,
+                    endDate: endDateState,
+                    isMonthly: true,
+                    isLatest: isLatest,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                ],
+              ),
             ),
           ),
         ));

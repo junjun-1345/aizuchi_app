@@ -60,7 +60,7 @@ class LogPage extends HookConsumerWidget {
                 return CarouselSlider(
                   options: CarouselOptions(
                       enableInfiniteScroll: false,
-                      height: MediaQuery.of(context).size.height * 0.54),
+                      height: MediaQuery.of(context).size.height * 0.52),
                   items: [
                     DaysCarouselTile(dailyList: data),
                     EmotionGraphTile(dailyList: data),

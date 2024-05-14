@@ -67,97 +67,99 @@ class SignUpPage extends HookConsumerWidget {
               alignment: Alignment.center,
               child: Form(
                 key: formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 64,
-                    ),
-                    textTitleWidget("アカウント登録"),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    descriptionText(),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    AppButton.google(
-                      text: "Googleで登録",
-                      onPressed: () async {
-                        await userViewModel.signUpWith(
-                            platform: PlatformType.google,
-                            onSuccess: () {
-                              router.push(const SignUpFormNameRoute());
-                            });
-                      },
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    AppButton.apple(
-                      text: "Appleで登録",
-                      onPressed: () async {
-                        await userViewModel.signUpWith(
-                            platform: PlatformType.apple,
-                            onSuccess: () {
-                              router.push(const SignUpFormNameRoute());
-                            });
-                      },
-                    ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    const StartDivider(),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    AppTextForm.email(emailController),
-                    AppTextForm.password(passwordController,
-                        obscureText: isObscure.value, onPressed: () {
-                      isObscure.value = !isObscure.value;
-                    }),
-                    AppButton.medium(
-                      text: "Aizuchiに登録",
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          userEmailState.state = emailController.text;
-                          userPasswordState.state = passwordController.text;
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 64,
+                      ),
+                      textTitleWidget("アカウント登録"),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      descriptionText(),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      AppButton.google(
+                        text: "Googleで登録",
+                        onPressed: () async {
                           await userViewModel.signUpWith(
-                            platform: PlatformType.email,
-                            onSuccess: () {
-                              router.push(
-                                const SignUpFormNameRoute(),
-                              );
-                            },
-                          );
-                        }
-                      },
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        ref.read(errorProvider.notifier).state = "";
-                      },
-                      child: Text(
-                        error,
-                        style: const TextStyle(
-                          color: Colors.red,
+                              platform: PlatformType.google,
+                              onSuccess: () {
+                                router.push(const SignUpFormNameRoute());
+                              });
+                        },
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      AppButton.apple(
+                        text: "Appleで登録",
+                        onPressed: () async {
+                          await userViewModel.signUpWith(
+                              platform: PlatformType.apple,
+                              onSuccess: () {
+                                router.push(const SignUpFormNameRoute());
+                              });
+                        },
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      const StartDivider(),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      AppTextForm.email(emailController),
+                      AppTextForm.password(passwordController,
+                          obscureText: isObscure.value, onPressed: () {
+                        isObscure.value = !isObscure.value;
+                      }),
+                      AppButton.medium(
+                        text: "Aizuchiに登録",
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            userEmailState.state = emailController.text;
+                            userPasswordState.state = passwordController.text;
+                            await userViewModel.signUpWith(
+                              platform: PlatformType.email,
+                              onSuccess: () {
+                                router.push(
+                                  const SignUpFormNameRoute(),
+                                );
+                              },
+                            );
+                          }
+                        },
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          ref.read(errorProvider.notifier).state = "";
+                        },
+                        child: Text(
+                          error,
+                          style: const TextStyle(
+                            color: Colors.red,
+                          ),
                         ),
                       ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        context.router.replace(const SignInRoute());
-                      },
-                      child: const Text(
-                        "アカウントを既にお持ちの方はこちら",
-                        style: TextStyle(
-                          color: BrandColor.baseRed,
-                          fontSize: 12,
+                      TextButton(
+                        onPressed: () {
+                          context.router.replace(const SignInRoute());
+                        },
+                        child: const Text(
+                          "アカウントを既にお持ちの方はこちら",
+                          style: TextStyle(
+                            color: BrandColor.baseRed,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
-                    ),
-                    const StartImage(),
-                  ],
+                      const StartImage(),
+                    ],
+                  ),
                 ),
               ),
             ),

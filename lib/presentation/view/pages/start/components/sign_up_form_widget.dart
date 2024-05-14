@@ -17,7 +17,7 @@ class SignUpFormWidget extends StatelessWidget {
       children: [
         textTitleWidget("プロフィール"),
         const SizedBox(
-          height: 48,
+          height: 16,
         ),
         Text("$index/4"),
         const SizedBox(
@@ -52,7 +52,7 @@ class SignUpFormWidget extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 56,
+          height: 12,
         ),
       ],
     );
