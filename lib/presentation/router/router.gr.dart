@@ -15,6 +15,12 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AuthenticationCooperationRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AuthenticationCooperationPage(),
+      );
+    },
     CalenderRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -156,6 +162,20 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [AuthenticationCooperationPage]
+class AuthenticationCooperationRoute extends PageRouteInfo<void> {
+  const AuthenticationCooperationRoute({List<PageRouteInfo>? children})
+      : super(
+          AuthenticationCooperationRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AuthenticationCooperationRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

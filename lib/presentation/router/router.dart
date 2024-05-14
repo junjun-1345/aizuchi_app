@@ -8,6 +8,7 @@ import 'package:aizuchi_app/presentation/view/pages/profile/current_profile_page
 import 'package:aizuchi_app/presentation/view/pages/profile/edit_profile_page%20.dart';
 import 'package:aizuchi_app/presentation/view/pages/root_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/search/search.dart';
+import 'package:aizuchi_app/presentation/view/pages/settings/auth/authentication_cooperation_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/mail/mail_confirm_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/notification/notification_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/password/password_change_page.dart';
@@ -103,6 +104,10 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
           page: PurchaseRoute.page,
         ),
         AutoRoute(
+          path: '/AuthenticationCooperation',
+          page: AuthenticationCooperationRoute.page,
+        ),
+        AutoRoute(
           path: '/MailConfirm',
           page: MailConfrimRoute.page,
         ),
@@ -125,7 +130,7 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         AutoRoute(
           path: '/EditProfilePage',
           page: EditProfileRoute.page,
-          ),
+        ),
         AutoRoute(
           path: '/NotificationPage',
           page: NotificationRoute.page,
