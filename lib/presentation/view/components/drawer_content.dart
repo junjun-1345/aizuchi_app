@@ -70,7 +70,11 @@ class HamburgerMenu extends ConsumerWidget {
     return _buildSectionItem(
       title: "キャラクター選択",
       icon: Icons.access_alarm,
-      onTap: () {},
+      onTap: () {
+        context.router.push(
+          const CharacterSelectRoute(),
+        );
+      },
     );
   }
 

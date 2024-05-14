@@ -46,9 +46,9 @@ class AuthenticationCooperationPage extends HookConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "認証プラットフォーム",
-                          style: const TextStyle(fontWeight: FontWeight.w500),
+                          style: TextStyle(fontWeight: FontWeight.w500),
                         ),
                         Icon(snapshot.data!.first.icon,
                             color: BrandColor.textBlack),
