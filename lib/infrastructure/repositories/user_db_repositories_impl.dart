@@ -33,13 +33,13 @@ class UserDBsRepositoryImpl implements UserDBRepository {
   }
 
   @override
-  Future<UserEntity> read() async {
+  Future<UserEntity?> read() async {
     try {
       final uid = _auth.currentUser?.uid;
-      if (uid == null) throw Exception("currentUser: ユーザーIDがnullです。");
+      if (uid == null) return null;
       final doc = await _firestore.collection('users').doc(uid).get();
       final map = doc.data();
-      if (map == null) throw Exception("userRead エラー: ユーザーデータが見つかりません。");
+      if (map == null) return null;
       return UserData.fromJson(map).toEntity();
     } catch (e) {
       throw Exception("fetchUser エラー:$e");
@@ -69,6 +69,7 @@ class UserDBsRepositoryImpl implements UserDBRepository {
       final uid = _auth.currentUser?.uid;
       if (uid == null) throw Exception("currentUser: ユーザーIDがnullです。");
       final user = await read();
+      if (user == null) throw Exception("ログインしてください。");
       final updateData = user.copyWith(
         id: id ?? user.id,
         name: name ?? user.name,

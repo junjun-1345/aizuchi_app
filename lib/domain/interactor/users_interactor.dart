@@ -4,16 +4,19 @@ import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/domain/entity/models/user.dart';
 import 'package:aizuchi_app/domain/repositories/auth_repository.dart';
 import 'package:aizuchi_app/domain/repositories/local_db_repository.dart';
+import 'package:aizuchi_app/domain/repositories/shared_preferences_repository.dart';
 import 'package:aizuchi_app/domain/repositories/user_db_repository.dart';
 import 'package:aizuchi_app/domain/usecases/users_usecase.dart';
+import 'package:aizuchi_app/infrastructure/enums/shared_preferences_key.dart';
 
 class UsersInteractor implements UsersUsecase {
   final AuthRepository authRepository;
   final UserDBRepository userDBRepository;
   final LocalDBRepository localDBRepository;
+  final SharedPreferencesRepository sharedPreferencesRepository;
 
-  UsersInteractor(
-      this.userDBRepository, this.authRepository, this.localDBRepository);
+  UsersInteractor(this.userDBRepository, this.authRepository,
+      this.localDBRepository, this.sharedPreferencesRepository);
 
   @override
   Future<void> signUpWith(
@@ -35,16 +38,14 @@ class UsersInteractor implements UsersUsecase {
       default:
         throw '不正なサインアップ方法です';
     }
-
-    // ユーザーが存在をDBで確認し、存在する場合はサインアウトする。
-    try {
-      await userDBRepository.read();
-    } catch (e) {
-      localDBRepository.setIsSignUpTrue();
-      return;
+    final userData = await userDBRepository.read();
+    if (userData != null) {
+      authRepository.signOut();
+      throw '既に登録されているメールアドレスです。';
     }
-    authRepository.signOut();
-    throw 'ユーザーが存在します。';
+    print("メールアドレス未登録");
+    sharedPreferencesRepository.save(SharedPreferencesKey.isRegistering, true);
+    print("サインアップ完了");
   }
 
   @override
@@ -67,13 +68,12 @@ class UsersInteractor implements UsersUsecase {
         throw '不正なログイン方法です';
     }
 
-    // ユーザーが存在をDBで確認し、存在しない場合はサインアウトする。
-    try {
-      await userDBRepository.read();
-    } catch (e) {
-      authRepository.signOut();
-      throw 'ユーザーが存在しません。';
+    final userData = await userDBRepository.read();
+    if (userData == null) {
+      delete();
+      throw '未登録のメールアドレスです。';
     }
+    print("サインイン完了");
   }
 
   @override
@@ -128,7 +128,7 @@ class UsersInteractor implements UsersUsecase {
   }
 
   @override
-  Future<UserEntity> read() {
+  Future<UserEntity?> read() {
     return userDBRepository.read();
   }
 
@@ -153,8 +153,10 @@ class UsersInteractor implements UsersUsecase {
       totalMessages: 0,
     );
 
-    userDBRepository.create(user);
-    localDBRepository.setIsSignUpFalse();
+    await userDBRepository.create(user);
+    await sharedPreferencesRepository.save(
+        SharedPreferencesKey.isRegistering, false);
+    print("登録完了");
     return user;
   }
 

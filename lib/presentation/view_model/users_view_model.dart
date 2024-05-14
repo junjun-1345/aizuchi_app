@@ -3,8 +3,13 @@ import 'package:aizuchi_app/domain/entity/enums/platform.dart';
 import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/domain/usecases/app_usecase.dart';
 import 'package:aizuchi_app/domain/usecases/users_usecase.dart';
+import 'package:aizuchi_app/infrastructure/utils/handle_firebase_auth_exception.dart';
+import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final userViewModelProvider = Provider<UserViewModel>(
@@ -35,8 +40,11 @@ class UserViewModel {
   }) async {
     try {
       await usersNotifier.signUpWith(platform);
-    } catch (e) {
-      ref.read(errorProvider.notifier).state = e.toString();
+    } on FirebaseAuthException catch (e) {
+      ref.read(errorProvider.notifier).state = handleFirebaseAuthException(e);
+      return;
+    } on Exception {
+      ref.read(errorProvider.notifier).state = 'エラーが発生しました。もう一度お試しください。';
       return;
     }
     onSuccess();
@@ -48,8 +56,11 @@ class UserViewModel {
   }) async {
     try {
       await usersNotifier.signInWith(platform);
-    } catch (e) {
-      ref.read(errorProvider.notifier).state = e.toString();
+    } on FirebaseAuthException catch (e) {
+      ref.read(errorProvider.notifier).state = handleFirebaseAuthException(e);
+      return;
+    } on Exception {
+      ref.read(errorProvider.notifier).state = 'エラーが発生しました。もう一度お試しください。';
       return;
     }
     onSuccess();
@@ -59,9 +70,13 @@ class UserViewModel {
     usersNotifier.signOut();
   }
 
-  Future<void> register() async {
-    usersNotifier.register();
-    appUsecase.scheduleDailyNotificationAt(22, 00);
+  Future<void> register(BuildContext context) async {
+    await usersNotifier.register();
+    await appUsecase.scheduleDailyNotificationAt(22, 00);
+    context.router.push(
+      const MessageRoute(),
+    );
+    print("フロー終了");
   }
 
   Future<void> delete() async {

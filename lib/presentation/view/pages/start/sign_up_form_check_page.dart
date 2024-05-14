@@ -83,7 +83,7 @@ class SignUpFormCheckPage extends HookConsumerWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
-                        usersState.sex.sexValue ?? "",
+                        usersState.sex.sexValue ?? "未登録",
                         style: const TextStyle(
                           color: BrandColor.black,
                           fontWeight: FontWeight.bold,
@@ -146,13 +146,10 @@ class SignUpFormCheckPage extends HookConsumerWidget {
                       width: 160,
                       onPressed: () {
                         try {
-                          userViewModel.register();
+                          userViewModel.register(context);
                         } catch (e) {
                           rethrow;
                         }
-                        context.router.push(
-                          const MessageRoute(),
-                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: BrandColor.baseRed,
