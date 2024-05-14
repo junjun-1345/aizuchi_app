@@ -1,7 +1,6 @@
 import 'package:aizuchi_app/domain/entity/enums/plan.dart';
-import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
-import 'package:aizuchi_app/presentation/view/components/completed_dialog.dart';
+import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/annual_plan_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/monthly_plan_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/plan_button.dart';
@@ -49,39 +48,21 @@ class _PlanListContentsState extends ConsumerState<PlanListContents> {
                                   .purchasePackage(PlanType.monthly);
                               // コンテキストが有効な状態でダイアログを表示
                               if (mounted) {
-                                // FIXME: ダイアログの見直し
-                                showDialog(
+                                AppDialog.showCompletedDialog(
                                   context: context,
-                                  builder: (context) => CompletedDialog(
-                                    title: '月間プランを購入しました',
-                                    content: 'ホームへ戻ります。',
-                                    onPressed: () {
-                                      context.router
-                                          .replace(const SignInRoute());
-                                    },
-                                  ), // 成功ダイアログ
+                                  title: "月間プランを購入しました",
+                                  content: "ホームへ戻ります。",
+                                  onPressed: () {
+                                    context.router.replace(const SignInRoute());
+                                  },
                                 );
                               }
                             } catch (e) {
                               if (mounted) {
-                                // FIXME: ダイアログの見直し
-                                showDialog(
+                                AppDialog.showErrorDialog(
                                   context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: const Text('エラー'),
-                                    content: const Text('エラーが発生しました。'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: const Text(
-                                          'OK',
-                                          style: TextStyle(
-                                              color: BrandColor.baseRed),
-                                        ),
-                                        onPressed: () =>
-                                            Navigator.of(context).pop(),
-                                      ),
-                                    ],
-                                  ),
+                                  title: "エラー",
+                                  content: "エラーが発生しました。",
                                 );
                               }
                             }
@@ -105,39 +86,21 @@ class _PlanListContentsState extends ConsumerState<PlanListContents> {
                                   .purchasePackage(PlanType.annual);
                               // コンテキストが有効な状態でダイアログを表示
                               if (mounted) {
-                                // FIXME: ダイアログの見直し
-                                showDialog(
+                                AppDialog.showCompletedDialog(
                                   context: context,
-                                  builder: (context) => CompletedDialog(
-                                    title: '年間プランを購入しました',
-                                    content: 'ホームへ戻ります。',
-                                    onPressed: () {
-                                      context.router
-                                          .replace(const SignInRoute());
-                                    },
-                                  ), // 成功ダイアログ
+                                  title: "年間プランを購入しました",
+                                  content: "ホームへ戻ります。",
+                                  onPressed: () {
+                                    context.router.replace(const SignInRoute());
+                                  },
                                 );
                               }
                             } catch (e) {
                               if (mounted) {
-                                // FIXME: ダイアログの見直し
-                                showDialog(
+                                AppDialog.showErrorDialog(
                                   context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: const Text('エラー'),
-                                    content: const Text('エラーが発生しました。'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: const Text(
-                                          'OK',
-                                          style: TextStyle(
-                                              color: BrandColor.baseRed),
-                                        ),
-                                        onPressed: () =>
-                                            Navigator.of(context).pop(),
-                                      ),
-                                    ],
-                                  ),
+                                  title: "エラー",
+                                  content: "エラーが発生しました。",
                                 );
                               }
                             }

@@ -46,7 +46,6 @@ class EditProfilePage extends HookConsumerWidget {
                       validatorhintText: "ニックネームを入力してください",
                     ),
                     GestureDetector(
-                      // FIXME: ダイアログの見直し
                       onTap: () => showDialog(
                         context: context,
                         builder: (context) => EditSexDialog(
@@ -75,7 +74,6 @@ class EditProfilePage extends HookConsumerWidget {
                       ),
                     ),
                     GestureDetector(
-                      // FIXME: ダイアログの見直し
                       onTap: () => showDialog(
                         context: context,
                         builder: (context) => EditProffesionDialog(

@@ -6,6 +6,7 @@ import 'package:aizuchi_app/presentation/view_model/subscription_view_model.dart
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// TODO:　背景修正
 class MessageEmotionSelectDailog extends ConsumerWidget {
   const MessageEmotionSelectDailog({super.key});
 

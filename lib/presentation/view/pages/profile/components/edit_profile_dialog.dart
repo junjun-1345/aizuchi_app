@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// TODO:　背景修正
 class EditProffesionDialog extends HookConsumerWidget {
   final ValueNotifier<String> choiceProfession;
   final String choicedProfession;

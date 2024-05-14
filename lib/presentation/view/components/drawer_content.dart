@@ -3,7 +3,7 @@ import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
-import 'package:aizuchi_app/presentation/view/components/attention_dialog.dart';
+import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
 import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -227,17 +227,14 @@ class HamburgerMenu extends ConsumerWidget {
   Widget _buildLogOutSection(BuildContext context, WidgetRef ref) {
     return _buildSectionButton(
       text: "ログアウト",
-      // FIXME: ダイアログの見直し
-      onPressed: () => showDialog(
+      onPressed: () => AppDialog.showAttentionDialog(
         context: context,
-        builder: (context) => AttentionDialog(
-          title: 'ログアウト',
-          content: 'ログアウトします。\nよろしいですか？',
-          onPressed: () {
-            ref.read(userViewModelProvider).signOut();
-            context.router.replace(const SignInRoute());
-          },
-        ),
+        title: "ログアウト",
+        content: "ログアウトします。\nよろしいですか？",
+        onPressed: () {
+          ref.read(userViewModelProvider).signOut();
+          context.router.replace(const SignInRoute());
+        },
       ),
     );
   }
@@ -246,19 +243,16 @@ class HamburgerMenu extends ConsumerWidget {
     return _buildSectionButton(
       text: "アカウント削除",
       isAttentionColorRed: true,
-      // FIXME: ダイアログの見直し
-      onPressed: () => showDialog(
+      onPressed: () => AppDialog.showAttentionDialog(
         context: context,
-        builder: (context) => AttentionDialog(
-          title: 'アカウント削除',
-          content: 'アカウントを削除します。\nよろしいですか？',
-          onPressed: () async {
-            await ref
-                .read(userViewModelProvider)
-                .delete()
-                .then((value) => context.router.replace(const SignUpRoute()));
-          },
-        ),
+        title: 'アカウント削除',
+        content: 'アカウントを削除します。\nよろしいですか？',
+        onPressed: () async {
+          await ref
+              .read(userViewModelProvider)
+              .delete()
+              .then((value) => context.router.replace(const SignUpRoute()));
+        },
       ),
     );
   }

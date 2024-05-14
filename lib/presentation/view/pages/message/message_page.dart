@@ -49,7 +49,6 @@ class MessagePage extends HookConsumerWidget {
               // }
               if (!data.isConversation && data.dailyKey != today) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                  // FIXME: ダイアログの見直し
                   showDialog(
                     context: context,
                     builder: (context) {
