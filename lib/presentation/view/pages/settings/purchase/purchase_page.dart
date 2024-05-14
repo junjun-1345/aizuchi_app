@@ -1,7 +1,6 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/description.dart';
-import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/plan_list_contents.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/title.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -54,8 +53,12 @@ class PurchasePage extends ConsumerWidget {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      const PlanListContents(),
-                      const Text("※無料トライアルは年額プランのみとなります。"),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Text("順次追加予定", style: TextStyle(color: BrandColor.black)),
+                      // const PlanListContents(),
+                      // const Text("※無料トライアルは年額プランのみとなります。"),
                       const SizedBox(
                         height: 24,
                       )

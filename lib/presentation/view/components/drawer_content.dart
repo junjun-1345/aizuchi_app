@@ -26,7 +26,8 @@ class HamburgerMenu extends ConsumerWidget {
               userState.when(
                 data: (data) {
                   if (!data.isSubscription) {
-                    return _buildPromoSection(context);
+                    // return _buildPromoSection(context);
+                    return const SizedBox();
                   } else {
                     return const SizedBox();
                   }
@@ -261,7 +262,7 @@ class HamburgerMenu extends ConsumerWidget {
             await ref
                 .read(userViewModelProvider)
                 .delete()
-                .then((value) => context.router.replace(const SignInRoute()));
+                .then((value) => context.router.replace(const SignUpRoute()));
           },
         ),
       ),

@@ -4,7 +4,7 @@ import 'package:aizuchi_app/domain/entity/models/user.dart';
 
 abstract class UserDBRepository {
   Future<void> create(UserEntity form);
-  Future<UserEntity> read();
+  Future<UserEntity?> read();
   Future<void> delete();
   Future<UserEntity> update({
     String? id,
