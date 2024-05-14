@@ -8,6 +8,7 @@ import 'package:aizuchi_app/presentation/view/components/update_dialog.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 @RoutePage()
@@ -59,56 +60,56 @@ class RootPage extends HookConsumerWidget {
                 height: 56,
                 destinations: const [
                   NavigationDestination(
-                    icon: Icon(
-                      Icons.calendar_month,
+                    icon: FaIcon(
+                      FontAwesomeIcons.calendar,
                       color: BrandColor.baseRed,
                     ),
-                    selectedIcon: Icon(
-                      Icons.calendar_month,
+                    selectedIcon: FaIcon(
+                      FontAwesomeIcons.calendar,
                       color: BrandColor.white,
                     ),
                     label: 'カレンダー',
                   ),
                   NavigationDestination(
-                    icon: Icon(
-                      Icons.history,
+                    icon: FaIcon(
+                      FontAwesomeIcons.chartSimple,
                       color: BrandColor.baseRed,
                     ),
-                    selectedIcon: Icon(
-                      Icons.history,
+                    selectedIcon: FaIcon(
+                      FontAwesomeIcons.chartSimple,
                       color: BrandColor.white,
                     ),
                     label: 'きろく',
                   ),
                   NavigationDestination(
-                    icon: Icon(
-                      Icons.message_rounded,
+                    icon: FaIcon(
+                      FontAwesomeIcons.comment,
                       color: BrandColor.baseRed,
                     ),
-                    selectedIcon: Icon(
-                      Icons.message_rounded,
+                    selectedIcon: FaIcon(
+                      FontAwesomeIcons.comment,
                       color: BrandColor.white,
                     ),
                     label: 'チャット',
                   ),
                   NavigationDestination(
-                    icon: Icon(
-                      Icons.psychology_alt,
+                    icon: FaIcon(
+                      FontAwesomeIcons.heartPulse,
                       color: BrandColor.baseRed,
                     ),
-                    selectedIcon: Icon(
-                      Icons.psychology_alt,
+                    selectedIcon: FaIcon(
+                      FontAwesomeIcons.heartPulse,
                       color: BrandColor.white,
                     ),
                     label: 'そくてい',
                   ),
                   NavigationDestination(
-                    icon: Icon(
-                      Icons.search,
+                    icon: FaIcon(
+                      FontAwesomeIcons.compass,
                       color: BrandColor.baseRed,
                     ),
-                    selectedIcon: Icon(
-                      Icons.search,
+                    selectedIcon: FaIcon(
+                      FontAwesomeIcons.compass,
                       color: BrandColor.white,
                     ),
                     label: 'しらべる',
