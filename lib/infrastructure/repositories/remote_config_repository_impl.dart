@@ -56,12 +56,7 @@ class RemoteConfigRepositoryImpl implements RemoteConfigRepository {
 
     // ダイアログ表示が有効かどうか
     late bool isEnabled;
-    if (enabledAt.isBefore(DateTime.now())) {
-      isEnabled = cancelledUpdateDateTime == null ||
-          enabledAt.isAfter(DateTime.parse(cancelledUpdateDateTime));
-    } else {
-      isEnabled = false;
-    }
+    isEnabled = isUpdateEnabled(enabledAt, cancelledUpdateDateTime);
 
     if (!isEnabled || !hasNewVersion) {
       return UpdateRequestType.not;
@@ -87,5 +82,16 @@ class RemoteConfigRepositoryImpl implements RemoteConfigRepository {
     } else {
       return rc.getValue(key.name.camelToSnakeCase) as T?;
     }
+  }
+
+  bool isUpdateEnabled(DateTime enabledAt, String? cancelledUpdateDateTime) {
+    final now = DateTime.now();
+    final isPastEnabledDate = enabledAt.isBefore(now);
+    final hasNotCancelledUpdate = cancelledUpdateDateTime == null;
+    final isCancelledBeforeEnabled = cancelledUpdateDateTime != null &&
+        enabledAt.isAfter(DateTime.parse(cancelledUpdateDateTime));
+
+    return isPastEnabledDate &&
+        (hasNotCancelledUpdate || isCancelledBeforeEnabled);
   }
 }

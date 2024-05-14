@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view_model/message_view_model.dart';
@@ -12,6 +13,7 @@ class MessageOverLimitDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
       title: const Text('会話の上限に達しました。'),
+      backgroundColor: BrandColor.white,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

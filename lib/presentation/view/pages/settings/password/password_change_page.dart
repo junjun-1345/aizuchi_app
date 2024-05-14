@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
+import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
 import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
 import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
@@ -81,28 +82,12 @@ class PasswordChangePage extends HookConsumerWidget {
 
   void _showConfirmationDialog(BuildContext context, WidgetRef ref,
       UserViewModel userViewModel, String email) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("パスワードを変更してよろしいですか?"),
-        content: const Text("パスワード変更のメールを送信します。"),
-        actionsAlignment: MainAxisAlignment.spaceAround,
-        backgroundColor: BrandColor.white,
-        actions: [
-          TextButton(
-            onPressed: () {
-              _handlePasswordChange(context, ref, userViewModel, email);
-            },
-            child:
-                const Text("OK", style: TextStyle(color: BrandColor.baseRed)),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("キャンセル",
-                style: TextStyle(color: BrandColor.baseRed)),
-          ),
-        ],
-      ),
-    );
+    return AppDialog.showCheckDialog(
+        context: context,
+        title: "パスワードを変更してよろしいですか?",
+        content: "パスワード変更のメールを送信します。",
+        onCompleted: () {
+          _handlePasswordChange(context, ref, userViewModel, email);
+        });
   }
 }

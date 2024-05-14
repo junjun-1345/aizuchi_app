@@ -4,7 +4,7 @@ import 'package:aizuchi_app/domain/entity/models/color.dart';
 
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
-import 'package:aizuchi_app/presentation/view/components/update_dialog.dart';
+import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -40,12 +40,12 @@ class RootPage extends HookConsumerWidget {
                     (updateRequestTypeValue == UpdateRequestType.cancelable ||
                         updateRequestTypeValue == UpdateRequestType.forcibly)) {
                   isDialogShowing.value = true;
-                  showDialog(
-                    context: context,
-                    builder: (context) => UpdatePromptDialog(
-                      updateRequestType: updateRequestTypeValue,
-                    ),
-                  ).then((_) => isDialogShowing.value = false);
+
+                  // FIXME: 挙動が不安定
+                  AppDialog.showUpdatePromptDialog(
+                      context: context,
+                      updateRequestType: updateRequestTypeValue);
+                  isDialogShowing.value = false;
                 }
               },
             );
@@ -119,21 +119,10 @@ class RootPage extends HookConsumerWidget {
                   if (!data.isConversation) {
                     tabsRouter.setActiveIndex(index);
                   } else {
-                    showDialog(
+                    AppDialog.showErrorDialog(
                       context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('アクセス制限'),
-                        content: const Text('会話中は他の画面に移動できません'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: const Text(
-                              'OK',
-                              style: TextStyle(color: BrandColor.baseRed),
-                            ),
-                          ),
-                        ],
-                      ),
+                      title: 'アクセス制限',
+                      content: '会話中は他の画面に移動できません',
                     );
                   }
                 },

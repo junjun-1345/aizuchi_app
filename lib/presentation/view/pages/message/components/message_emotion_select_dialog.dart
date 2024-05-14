@@ -36,6 +36,7 @@ class MessageEmotionSelectDailog extends ConsumerWidget {
         textAlign: TextAlign.center,
       ),
       content: const Text('今日はどんな１日だったー？'),
+      backgroundColor: BrandColor.white,
       actions: <Widget>[
         Column(
           children: [

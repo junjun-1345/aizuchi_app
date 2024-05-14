@@ -136,8 +136,6 @@ class NotificationPage extends ConsumerWidget {
       final uri = Uri.parse(url);
       if (await canLaunchUrl(uri)) {
         await launchUrl(uri);
-      } else {
-        print("設定ページを開くことができません。");
       }
     } else {
       openAppSettings();

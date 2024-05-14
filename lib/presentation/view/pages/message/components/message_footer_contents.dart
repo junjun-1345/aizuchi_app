@@ -3,8 +3,8 @@ import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/state/messsage_providers.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
+import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
 import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
-import 'package:aizuchi_app/presentation/view/components/error_dialog.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_emotion_select_dialog.dart';
 import 'package:aizuchi_app/presentation/view_model/message_view_model.dart';
 import 'package:flutter/material.dart';
@@ -28,20 +28,15 @@ class MessageFooterContents extends ConsumerWidget {
     void sendMessage() {
       if (messageController.text.isNotEmpty) {
         if (isWaiting) {
-          showDialog(
-              context: context,
-              builder: (context) =>
-                  const ErrorDialog(title: "送信中", content: "送信中は他の操作をできません"));
+          AppDialog.showErrorDialog(
+              context: context, title: "送信中", content: "送信中は他の操作をできません");
         }
         try {
           ref.read(messageProvider.notifier).state = messageController.text;
           messageViewModel.sendMessage();
         } catch (e) {
-          showDialog(
-            context: context,
-            builder: (context) =>
-                const ErrorDialog(title: "エラー", content: "データの取得に失敗しました。"),
-          );
+          AppDialog.showErrorDialog(
+              context: context, title: "エラー", content: "データの取得に失敗しました。");
         }
         messageController.clear();
       }
@@ -60,13 +55,10 @@ class MessageFooterContents extends ConsumerWidget {
                 height: 40,
                 onPressed: () {
                   if (isWaiting) {
-                    showDialog(
-                      context: context,
-                      builder: (context) => const ErrorDialog(
-                        title: '送信中',
-                        content: '送信中は他の操作をできません',
-                      ),
-                    );
+                    AppDialog.showErrorDialog(
+                        context: context,
+                        title: "送信中",
+                        content: "送信中は他の操作をできません");
                   } else {
                     ref.read(messageViewModelProvider).createSummary();
                   }
@@ -109,7 +101,7 @@ class MessageFooterContents extends ConsumerWidget {
                   onEditingComplete: () {},
                 ),
               ),
-              
+
               // 以下の条件分岐は課金実装後に切り替えてください
               // if (!isWaiting && !isMessageOverLimit)
               if (!isWaiting)

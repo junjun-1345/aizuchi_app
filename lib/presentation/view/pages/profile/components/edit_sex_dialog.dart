@@ -21,6 +21,7 @@ class EditSexDialog extends HookConsumerWidget {
 
     return AlertDialog(
       title: const Text('職業を選択'),
+      backgroundColor: BrandColor.white,
       content: SizedBox(
         child: SizedBox(
           height: 144,
@@ -30,7 +31,6 @@ class EditSexDialog extends HookConsumerWidget {
                 AppButton.base(
                   onPressed: () {
                     choicingSex.value = SexEnum.values[i];
-                    print(choiceSex.value);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: choicingSex.value == SexEnum.values[i]

@@ -43,9 +43,7 @@ class UsersInteractor implements UsersUsecase {
       authRepository.signOut();
       throw '既に登録されているメールアドレスです。';
     }
-    print("メールアドレス未登録");
     sharedPreferencesRepository.save(SharedPreferencesKey.isRegistering, true);
-    print("サインアップ完了");
   }
 
   @override
@@ -73,7 +71,6 @@ class UsersInteractor implements UsersUsecase {
       delete();
       throw '未登録のメールアドレスです。';
     }
-    print("サインイン完了");
   }
 
   @override
@@ -156,7 +153,6 @@ class UsersInteractor implements UsersUsecase {
     await userDBRepository.create(user);
     await sharedPreferencesRepository.save(
         SharedPreferencesKey.isRegistering, false);
-    print("登録完了");
     return user;
   }
 

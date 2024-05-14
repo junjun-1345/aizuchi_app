@@ -1,8 +1,8 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
+import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
 import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
-import 'package:aizuchi_app/presentation/view/components/error_dialog.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/components/list_item.dart';
 import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
@@ -63,40 +63,16 @@ class MailConfrimPage extends HookConsumerWidget {
                     if (formKey.currentState!.validate()) {
                       userViewModel.updateEmail(
                         email: emailController.text,
-                        onSuccess: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text("メールアドレス変更完了"),
-                                content: const Text("メールアドレスを変更しました。"),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      context.router
-                                          .replace(const MessageRoute());
-                                    },
-                                    child: const Text(
-                                      "OK",
-                                      style:
-                                          TextStyle(color: BrandColor.baseRed),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                        onError: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const ErrorDialog(
-                                title: "メールアドレス変更失敗",
-                              );
-                            },
-                          );
-                        },
+                        onSuccess: () => AppDialog.showCompletedDialog(
+                          context: context,
+                          title: "メールアドレス変更完了",
+                          content: "メールアドレスを変更しました。",
+                          onPressed: () => context.router.replace(
+                            const MessageRoute(),
+                          ),
+                        ),
+                        onError: () => AppDialog.showErrorDialog(
+                            context: context, title: "メールアドレス変更失敗"),
                       );
                     }
                   },

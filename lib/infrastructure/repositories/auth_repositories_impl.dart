@@ -101,7 +101,7 @@ class AuthRepositoryImpl implements AuthRepository {
       throw 'メールアドレスが変更されていません。';
     }
 
-    await FirebaseAuth.instance.currentUser?.updateEmail(email);
+    await FirebaseAuth.instance.currentUser?.verifyBeforeUpdateEmail(email);
     // ignore: empty_catches
   }
 
