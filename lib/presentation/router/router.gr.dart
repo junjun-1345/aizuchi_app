@@ -27,6 +27,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CalenderPage(),
       );
     },
+    CharacterSelectRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const CharacterSelectPage(),
+      );
+    },
     CurrentProfileRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -188,6 +194,20 @@ class CalenderRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'CalenderRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CharacterSelectPage]
+class CharacterSelectRoute extends PageRouteInfo<void> {
+  const CharacterSelectRoute({List<PageRouteInfo>? children})
+      : super(
+          CharacterSelectRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CharacterSelectRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
