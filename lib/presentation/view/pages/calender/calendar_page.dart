@@ -21,10 +21,12 @@ class CalenderPage extends HookConsumerWidget {
       () {
         return List.generate(
             13,
-            (index) => Calendar(
-                  key: ValueKey(index),
-                  diffMonth: index,
-                  isWeekStartMonday: false,
+            (index) => SingleChildScrollView(
+                  child: Calendar(
+                    key: ValueKey(index),
+                    diffMonth: index,
+                    isWeekStartMonday: false,
+                  ),
                 ));
       },
     );
@@ -62,7 +64,7 @@ class CalenderPage extends HookConsumerWidget {
           const SizedBox(height: 16),
           CarouselSlider(
             options: CarouselOptions(
-              height: MediaQuery.of(context).size.height * 0.55,
+              height: MediaQuery.of(context).size.height * 0.6,
               reverse: true,
               onPageChanged: (index, reason) {
                 currentIndexState.value = index;
