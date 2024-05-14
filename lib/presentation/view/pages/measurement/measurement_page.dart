@@ -114,7 +114,7 @@ class MeasurementPage extends HookConsumerWidget {
           Row(
             children: [
               AppButton.small(
-                width: MediaQuery.of(context).size.width * 0.3,
+                width: MediaQuery.of(context).size.width * 0.31,
                 height: MediaQuery.of(context).size.width * 0.08,
                 onPressed: onPreviousResults,
                 text: '前回の結果',
@@ -125,7 +125,7 @@ class MeasurementPage extends HookConsumerWidget {
                 width: 8,
               ),
               AppButton.small(
-                width: MediaQuery.of(context).size.width * 0.3,
+                width: MediaQuery.of(context).size.width * 0.31,
                 height: MediaQuery.of(context).size.width * 0.08,
                 onPressed: onStart,
                 text: 'はじめる',
