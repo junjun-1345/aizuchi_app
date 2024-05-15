@@ -33,6 +33,7 @@ class EditProffesionDialog extends HookConsumerWidget {
     return AlertDialog(
       title: const Text('職業を選択'),
       backgroundColor: BrandColor.white,
+      surfaceTintColor: Colors.transparent,
       content: SingleChildScrollView(
         child: Column(
           children: [

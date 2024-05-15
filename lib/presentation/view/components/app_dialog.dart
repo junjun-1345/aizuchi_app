@@ -23,6 +23,7 @@ class AppDialog {
           title: Text(title),
           content: Text(content),
           backgroundColor: BrandColor.white,
+          surfaceTintColor: Colors.transparent,
           actionsAlignment: MainAxisAlignment.spaceAround,
           actions: <Widget>[
             TextButton(
@@ -54,6 +55,7 @@ class AppDialog {
           title: Text(title),
           content: Text(content),
           backgroundColor: BrandColor.white,
+          surfaceTintColor: Colors.transparent,
           actionsAlignment: MainAxisAlignment.spaceAround,
           actions: <Widget>[
             TextButton(
@@ -80,6 +82,7 @@ class AppDialog {
           title: Text(title),
           content: Text(content),
           backgroundColor: BrandColor.white,
+          surfaceTintColor: Colors.transparent,
           actionsAlignment: MainAxisAlignment.spaceAround,
           actions: <Widget>[
             TextButton(
@@ -113,6 +116,7 @@ class AppDialog {
               title: Text(title),
               content: Text(content ?? error),
               backgroundColor: BrandColor.white,
+              surfaceTintColor: Colors.transparent,
               actions: <Widget>[
                 TextButton(
                   onPressed: () {

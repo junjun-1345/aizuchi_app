@@ -22,6 +22,7 @@ class EditSexDialog extends HookConsumerWidget {
     return AlertDialog(
       title: const Text('職業を選択'),
       backgroundColor: BrandColor.white,
+      surfaceTintColor: Colors.transparent,
       content: SizedBox(
         child: SizedBox(
           height: 144,
