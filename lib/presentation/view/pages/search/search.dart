@@ -62,17 +62,15 @@ class SearchPage extends HookConsumerWidget {
                     if (data.urlsFlag)
                       _menuContent(
                         title: "お仕事",
-                        onSearch: () => context.router.push(
-                            // FIXME: 2024/05/15
-                            WebViewRoute(uri: Uri.parse(data.divinationUrl))),
+                        onSearch: () => context.router
+                            .push(WebViewRoute(uri: Uri.parse(data.workUrl))),
                       ),
                     const SizedBox(height: 16),
                     if (data.urlsFlag)
                       _menuContent(
                         title: "資格・スキル",
-                        onSearch: () => context.router.push(
-                            // FIXME: 2024/05/15
-                            WebViewRoute(uri: Uri.parse(data.divinationUrl))),
+                        onSearch: () => context.router
+                            .push(WebViewRoute(uri: Uri.parse(data.skillUrl))),
                       ),
                     const SizedBox(height: 16),
                   ],
@@ -91,16 +89,26 @@ class SearchPage extends HookConsumerWidget {
         .fetch<String>(RemoteConfigKey.searchPageCounselingUrl);
     final divinationUrl = await remoteConfigRepository
         .fetch<String>(RemoteConfigKey.searchPageDivinationUrl);
+    final workUrl = await remoteConfigRepository
+        .fetch<String>(RemoteConfigKey.searchPageWorkUrl);
+    final skillUrl = await remoteConfigRepository
+        .fetch<String>(RemoteConfigKey.searchPageSkillUrl);
     final urlsFlag = await remoteConfigRepository
         .fetch<bool>(RemoteConfigKey.searchPageUrlsFlag);
 
-    if (counselingUrl == null || divinationUrl == null || urlsFlag == null) {
+    if (counselingUrl == null ||
+        divinationUrl == null ||
+        urlsFlag == null ||
+        workUrl == null ||
+        skillUrl == null) {
       throw Exception('Failed to fetch data from RemoteConfigRepository');
     }
 
     return SearchData(
         counselingUrl: counselingUrl,
         divinationUrl: divinationUrl,
+        workUrl: workUrl,
+        skillUrl: skillUrl,
         urlsFlag: urlsFlag);
   }
 

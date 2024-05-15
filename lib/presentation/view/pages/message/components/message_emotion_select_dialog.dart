@@ -31,7 +31,6 @@ class MessageEmotionSelectDailog extends ConsumerWidget {
     }
 
     return AlertDialog(
-      // FIXME: 2024/05/15 テキスト中央寄せ
       content: const SizedBox(
         height: 48,
         child: Column(
