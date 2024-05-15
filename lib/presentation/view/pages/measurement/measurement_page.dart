@@ -1,4 +1,5 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
 import 'package:auto_route/auto_route.dart';
@@ -13,14 +14,8 @@ class MeasurementPage extends HookConsumerWidget {
     return Scaffold(
       drawer: const HamburgerMenu(),
       drawerScrimColor: BrandColor.base,
-      appBar: AppBar(
-        title: const Text(
-          "こころの計測",
-          style: TextStyle(fontSize: 20, color: BrandColor.textBlack),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: BrandColor.textBlack),
+      appBar: const AppAppBar(
+        title: "こころの計測",
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -102,7 +97,9 @@ class MeasurementPage extends HookConsumerWidget {
                 child: Text(
                   title,
                   style: const TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.bold),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -118,7 +115,9 @@ class MeasurementPage extends HookConsumerWidget {
                 onPressed: onPreviousResults,
                 text: '前回の結果',
                 textStyle: const TextStyle(
-                    fontWeight: FontWeight.w800, color: BrandColor.white),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                    color: BrandColor.white),
               ),
               const SizedBox(
                 width: 8,
@@ -129,7 +128,9 @@ class MeasurementPage extends HookConsumerWidget {
                 onPressed: onStart,
                 text: 'はじめる',
                 textStyle: const TextStyle(
-                    fontWeight: FontWeight.w800, color: BrandColor.white),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                    color: BrandColor.white),
               ),
               const Spacer(),
               Image.asset(

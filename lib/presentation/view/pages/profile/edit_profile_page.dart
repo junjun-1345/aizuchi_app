@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
+import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
 import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
 import 'package:aizuchi_app/presentation/view/pages/profile/components/edit_profile_dialog.dart';
 import 'package:aizuchi_app/presentation/view/pages/profile/components/edit_sex_dialog.dart';
@@ -23,8 +24,8 @@ class EditProfilePage extends HookConsumerWidget {
     final userViewModel = ref.read(userViewModelProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('プロフィール'),
+      appBar: const AppAppBar(
+        title: "プロフィール",
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

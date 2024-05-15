@@ -2,6 +2,7 @@ import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
+import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
 import 'package:aizuchi_app/presentation/view/pages/profile/components/profile_tile.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,8 @@ class CurrentProfilePage extends HookConsumerWidget {
     final userState = ref.watch(usersNotifierProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('プロフィール'),
+      appBar: const AppAppBar(
+        title: 'プロフィール',
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

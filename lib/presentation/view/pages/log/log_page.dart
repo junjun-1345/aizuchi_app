@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/daily_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
+import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
 import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/carousel_tiles/days_carousel_tile.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/carousel_tiles/emotion_graph_tile.dart';
@@ -23,14 +24,8 @@ class LogPage extends HookConsumerWidget {
     return Scaffold(
       drawer: const HamburgerMenu(),
       drawerScrimColor: BrandColor.base,
-      appBar: AppBar(
-        title: const Text(
-          "ログ",
-          style: TextStyle(fontSize: 20, color: BrandColor.textBlack),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: BrandColor.textBlack),
+      appBar: const AppAppBar(
+        title: "ログ",
       ),
       body: Center(
         child: Column(
