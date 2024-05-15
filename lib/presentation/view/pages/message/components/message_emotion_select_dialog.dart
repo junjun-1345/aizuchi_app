@@ -31,11 +31,28 @@ class MessageEmotionSelectDailog extends ConsumerWidget {
     }
 
     return AlertDialog(
-      title: const Text(
-        '日記を書く',
-        textAlign: TextAlign.center,
+      // FIXME: 2024/05/15 テキスト中央寄せ
+      content: const SizedBox(
+        height: 48,
+        child: Column(
+          children: [
+            Text(
+              '今日はどんな１日だったー？',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: BrandColor.textBlack),
+            ),
+            Text(
+              'お話聞かせて〜!',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: BrandColor.textBlack),
+            ),
+          ],
+        ),
       ),
-      content: const Text('今日はどんな１日だったー？'),
       backgroundColor: BrandColor.white,
       actions: <Widget>[
         Column(
