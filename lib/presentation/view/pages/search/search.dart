@@ -23,7 +23,6 @@ class SearchPage extends HookConsumerWidget {
     return Scaffold(
       drawer: const HamburgerMenu(),
       drawerScrimColor: BrandColor.base,
-      // FIXME: 2024/05/15
       appBar: const AppAppBar(
         title: "しらべる",
       ),
