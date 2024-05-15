@@ -5,4 +5,5 @@ abstract class DailyDBRepository {
   Future<void> updateLatest(DailyEntity daily);
   Future<List<DailyEntity>> readAll();
   Future<List<DailyEntity>> read(DateTime startDate, DateTime endDate);
+  Future<int> getDocumentCount();
 }

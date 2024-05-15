@@ -3,9 +3,11 @@ import 'package:aizuchi_app/domain/entity/enums/message.dart';
 import 'package:aizuchi_app/domain/entity/models/message.dart';
 import 'package:aizuchi_app/domain/interactor/messages_interactor.dart';
 import 'package:aizuchi_app/infrastructure/repositories/claude_repository_impl.dart';
+import 'package:aizuchi_app/infrastructure/repositories/daily_db_repositories_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/gpt_repository_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/message_db_repositories_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/gemini_repository_impl.dart';
+import 'package:aizuchi_app/infrastructure/repositories/user_db_repositories_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -13,11 +15,15 @@ void main() {
     // リポジトリのインスタンスを作成
     final geminiRepository = GenimiRepositoryImpl();
     final messageDBRepository = MessageDBRepositoryImpl();
+    final dailyDBRepository = DailyDBRepositoryImpl();
+    final userDBRepository = UserDBsRepositoryImpl();
     final gptRepository = GptRepositoryImpl();
     final claudeRepository = ClaudeRepositoryImpl();
 
     final messageUsecase = MessagesInteractor(
       messageDBRepository,
+      dailyDBRepository,
+      userDBRepository,
       geminiRepository,
       gptRepository,
       claudeRepository,
