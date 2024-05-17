@@ -123,8 +123,8 @@ class SearchPage extends HookConsumerWidget {
                       onPressed: () {
                         AppDialog.showErrorDialog(
                           context: context,
-                          title: 'showCheckDialog',
-                          content: 'showCheckDialog',
+                          title: 'showErrorDialog',
+                          content: 'showErrorDialog',
                         );
                       },
                     ),
