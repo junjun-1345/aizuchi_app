@@ -46,7 +46,7 @@ class DailyNotifier extends StateNotifier<AsyncValue<List<DailyModel>>> {
       summary: "",
     );
     await _dailyUsecase.create(newDaily.toEntity());
-    state = AsyncValue.data([...?state.value, newDaily]);
+    state = AsyncValue.data([newDaily, ...?state.value]);
   }
 
   Future<void> saveSummary(String summary) async {
