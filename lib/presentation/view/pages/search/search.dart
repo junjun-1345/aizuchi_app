@@ -1,3 +1,5 @@
+import 'package:aizuchi_app/domain/entity/enums/sex.dart';
+import 'package:aizuchi_app/domain/entity/enums/update.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/domain/repositories/remote_config.dart';
 import 'package:aizuchi_app/infrastructure/data_model.dart';
@@ -5,9 +7,14 @@ import 'package:aizuchi_app/infrastructure/enums/remote_config_key.dart';
 import 'package:aizuchi_app/presentation/model/search_page_model.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
+import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
 import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
+import 'package:aizuchi_app/presentation/view/pages/message/components/message_overlimit_dialog.dart';
+import 'package:aizuchi_app/presentation/view/pages/profile/components/edit_profile_dialog.dart';
+import 'package:aizuchi_app/presentation/view/pages/profile/components/edit_sex_dialog.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 @RoutePage()
@@ -18,6 +25,9 @@ class SearchPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final RemoteConfigRepository remoteConfigRepository =
         ref.read(remoteConfigRepositoryProvider);
+
+    final testStateSexEnum = useState(SexEnum.other);
+    final testStateProfession = useState("");
 
     return Scaffold(
       drawer: const HamburgerMenu(),
@@ -33,39 +43,142 @@ class SearchPage extends HookConsumerWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: FutureBuilder<SearchData>(
-            future: _fetchData(remoteConfigRepository),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              } else if (snapshot.hasError) {
-                return _errorContent("エラーが発生しました: ${snapshot.error}");
-              } else if (!snapshot.hasData) {
-                return _errorContent("データが存在しません。");
-              } else if (snapshot.data == null) {
-                return _errorContent("データはnullです。");
-              }
-              final data = snapshot.data!;
-              return Column(
-                children: [
-                  if (data.urlsFlag)
-                    _menuContent(
-                      title: "カウンセリング",
-                      onSearch: () => context.router.push(
-                          WebViewRoute(uri: Uri.parse(data.counselingUrl))),
+        // TODO: SingleChildScrollView削除
+        child: SingleChildScrollView(
+          child: Center(
+            child: FutureBuilder<SearchData>(
+              future: _fetchData(remoteConfigRepository),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return _errorContent("エラーが発生しました: ${snapshot.error}");
+                } else if (!snapshot.hasData) {
+                  return _errorContent("データが存在しません。");
+                } else if (snapshot.data == null) {
+                  return _errorContent("データはnullです。");
+                }
+                final data = snapshot.data!;
+                return Column(
+                  children: [
+                    if (data.urlsFlag)
+                      _menuContent(
+                        title: "カウンセリング",
+                        onSearch: () => context.router.push(
+                            WebViewRoute(uri: Uri.parse(data.counselingUrl))),
+                      ),
+                    const SizedBox(height: 16),
+                    if (data.urlsFlag)
+                      _menuContent(
+                        title: "占い",
+                        onSearch: () => context.router.push(
+                            WebViewRoute(uri: Uri.parse(data.divinationUrl))),
+                      ),
+                    const SizedBox(height: 16),
+                    const SizedBox(height: 24),
+                    AppButton.medium(
+                      text: "showAttentionDialog",
+                      onPressed: () {
+                        AppDialog.showAttentionDialog(
+                          context: context,
+                          title: 'showAttentionDialog',
+                          content: 'showAttentionDialog',
+                          onPressed: () {
+                            print('showAttentionDialog');
+                          },
+                        );
+                      },
                     ),
-                  const SizedBox(height: 16),
-                  if (data.urlsFlag)
-                    _menuContent(
-                      title: "占い",
-                      onSearch: () => context.router.push(
-                          WebViewRoute(uri: Uri.parse(data.divinationUrl))),
+                    const SizedBox(height: 4),
+                    AppButton.medium(
+                      text: "showCompletedDialog",
+                      onPressed: () {
+                        AppDialog.showCompletedDialog(
+                          context: context,
+                          title: 'showCompletedDialog',
+                          content: 'showCompletedDialog',
+                          onPressed: () {
+                            print('showCompletedDialog');
+                          },
+                        );
+                      },
                     ),
-                  const SizedBox(height: 16),
-                ],
-              );
-            },
+                    const SizedBox(height: 4),
+                    AppButton.medium(
+                      text: "showCheckDialog",
+                      onPressed: () {
+                        AppDialog.showCheckDialog(
+                          context: context,
+                          title: 'showCheckDialog',
+                          content: 'showCheckDialog',
+                          onCompleted: () {
+                            print('showCheckDialog');
+                          },
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 4),
+                    AppButton.medium(
+                      text: "showErrorDialog",
+                      onPressed: () {
+                        AppDialog.showErrorDialog(
+                          context: context,
+                          title: 'showCheckDialog',
+                          content: 'showCheckDialog',
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 4),
+                    AppButton.medium(
+                      text: "showUpdatePromptDialog",
+                      onPressed: () {
+                        AppDialog.showUpdatePromptDialog(
+                          context: context,
+                          updateRequestType: UpdateRequestType.cancelable,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 4),
+                    AppButton.medium(
+                      text: "MessageOverLimitDialog",
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => const MessageOverLimitDialog(),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 4),
+                    AppButton.medium(
+                      text: "EditProffesionDialog",
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => EditProffesionDialog(
+                            choiceProfession: testStateProfession,
+                            choicedProfession: '',
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 4),
+                    AppButton.medium(
+                      text: "EditSexDialog",
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => EditSexDialog(
+                            choiceSex: testStateSexEnum,
+                            choicedSex: SexEnum.men,
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 4),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -119,7 +232,7 @@ class SearchPage extends HookConsumerWidget {
             iconData: Icons.search,
             textStyle: const TextStyle(
                 fontWeight: FontWeight.w800, color: BrandColor.white),
-          )
+          ),
         ],
       ),
     );
