@@ -1,29 +1,21 @@
 import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
 import 'package:aizuchi_app/domain/entity/enums/message.dart';
 import 'package:aizuchi_app/domain/entity/models/message.dart';
-import 'package:aizuchi_app/domain/repositories/claude_repository.dart';
-import 'package:aizuchi_app/domain/repositories/daily_db_repository.dart';
-import 'package:aizuchi_app/domain/repositories/gemini_repository.dart';
 import 'package:aizuchi_app/domain/repositories/gpt_repository.dart';
 import 'package:aizuchi_app/domain/repositories/message_db_repository.dart';
-import 'package:aizuchi_app/domain/repositories/user_db_repository.dart';
 import 'package:aizuchi_app/domain/usecases/messages_usecase.dart';
 
 class MessagesInteractor implements MessageUsecase {
   final MessageDBRepository messageDBRepository;
-  final DailyDBRepository dailyDBRepository;
-  final UserDBRepository userDBRepository;
-  final GeminiRepository geminiRepository;
-  final GptRepository gptRepository;
-  final ClaudeRepository claudeRepository;
+  // final GeminiRepository repository;
+  final GptRepository repository;
+  // final ClaudeRepository repository;
 
   MessagesInteractor(
     this.messageDBRepository,
-    this.dailyDBRepository,
-    this.userDBRepository,
-    this.geminiRepository,
-    this.gptRepository,
-    this.claudeRepository,
+    // this.repository,
+    this.repository,
+    // this.repository,
   );
 
   @override
@@ -33,7 +25,7 @@ class MessagesInteractor implements MessageUsecase {
     EmotionType emotion,
   ) async {
     final filteredMessages = _filterMessages(messages, key);
-    final newReplyContent = await claudeRepository.reply(
+    final newReplyContent = await repository.reply(
       filteredMessages,
       emotion,
     );
@@ -65,14 +57,7 @@ class MessagesInteractor implements MessageUsecase {
     String key,
   ) async {
     final filteredMessages = _filterMessages(messages, key);
-    // TODO: messageDBから会話数を取得し、userDBのtotalMessageに加算する
-    final messageCount = await messageDBRepository.getDocumentCount();
-    final dailyCount = await dailyDBRepository.getDocumentCount();
-    userDBRepository.update(
-      activeDay: dailyCount,
-      totalMessages: messageCount,
-    );
-    return claudeRepository.createSummary(filteredMessages);
+    return repository.createSummary(filteredMessages);
   }
 
   @override

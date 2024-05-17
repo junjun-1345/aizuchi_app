@@ -1,4 +1,5 @@
 enum GptModel {
+  gpt4o,
   gpt4,
   gpt4TurboPreview,
   gpt35Turbo,
@@ -6,6 +7,7 @@ enum GptModel {
 
 extension GptRoleExtension on GptModel {
   static final roleValues = {
+    GptModel.gpt4o: "gpt-4o",
     GptModel.gpt4: "gpt-4",
     GptModel.gpt4TurboPreview: "gpt-4-turbo-preview",
     GptModel.gpt35Turbo: "gpt-3.5-turbo",

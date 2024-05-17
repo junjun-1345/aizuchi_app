@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/domain/domain_module.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/components/list_item.dart';
 import 'package:auto_route/auto_route.dart';
@@ -19,14 +20,8 @@ class NotificationPage extends ConsumerWidget {
     final notifications = ref.read(appUsecaseProvider).readNotifications();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "通知設定",
-          style: TextStyle(color: BrandColor.black),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: BrandColor.textBlack),
+      appBar: const AppAppBar(
+        title: "通知設定",
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

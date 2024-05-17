@@ -2,31 +2,25 @@ import 'package:aizuchi_app/domain/entity/enums/emotion.dart';
 import 'package:aizuchi_app/domain/entity/enums/message.dart';
 import 'package:aizuchi_app/domain/entity/models/message.dart';
 import 'package:aizuchi_app/domain/interactor/messages_interactor.dart';
-import 'package:aizuchi_app/infrastructure/repositories/claude_repository_impl.dart';
-import 'package:aizuchi_app/infrastructure/repositories/daily_db_repositories_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/gpt_repository_impl.dart';
 import 'package:aizuchi_app/infrastructure/repositories/message_db_repositories_impl.dart';
-import 'package:aizuchi_app/infrastructure/repositories/gemini_repository_impl.dart';
-import 'package:aizuchi_app/infrastructure/repositories/user_db_repositories_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('Claude API Connection Test', () {
+  group('LLM API Connection Test', () {
     // リポジトリのインスタンスを作成
-    final geminiRepository = GenimiRepositoryImpl();
+    // final geminiRepository = GenimiRepositoryImpl();
     final messageDBRepository = MessageDBRepositoryImpl();
-    final dailyDBRepository = DailyDBRepositoryImpl();
-    final userDBRepository = UserDBsRepositoryImpl();
+    // final dailyDBRepository = DailyDBRepositoryImpl();
+    // final userDBRepository = UserDBsRepositoryImpl();
     final gptRepository = GptRepositoryImpl();
-    final claudeRepository = ClaudeRepositoryImpl();
+    // final claudeRepository = ClaudeRepositoryImpl();
 
     final messageUsecase = MessagesInteractor(
       messageDBRepository,
-      dailyDBRepository,
-      userDBRepository,
-      geminiRepository,
+      // geminiRepository,
       gptRepository,
-      claudeRepository,
+      // claudeRepository,
     );
 
     final messsages = [
@@ -77,8 +71,8 @@ void main() {
         // APIにリクエストを送信し、応答を取得
         String response;
         try {
-          response =
-              await claudeRepository.reply(messsages, EmotionType.joyful);
+          response = await messageUsecase.sendAndReceiveLLMMessage(
+              messsages, "", EmotionType.joyful);
         } catch (e) {
           fail('API connection failed: $e');
         }

@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/domain/domain_module.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
+import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
 import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/calender/components/calendar.dart';
 import 'package:auto_route/auto_route.dart';
@@ -34,14 +35,8 @@ class CalenderPage extends HookConsumerWidget {
     return Scaffold(
       drawer: const HamburgerMenu(),
       drawerScrimColor: BrandColor.base,
-      appBar: AppBar(
-        title: const Text(
-          "カレンダー",
-          style: TextStyle(fontSize: 20, color: BrandColor.textBlack),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: BrandColor.textBlack),
+      appBar: const AppAppBar(
+        title: "カレンダー",
       ),
       body: Column(
         children: [

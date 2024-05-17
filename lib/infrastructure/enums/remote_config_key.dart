@@ -3,4 +3,6 @@ enum RemoteConfigKey {
   searchPageUrlsFlag,
   searchPageCounselingUrl,
   searchPageDivinationUrl,
+  searchPageWorkUrl,
+  searchPageSkillUrl,
 }
