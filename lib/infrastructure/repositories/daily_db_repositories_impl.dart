@@ -107,4 +107,24 @@ class DailyDBRepositoryImpl implements DailyDBRepository {
     final String key = "${now.year}_${now.month}_${now.day}";
     return key;
   }
+
+  @override
+  Future<int> getDocumentCount() async {
+    final id = FirebaseAuth.instance.currentUser?.uid ?? '';
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(id)
+          .collection("dailies")
+          .orderBy("createdAt")
+          .get();
+      return querySnapshot.docs.length;
+    } on FirebaseException catch (e) {
+      // Firestoreからデータを取得する際にFirebaseExceptionが発生した場合の処理
+      throw Exception('Firestoreからデータを取得できませんでした。$e');
+    } catch (e) {
+      // その他の例外が発生した場合の処理
+      throw Exception('データの取得中に未知のエラーが発生しました。$e');
+    }
+  }
 }

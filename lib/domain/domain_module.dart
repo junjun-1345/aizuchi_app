@@ -25,6 +25,8 @@ final usersUsecaseProvider = Provider<UsersUsecase>(
 final messagesUsecaseProvider = Provider<MessageUsecase>((ref) {
   return MessagesInteractor(
     ref.watch(messageDBRepositoryProvider),
+    ref.watch(dailyDBRepositoryProvider),
+    ref.watch(userDBRepositoryProvider),
     ref.watch(geminiRepositoryProvider),
     ref.watch(gptRepositoryProvider),
     ref.watch(claudeRepositoryProvider),

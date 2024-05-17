@@ -6,4 +6,5 @@ abstract class MessageDBRepository {
   Future<void> delete();
   Future<void> update(MessageEntity entity);
   Future<void> deleteAll();
+  Future<int> getDocumentCount();
 }
