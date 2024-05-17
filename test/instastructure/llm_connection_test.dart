@@ -11,6 +11,8 @@ void main() {
     // リポジトリのインスタンスを作成
     // final geminiRepository = GenimiRepositoryImpl();
     final messageDBRepository = MessageDBRepositoryImpl();
+    // final dailyDBRepository = DailyDBRepositoryImpl();
+    // final userDBRepository = UserDBsRepositoryImpl();
     final gptRepository = GptRepositoryImpl();
     // final claudeRepository = ClaudeRepositoryImpl();
 

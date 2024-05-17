@@ -55,7 +55,7 @@ class MessagesInteractor implements MessageUsecase {
   Future<String> createSummary(
     List<MessageEntity> messages,
     String key,
-  ) {
+  ) async {
     final filteredMessages = _filterMessages(messages, key);
     return repository.createSummary(filteredMessages);
   }
