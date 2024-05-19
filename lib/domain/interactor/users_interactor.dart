@@ -4,9 +4,11 @@ import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/domain/entity/models/user.dart';
 import 'package:aizuchi_app/domain/repositories/auth_repository.dart';
 import 'package:aizuchi_app/domain/repositories/local_db_repository.dart';
+import 'package:aizuchi_app/domain/repositories/remote_config.dart';
 import 'package:aizuchi_app/domain/repositories/shared_preferences_repository.dart';
 import 'package:aizuchi_app/domain/repositories/user_db_repository.dart';
 import 'package:aizuchi_app/domain/usecases/users_usecase.dart';
+import 'package:aizuchi_app/infrastructure/enums/remote_config_key.dart';
 import 'package:aizuchi_app/infrastructure/enums/shared_preferences_key.dart';
 
 class UsersInteractor implements UsersUsecase {
@@ -14,9 +16,14 @@ class UsersInteractor implements UsersUsecase {
   final UserDBRepository userDBRepository;
   final LocalDBRepository localDBRepository;
   final SharedPreferencesRepository sharedPreferencesRepository;
+  final RemoteConfigRepository remoteConfigRepository;
 
-  UsersInteractor(this.userDBRepository, this.authRepository,
-      this.localDBRepository, this.sharedPreferencesRepository);
+  UsersInteractor(
+      this.userDBRepository,
+      this.authRepository,
+      this.localDBRepository,
+      this.sharedPreferencesRepository,
+      this.remoteConfigRepository);
 
   @override
   Future<void> signUpWith(
@@ -176,5 +183,27 @@ class UsersInteractor implements UsersUsecase {
   @override
   Future<void> updatePassword(String email) {
     return authRepository.updatePassword(email);
+  }
+
+  @override
+  Future<String> isConversationStart() async {
+    print('UsersInteractor isConversationStart');
+    final newDailyKey = createKey();
+    await userDBRepository.update(isConversation: true, dailyKey: newDailyKey);
+    return newDailyKey;
+  }
+
+  @override
+  Future<int> getMessageLimit() async {
+    final messageLimit =
+        await remoteConfigRepository.fetch<int>(RemoteConfigKey.messageLimit);
+    return messageLimit ?? 100;
+  }
+
+  @override
+  Future<bool> getIsMessageLimit() async {
+    final isMessageLimit = await remoteConfigRepository
+        .fetch<bool>(RemoteConfigKey.isMessageLimit);
+    return isMessageLimit ?? false;
   }
 }

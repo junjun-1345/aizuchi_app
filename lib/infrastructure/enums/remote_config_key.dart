@@ -5,4 +5,6 @@ enum RemoteConfigKey {
   searchPageDivinationUrl,
   searchPageWorkUrl,
   searchPageSkillUrl,
+  messageLimit,
+  isMessageLimit
 }

@@ -21,6 +21,7 @@ abstract class MessageUsecase {
   bool canReplyLLMMessage(
     List<MessageEntity> messages,
     String key,
+    int limit,
   );
   Future<void> deleteAll();
 }

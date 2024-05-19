@@ -26,6 +26,7 @@ class HamburgerMenu extends ConsumerWidget {
               userState.when(
                 data: (data) {
                   if (!data.isSubscription) {
+                    // TODO: 2024/05/17
                     // return _buildPromoSection(context);
                     return const SizedBox();
                   } else {

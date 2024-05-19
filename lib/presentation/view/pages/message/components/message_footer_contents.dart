@@ -45,7 +45,6 @@ class MessageFooterContents extends ConsumerWidget {
     Widget inputField(bool isMessageOverLimit) {
       return Column(
         children: [
-          // if (isMessageOverLimit) const Text("会話が上限に達しました"),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,45 +65,36 @@ class MessageFooterContents extends ConsumerWidget {
                 text: "終了",
               ),
               const SizedBox(width: 8),
-              // isMessageOverLimit
 
-              //     ? Expanded(
-              //         child: AppButton.medium(
-              //           width: screenWidth * 0.8,
-              //           onPressed: () {
-              //             context.router.push(const PurchaseRoute());
-              //           },
-              //           text: "Aizuchi Premium >",
-              //           textStyle: const TextStyle(
-              //               fontSize: 24, fontWeight: FontWeight.bold),
-              //         ),
-              //       )
-              //     : Expanded(
-              //         child: AppTextForm.messageField(
-              //           messageController,
-              //           onFieldSubmitted: (value) async {
-              //             sendMessage();
-              //           },
+              isMessageOverLimit
+                  // FIXME: 課金機能解除後にコメントアウトを外す
+                  // ? Expanded(
+                  //     child: AppButton.medium(
+                  //       width: screenWidth * 0.8,
+                  //       onPressed: () {
+                  //         context.router.push(const PurchaseRoute());
+                  //       },
+                  //       text: "Aizuchi Premium >",
+                  //       textStyle: const TextStyle(
+                  //           fontSize: 24, fontWeight: FontWeight.bold),
+                  //     ),
+                  //   )
+                  // FIXME: 課金機能解除後に以下一行削除
+                  ? const Expanded(child: Text("会話が上限に達しました"))
+                  : Expanded(
+                      child: AppTextForm.messageField(
+                        messageController,
+                        onFieldSubmitted: (value) async {
+                          sendMessage();
+                        },
+                        // autofocus: true,
+                        onEditingComplete: () {},
+                      ),
+                    ),
 
-              //           // autofocus: true,
-              //           onEditingComplete: () {},
-              //         ),
-              //       ),
-
-              Expanded(
-                child: AppTextForm.messageField(
-                  messageController,
-                  onFieldSubmitted: (value) async {
-                    sendMessage();
-                  },
-                  // autofocus: true,
-                  onEditingComplete: () {},
-                ),
-              ),
-
+              // TODO: 2024/05/17
               // 以下の条件分岐は課金実装後に切り替えてください
-              // if (!isWaiting && !isMessageOverLimit)
-              if (!isWaiting)
+              if (!isWaiting && !isMessageOverLimit)
                 IconButton(
                     onPressed: () async {
                       sendMessage();

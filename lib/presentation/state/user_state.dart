@@ -55,23 +55,12 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     await _usersUseCase.register(form.toEntity());
   }
 
-  Future<void> createDailyKey() async {
-    final String newDailyKey = _usersUseCase.createKey();
-    await _usersUseCase.update(dailyKey: newDailyKey);
-    state.whenData(
-      (user) {
-        final UserModel updatedUser = user.copyWith(dailyKey: newDailyKey);
-
-        state = AsyncValue.data(updatedUser);
-      },
-    );
-  }
-
   Future<void> isConversationStart() async {
-    await _usersUseCase.update(isConversation: true);
+    final newDailyKey = await _usersUseCase.isConversationStart();
     state.whenData(
       (user) {
-        final UserModel updatedUser = user.copyWith(isConversation: true);
+        final UserModel updatedUser =
+            user.copyWith(isConversation: true, dailyKey: newDailyKey);
         state = AsyncValue.data(updatedUser);
       },
     );
@@ -107,16 +96,21 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     );
   }
 
-  void isSubscriptionUpdate() {
-    final isSubscription = ref.read(userIsSubscriptionProvider);
-    state.whenData(
-      (user) {
-        final UserModel updatedUser =
-            user.copyWith(isSubscription: isSubscription);
-        _usersUseCase.update(isSubscription: isSubscription);
-
-        state = AsyncValue.data(updatedUser);
-      },
-    );
+  Future<int> getMessageLimit() async {
+    final int limit = await _usersUseCase.getMessageLimit();
+    return limit;
   }
+
+  // void isSubscriptionUpdate() {
+  //   final isSubscription = ref.read(userIsSubscriptionProvider);
+  //   state.whenData(
+  //     (user) {
+  //       final UserModel updatedUser =
+  //           user.copyWith(isSubscription: isSubscription);
+  //       _usersUseCase.update(isSubscription: isSubscription);
+
+  //       state = AsyncValue.data(updatedUser);
+  //     },
+  //   );
+  // }
 }

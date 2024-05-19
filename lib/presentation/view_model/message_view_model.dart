@@ -1,3 +1,5 @@
+import 'package:aizuchi_app/domain/domain_module.dart';
+import 'package:aizuchi_app/domain/usecases/users_usecase.dart';
 import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/state/daily_state.dart';
 import 'package:aizuchi_app/presentation/state/message_state.dart';
@@ -12,6 +14,7 @@ final messageViewModelProvider = Provider<MessageViewModel>(
     ref.read(usersNotifierProvider.notifier),
     ref.read(dailyNotifierProvider.notifier),
     ref.read(isWaitngProvider.notifier),
+    ref.read(usersUsecaseProvider),
   ),
 );
 
@@ -21,6 +24,7 @@ class MessageViewModel {
   final UsersNotifier usersNotifier;
   final DailyNotifier dailyNotifier;
   final IsWaitngNotifier isWaitngNotifier;
+  final UsersUsecase usersUsecase;
 
   MessageViewModel(
     this.ref,
@@ -28,16 +32,13 @@ class MessageViewModel {
     this.usersNotifier,
     this.dailyNotifier,
     this.isWaitngNotifier,
+    this.usersUsecase,
   );
 
   Future<void> sendTodayFirstMessage() async {
-    // 課金チェック
-    // false
-
-    // true　なし
     isWaitngNotifier.startWaiting();
+    print("sendTodayFirstMessage");
     await usersNotifier.isConversationStart();
-    await usersNotifier.createDailyKey();
     await messagesNotifier.createDateMessage();
     await messagesNotifier.createEmotionMessage();
     await dailyNotifier.saveEmotion();
@@ -47,12 +48,15 @@ class MessageViewModel {
   }
 
   Future<void> sendMessage() async {
-    final bool isSubscription =
-        ref.read(usersNotifierProvider).asData!.value.isSubscription;
+    // 課金機能
+    // final bool isSubscription =
+    // ref.read(usersNotifierProvider).asData!.value.isSubscription;
+    final isLimit = await ref.read(usersUsecaseProvider).getIsMessageLimit();
     final bool isAssistant =
         ref.read(usersNotifierProvider).asData!.value.isAssistant;
     final String dailyKey =
         ref.read(usersNotifierProvider).asData!.value.dailyKey;
+    final limit = await ref.read(usersUsecaseProvider).getMessageLimit();
 
     isWaitngNotifier.startWaiting();
 
@@ -63,10 +67,10 @@ class MessageViewModel {
       return;
     }
 
-    final bool isMessageOverLimit =
-        messagesNotifier.canReplyLLMMessage(dailyKey);
+    final isMessageOverLimit =
+        messagesNotifier.canReplyLLMMessage(dailyKey, limit);
 
-    if (!isSubscription) {
+    if (isLimit) {
       if (isMessageOverLimit) {
         await usersNotifier.messageOverLimit();
 
