@@ -15,6 +15,8 @@ final usersUsecaseProvider = Provider<UsersUsecase>(
   ((ref) {
     return UsersInteractor(
       ref.watch(userDBRepositoryProvider),
+      ref.watch(dailyDBRepositoryProvider),
+      ref.watch(messageDBRepositoryProvider),
       ref.watch(authRepositoryProvider),
       ref.watch(localDBRepositoryProvider),
       ref.watch(sharedPreferencesRepositoryProvider),

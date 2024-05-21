@@ -3,7 +3,9 @@ import 'package:aizuchi_app/domain/entity/enums/platform.dart';
 import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/domain/entity/models/user.dart';
 import 'package:aizuchi_app/domain/repositories/auth_repository.dart';
+import 'package:aizuchi_app/domain/repositories/daily_db_repository.dart';
 import 'package:aizuchi_app/domain/repositories/local_db_repository.dart';
+import 'package:aizuchi_app/domain/repositories/message_db_repository.dart';
 import 'package:aizuchi_app/domain/repositories/remote_config.dart';
 import 'package:aizuchi_app/domain/repositories/shared_preferences_repository.dart';
 import 'package:aizuchi_app/domain/repositories/user_db_repository.dart';
@@ -13,6 +15,8 @@ import 'package:aizuchi_app/infrastructure/enums/shared_preferences_key.dart';
 
 class UsersInteractor implements UsersUsecase {
   final AuthRepository authRepository;
+  final DailyDBRepository dailyDBRepository;
+  final MessageDBRepository messageDBRepository;
   final UserDBRepository userDBRepository;
   final LocalDBRepository localDBRepository;
   final SharedPreferencesRepository sharedPreferencesRepository;
@@ -20,6 +24,8 @@ class UsersInteractor implements UsersUsecase {
 
   UsersInteractor(
       this.userDBRepository,
+      this.dailyDBRepository,
+      this.messageDBRepository,
       this.authRepository,
       this.localDBRepository,
       this.sharedPreferencesRepository,
@@ -132,8 +138,15 @@ class UsersInteractor implements UsersUsecase {
   }
 
   @override
-  Future<UserEntity?> read() {
-    return userDBRepository.read();
+  Future<UserEntity?> read() async {
+    final entity = await userDBRepository.read();
+    final messageDBDocumentCount = await messageDBRepository.getDocumentCount();
+    final dailyDBDocumentCount = await dailyDBRepository.getDocumentCount();
+    final newEntity = entity?.copyWith(
+      totalMessages: messageDBDocumentCount,
+      activeDay: dailyDBDocumentCount,
+    );
+    return newEntity;
   }
 
   @override
