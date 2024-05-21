@@ -71,6 +71,26 @@ class AppDialog {
     );
   }
 
+  static void showNoActionDialog({
+    required BuildContext context,
+    required String title,
+    required String content,
+  }) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          backgroundColor: BrandColor.white,
+          surfaceTintColor: Colors.transparent,
+          actionsAlignment: MainAxisAlignment.spaceAround,
+        );
+      },
+    );
+  }
+
   static void showCheckDialog({
     required BuildContext context,
     required String title,
