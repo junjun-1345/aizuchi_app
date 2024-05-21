@@ -53,6 +53,7 @@ class MessageEmotionSelectDailog extends ConsumerWidget {
         ),
       ),
       backgroundColor: BrandColor.white,
+      surfaceTintColor: Colors.transparent,
       actions: <Widget>[
         Column(
           children: [

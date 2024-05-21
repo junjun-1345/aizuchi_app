@@ -115,15 +115,15 @@ class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
     return summary;
   }
 
-  bool canReplyLLMMessage(String key) {
+  bool canReplyLLMMessage(String key, int limit) {
     final List<MessageEntity> messagesEntity = state.asData!.value
         .map((messageModel) => messageModel.toEntity())
         .toList();
 
-    final bool isMessageOverLimit =
-        _messageUsecase.canReplyLLMMessage(messagesEntity, key);
+    final isLimit =
+        _messageUsecase.canReplyLLMMessage(messagesEntity, key, limit);
 
-    return isMessageOverLimit;
+    return isLimit;
   }
 
   Future<void> deleteAll() async {

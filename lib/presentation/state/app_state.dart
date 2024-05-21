@@ -16,6 +16,8 @@ final isWaitngProvider = StateNotifierProvider<IsWaitngNotifier, bool>((ref) {
   return IsWaitngNotifier();
 });
 
+final messageOverLimitDialogShownProvider = StateProvider<bool>((ref) => false);
+
 class IsWaitngNotifier extends StateNotifier<bool> {
   IsWaitngNotifier() : super(false);
 

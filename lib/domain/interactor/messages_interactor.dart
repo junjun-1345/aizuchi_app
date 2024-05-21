@@ -61,12 +61,11 @@ class MessagesInteractor implements MessageUsecase {
   }
 
   @override
-  bool canReplyLLMMessage(List<MessageEntity> messages, String key) {
-    const int limit = 4;
+  bool canReplyLLMMessage(List<MessageEntity> messages, String key, int limit) {
     final filteredMessages = _filterMessages(messages, key)
         .where((messageEntity) => messageEntity.type == MessageType.assistant)
         .toList();
-    return filteredMessages.length >= limit;
+    return limit < filteredMessages.length;
   }
 
   @override
@@ -74,7 +73,6 @@ class MessagesInteractor implements MessageUsecase {
     return messageDBRepository.readAll();
   }
 
-  // メッセージをフィルタリングする共通のプライベートメソッド
   List<MessageEntity> _filterMessages(
       List<MessageEntity> messages, String key) {
     int? index =
