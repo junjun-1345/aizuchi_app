@@ -40,7 +40,7 @@ class SubscriptionViewModel {
     try {
       isActive = await appUsecase.purchaseSubscriptionPackage(planType);
       ref.read(userIsSubscriptionProvider.notifier).state = isActive;
-      usersNotifier.isSubscriptionUpdate();
+      // usersNotifier.isSubscriptionUpdate();
     } catch (e) {
       isWaitngNotifier.stopWaiting();
     }
@@ -50,7 +50,7 @@ class SubscriptionViewModel {
     isWaitngNotifier.startWaiting();
     final bool isActive = await appUsecase.restorePurchase();
     ref.read(userIsSubscriptionProvider.notifier).state = isActive;
-    usersNotifier.isSubscriptionUpdate();
+    // usersNotifier.isSubscriptionUpdate();
     isWaitngNotifier.stopWaiting();
   }
 
@@ -59,7 +59,7 @@ class SubscriptionViewModel {
         await appUsecase.checkSubscriptionStatus();
     ref.read(userIsSubscriptionProvider.notifier).state =
         subscriptionStatus.isActive;
-    usersNotifier.isSubscriptionUpdate();
+    // usersNotifier.isSubscriptionUpdate();
     return subscriptionStatus;
   }
 }
