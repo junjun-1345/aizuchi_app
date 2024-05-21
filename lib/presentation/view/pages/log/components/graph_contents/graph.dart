@@ -45,13 +45,13 @@ class EmotionGraphLineChart extends StatelessWidget {
     return LineChart(
       LineChartData(
         // タッチ操作時の設定
+        backgroundColor: BrandColor.base,
         lineTouchData: const LineTouchData(
           handleBuiltInTouches: true, // タッチ時のアクションの有無
           getTouchedSpotIndicator: defaultTouchedIndicators, // インジケーターの設定
           touchTooltipData: LineTouchTooltipData(
             // ツールチップの設定
             getTooltipItems: defaultLineTooltipItem, // 表示文字設定
-            // tooltipColor: Colors.white, // 背景の色
             tooltipRoundedRadius: 2.0, // 角丸
           ),
         ),
@@ -92,7 +92,15 @@ class EmotionGraphLineChart extends StatelessWidget {
                   : weeklyBottomTitleWidgets, // // サイドタイトルの表示内容
             ),
           ),
-          rightTitles: const AxisTitles(), // 上記と同じため割愛
+          rightTitles: const AxisTitles(
+            // padding用
+            axisNameWidget: Text(""),
+            axisNameSize: 12,
+            sideTitles: SideTitles(
+              showTitles: false,
+              reservedSize: 12,
+            ),
+          ), // 上記と同じため割愛
           topTitles: const AxisTitles(),
           leftTitles: const AxisTitles(
             axisNameSize: 24.0, // タイトルの表示エリアの幅
@@ -107,7 +115,7 @@ class EmotionGraphLineChart extends StatelessWidget {
 
         // グラフの外枠線
         borderData: FlBorderData(
-          show: true, // 外枠線の有無
+          show: false, // 外枠線の有無
           border: Border.all(
             // 外枠線の色
             color: const Color(0xff37434d),

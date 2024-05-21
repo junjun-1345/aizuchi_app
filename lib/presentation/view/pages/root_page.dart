@@ -5,6 +5,7 @@ import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
+import 'package:aizuchi_app/presentation/view_model/message_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -119,10 +120,13 @@ class RootPage extends HookConsumerWidget {
                   if (!data.isConversation) {
                     tabsRouter.setActiveIndex(index);
                   } else {
-                    AppDialog.showErrorDialog(
+                    AppDialog.showCheckDialog(
                       context: context,
-                      title: 'アクセス制限',
-                      content: '会話中は他の画面に移動できません',
+                      title: '会話中は他の画面に\n移動できません',
+                      onCompleted: () {
+                        ref.read(messageViewModelProvider).createSummary();
+                      },
+                      content: '会話を終了しますか？',
                     );
                   }
                 },

@@ -1,5 +1,5 @@
-import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
 import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
@@ -20,14 +20,8 @@ class MailConfrimPage extends HookConsumerWidget {
     final emailController = useTextEditingController();
     final formKey = useMemoized(GlobalKey<FormState>.new);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "メールアドレス変更",
-          style: TextStyle(color: BrandColor.black),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: BrandColor.textBlack),
+      appBar: const AppAppBar(
+        title: "メールアドレス変更",
       ),
       body: Form(
         key: formKey,

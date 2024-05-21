@@ -26,7 +26,7 @@ class GptRepositoryImpl implements GptRepository {
         messagesEntity.map((e) => GptMessage.fromEntity(e)).toList();
 
     final data = GptContent(
-      gptModel: GptModel.gpt4TurboPreview,
+      gptModel: GptModel.gpt4o,
       messages: [prompt] + messages,
     );
 
@@ -63,7 +63,7 @@ class GptRepositoryImpl implements GptRepository {
         messagesEntity.map((e) => GptMessage.fromEntity(e)).toList();
 
     final data = GptContent(
-      gptModel: GptModel.gpt35Turbo,
+      gptModel: GptModel.gpt4o,
       messages: [prompt] + messages,
     );
 

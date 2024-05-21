@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
+import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
 import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_contents.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_emotion_select_dialog.dart';
@@ -23,15 +24,8 @@ class MessagePage extends HookConsumerWidget {
       child: Scaffold(
           drawer: const HamburgerMenu(),
           drawerScrimColor: BrandColor.base,
-          appBar: AppBar(
-            title: const Text(
-              "もうふちゃん 会話",
-              style: TextStyle(fontSize: 20, color: BrandColor.textBlack),
-            ),
-            elevation: 0,
-            backgroundColor: BrandColor.base,
-            iconTheme: const IconThemeData(color: BrandColor.textBlack),
-            scrolledUnderElevation: 0.0,
+          appBar: const AppAppBar(
+            title: "もうふちゃん",
           ),
           body: usersState.when(
             data: (data) {

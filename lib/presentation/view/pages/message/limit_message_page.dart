@@ -1,5 +1,6 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
+import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_contents.dart';
@@ -22,14 +23,9 @@ class LimitMessagePage extends HookConsumerWidget {
       child: Scaffold(
           drawer: const HamburgerMenu(),
           drawerScrimColor: BrandColor.base,
-          appBar: AppBar(
-            title: Text(
-              "${selectedDate.year}/${selectedDate.month}/${selectedDate.day}の会話",
-              style: const TextStyle(fontSize: 20, color: BrandColor.textBlack),
-            ),
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            iconTheme: const IconThemeData(color: BrandColor.textBlack),
+          appBar: AppAppBar(
+            title:
+                "${selectedDate.year}/${selectedDate.month}/${selectedDate.day}の会話",
           ),
           body: usersState.when(
             data: (data) {

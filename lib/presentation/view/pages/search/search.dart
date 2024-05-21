@@ -1,20 +1,14 @@
-import 'package:aizuchi_app/domain/entity/enums/sex.dart';
-import 'package:aizuchi_app/domain/entity/enums/update.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/domain/repositories/remote_config.dart';
 import 'package:aizuchi_app/infrastructure/data_model.dart';
 import 'package:aizuchi_app/infrastructure/enums/remote_config_key.dart';
 import 'package:aizuchi_app/presentation/model/search_page_model.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
+import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
-import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
 import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
-import 'package:aizuchi_app/presentation/view/pages/message/components/message_overlimit_dialog.dart';
-import 'package:aizuchi_app/presentation/view/pages/profile/components/edit_profile_dialog.dart';
-import 'package:aizuchi_app/presentation/view/pages/profile/components/edit_sex_dialog.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 @RoutePage()
@@ -26,25 +20,15 @@ class SearchPage extends HookConsumerWidget {
     final RemoteConfigRepository remoteConfigRepository =
         ref.read(remoteConfigRepositoryProvider);
 
-    final testStateSexEnum = useState(SexEnum.other);
-    final testStateProfession = useState("");
-
     return Scaffold(
       drawer: const HamburgerMenu(),
       drawerScrimColor: BrandColor.base,
-      appBar: AppBar(
-        title: const Text(
-          "しらべる",
-          style: TextStyle(fontSize: 20, color: BrandColor.textBlack),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: BrandColor.textBlack),
+      appBar: const AppAppBar(
+        title: "しらべる",
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        // TODO: SingleChildScrollView削除
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Center(
             child: FutureBuilder<SearchData>(
               future: _fetchData(remoteConfigRepository),
@@ -75,106 +59,20 @@ class SearchPage extends HookConsumerWidget {
                             WebViewRoute(uri: Uri.parse(data.divinationUrl))),
                       ),
                     const SizedBox(height: 16),
-                    const SizedBox(height: 24),
-                    AppButton.medium(
-                      text: "showAttentionDialog",
-                      onPressed: () {
-                        AppDialog.showAttentionDialog(
-                          context: context,
-                          title: 'showAttentionDialog',
-                          content: 'showAttentionDialog',
-                          onPressed: () {
-                            print('showAttentionDialog');
-                          },
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 4),
-                    AppButton.medium(
-                      text: "showCompletedDialog",
-                      onPressed: () {
-                        AppDialog.showCompletedDialog(
-                          context: context,
-                          title: 'showCompletedDialog',
-                          content: 'showCompletedDialog',
-                          onPressed: () {
-                            print('showCompletedDialog');
-                          },
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 4),
-                    AppButton.medium(
-                      text: "showCheckDialog",
-                      onPressed: () {
-                        AppDialog.showCheckDialog(
-                          context: context,
-                          title: 'showCheckDialog',
-                          content: 'showCheckDialog',
-                          onCompleted: () {
-                            print('showCheckDialog');
-                          },
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 4),
-                    AppButton.medium(
-                      text: "showErrorDialog",
-                      onPressed: () {
-                        AppDialog.showErrorDialog(
-                          context: context,
-                          title: 'showErrorDialog',
-                          content: 'showErrorDialog',
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 4),
-                    AppButton.medium(
-                      text: "showUpdatePromptDialog",
-                      onPressed: () {
-                        AppDialog.showUpdatePromptDialog(
-                          context: context,
-                          updateRequestType: UpdateRequestType.cancelable,
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 4),
-                    AppButton.medium(
-                      text: "MessageOverLimitDialog",
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => const MessageOverLimitDialog(),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 4),
-                    AppButton.medium(
-                      text: "EditProffesionDialog",
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => EditProffesionDialog(
-                            choiceProfession: testStateProfession,
-                            choicedProfession: '',
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 4),
-                    AppButton.medium(
-                      text: "EditSexDialog",
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => EditSexDialog(
-                            choiceSex: testStateSexEnum,
-                            choicedSex: SexEnum.men,
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 4),
+                    if (data.urlsFlag)
+                      _menuContent(
+                        title: "お仕事",
+                        onSearch: () => context.router
+                            .push(WebViewRoute(uri: Uri.parse(data.workUrl))),
+                      ),
+                    const SizedBox(height: 16),
+                    if (data.urlsFlag)
+                      _menuContent(
+                        title: "資格・スキル",
+                        onSearch: () => context.router
+                            .push(WebViewRoute(uri: Uri.parse(data.skillUrl))),
+                      ),
+                    const SizedBox(height: 16),
                   ],
                 );
               },
@@ -191,16 +89,26 @@ class SearchPage extends HookConsumerWidget {
         .fetch<String>(RemoteConfigKey.searchPageCounselingUrl);
     final divinationUrl = await remoteConfigRepository
         .fetch<String>(RemoteConfigKey.searchPageDivinationUrl);
+    final workUrl = await remoteConfigRepository
+        .fetch<String>(RemoteConfigKey.searchPageWorkUrl);
+    final skillUrl = await remoteConfigRepository
+        .fetch<String>(RemoteConfigKey.searchPageSkillUrl);
     final urlsFlag = await remoteConfigRepository
         .fetch<bool>(RemoteConfigKey.searchPageUrlsFlag);
 
-    if (counselingUrl == null || divinationUrl == null || urlsFlag == null) {
+    if (counselingUrl == null ||
+        divinationUrl == null ||
+        urlsFlag == null ||
+        workUrl == null ||
+        skillUrl == null) {
       throw Exception('Failed to fetch data from RemoteConfigRepository');
     }
 
     return SearchData(
         counselingUrl: counselingUrl,
         divinationUrl: divinationUrl,
+        workUrl: workUrl,
+        skillUrl: skillUrl,
         urlsFlag: urlsFlag);
   }
 
@@ -213,7 +121,7 @@ class SearchPage extends HookConsumerWidget {
         color: BrandColor.white,
         borderRadius: BorderRadius.circular(8),
       ),
-      height: 140,
+      height: 120,
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
       child: Column(
@@ -222,7 +130,7 @@ class SearchPage extends HookConsumerWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           AppButton.smallIcon(
             width: 160,
@@ -231,8 +139,10 @@ class SearchPage extends HookConsumerWidget {
             text: '探す',
             iconData: Icons.search,
             textStyle: const TextStyle(
-                fontWeight: FontWeight.w800, color: BrandColor.white),
-          ),
+                fontSize: 16,
+                fontWeight: FontWeight.w800,
+                color: BrandColor.white),
+          )
         ],
       ),
     );

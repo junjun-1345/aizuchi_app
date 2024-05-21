@@ -1,6 +1,6 @@
 import 'package:aizuchi_app/domain/domain_module.dart';
-import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/domain/entity/models/subscription_model.dart';
+import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/components/list_item.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/plan/components/promotion_bunner.dart';
 import 'package:aizuchi_app/presentation/view_model/subscription_view_model.dart';
@@ -19,14 +19,8 @@ class PlanPage extends ConsumerWidget {
     final subscriptionViewModel = ref.read(subscriptionViewModelProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "加入プラン",
-          style: TextStyle(color: BrandColor.black),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: BrandColor.textBlack),
+      appBar: const AppAppBar(
+        title: "加入プラン",
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
