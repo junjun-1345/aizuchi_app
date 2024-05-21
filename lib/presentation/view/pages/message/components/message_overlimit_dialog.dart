@@ -14,6 +14,7 @@ class MessageOverLimitDialog extends ConsumerWidget {
     return AlertDialog(
       title: const Text('会話の上限に達しました。'),
       backgroundColor: BrandColor.white,
+      surfaceTintColor: Colors.transparent,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
