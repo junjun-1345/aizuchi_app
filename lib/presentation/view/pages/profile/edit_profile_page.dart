@@ -49,6 +49,7 @@ class EditProfilePage extends HookConsumerWidget {
                     GestureDetector(
                       onTap: () => showDialog(
                         context: context,
+                        barrierDismissible: false,
                         builder: (context) => EditSexDialog(
                           choiceSex: choiceSex,
                           choicedSex: choiceSex.value,
@@ -77,6 +78,7 @@ class EditProfilePage extends HookConsumerWidget {
                     GestureDetector(
                       onTap: () => showDialog(
                         context: context,
+                        barrierDismissible: false,
                         builder: (context) => EditProffesionDialog(
                           choicedProfession: choiceProfession.value,
                           choiceProfession: choiceProfession,

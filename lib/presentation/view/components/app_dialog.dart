@@ -18,6 +18,7 @@ class AppDialog {
   }) {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
           title: Text(title),
@@ -50,6 +51,7 @@ class AppDialog {
   }) {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
           title: Text(title),
@@ -77,6 +79,7 @@ class AppDialog {
   }) {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
           title: Text(title),
@@ -108,6 +111,7 @@ class AppDialog {
   }) {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
         return Consumer(
           builder: (context, ref, child) {

@@ -86,6 +86,7 @@ class NotificationPage extends ConsumerWidget {
                                       .cancelAllNotifications();
                                   showDialog(
                                       context: context,
+                                      barrierDismissible: false,
                                       builder: (context) => AlertDialog(
                                             backgroundColor: BrandColor.white,
                                             surfaceTintColor:
@@ -157,6 +158,7 @@ class NotificationPage extends ConsumerWidget {
           .scheduleDailyNotificationAt(pickedTime.hour, pickedTime.minute);
       showDialog(
         context: context,
+        barrierDismissible: false,
         builder: (context) => AlertDialog(
           backgroundColor: BrandColor.white,
           surfaceTintColor: Colors.transparent,
