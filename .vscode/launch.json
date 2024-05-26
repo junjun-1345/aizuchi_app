@@ -28,6 +28,20 @@
       "type": "dart",
       "flutterMode": "release",
       "args": ["--dart-define-from-file=dart_defines/dev.env"]
+    },
+    {
+      "name": "Release stg",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "args": ["--dart-define-from-file=dart_defines/stg.env"]
+    },
+    {
+      "name": "Release prod",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "args": ["--dart-define-from-file=dart_defines/prod.env"]
     }
   ]
 }
