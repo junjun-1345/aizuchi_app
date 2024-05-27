@@ -50,7 +50,7 @@ class MessageFooterContents extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               AppButton.small(
-                width: 80,
+                width: 100,
                 height: 40,
                 onPressed: () {
                   if (isWaiting) {
@@ -62,7 +62,7 @@ class MessageFooterContents extends ConsumerWidget {
                     ref.read(messageViewModelProvider).createSummary();
                   }
                 },
-                text: "終了",
+                text: "おわる",
               ),
               const SizedBox(width: 8),
 
@@ -138,7 +138,7 @@ class MessageFooterContents extends ConsumerWidget {
                       elevation: 0,
                       shape: const StadiumBorder(),
                       backgroundColor: BrandColor.baseRed),
-                  text: ("日記を書く"),
+                  text: ("お話しする"),
                 ),
         ],
       );

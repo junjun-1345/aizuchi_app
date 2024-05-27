@@ -225,6 +225,7 @@ class AppTextForm {
       decoration: InputDecoration(
         fillColor: Colors.grey[200],
         hintText: "メッセージを入力",
+        hintStyle: const TextStyle(fontSize: 14),
         filled: true,
         //これがないと余白をとりすぎる
         isDense: true,
