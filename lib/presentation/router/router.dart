@@ -12,6 +12,8 @@ import 'package:aizuchi_app/presentation/view/pages/root_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/search/search.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/auth/authentication_cooperation_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/character/character_select_page.dart';
+import 'package:aizuchi_app/presentation/view/pages/settings/healthcare/healthcare_page.dart';
+import 'package:aizuchi_app/presentation/view/pages/settings/lock/lock_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/mail/mail_confirm_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/notification/notification_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/password/password_change_page.dart';
@@ -150,6 +152,16 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           path: '/NotificationPage',
           page: NotificationRoute.page,
+          guards: [AuthGuard()],
+        ),
+        AutoRoute(
+          path: '/HealthcarePage',
+          page: HealthcareRoute.page,
+          guards: [AuthGuard()],
+        ),
+        AutoRoute(
+          path: '/LockPage',
+          page: LockRoute.page,
           guards: [AuthGuard()],
         ),
       ];

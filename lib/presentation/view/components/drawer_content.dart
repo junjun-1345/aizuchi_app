@@ -142,13 +142,21 @@ class HamburgerMenu extends ConsumerWidget {
         _buildSectionItem(
           title: "端末ロック",
           icon: Icons.lock,
-          onTap: () {},
+          onTap: () {
+            context.router.push(
+              const LockRoute(),
+            );
+          },
           verticalType: VerticalType.none,
         ),
         _buildSectionItem(
           title: "ヘルスケア連携",
           icon: Icons.favorite_sharp,
-          onTap: () {},
+          onTap: () {
+            context.router.push(
+              const HealthcareRoute(),
+            );
+          },
           verticalType: VerticalType.bottom,
         ),
       ],
