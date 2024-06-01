@@ -6,7 +6,7 @@ class UserModel {
   final String id;
   final String name;
   final String email;
-  final DateTime birthday;
+  final DateTime? birthday;
   final SexEnum sex;
   final bool isSubscription;
   final bool init;
