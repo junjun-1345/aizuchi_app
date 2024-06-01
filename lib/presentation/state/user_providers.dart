@@ -3,7 +3,6 @@ import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/presentation/model/user_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-
 final userIdProvider = StateProvider<String?>((_) => null);
 final userNameProvider = StateProvider<String?>((_) => null);
 final userEmailProvider = StateProvider<String?>((_) => null);
@@ -20,7 +19,6 @@ final userIsConversationProvider = StateProvider<bool?>((_) => null);
 final userIsAssistantProvider = StateProvider<bool?>((_) => true);
 final userIsMessageOverLimitProvider = StateProvider<bool?>((_) => null);
 final totalMessagesProvider = StateProvider<int?>((_) => 0);
-
 
 final userProvider = StateProvider<UserModel>((ref) {
   final id = ref.watch(userIdProvider);
@@ -44,7 +42,7 @@ final userProvider = StateProvider<UserModel>((ref) {
     id: id ?? "",
     name: name ?? "",
     email: email ?? "",
-    birthday: birthday ?? DateTime(2000, 1, 1),
+    birthday: birthday,
     sex: sex ?? SexEnum.unknown,
     isSubscription: isSubscription ?? false,
     init: init ?? false,
@@ -57,6 +55,5 @@ final userProvider = StateProvider<UserModel>((ref) {
     isAssistant: isAssistant ?? true,
     isMessageOverLimit: isMessageOverLimit ?? false,
     totalMessages: totalMessages ?? 0,
-
   );
 });

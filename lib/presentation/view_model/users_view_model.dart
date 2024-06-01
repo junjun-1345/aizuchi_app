@@ -119,7 +119,7 @@ class UserViewModel {
   Future<void> updateProfile({
     required String name,
     required SexEnum sex,
-    required DateTime birthday,
+    required DateTime? birthday,
     required String profession,
     required Function onSuccess,
     required Function onError,

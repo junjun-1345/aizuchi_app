@@ -45,6 +45,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const EditProfilePage(),
       );
     },
+    HealthcareRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const HealthcarePage(),
+      );
+    },
     LimitMessageRoute.name: (routeData) {
       final args = routeData.argsAs<LimitMessageRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -53,6 +59,12 @@ abstract class _$AppRouter extends RootStackRouter {
           key: args.key,
           selectedDate: args.selectedDate,
         ),
+      );
+    },
+    LockRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const LockPage(),
       );
     },
     LogRoute.name: (routeData) {
@@ -241,6 +253,20 @@ class EditProfileRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [HealthcarePage]
+class HealthcareRoute extends PageRouteInfo<void> {
+  const HealthcareRoute({List<PageRouteInfo>? children})
+      : super(
+          HealthcareRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'HealthcareRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [LimitMessagePage]
 class LimitMessageRoute extends PageRouteInfo<LimitMessageRouteArgs> {
   LimitMessageRoute({
@@ -276,6 +302,20 @@ class LimitMessageRouteArgs {
   String toString() {
     return 'LimitMessageRouteArgs{key: $key, selectedDate: $selectedDate}';
   }
+}
+
+/// generated route for
+/// [LockPage]
+class LockRoute extends PageRouteInfo<void> {
+  const LockRoute({List<PageRouteInfo>? children})
+      : super(
+          LockRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LockRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
