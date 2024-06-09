@@ -163,6 +163,25 @@ class SignUpPage extends HookConsumerWidget {
                           ),
                         ),
                       ),
+                      AppButton.medium(
+                        text: "しらべる",
+                        onPressed: () {
+                          context.router
+                              .push(const MeasurementFromStartRoute());
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      AppButton.medium(
+                        text: "そくてい",
+                        onPressed: () {
+                          context.router.push(const SearchFromStartRoute());
+                        },
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
                       const StartImage(),
                     ],
                   ),

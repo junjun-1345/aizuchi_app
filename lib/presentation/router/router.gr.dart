@@ -79,6 +79,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const MailConfrimPage(),
       );
     },
+    MeasurementFromStartRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MeasurementFromStartPage(),
+      );
+    },
     MeasurementRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -119,6 +125,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const RootPage(),
+      );
+    },
+    SearchFromStartRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SearchFromStartPage(),
       );
     },
     SearchRoute.name: (routeData) {
@@ -347,6 +359,20 @@ class MailConfrimRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [MeasurementFromStartPage]
+class MeasurementFromStartRoute extends PageRouteInfo<void> {
+  const MeasurementFromStartRoute({List<PageRouteInfo>? children})
+      : super(
+          MeasurementFromStartRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MeasurementFromStartRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [MeasurementPage]
 class MeasurementRoute extends PageRouteInfo<void> {
   const MeasurementRoute({List<PageRouteInfo>? children})
@@ -440,6 +466,20 @@ class RootRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'RootRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SearchFromStartPage]
+class SearchFromStartRoute extends PageRouteInfo<void> {
+  const SearchFromStartRoute({List<PageRouteInfo>? children})
+      : super(
+          SearchFromStartRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SearchFromStartRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
