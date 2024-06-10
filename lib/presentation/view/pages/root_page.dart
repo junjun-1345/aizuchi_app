@@ -4,8 +4,10 @@ import 'package:aizuchi_app/domain/entity/models/color.dart';
 
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
+import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
 import 'package:aizuchi_app/presentation/view_model/message_view_model.dart';
+import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -22,6 +24,19 @@ class RootPage extends HookConsumerWidget {
     final updateRequest = ref.watch(appUsecaseProvider).updateRequest();
 
     final isDialogShowing = useState(false);
+    final isTimeout = useState(false); // タイムアウトを管理する状態
+    const timeoutDuration = Duration(seconds: 10); // タイムアウトまでの時間を設定
+
+    useEffect(() {
+      final timer = Future.delayed(timeoutDuration, () {
+        isTimeout.value = true; // タイムアウトが発生したら状態を更新
+      });
+
+      return () {
+        // コンポーネントがアンマウントされる前にタイマーをキャンセル
+        timer.ignore();
+      };
+    }, []); // 空の依存配列で一度だけ実行
 
     return AutoTabsRouter(
       routes: const [
@@ -141,9 +156,25 @@ class RootPage extends HookConsumerWidget {
             );
           },
           error: (error, stackTrace) {
-            return const Scaffold(
+            return Scaffold(
               body: Center(
-                child: Text('エラーが発生しました'),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('エラーが発生しました'),
+                    const SizedBox(height: 32),
+                    AppButton.medium(
+                        onPressed: () {
+                          ref.read(userViewModelProvider).signOut();
+                          AppDialog.showNoActionDialog(
+                            context: context,
+                            title: "強制再起動しました。",
+                            content: "アプリを閉じてください",
+                          );
+                        },
+                        text: '強制再起動'),
+                  ],
+                ),
               ),
             );
           },
