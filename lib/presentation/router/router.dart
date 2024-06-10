@@ -19,6 +19,8 @@ import 'package:aizuchi_app/presentation/view/pages/settings/notification/notifi
 import 'package:aizuchi_app/presentation/view/pages/settings/password/password_change_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/plan/plan_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/purchase_page.dart';
+import 'package:aizuchi_app/presentation/view/pages/start/measurement_from_start_page.dart';
+import 'package:aizuchi_app/presentation/view/pages/start/search_from_start_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_up_form_birthdate_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_up_form_check_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_up_form_name_page.dart';
@@ -69,6 +71,14 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           path: '/Check',
           page: SignUpFormCheckRoute.page,
+        ),
+        AutoRoute(
+          path: '/MeasurementFromStart',
+          page: MeasurementFromStartRoute.page,
+        ),
+        AutoRoute(
+          path: '/SearchFromStart',
+          page: SearchFromStartRoute.page,
         ),
         AutoRoute(
           path: '/',
