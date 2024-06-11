@@ -28,10 +28,14 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
   final UsersUsecase _usersUseCase;
 
   void initialize() async {
-    final UserEntity? entity = await _usersUseCase.read();
-    if (entity == null) throw 'ログインしてください。';
-    final UserModel user = UserModel.fromEntity(entity);
-    state = AsyncValue.data(user);
+    try {
+      final UserEntity? entity = await _usersUseCase.read();
+      if (entity == null) throw 'ログインしてください。';
+      final UserModel user = UserModel.fromEntity(entity);
+      state = AsyncValue.data(user);
+    } catch (e) {
+      state = AsyncValue.error(e, StackTrace.current);
+    }
   }
 
   Future<void> signUpWith(PlatformType platform) async {
