@@ -140,6 +140,7 @@ class RootPage extends HookConsumerWidget {
                       title: '会話中は他の画面に\n移動できません',
                       onCompleted: () {
                         ref.read(messageViewModelProvider).createSummary();
+                        Navigator.of(context).pop();
                       },
                       content: '会話を終了しますか？',
                     );
