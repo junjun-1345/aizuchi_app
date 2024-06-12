@@ -40,7 +40,9 @@ class CurrentProfilePage extends HookConsumerWidget {
                   ),
                   ProfileTile(
                     title: '生年月日',
-                    currentData: DateFormat('yyyy/MM/dd').format(data.birthday),
+                    currentData: data.birthday != null
+                        ? DateFormat('yyyy/MM/dd').format(data.birthday!)
+                        : "未登録",
                   ),
                   ProfileTile(
                     title: '職業',

@@ -64,7 +64,6 @@ class AuthRepositoryImpl implements AuthRepository {
       idToken: googleAuth?.idToken,
     );
     await FirebaseAuth.instance.signInWithCredential(credential);
-    // ignore: empty_catches
   }
 
   @override

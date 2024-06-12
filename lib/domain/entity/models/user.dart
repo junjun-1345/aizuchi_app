@@ -5,7 +5,7 @@ class UserEntity {
   final String id;
   final String name;
   final String email;
-  final DateTime birthday;
+  final DateTime? birthday;
   final SexEnum sex;
   final bool isSubscription;
   final bool init;
@@ -44,9 +44,7 @@ class UserEntity {
     String? email,
     DateTime? birthday,
     SexEnum? sex,
-
     bool? isSubscription,
-
     bool? init,
     DateTime? createdAt,
     int? activeDay,
@@ -65,9 +63,7 @@ class UserEntity {
         email: email ?? this.email,
         birthday: birthday ?? this.birthday,
         sex: sex ?? this.sex,
-
         isSubscription: isSubscription ?? this.isSubscription,
-
         init: init ?? this.init,
         activeDay: activeDay ?? this.activeDay,
         charactor: charactor ?? this.charactor,

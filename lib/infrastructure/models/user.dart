@@ -45,7 +45,7 @@ class UserData {
   final String id;
   final String name;
   final String email;
-  final Timestamp birthday;
+  final Timestamp? birthday;
   final String sex;
   final bool isSubscription;
   final bool init;
@@ -119,7 +119,7 @@ class UserData {
         id: json[UserFields.id] as String,
         name: json[UserFields.name] as String,
         email: json[UserFields.email] as String,
-        birthday: json[UserFields.birthday] as Timestamp,
+        birthday: json[UserFields.birthday] as Timestamp?,
         sex: json[UserFields.sex] as String,
         isSubscription: json[UserFields.isSubscription] as bool,
         init: json[UserFields.init] as bool,
@@ -157,7 +157,9 @@ class UserData {
         id: entity.id,
         name: entity.name,
         email: entity.email,
-        birthday: Timestamp.fromDate(entity.birthday),
+        birthday: entity.birthday != null
+            ? Timestamp.fromDate(entity.birthday!)
+            : null,
         sex: entity.sex.sexValue!,
         isSubscription: entity.isSubscription,
         init: entity.init,
@@ -176,7 +178,7 @@ class UserData {
         id: id,
         name: name,
         email: email,
-        birthday: birthday.toDate(),
+        birthday: birthday?.toDate(),
         sex: SexExtension.from(sex),
         isSubscription: isSubscription,
         init: init,
