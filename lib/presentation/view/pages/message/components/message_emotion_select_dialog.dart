@@ -4,13 +4,26 @@ import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/view_model/message_view_model.dart';
 import 'package:aizuchi_app/presentation/view_model/subscription_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
-class MessageEmotionSelectDailog extends ConsumerWidget {
+class MessageEmotionSelectDailog extends HookConsumerWidget {
   const MessageEmotionSelectDailog({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final DateFormat dateKeyFormatter = DateFormat('yyyy_MM_dd');
+    final DateFormat dateFormatter = DateFormat('MM月dd日');
+    final String today = dateFormatter.format(DateTime.now());
+    final String yesterday =
+        dateFormatter.format(DateTime.now().subtract(const Duration(days: 1)));
+    final String todayKey = dateKeyFormatter.format(DateTime.now());
+    final String yesterdayKey = dateKeyFormatter
+        .format(DateTime.now().subtract(const Duration(days: 1)));
+
+    final selectDate = useState<String>(todayKey);
+
     Widget selectEmotionButton(EmotionType emotion) {
       return GestureDetector(
         onTap: () {
@@ -18,7 +31,7 @@ class MessageEmotionSelectDailog extends ConsumerWidget {
           ref.read(emotionProvider.notifier).state = emotion;
           ref.read(messageViewModelProvider).sendTodayFirstMessage();
 
-          Navigator.of(context).pop();
+          Navigator.pop(context, selectDate.value);
         },
         child: Text(
           emotion.emotionValue ?? "",
@@ -57,6 +70,22 @@ class MessageEmotionSelectDailog extends ConsumerWidget {
       actions: <Widget>[
         Column(
           children: [
+            DropdownButton<String>(
+              items: [
+                DropdownMenuItem(
+                  value: todayKey,
+                  child: Text(today),
+                ),
+                DropdownMenuItem(
+                  value: yesterdayKey,
+                  child: Text(yesterday),
+                ),
+              ],
+              onChanged: (value) {
+                selectDate.value = value!;
+              },
+              value: selectDate.value,
+            ),
             Align(
               alignment: Alignment.topCenter,
               child: Wrap(
@@ -71,7 +100,7 @@ class MessageEmotionSelectDailog extends ConsumerWidget {
               ),
             ),
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.pop(context),
               child: const Text(
                 'あとにする',
                 style: TextStyle(color: BrandColor.baseRed),

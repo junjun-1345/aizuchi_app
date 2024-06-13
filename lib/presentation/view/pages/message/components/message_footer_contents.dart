@@ -127,12 +127,13 @@ class MessageFooterContents extends ConsumerWidget {
                   width: screenWidth * 0.8,
                   onPressed: dailyKey == today
                       ? null
-                      : () {
-                          showDialog(
+                      : () async {
+                          final String selectDate = await showDialog(
                             context: context,
                             builder: (context) =>
                                 const MessageEmotionSelectDailog(),
                           );
+                          print(selectDate);
                         },
                   style: ElevatedButton.styleFrom(
                       elevation: 0,
