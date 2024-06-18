@@ -132,7 +132,7 @@ class EmotionStockBarChart extends StatelessWidget {
 
     return BarChart(
       BarChartData(
-        maxY: emotionAmounts.reduce(max),
+        maxY: emotionAmounts.reduce(max) + 1,
         backgroundColor: BrandColor.base,
         borderData: FlBorderData(
           border: const Border(
