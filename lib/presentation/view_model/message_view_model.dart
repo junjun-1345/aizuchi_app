@@ -56,6 +56,7 @@ class MessageViewModel {
         ref.read(usersNotifierProvider).asData!.value.isAssistant;
     final String dailyKey =
         ref.read(usersNotifierProvider).asData!.value.dailyKey;
+    print('sendMessage $dailyKey');
     final limit = await ref.read(usersUsecaseProvider).getMessageLimit();
 
     isWaitngNotifier.startWaiting();

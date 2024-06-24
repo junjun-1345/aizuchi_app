@@ -9,18 +9,22 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class MessageEmotionSelectDailog extends HookConsumerWidget {
-  const MessageEmotionSelectDailog({super.key});
+  const MessageEmotionSelectDailog({required this.dailyKey, super.key});
+  final String dailyKey;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final DateFormat dateKeyFormatter = DateFormat('yyyy_MM_dd');
     final DateFormat dateFormatter = DateFormat('MM月dd日');
     final String today = dateFormatter.format(DateTime.now());
     final String yesterday =
         dateFormatter.format(DateTime.now().subtract(const Duration(days: 1)));
-    final String todayKey = dateKeyFormatter.format(DateTime.now());
-    final String yesterdayKey = dateKeyFormatter
-        .format(DateTime.now().subtract(const Duration(days: 1)));
+    final datetimeNow = DateTime.now();
+    final datetimeYesterdayNow =
+        DateTime.now().subtract(const Duration(days: 1));
+    final todayKey =
+        "${datetimeNow.year}_${datetimeNow.month}_${datetimeNow.day}";
+    final yesterdayKey =
+        "${datetimeYesterdayNow.year}_${datetimeYesterdayNow.month}_${datetimeYesterdayNow.day}";
 
     final selectDate = useState<String>(todayKey);
 
@@ -70,22 +74,23 @@ class MessageEmotionSelectDailog extends HookConsumerWidget {
       actions: <Widget>[
         Column(
           children: [
-            DropdownButton<String>(
-              items: [
-                DropdownMenuItem(
-                  value: todayKey,
-                  child: Text(today),
-                ),
-                DropdownMenuItem(
-                  value: yesterdayKey,
-                  child: Text(yesterday),
-                ),
-              ],
-              onChanged: (value) {
-                selectDate.value = value!;
-              },
-              value: selectDate.value,
-            ),
+            if (dailyKey != yesterday && dailyKey != todayKey)
+              DropdownButton<String>(
+                items: [
+                  DropdownMenuItem(
+                    value: todayKey,
+                    child: Text(today),
+                  ),
+                  DropdownMenuItem(
+                    value: yesterdayKey,
+                    child: Text(yesterday),
+                  ),
+                ],
+                onChanged: (value) {
+                  selectDate.value = value!;
+                },
+                value: selectDate.value,
+              ),
             Align(
               alignment: Alignment.topCenter,
               child: Wrap(

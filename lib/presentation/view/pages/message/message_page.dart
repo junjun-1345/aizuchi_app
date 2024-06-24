@@ -56,12 +56,13 @@ class MessagePage extends HookConsumerWidget {
               );
             }
             if (!data.isConversation && data.dailyKey != today) {
-              WidgetsBinding.instance.addPostFrameCallback((_) async {
-                final String selectDate = await showDialog(
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                showDialog(
                   context: context,
-                  builder: (context) => const MessageEmotionSelectDailog(),
+                  builder: (context) => MessageEmotionSelectDailog(
+                    dailyKey: data.dailyKey,
+                  ),
                 );
-                print(selectDate);
               });
             }
             return const Column(
