@@ -59,6 +59,7 @@ class MessagePage extends HookConsumerWidget {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 showDialog(
                   context: context,
+                  barrierDismissible: false,
                   builder: (context) {
                     return const MessageEmotionSelectDailog();
                   },

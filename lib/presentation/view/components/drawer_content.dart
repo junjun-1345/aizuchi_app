@@ -142,13 +142,21 @@ class HamburgerMenu extends ConsumerWidget {
         _buildSectionItem(
           title: "端末ロック",
           icon: Icons.lock,
-          onTap: () {},
+          onTap: () {
+            context.router.push(
+              const LockRoute(),
+            );
+          },
           verticalType: VerticalType.none,
         ),
         _buildSectionItem(
           title: "ヘルスケア連携",
           icon: Icons.favorite_sharp,
-          onTap: () {},
+          onTap: () {
+            context.router.push(
+              const HealthcareRoute(),
+            );
+          },
           verticalType: VerticalType.bottom,
         ),
       ],
@@ -238,7 +246,11 @@ class HamburgerMenu extends ConsumerWidget {
         content: "ログアウトします。\nよろしいですか？",
         onPressed: () {
           ref.read(userViewModelProvider).signOut();
-          context.router.replace(const SignInRoute());
+          AppDialog.showNoActionDialog(
+            context: context,
+            title: "ログアウトしました。",
+            content: "アプリを閉じてください",
+          );
         },
       ),
     );
@@ -253,10 +265,13 @@ class HamburgerMenu extends ConsumerWidget {
         title: 'アカウント削除',
         content: 'アカウントを削除します。\nよろしいですか？',
         onPressed: () async {
-          await ref
-              .read(userViewModelProvider)
-              .delete()
-              .then((value) => context.router.replace(const SignUpRoute()));
+          await ref.read(userViewModelProvider).delete().then(
+                (value) => AppDialog.showNoActionDialog(
+                  context: context,
+                  title: "アカウント削除しました。",
+                  content: "アプリを閉じてください",
+                ),
+              );
         },
       ),
     );

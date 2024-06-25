@@ -49,6 +49,7 @@ class EditProfilePage extends HookConsumerWidget {
                     GestureDetector(
                       onTap: () => showDialog(
                         context: context,
+                        barrierDismissible: false,
                         builder: (context) => EditSexDialog(
                           choiceSex: choiceSex,
                           choicedSex: choiceSex.value,
@@ -69,14 +70,16 @@ class EditProfilePage extends HookConsumerWidget {
                       }, currentTime: data.birthday, locale: LocaleType.jp),
                       child: ProfileTile(
                         title: '生年月日',
-                        currentData: DateFormat('yyyy/MM/dd')
-                            .format(choiceBirthday.value),
+                        currentData: data.birthday != null
+                            ? DateFormat('yyyy/MM/dd').format(data.birthday!)
+                            : "未登録",
                         withBorder: true,
                       ),
                     ),
                     GestureDetector(
                       onTap: () => showDialog(
                         context: context,
+                        barrierDismissible: false,
                         builder: (context) => EditProffesionDialog(
                           choicedProfession: choiceProfession.value,
                           choiceProfession: choiceProfession,
@@ -102,7 +105,9 @@ class EditProfilePage extends HookConsumerWidget {
                           onPressed: () async => userViewModel.updateProfile(
                                 name: nameController.text.trim(),
                                 sex: choiceSex.value,
-                                birthday: choiceBirthday.value,
+                                birthday: choiceBirthday.value != null
+                                    ? null
+                                    : choiceBirthday.value,
                                 profession: choiceProfession.value,
                                 onSuccess: () {
                                   ref.invalidate(usersNotifierProvider);

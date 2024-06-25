@@ -86,7 +86,11 @@ class NotificationPage extends ConsumerWidget {
                                       .cancelAllNotifications();
                                   showDialog(
                                       context: context,
+                                      barrierDismissible: false,
                                       builder: (context) => AlertDialog(
+                                            backgroundColor: BrandColor.white,
+                                            surfaceTintColor:
+                                                Colors.transparent,
                                             title: const Text("通知設定"),
                                             content:
                                                 const Text("通知をOFFに変更しました。"),
@@ -154,7 +158,10 @@ class NotificationPage extends ConsumerWidget {
           .scheduleDailyNotificationAt(pickedTime.hour, pickedTime.minute);
       showDialog(
         context: context,
+        barrierDismissible: false,
         builder: (context) => AlertDialog(
+          backgroundColor: BrandColor.white,
+          surfaceTintColor: Colors.transparent,
           title: const Text("通知設定"),
           content: const Text("通知設定を変更しました。"),
           actions: <Widget>[

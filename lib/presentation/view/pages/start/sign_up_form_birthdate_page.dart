@@ -15,11 +15,11 @@ class SignUpFormBirthDatePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final birthDate = useState(DateTime(0));
+    final birthDate = useState<DateTime?>(null);
     final birthdayNotifier = ref.watch(userBirthdayProvider.notifier);
     final errorState = useState("");
     return GestureDetector(
-      onTap: () => birthDate.value = DateTime(0),
+      onTap: () => birthDate.value = null,
       child: Scaffold(
         body: SafeArea(
           child: Padding(
@@ -37,15 +37,18 @@ class SignUpFormBirthDatePage extends HookConsumerWidget {
                       width: double.infinity,
                       child: AppButton.base(
                         onPressed: () {
-                          DatePicker.showDatePicker(context,
-                              showTitleActions: true,
-                              minTime: DateTime(1900, 1, 1),
-                              maxTime: DateTime.now(), onConfirm: (date) {
-                            birthDate.value = date;
-                            errorState.value = "";
-                          },
-                              currentTime: DateTime(2000, 1, 1),
-                              locale: LocaleType.jp);
+                          DatePicker.showDatePicker(
+                            context,
+                            showTitleActions: true,
+                            minTime: DateTime(1900, 1, 1),
+                            maxTime: DateTime.now(),
+                            onConfirm: (date) {
+                              birthDate.value = date;
+                              errorState.value = "";
+                            },
+                            currentTime: DateTime.now(),
+                            locale: LocaleType.jp,
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
@@ -54,9 +57,9 @@ class SignUpFormBirthDatePage extends HookConsumerWidget {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        text: birthDate.value == DateTime(0)
+                        text: birthDate.value == null
                             ? "生年月日を入力"
-                            : "${birthDate.value.year}年 ${birthDate.value.month}月 ${birthDate.value.day}日",
+                            : "${birthDate.value!.year}年 ${birthDate.value!.month}月 ${birthDate.value!.day}日",
                         textStyle: const TextStyle(
                           color: BrandColor.black,
                         ),
@@ -81,14 +84,12 @@ class SignUpFormBirthDatePage extends HookConsumerWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        if (birthDate.value == DateTime(0)) {
-                          errorState.value = "生年月日を入力してください";
-                        } else {
-                          birthdayNotifier.state = birthDate.value;
-                          context.router.push(
-                            const SignUpFormSurveyRoute(),
-                          );
+                        if (birthDate.value != null) {
+                          birthdayNotifier.state = birthDate.value!;
                         }
+                        context.router.push(
+                          const SignUpFormSurveyRoute(),
+                        );
                       },
                       icon: const Icon(Icons.arrow_forward),
                     ),

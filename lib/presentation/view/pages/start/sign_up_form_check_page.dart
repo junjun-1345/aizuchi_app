@@ -101,13 +101,21 @@ class SignUpFormCheckPage extends HookConsumerWidget {
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Text(
-                        "${usersState.birthday.year}年 ${usersState.birthday.month}月 ${usersState.birthday.day}日",
-                        style: const TextStyle(
-                          color: BrandColor.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: usersState.birthday != null
+                          ? Text(
+                              "${usersState.birthday?.year}年 ${usersState.birthday?.month}月 ${usersState.birthday?.day}日",
+                              style: const TextStyle(
+                                color: BrandColor.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          : const Text(
+                              "未登録",
+                              style: TextStyle(
+                                color: BrandColor.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                     ),
                     const SizedBox(
                       height: 8,

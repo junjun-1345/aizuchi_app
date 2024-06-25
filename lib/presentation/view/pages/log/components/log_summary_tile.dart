@@ -17,7 +17,8 @@ class LogSummaryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int registeredDays = DateTime.now().difference(createdAt).inDays;
+    final int registeredDays = DateTime.now().difference(createdAt).inDays + 1;
+    final int calcMessageAmount = messageAmount - activeDays;
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
@@ -38,7 +39,7 @@ class LogSummaryTile extends StatelessWidget {
             SummaryPart(
               icon: FontAwesomeIcons.comments,
               title: '会話数',
-              value: messageAmount.toString(),
+              value: calcMessageAmount.toString(),
               unit: '回',
             ),
             SummaryPart(

@@ -34,7 +34,8 @@ void main() async {
       firebaseOptions = dev.DefaultFirebaseOptions.currentPlatform;
     case "stg":
       firebaseOptions = stg.DefaultFirebaseOptions.currentPlatform;
-    case "prd":
+    case "prod":
+      print('prod');
       firebaseOptions = prod.DefaultFirebaseOptions.currentPlatform;
     default:
       firebaseOptions = dev.DefaultFirebaseOptions.currentPlatform;

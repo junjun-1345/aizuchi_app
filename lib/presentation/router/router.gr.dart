@@ -45,6 +45,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const EditProfilePage(),
       );
     },
+    HealthcareRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const HealthcarePage(),
+      );
+    },
     LimitMessageRoute.name: (routeData) {
       final args = routeData.argsAs<LimitMessageRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -53,6 +59,12 @@ abstract class _$AppRouter extends RootStackRouter {
           key: args.key,
           selectedDate: args.selectedDate,
         ),
+      );
+    },
+    LockRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const LockPage(),
       );
     },
     LogRoute.name: (routeData) {
@@ -65,6 +77,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const MailConfrimPage(),
+      );
+    },
+    MeasurementFromStartRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MeasurementFromStartPage(),
       );
     },
     MeasurementRoute.name: (routeData) {
@@ -107,6 +125,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const RootPage(),
+      );
+    },
+    SearchFromStartRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SearchFromStartPage(),
       );
     },
     SearchRoute.name: (routeData) {
@@ -241,6 +265,20 @@ class EditProfileRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [HealthcarePage]
+class HealthcareRoute extends PageRouteInfo<void> {
+  const HealthcareRoute({List<PageRouteInfo>? children})
+      : super(
+          HealthcareRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'HealthcareRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [LimitMessagePage]
 class LimitMessageRoute extends PageRouteInfo<LimitMessageRouteArgs> {
   LimitMessageRoute({
@@ -279,6 +317,20 @@ class LimitMessageRouteArgs {
 }
 
 /// generated route for
+/// [LockPage]
+class LockRoute extends PageRouteInfo<void> {
+  const LockRoute({List<PageRouteInfo>? children})
+      : super(
+          LockRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LockRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [LogPage]
 class LogRoute extends PageRouteInfo<void> {
   const LogRoute({List<PageRouteInfo>? children})
@@ -302,6 +354,20 @@ class MailConfrimRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MailConfrimRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MeasurementFromStartPage]
+class MeasurementFromStartRoute extends PageRouteInfo<void> {
+  const MeasurementFromStartRoute({List<PageRouteInfo>? children})
+      : super(
+          MeasurementFromStartRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MeasurementFromStartRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -400,6 +466,20 @@ class RootRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'RootRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SearchFromStartPage]
+class SearchFromStartRoute extends PageRouteInfo<void> {
+  const SearchFromStartRoute({List<PageRouteInfo>? children})
+      : super(
+          SearchFromStartRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SearchFromStartRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
