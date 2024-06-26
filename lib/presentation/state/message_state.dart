@@ -36,7 +36,6 @@ class MessagesNotifier extends StateNotifier<AsyncValue<List<MessageModel>>> {
 
   Future<void> createDateMessage() async {
     final String key = ref.read(usersNotifierProvider).asData!.value.dailyKey;
-
     try {
       final MessageEntity datetimeMessageEntity =
           await _messageUsecase.saveMessage("", key, MessageType.datetime);

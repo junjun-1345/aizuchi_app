@@ -28,12 +28,12 @@ class MessageEmotionSelectDailog extends HookConsumerWidget {
 
     final selectDate = useState<String>(todayKey);
 
-    Widget selectEmotionButton(EmotionType emotion) {
+    Widget selectEmotionButton(EmotionType emotion, String dailyKey) {
       return GestureDetector(
         onTap: () {
           ref.read(subscriptionViewModelProvider).checkSubscriptionStatus();
           ref.read(emotionProvider.notifier).state = emotion;
-          ref.read(messageViewModelProvider).sendTodayFirstMessage();
+          ref.read(messageViewModelProvider).sendTodayFirstMessage(dailyKey);
 
           Navigator.pop(context, selectDate.value);
         },
@@ -74,7 +74,7 @@ class MessageEmotionSelectDailog extends HookConsumerWidget {
       actions: <Widget>[
         Column(
           children: [
-            if (dailyKey != yesterday && dailyKey != todayKey)
+            if (dailyKey != yesterdayKey && dailyKey != todayKey)
               DropdownButton<String>(
                 items: [
                   DropdownMenuItem(
@@ -96,11 +96,11 @@ class MessageEmotionSelectDailog extends HookConsumerWidget {
               child: Wrap(
                 spacing: 16,
                 children: [
-                  selectEmotionButton(EmotionType.joyful),
-                  selectEmotionButton(EmotionType.content),
-                  selectEmotionButton(EmotionType.neutral),
-                  selectEmotionButton(EmotionType.discontent),
-                  selectEmotionButton(EmotionType.sad),
+                  selectEmotionButton(EmotionType.joyful, selectDate.value),
+                  selectEmotionButton(EmotionType.content, selectDate.value),
+                  selectEmotionButton(EmotionType.neutral, selectDate.value),
+                  selectEmotionButton(EmotionType.discontent, selectDate.value),
+                  selectEmotionButton(EmotionType.sad, selectDate.value),
                 ],
               ),
             ),

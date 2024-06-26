@@ -35,10 +35,9 @@ class MessageViewModel {
     this.usersUsecase,
   );
 
-  Future<void> sendTodayFirstMessage() async {
+  Future<void> sendTodayFirstMessage(String dailyKey) async {
     isWaitngNotifier.startWaiting();
-    print("sendTodayFirstMessage");
-    await usersNotifier.isConversationStart();
+    await usersNotifier.isConversationStart(dailyKey);
     await messagesNotifier.createDateMessage();
     await messagesNotifier.createEmotionMessage();
     await dailyNotifier.saveEmotion();
@@ -56,7 +55,6 @@ class MessageViewModel {
         ref.read(usersNotifierProvider).asData!.value.isAssistant;
     final String dailyKey =
         ref.read(usersNotifierProvider).asData!.value.dailyKey;
-    print('sendMessage $dailyKey');
     final limit = await ref.read(usersUsecaseProvider).getMessageLimit();
 
     isWaitngNotifier.startWaiting();
