@@ -184,7 +184,12 @@ class MessageContents extends HookConsumerWidget {
         case MessageType.emotion:
           return emotionContent(message.content);
         case MessageType.datetime:
-          return dateContent(message.createdAt);
+          final String rawDate = message.id;
+          final List<String> dateParts = rawDate.split('_');
+          final String formattedDate =
+              "${dateParts[0]}-${dateParts[1].padLeft(2, '0')}-${dateParts[2].padLeft(2, '0')}";
+          final DateTime messageDate = DateTime.parse(formattedDate);
+          return dateContent(messageDate);
         default:
           return const SizedBox.shrink();
       }

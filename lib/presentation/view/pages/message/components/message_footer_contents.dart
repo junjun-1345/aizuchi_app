@@ -18,7 +18,6 @@ class MessageFooterContents extends ConsumerWidget {
     final datetimeNow = DateTime.now();
     final today = "${datetimeNow.year}_${datetimeNow.month}_${datetimeNow.day}";
     final userState = ref.watch(usersNotifierProvider);
-
     final isWaiting = ref.watch(isWaitngProvider);
     final messageViewModel = ref.read(messageViewModelProvider);
     final messageController = TextEditingController();
@@ -125,15 +124,15 @@ class MessageFooterContents extends ConsumerWidget {
               ? const CircularProgressIndicator()
               : AppButton.medium(
                   width: screenWidth * 0.8,
-                  onPressed: dailyKey == today
-                      ? null
-                      : () {
+                  onPressed: dailyKey != today
+                      ? () {
                           showDialog(
                             context: context,
                             builder: (context) =>
-                                const MessageEmotionSelectDailog(),
+                                MessageEmotionSelectDailog(dailyKey: dailyKey),
                           );
-                        },
+                        }
+                      : null,
                   style: ElevatedButton.styleFrom(
                       elevation: 0,
                       shape: const StadiumBorder(),
