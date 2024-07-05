@@ -15,6 +15,8 @@ class GptRepositoryImpl implements GptRepository {
   static const String _url = 'https://api.openai.com/v1/chat/completions';
   static final _key = Env.gptKey;
 
+  
+
   @override
   Future<String> createSummary(
     List<MessageEntity> messagesEntity,
