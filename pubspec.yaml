@@ -65,14 +65,14 @@ dependencies:
   firebase_analytics: ^10.10.2
   version: ^3.0.2
   sign_in_with_apple: ^6.1.0
+  freezed: ^2.5.2
 
 dev_dependencies:
   auto_route_generator:
   build_runner:
   riverpod_generator:
   envied_generator:
-  freezed:
-  json_serializable:
+  json_serializable: ^6.8.0
   flutter_test:
     sdk: flutter
 
