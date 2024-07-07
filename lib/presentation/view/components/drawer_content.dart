@@ -5,6 +5,7 @@ import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
 import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
+import 'package:aizuchi_app/rearchitecture/presentation/pages/profile/page.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,6 +40,19 @@ class HamburgerMenu extends ConsumerWidget {
                 error: (error, stack) {
                   return const Text('エラーが発生しました。');
                 },
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProfilePage()),
+                  );
+                },
+                child: const Text("プロフィールページへ"),
               ),
               const SizedBox(height: 24),
               _buildFeatureSection(context),
