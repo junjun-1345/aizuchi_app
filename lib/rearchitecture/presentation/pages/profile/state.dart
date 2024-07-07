@@ -1,4 +1,4 @@
-import 'package:aizuchi_app/rearchitecture/domain/user/entity.dart';
+import 'package:aizuchi_app/rearchitecture/domain/entity/user/model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'state.freezed.dart';
@@ -11,3 +11,5 @@ class ProfilePageState with _$ProfilePageState {
 }
 
 // MEMO:　画面で使うデータをまとめる
+
+// TODO(Rearchitecture): ここはkeep aliveにするべきか？

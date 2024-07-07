@@ -1,5 +1,5 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
-import 'package:aizuchi_app/rearchitecture/domain/user/entity.dart';
+import 'package:aizuchi_app/rearchitecture/domain/entity/user/model.dart';
 import 'package:aizuchi_app/rearchitecture/presentation/pages/profile/components/profile_list_item.dart';
 import 'package:aizuchi_app/rearchitecture/presentation/pages/profile/view_model.dart';
 import 'package:flutter/material.dart';

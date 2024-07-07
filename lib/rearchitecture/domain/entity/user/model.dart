@@ -2,8 +2,8 @@ import 'package:aizuchi_app/rearchitecture/domain/util/converter/timestamp_conve
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'entity.freezed.dart';
-part 'entity.g.dart';
+part 'model.freezed.dart';
+part 'model.g.dart';
 
 @freezed
 class UserData with _$UserData {
@@ -24,7 +24,7 @@ class UserData with _$UserData {
     @TimestampConverter() DateTime? createdAt,
   }) = _UserData;
 
-  // TODO: UserDataを生成してからじゃないとエラーになる?
+  // TODO(Rearchitecture): UserDataを生成してからじゃないとエラーになる?
   factory UserData.fromJson(Map<String, dynamic> json) =>
       _$UserDataFromJson(json);
 
