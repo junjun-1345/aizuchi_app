@@ -31,10 +31,10 @@ class ProfilePage extends HookConsumerWidget {
                   title: 'お名前',
                   value: userInfo.name ?? '',
                 ),
-                ReProfileTile(
-                  title: 'メールアドレス',
-                  value: userInfo.email ?? '',
-                ),
+                // ReProfileTile(
+                //   title: 'メールアドレス',
+                //   value: userInfo.email ?? '',
+                // ),
                 ReProfileTile(
                   title: '誕生日',
                   value: userInfo.birthday.toString(),

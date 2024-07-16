@@ -1,8 +1,7 @@
-import 'package:aizuchi_app/rearchitecture/converter/time_stamp_conveter.dart';
+import 'package:aizuchi_app/rearchitecture/converter/timestamp_converter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-// 生成されるdartファイルを記述
 part 'entity.freezed.dart';
 part 'entity.g.dart';
 
