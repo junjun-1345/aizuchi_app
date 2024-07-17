@@ -22,16 +22,19 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) {
 mixin _$UserData {
   String get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
-  int? get activeDay => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get timer => throw _privateConstructorUsedError;
   String? get sex => throw _privateConstructorUsedError;
   String? get charactor => throw _privateConstructorUsedError;
   String? get dailyKey => throw _privateConstructorUsedError;
   String? get profession => throw _privateConstructorUsedError;
+  int? get activeDay => throw _privateConstructorUsedError;
   int? get totalMessage => throw _privateConstructorUsedError;
-  dynamic get billing => throw _privateConstructorUsedError;
+  dynamic get isSubscription => throw _privateConstructorUsedError;
   dynamic get init => throw _privateConstructorUsedError;
+  dynamic get isAssistant => throw _privateConstructorUsedError;
+  dynamic get isConversation => throw _privateConstructorUsedError;
+  dynamic get isMessageOverLimit => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime? get birthday => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -51,16 +54,19 @@ abstract class $UserDataCopyWith<$Res> {
   $Res call(
       {String id,
       String? name,
-      int? activeDay,
       String? email,
       String? timer,
       String? sex,
       String? charactor,
       String? dailyKey,
       String? profession,
+      int? activeDay,
       int? totalMessage,
-      dynamic billing,
+      dynamic isSubscription,
       dynamic init,
+      dynamic isAssistant,
+      dynamic isConversation,
+      dynamic isMessageOverLimit,
       @TimestampConverter() DateTime? birthday,
       @TimestampConverter() DateTime? createdAt});
 }
@@ -80,16 +86,19 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
   $Res call({
     Object? id = null,
     Object? name = freezed,
-    Object? activeDay = freezed,
     Object? email = freezed,
     Object? timer = freezed,
     Object? sex = freezed,
     Object? charactor = freezed,
     Object? dailyKey = freezed,
     Object? profession = freezed,
+    Object? activeDay = freezed,
     Object? totalMessage = freezed,
-    Object? billing = freezed,
+    Object? isSubscription = freezed,
     Object? init = freezed,
+    Object? isAssistant = freezed,
+    Object? isConversation = freezed,
+    Object? isMessageOverLimit = freezed,
     Object? birthday = freezed,
     Object? createdAt = freezed,
   }) {
@@ -102,10 +111,6 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      activeDay: freezed == activeDay
-          ? _value.activeDay
-          : activeDay // ignore: cast_nullable_to_non_nullable
-              as int?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -130,17 +135,33 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
           ? _value.profession
           : profession // ignore: cast_nullable_to_non_nullable
               as String?,
+      activeDay: freezed == activeDay
+          ? _value.activeDay
+          : activeDay // ignore: cast_nullable_to_non_nullable
+              as int?,
       totalMessage: freezed == totalMessage
           ? _value.totalMessage
           : totalMessage // ignore: cast_nullable_to_non_nullable
               as int?,
-      billing: freezed == billing
-          ? _value.billing
-          : billing // ignore: cast_nullable_to_non_nullable
+      isSubscription: freezed == isSubscription
+          ? _value.isSubscription
+          : isSubscription // ignore: cast_nullable_to_non_nullable
               as dynamic,
       init: freezed == init
           ? _value.init
           : init // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      isAssistant: freezed == isAssistant
+          ? _value.isAssistant
+          : isAssistant // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      isConversation: freezed == isConversation
+          ? _value.isConversation
+          : isConversation // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      isMessageOverLimit: freezed == isMessageOverLimit
+          ? _value.isMessageOverLimit
+          : isMessageOverLimit // ignore: cast_nullable_to_non_nullable
               as dynamic,
       birthday: freezed == birthday
           ? _value.birthday
@@ -165,16 +186,19 @@ abstract class _$$UserDataImplCopyWith<$Res>
   $Res call(
       {String id,
       String? name,
-      int? activeDay,
       String? email,
       String? timer,
       String? sex,
       String? charactor,
       String? dailyKey,
       String? profession,
+      int? activeDay,
       int? totalMessage,
-      dynamic billing,
+      dynamic isSubscription,
       dynamic init,
+      dynamic isAssistant,
+      dynamic isConversation,
+      dynamic isMessageOverLimit,
       @TimestampConverter() DateTime? birthday,
       @TimestampConverter() DateTime? createdAt});
 }
@@ -192,16 +216,19 @@ class __$$UserDataImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = freezed,
-    Object? activeDay = freezed,
     Object? email = freezed,
     Object? timer = freezed,
     Object? sex = freezed,
     Object? charactor = freezed,
     Object? dailyKey = freezed,
     Object? profession = freezed,
+    Object? activeDay = freezed,
     Object? totalMessage = freezed,
-    Object? billing = freezed,
+    Object? isSubscription = freezed,
     Object? init = freezed,
+    Object? isAssistant = freezed,
+    Object? isConversation = freezed,
+    Object? isMessageOverLimit = freezed,
     Object? birthday = freezed,
     Object? createdAt = freezed,
   }) {
@@ -214,10 +241,6 @@ class __$$UserDataImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      activeDay: freezed == activeDay
-          ? _value.activeDay
-          : activeDay // ignore: cast_nullable_to_non_nullable
-              as int?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -242,12 +265,23 @@ class __$$UserDataImplCopyWithImpl<$Res>
           ? _value.profession
           : profession // ignore: cast_nullable_to_non_nullable
               as String?,
+      activeDay: freezed == activeDay
+          ? _value.activeDay
+          : activeDay // ignore: cast_nullable_to_non_nullable
+              as int?,
       totalMessage: freezed == totalMessage
           ? _value.totalMessage
           : totalMessage // ignore: cast_nullable_to_non_nullable
               as int?,
-      billing: freezed == billing ? _value.billing! : billing,
+      isSubscription:
+          freezed == isSubscription ? _value.isSubscription! : isSubscription,
       init: freezed == init ? _value.init! : init,
+      isAssistant: freezed == isAssistant ? _value.isAssistant! : isAssistant,
+      isConversation:
+          freezed == isConversation ? _value.isConversation! : isConversation,
+      isMessageOverLimit: freezed == isMessageOverLimit
+          ? _value.isMessageOverLimit!
+          : isMessageOverLimit,
       birthday: freezed == birthday
           ? _value.birthday
           : birthday // ignore: cast_nullable_to_non_nullable
@@ -266,16 +300,19 @@ class _$UserDataImpl implements _UserData {
   const _$UserDataImpl(
       {required this.id,
       this.name,
-      this.activeDay,
       this.email,
       this.timer,
       this.sex,
       this.charactor,
       this.dailyKey,
       this.profession,
+      this.activeDay,
       this.totalMessage,
-      this.billing = false,
+      this.isSubscription = false,
       this.init = false,
+      this.isAssistant = false,
+      this.isConversation = false,
+      this.isMessageOverLimit = false,
       @TimestampConverter() this.birthday,
       @TimestampConverter() this.createdAt});
 
@@ -286,8 +323,6 @@ class _$UserDataImpl implements _UserData {
   final String id;
   @override
   final String? name;
-  @override
-  final int? activeDay;
   @override
   final String? email;
   @override
@@ -301,13 +336,24 @@ class _$UserDataImpl implements _UserData {
   @override
   final String? profession;
   @override
+  final int? activeDay;
+  @override
   final int? totalMessage;
   @override
   @JsonKey()
-  final dynamic billing;
+  final dynamic isSubscription;
   @override
   @JsonKey()
   final dynamic init;
+  @override
+  @JsonKey()
+  final dynamic isAssistant;
+  @override
+  @JsonKey()
+  final dynamic isConversation;
+  @override
+  @JsonKey()
+  final dynamic isMessageOverLimit;
   @override
   @TimestampConverter()
   final DateTime? birthday;
@@ -317,7 +363,7 @@ class _$UserDataImpl implements _UserData {
 
   @override
   String toString() {
-    return 'UserData(id: $id, name: $name, activeDay: $activeDay, email: $email, timer: $timer, sex: $sex, charactor: $charactor, dailyKey: $dailyKey, profession: $profession, totalMessage: $totalMessage, billing: $billing, init: $init, birthday: $birthday, createdAt: $createdAt)';
+    return 'UserData(id: $id, name: $name, email: $email, timer: $timer, sex: $sex, charactor: $charactor, dailyKey: $dailyKey, profession: $profession, activeDay: $activeDay, totalMessage: $totalMessage, isSubscription: $isSubscription, init: $init, isAssistant: $isAssistant, isConversation: $isConversation, isMessageOverLimit: $isMessageOverLimit, birthday: $birthday, createdAt: $createdAt)';
   }
 
   @override
@@ -327,8 +373,6 @@ class _$UserDataImpl implements _UserData {
             other is _$UserDataImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.activeDay, activeDay) ||
-                other.activeDay == activeDay) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.timer, timer) || other.timer == timer) &&
             (identical(other.sex, sex) || other.sex == sex) &&
@@ -338,10 +382,19 @@ class _$UserDataImpl implements _UserData {
                 other.dailyKey == dailyKey) &&
             (identical(other.profession, profession) ||
                 other.profession == profession) &&
+            (identical(other.activeDay, activeDay) ||
+                other.activeDay == activeDay) &&
             (identical(other.totalMessage, totalMessage) ||
                 other.totalMessage == totalMessage) &&
-            const DeepCollectionEquality().equals(other.billing, billing) &&
+            const DeepCollectionEquality()
+                .equals(other.isSubscription, isSubscription) &&
             const DeepCollectionEquality().equals(other.init, init) &&
+            const DeepCollectionEquality()
+                .equals(other.isAssistant, isAssistant) &&
+            const DeepCollectionEquality()
+                .equals(other.isConversation, isConversation) &&
+            const DeepCollectionEquality()
+                .equals(other.isMessageOverLimit, isMessageOverLimit) &&
             (identical(other.birthday, birthday) ||
                 other.birthday == birthday) &&
             (identical(other.createdAt, createdAt) ||
@@ -354,16 +407,19 @@ class _$UserDataImpl implements _UserData {
       runtimeType,
       id,
       name,
-      activeDay,
       email,
       timer,
       sex,
       charactor,
       dailyKey,
       profession,
+      activeDay,
       totalMessage,
-      const DeepCollectionEquality().hash(billing),
+      const DeepCollectionEquality().hash(isSubscription),
       const DeepCollectionEquality().hash(init),
+      const DeepCollectionEquality().hash(isAssistant),
+      const DeepCollectionEquality().hash(isConversation),
+      const DeepCollectionEquality().hash(isMessageOverLimit),
       birthday,
       createdAt);
 
@@ -385,16 +441,19 @@ abstract class _UserData implements UserData {
   const factory _UserData(
       {required final String id,
       final String? name,
-      final int? activeDay,
       final String? email,
       final String? timer,
       final String? sex,
       final String? charactor,
       final String? dailyKey,
       final String? profession,
+      final int? activeDay,
       final int? totalMessage,
-      final dynamic billing,
+      final dynamic isSubscription,
       final dynamic init,
+      final dynamic isAssistant,
+      final dynamic isConversation,
+      final dynamic isMessageOverLimit,
       @TimestampConverter() final DateTime? birthday,
       @TimestampConverter() final DateTime? createdAt}) = _$UserDataImpl;
 
@@ -405,8 +464,6 @@ abstract class _UserData implements UserData {
   String get id;
   @override
   String? get name;
-  @override
-  int? get activeDay;
   @override
   String? get email;
   @override
@@ -420,11 +477,19 @@ abstract class _UserData implements UserData {
   @override
   String? get profession;
   @override
+  int? get activeDay;
+  @override
   int? get totalMessage;
   @override
-  dynamic get billing;
+  dynamic get isSubscription;
   @override
   dynamic get init;
+  @override
+  dynamic get isAssistant;
+  @override
+  dynamic get isConversation;
+  @override
+  dynamic get isMessageOverLimit;
   @override
   @TimestampConverter()
   DateTime? get birthday;
