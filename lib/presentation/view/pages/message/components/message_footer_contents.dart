@@ -4,6 +4,7 @@ import 'package:aizuchi_app/presentation/state/messsage_providers.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_emotion_select_dialog.dart';
 import 'package:aizuchi_app/presentation/view_model/message_view_model.dart';
@@ -104,9 +105,7 @@ class MessageFooterContents extends ConsumerWidget {
                 const SizedBox(
                   width: 36,
                   height: 36,
-                  child: CircularProgressIndicator(
-                    color: BrandColor.baseRed,
-                  ),
+                  child: AppLoading(),
                 ),
               }
             ],
@@ -121,7 +120,10 @@ class MessageFooterContents extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           isWaiting
-              ? const CircularProgressIndicator()
+              ? const SizedBox(
+                  height: 40,
+                  child: AppLoading(),
+                )
               : AppButton.medium(
                   width: screenWidth * 0.8,
                   onPressed: dailyKey != today
@@ -165,7 +167,7 @@ class MessageFooterContents extends ConsumerWidget {
                     : conversationStartButton(data.dailyKey);
               },
               loading: () {
-                return const CircularProgressIndicator();
+                return const AppLoading();
               },
               error: (error, stackTrace) {
                 return const Text("エラーが発生しました");

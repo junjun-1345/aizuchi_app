@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/app_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/description.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/title.dart';
 import 'package:auto_route/auto_route.dart';
@@ -18,7 +19,7 @@ class PurchasePage extends ConsumerWidget {
       appBar: const AppAppBar(),
       body: isWating
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: AppLoading(),
             )
           : SingleChildScrollView(
               child: Padding(

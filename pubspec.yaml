@@ -24,6 +24,7 @@ dependencies:
   url_launcher:
   roggle:
   uuid:
+  gif_view: ^0.4.4
   # 課金
   purchases_flutter: ^6.25.0
   permission_handler:

@@ -2,6 +2,7 @@ import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/daily_state.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/carousel_tiles/days_carousel_tile.dart';
 import 'package:aizuchi_app/presentation/view/pages/log/components/carousel_tiles/emotion_graph_tile.dart';
@@ -41,7 +42,7 @@ class LogPage extends HookConsumerWidget {
                 createdAt: data.createdAt,
               ),
               loading: () {
-                return const CircularProgressIndicator();
+                return const AppLoading();
               },
               error: (Object error, StackTrace stackTrace) {
                 return const Text("エラーが発生しました");
@@ -64,7 +65,7 @@ class LogPage extends HookConsumerWidget {
                 );
               },
               loading: () {
-                return const CircularProgressIndicator();
+                return const AppLoading();
               },
               error: (Object error, StackTrace stackTrace) {
                 return const Text("エラーが発生しました");

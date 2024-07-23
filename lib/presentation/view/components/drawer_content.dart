@@ -4,6 +4,7 @@ import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class HamburgerMenu extends ConsumerWidget {
                   }
                 },
                 loading: () {
-                  return const CircularProgressIndicator();
+                  return const AppLoading();
                 },
                 error: (error, stack) {
                   return const Text('エラーが発生しました。');

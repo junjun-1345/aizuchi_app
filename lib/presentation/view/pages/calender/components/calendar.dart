@@ -5,6 +5,7 @@ import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/domain/usecases/calendar_usecase.dart';
 import 'package:aizuchi_app/presentation/model/daily_model.dart';
 import 'package:aizuchi_app/presentation/state/daily_state.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:aizuchi_app/presentation/view/pages/calender/components/calendar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,7 +29,9 @@ class Calendar extends ConsumerWidget {
     return monthlyEmotions.when(
       data: (state) =>
           _buildCalendar(context, calendarUsecases, state, customDate),
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => const Center(
+        child: AppLoading(),
+      ),
       error: (error, _) => Center(child: Text('Error: $error')),
     );
   }
@@ -71,7 +74,9 @@ class Calendar extends ConsumerWidget {
     double radiusSize,
   ) {
     if (snapshot.connectionState == ConnectionState.waiting) {
-      return const Center(child: CircularProgressIndicator());
+      return const Center(
+        child: AppLoading(),
+      );
     } else if (snapshot.hasError) {
       return Center(child: Text('Error: ${snapshot.error}'));
     } else if (snapshot.hasData) {

@@ -3,6 +3,7 @@ import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:aizuchi_app/presentation/view/pages/profile/components/profile_tile.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,7 @@ class CurrentProfilePage extends HookConsumerWidget {
               );
             },
             loading: () {
-              return const CircularProgressIndicator();
+              return const AppLoading();
             },
             error: (Object error, StackTrace stackTrace) {
               return const Text("エラーが発生しました");
