@@ -6,6 +6,7 @@ import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:aizuchi_app/presentation/view_model/message_view_model.dart';
 import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
 import 'package:auto_route/auto_route.dart';
@@ -152,7 +153,7 @@ class RootPage extends HookConsumerWidget {
           loading: () {
             return const Scaffold(
               body: Center(
-                child: CircularProgressIndicator(),
+                child: AppLoading(),
               ),
             );
           },

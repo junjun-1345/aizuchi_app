@@ -3,6 +3,7 @@ import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/components/list_item.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class NotificationPage extends ConsumerWidget {
             future: notifications,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
+                return const AppLoading();
               } else if (snapshot.hasError) {
                 return const Text('An error has occurred!');
               } else if (!snapshot.hasData) {
@@ -49,7 +50,7 @@ class NotificationPage extends ConsumerWidget {
                       .checkNotificationPermission(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
+                      return const AppLoading();
                     } else if (snapshot.hasError) {
                       return const Text('An error has occurred!');
                     } else if (!snapshot.hasData) {

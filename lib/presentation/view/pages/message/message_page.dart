@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:aizuchi_app/presentation/view/components/drawer_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_contents.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_emotion_select_dialog.dart';
@@ -74,7 +75,7 @@ class MessagePage extends HookConsumerWidget {
             );
           },
           loading: () {
-            return const CircularProgressIndicator();
+            return const AppLoading();
           },
           error: (Object error, StackTrace stackTrace) {
             return const Text("エラーが発生しました");

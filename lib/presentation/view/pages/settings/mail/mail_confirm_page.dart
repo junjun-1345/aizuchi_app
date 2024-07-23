@@ -2,6 +2,7 @@ import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/components/list_item.dart';
 import 'package:aizuchi_app/presentation/view_model/users_view_model.dart';
@@ -43,7 +44,7 @@ class MailConfrimPage extends HookConsumerWidget {
                           },
                         );
                       } else {
-                        return const CircularProgressIndicator();
+                        return const AppLoading();
                       }
                     }),
                 const SizedBox(height: 56),
