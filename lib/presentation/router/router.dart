@@ -28,6 +28,7 @@ import 'package:aizuchi_app/presentation/view/pages/start/sign_up_form_sex_page.
 import 'package:aizuchi_app/presentation/view/pages/start/sign_up_form_survey_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_up_page.dart';
 import 'package:aizuchi_app/presentation/view/pages/start/sign_in_page.dart';
+import 'package:aizuchi_app/rearchitecture/presentation/pages/chat/page.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -88,9 +89,14 @@ class AppRouter extends _$AppRouter {
             RegisterGuard(),
           ],
           children: [
+            // AutoRoute(
+            //   path: 'Message',
+            //   page: MessageRoute.page,
+            //   initial: true,
+            // ),
             AutoRoute(
-              path: 'Message',
-              page: MessageRoute.page,
+              path: 'Chat',
+              page: ChatRoute.page,
               initial: true,
             ),
             AutoRoute(

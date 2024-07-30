@@ -33,6 +33,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CharacterSelectPage(),
       );
     },
+    ChatRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ChatPage(),
+      );
+    },
     CurrentProfileRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -232,6 +238,20 @@ class CharacterSelectRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'CharacterSelectRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ChatPage]
+class ChatRoute extends PageRouteInfo<void> {
+  const ChatRoute({List<PageRouteInfo>? children})
+      : super(
+          ChatRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ChatRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
