@@ -6,7 +6,7 @@ part of 'repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dailyRepoHash() => r'69c144b8c82cd7b28161cf960f74adad0c891f7d';
+String _$dailyRepoHash() => r'71c22003dc4e2eb4738120d79cb5df96b70432fb';
 
 /// See also [DailyRepo].
 @ProviderFor(DailyRepo)

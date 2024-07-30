@@ -22,7 +22,7 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
 mixin _$Message {
   String get id => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
-  String? get type => throw _privateConstructorUsedError;
+  MessageType? get type => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
@@ -39,7 +39,7 @@ abstract class $MessageCopyWith<$Res> {
   $Res call(
       {String id,
       String? content,
-      String? type,
+      MessageType? type,
       @TimestampConverter() DateTime? createdAt});
 }
 
@@ -73,7 +73,7 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as MessageType?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -92,7 +92,7 @@ abstract class _$$MessageImplCopyWith<$Res> implements $MessageCopyWith<$Res> {
   $Res call(
       {String id,
       String? content,
-      String? type,
+      MessageType? type,
       @TimestampConverter() DateTime? createdAt});
 }
 
@@ -124,7 +124,7 @@ class __$$MessageImplCopyWithImpl<$Res>
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as MessageType?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -150,7 +150,7 @@ class _$MessageImpl implements _Message {
   @override
   final String? content;
   @override
-  final String? type;
+  final MessageType? type;
   @override
   @TimestampConverter()
   final DateTime? createdAt;
@@ -194,7 +194,7 @@ abstract class _Message implements Message {
   const factory _Message(
       {required final String id,
       final String? content,
-      final String? type,
+      final MessageType? type,
       @TimestampConverter() final DateTime? createdAt}) = _$MessageImpl;
 
   factory _Message.fromJson(Map<String, dynamic> json) = _$MessageImpl.fromJson;
@@ -204,7 +204,7 @@ abstract class _Message implements Message {
   @override
   String? get content;
   @override
-  String? get type;
+  MessageType? get type;
   @override
   @TimestampConverter()
   DateTime? get createdAt;

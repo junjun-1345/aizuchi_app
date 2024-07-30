@@ -1,3 +1,4 @@
+import 'package:aizuchi_app/rearchitecture/domain/enums/message.dart';
 import 'package:aizuchi_app/rearchitecture/domain/message/entity.dart';
 import 'package:aizuchi_app/rearchitecture/domain/user_data/entity.dart';
 import 'package:aizuchi_app/rearchitecture/provider/firebase.dart';
@@ -29,4 +30,15 @@ class MessageRepo extends _$MessageRepo {
             .get()
             .then((value) => value.docs.map((e) => e.data()).toList()),
       ];
+
+  Future<void> sendMessage(String message, MessageType type) async {
+    await collection.add(
+      Message(
+        id: '',
+        createdAt: DateTime.now(),
+        content: message,
+        type: type,
+      ),
+    );
+  }
 }
