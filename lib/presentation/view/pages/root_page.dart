@@ -43,7 +43,7 @@ class RootPage extends HookConsumerWidget {
       routes: const [
         CalenderRoute(),
         LogRoute(),
-        MessageRoute(),
+        ChatRoute(),
         MeasurementRoute(),
         SearchRoute(),
       ],
