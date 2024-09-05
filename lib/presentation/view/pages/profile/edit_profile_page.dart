@@ -2,6 +2,7 @@ import 'package:aizuchi_app/domain/entity/enums/sex.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
 import 'package:aizuchi_app/presentation/view/pages/profile/components/edit_profile_dialog.dart';
 import 'package:aizuchi_app/presentation/view/pages/profile/components/edit_sex_dialog.dart';
@@ -139,7 +140,7 @@ class EditProfilePage extends HookConsumerWidget {
               );
             },
             loading: () {
-              return const CircularProgressIndicator();
+              return const AppLoading();
             },
             error: (Object error, StackTrace stackTrace) {
               return const Text("エラーが発生しました");

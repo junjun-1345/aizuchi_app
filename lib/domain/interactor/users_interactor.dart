@@ -199,9 +199,7 @@ class UsersInteractor implements UsersUsecase {
   }
 
   @override
-  Future<String> isConversationStart() async {
-    print('UsersInteractor isConversationStart');
-    final newDailyKey = createKey();
+  Future<String> isConversationStart(String newDailyKey) async {
     await userDBRepository.update(isConversation: true, dailyKey: newDailyKey);
     return newDailyKey;
   }

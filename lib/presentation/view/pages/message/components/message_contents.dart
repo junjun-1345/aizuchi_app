@@ -2,6 +2,7 @@ import 'package:aizuchi_app/domain/entity/enums/message.dart';
 import 'package:aizuchi_app/domain/entity/models/color.dart';
 import 'package:aizuchi_app/presentation/model/message_model.dart';
 import 'package:aizuchi_app/presentation/state/message_state.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -184,7 +185,12 @@ class MessageContents extends HookConsumerWidget {
         case MessageType.emotion:
           return emotionContent(message.content);
         case MessageType.datetime:
-          return dateContent(message.createdAt);
+          final String rawDate = message.id;
+          final List<String> dateParts = rawDate.split('_');
+          final String formattedDate =
+              "${dateParts[0]}-${dateParts[1].padLeft(2, '0')}-${dateParts[2].padLeft(2, '0')}";
+          final DateTime messageDate = DateTime.parse(formattedDate);
+          return dateContent(messageDate);
         default:
           return const SizedBox.shrink();
       }
@@ -221,7 +227,9 @@ class MessageContents extends HookConsumerWidget {
             },
           );
         },
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const Center(
+          child: AppLoading(),
+        ),
         error: (error, _) => Center(child: Text('エラーが発生しました: $error')),
       ),
     );

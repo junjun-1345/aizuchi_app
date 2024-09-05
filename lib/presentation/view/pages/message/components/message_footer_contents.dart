@@ -4,6 +4,7 @@ import 'package:aizuchi_app/presentation/state/messsage_providers.dart';
 import 'package:aizuchi_app/presentation/state/user_state.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
 import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:aizuchi_app/presentation/view/components/app_textform.dart';
 import 'package:aizuchi_app/presentation/view/pages/message/components/message_emotion_select_dialog.dart';
 import 'package:aizuchi_app/presentation/view_model/message_view_model.dart';
@@ -18,7 +19,6 @@ class MessageFooterContents extends ConsumerWidget {
     final datetimeNow = DateTime.now();
     final today = "${datetimeNow.year}_${datetimeNow.month}_${datetimeNow.day}";
     final userState = ref.watch(usersNotifierProvider);
-
     final isWaiting = ref.watch(isWaitngProvider);
     final messageViewModel = ref.read(messageViewModelProvider);
     final messageController = TextEditingController();
@@ -50,7 +50,7 @@ class MessageFooterContents extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               AppButton.small(
-                width: 80,
+                width: 100,
                 height: 40,
                 onPressed: () {
                   if (isWaiting) {
@@ -62,7 +62,7 @@ class MessageFooterContents extends ConsumerWidget {
                     ref.read(messageViewModelProvider).createSummary();
                   }
                 },
-                text: "終了",
+                text: "おわる",
               ),
               const SizedBox(width: 8),
 
@@ -105,9 +105,7 @@ class MessageFooterContents extends ConsumerWidget {
                 const SizedBox(
                   width: 36,
                   height: 36,
-                  child: CircularProgressIndicator(
-                    color: BrandColor.baseRed,
-                  ),
+                  child: AppLoading(),
                 ),
               }
             ],
@@ -122,23 +120,26 @@ class MessageFooterContents extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           isWaiting
-              ? const CircularProgressIndicator()
+              ? const SizedBox(
+                  height: 40,
+                  child: AppLoading(),
+                )
               : AppButton.medium(
                   width: screenWidth * 0.8,
-                  onPressed: dailyKey == today
-                      ? null
-                      : () {
+                  onPressed: dailyKey != today
+                      ? () {
                           showDialog(
                             context: context,
                             builder: (context) =>
-                                const MessageEmotionSelectDailog(),
+                                MessageEmotionSelectDailog(dailyKey: dailyKey),
                           );
-                        },
+                        }
+                      : null,
                   style: ElevatedButton.styleFrom(
                       elevation: 0,
                       shape: const StadiumBorder(),
                       backgroundColor: BrandColor.baseRed),
-                  text: ("日記を書く"),
+                  text: ("お話しする"),
                 ),
         ],
       );
@@ -166,7 +167,7 @@ class MessageFooterContents extends ConsumerWidget {
                     : conversationStartButton(data.dailyKey);
               },
               loading: () {
-                return const CircularProgressIndicator();
+                return const AppLoading();
               },
               error: (error, stackTrace) {
                 return const Text("エラーが発生しました");

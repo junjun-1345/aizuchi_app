@@ -37,7 +37,7 @@ abstract class UsersUsecase {
     bool? isSubscription,
   });
   String createKey();
-  Future<String> isConversationStart();
+  Future<String> isConversationStart(String newDailyKey);
   Future<String?> readEmail();
   Future<void> updateEmail(String email);
   Future<void> updatePassword(String email);

@@ -6,6 +6,7 @@ import 'package:aizuchi_app/presentation/model/search_page_model.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
 import 'package:aizuchi_app/presentation/view/components/app_button.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,7 +32,7 @@ class SearchFromStartPage extends HookConsumerWidget {
               future: _fetchData(remoteConfigRepository),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
+                  return const AppLoading();
                 } else if (snapshot.hasError) {
                   return _errorContent("エラーが発生しました: ${snapshot.error}");
                 } else if (!snapshot.hasData) {

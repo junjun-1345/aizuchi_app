@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/domain/entity/enums/plan.dart';
 import 'package:aizuchi_app/presentation/router/router.dart';
 import 'package:aizuchi_app/presentation/view/components/app_dialog.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/annual_plan_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/monthly_plan_content.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/purchase/components/plan_button.dart';
@@ -25,7 +26,7 @@ class _PlanListContentsState extends ConsumerState<PlanListContents> {
       future: subscriptionViewModel.getPackages(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const AppLoading();
         } else if (snapshot.hasError) {
           return const Text('An error has occurred!');
         } else if (!snapshot.hasData) {

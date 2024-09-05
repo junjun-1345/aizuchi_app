@@ -59,8 +59,8 @@ class UsersNotifier extends StateNotifier<AsyncValue<UserModel>> {
     await _usersUseCase.register(form.toEntity());
   }
 
-  Future<void> isConversationStart() async {
-    final newDailyKey = await _usersUseCase.isConversationStart();
+  Future<void> isConversationStart(String dailyKey) async {
+    final newDailyKey = await _usersUseCase.isConversationStart(dailyKey);
     state.whenData(
       (user) {
         final UserModel updatedUser =

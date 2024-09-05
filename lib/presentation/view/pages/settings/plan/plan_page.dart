@@ -1,6 +1,7 @@
 import 'package:aizuchi_app/domain/domain_module.dart';
 import 'package:aizuchi_app/domain/entity/models/subscription_model.dart';
 import 'package:aizuchi_app/presentation/view/components/app_appbar.dart';
+import 'package:aizuchi_app/presentation/view/components/app_loading.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/components/list_item.dart';
 import 'package:aizuchi_app/presentation/view/pages/settings/plan/components/promotion_bunner.dart';
 import 'package:aizuchi_app/presentation/view_model/subscription_view_model.dart';
@@ -29,7 +30,7 @@ class PlanPage extends ConsumerWidget {
             future: subscribedInfo,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
+                return const AppLoading();
               } else if (snapshot.hasError) {
                 return const Text('An error has occurred!');
               } else if (!snapshot.hasData) {
